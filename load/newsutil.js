@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.7 2004/03/25 04:33:17 rswindell Exp $
+// $Id: newsutil.js,v 1.8 2004/03/26 02:50:26 rswindell Exp $
 
 RFC822HEADER = 0xb0	// from smbdefs.h
 
@@ -54,7 +54,7 @@ function write_news_header(hdr,writeln)
 	}
 	if(content_type==undefined) {
 		/* No content-type specified, so assume IBM code-page 437 (full ex-ASCII) */
-		writeln("Content-Type: text/plain; charset=cp437");
+		writeln("Content-Type: text/plain; charset=IBM437");
 		writeln("Content-Transfer-Encoding: 8bit");
 	}
 
