@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.60 2002/11/01 02:52:04 rswindell Exp $
+// $Id: nntpservice.js,v 1.61 2002/11/01 23:29:49 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -16,7 +16,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.60 $".split(' ')[1];
+const REVISION = "$Revision: 1.61 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -438,7 +438,9 @@ while(client.socket.is_connected) {
 				break;
 
 			if(cmd[0].toUpperCase()!="BODY") {
-				writeln("Path: " + hdr.path);
+				if(hdr.path==undefined)
+					hdr.path="not-for-mail";
+				writeln("Path: " + system.inetaddr + "!" + hdr.path);
 				if(!hdr.from_net_type)	/* local message */
 					writeln(format("From: \"%s\" <%s@%s>"
 						,hdr.from
