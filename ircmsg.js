@@ -1,10 +1,10 @@
 /* ircmsg.js */
 
-/* $Id: ircmsg.js,v 1.7 2004/11/19 06:52:16 rswindell Exp $
+/* $Id: ircmsg.js,v 1.8 2004/11/19 06:52:44 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.7 $".split(' ')[1];
+const REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
