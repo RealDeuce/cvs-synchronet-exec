@@ -3,8 +3,9 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.3 2002/11/02 07:04:17 rswindell Exp $
+// $Id: newsutil.js,v 1.4 2002/11/09 11:29:43 rswindell Exp $
 
+RFC822HEADER = 0xb0	// from smbdefs.h
 
 function write_news_header(hdr,writeln)
 {
@@ -40,6 +41,12 @@ function write_news_header(hdr,writeln)
 		writeln("X-FTN-MSGID: " + hdr.ftn_msgid);
 	if(hdr.ftn_reply!=undefined)
 		writeln("X-FTN-REPLY: " + hdr.ftn_reply);
+
+	if(hdr.field_list!=undefined) {
+		for(i in hdr.field_list) 
+			if(hdr.field_list[i].type==RFC822HEADER)
+				writeln(hdr.field_list[i].data);
+	}
 }
 
 function parse_news_header(hdr, line)
@@ -113,6 +120,16 @@ function parse_news_header(hdr, line)
 			break;
 		case "x-ftn-reply":
 			hdr.ftn_reply=data;
+			break;
+
+		default:
+			if(hdr.field_list==undefined)
+				hdr.field_list=new Array();
+			hdr.field_list.push(
+				{	type: RFC822HEADER, 
+					data: line + ": " + data 
+				}
+			);
 			break;
 	}
 }
