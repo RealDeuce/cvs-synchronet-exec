@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.5 2003/12/04 21:29:16 cyan Exp $
+// $Id: ircd_server.js,v 1.6 2003/12/05 04:30:10 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.5 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -308,7 +308,7 @@ function Server_Work() {
 				nickid = search_nickbuf(cmd[2]);
 			if (!nickid)
 				break;
-			if (!nickid.channels[chan.nam.toUpperCase()])
+			if (!nickid.channels[chanid.nam.toUpperCase()])
 				break;
 			if (cmd[3])
 				kick_reason = IRC_string(cmdline).slice(0,max_kicklen);
