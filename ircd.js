@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.85 2003/11/15 18:57:52 cyan Exp $
+// $Id: ircd.js,v 1.86 2003/11/20 09:05:02 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.85 $".split(' ')[1];
+const REVISION = "$Revision: 1.86 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1009,6 +1009,7 @@ for (pl in PLines) {
 }
 
 js.branch_limit=0; // we're not an infinite loop.
+js.auto_terminate=false; // we handle our own termination requests
 
 ///// Main Loop /////
 while (!server.terminated) {
