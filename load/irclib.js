@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.4 2003/10/23 16:12:45 cyan Exp $
+// $Id: irclib.js,v 1.5 2003/12/01 09:18:27 cyan Exp $
 //
 // irclib.js
 //
@@ -22,8 +22,8 @@
 // Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.4 $".split(' ')[1];
-const IRCLIB_VERSION = "irclib.js-0.1(" + IRCLIB_REVISION + ")";
+const IRCLIB_REVISION = "$Revision: 1.5 $".split(' ')[1];
+const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
 //	hostname	Hostname to connect to
@@ -89,7 +89,7 @@ function IRC_string(str,arg) {
 	var cindex;
 
 	if (arg) {
-		for(sw_counter=0;sw_counter<startword;sw_counter++) {
+		for(sw_counter=0;sw_counter<arg;sw_counter++) {
 			str=str.slice(str.indexOf(" ")+1);
 		}
 	}
