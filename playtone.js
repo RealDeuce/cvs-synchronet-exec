@@ -2,7 +2,7 @@
 
 /* Tone Generation Utility (using PC speaker, not sound card) */
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 const NO_VISUAL		=(1<<3)
 
@@ -97,17 +97,17 @@ function play(freq, dur)
 }
 
 
-printf("\nSynchronet Tone Generation Module %s\n\n", REVISION);
+printf("\r\nSynchronet Tone Generation Module %s\r\n\r\n", REVISION);
 
 if(argc<1) {
 	alert("No filename specified");
 	exit();
 }
 
-file = new File(argv[0]);
-if(!file.exists)
-	file.name=system.exec_dir + file.name;
-writeln("Opening " + file.name);
+var filename = argv[0];
+if(!file_exists(filename))
+	filename = system.exec_dir + filename;	
+file = new File(filename);
 if(!file.open("r")) {
 	alert("Error " + file.error + " opening " + file.name);
 	exit();
