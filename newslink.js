@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.40 2002/11/02 07:04:17 rswindell Exp $
+// $Id: newslink.js,v 1.41 2002/11/02 21:24:35 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -20,7 +20,7 @@
 // t		do not add tearline to imported messages
 // a		convert extended-ASCII chars to ASCII on imported messages
 
-const REVISION = "$Revision: 1.40 $".split(' ')[1];
+const REVISION = "$Revision: 1.41 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -271,7 +271,7 @@ for(i in area) {
 		if(hdr.from_net_type==NET_INTERNET)	/* no dupe loop */
 			continue;
 		if(hdr.from_net_type	/* don't gate messages between net types */
-			&& msgbase.settings!=undefined && !(msgbase.settings&SUB_GATE))
+			&& msgbase.cfg!=undefined && !(msgbase.cfg.settings&SUB_GATE))
 			continue;
 
 		body = msgbase.get_msg_body(
@@ -285,7 +285,7 @@ for(i in area) {
 			printf("!FAILED to read message number %ld\r\n",ptr);
 			continue;
 		}
-		if(msgbase.settings!=undefined && msgbase.settings&SUB_ASCII) {
+		if(msgbase.cfg!=undefined && msgbase.cfg.settings&SUB_ASCII) {
 			/* Convert Ex-ASCII chars to approximate ASCII equivalents */
 			body = ascii_str(body);
 			hdr.subject = ascii_str(hdr.subject);
