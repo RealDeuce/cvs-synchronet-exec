@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.45 2003/09/22 11:31:06 cyan Exp $
+// $Id: ircd.js,v 1.46 2003/09/25 07:13:05 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.45 $".split(' ')[1];
+const REVISION = "$Revision: 1.46 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -923,10 +923,7 @@ for (pl in PLines) {
 	}
 }
 
-if(this.branch!=undefined)
-	branch.limit=0; // we're not an infinite loop.
-else if (this.js!=undefined)
-	js.branch_limit=0; // new style branch limit definition
+js.branch_limit=0; // we're not an infinite loop.
 
 ///// Main Loop /////
 while (!server.terminated) {
