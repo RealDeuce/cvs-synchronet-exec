@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.49 2002/08/09 07:04:55 rswindell Exp $
+// $Id: nntpservice.js,v 1.50 2002/08/09 07:28:54 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 
 load("sbbsdefs.js");
 
-const VERSION = "1.00 Beta";
+const REVISION = "$Revision: 1.50 $".split(' ')[1];
 
 var debug = false;
 var no_anonymous = false;
@@ -76,7 +76,8 @@ var msgbase=null;
 var selected=null;
 var current_article=0;
 
-writeln(format("200 %s News (Synchronet NNTP Service v%s)",system.name,VERSION));
+writeln(format("200 %s News (Synchronet %s%s-%s NNTP Service %s)"
+		,system.name,system.version,system.revision,system.platform,REVISION));
 
 if(!no_anonymous)
 	login("guest");	// Login as guest/anonymous by default
