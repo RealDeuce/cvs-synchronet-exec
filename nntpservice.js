@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.78 2004/04/16 21:49:20 rswindell Exp $
+// $Id: nntpservice.js,v 1.79 2004/04/19 16:19:26 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -27,7 +27,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.78 $".split(' ')[1];
+const REVISION = "$Revision: 1.79 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -82,39 +82,24 @@ function writeln(str)
 }
 
 // Courtesy of Michael J. Ryan <tracker1@theroughnecks.com>
-function getReferenceTo(reference) {
-	//sbbs msg_id pattern.
-	var re = /^.*<[^\.]+\.([\d]+)\.([^@]+)@[^>]*>\s*$/;
-
+// updated 2004-04-16 to lookup by reference id on posting newsgroup.
+function getReferenceTo(hdr) {
 	//Default Response
-	var to = "All"
+	var to = "All";
+	var newsgroups = hdr.newsgroups.split(',');
+	for(n in newsgroups)
+    	for(g in msg_area.grp_list)
+		    for(s in msg_area.grp_list[g].sub_list)
+			    if (msg_area.grp_list[g].sub_list[s].newsgroup.toLowerCase() == newsgroups[n].toLowerCase()) {
+				    var mb=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+				    if (mb.open() != true) continue;
+				    var hdr2 = mb.get_msg_header(hdr.reply_id);
+				    if (hdr2 != null) to = hdr2.from;
+				    mb.close();
+				    if (to != "All") return to;
+			    }
 
-	//if TO is already established, return...
-	if (reference=="")
-		return to;
-
-	//if this didn't originate from this bbs.
-	if (reference.indexOf(system.inet_addr) < 0)
-		return to;
-
-	//Load the msgbase the original post was from
-	if (!reference.match(re))
-		return to;
-
-	var sub = reference.replace(re,"$2");
-	var msg = parseInt(reference.replace(re,"$1"));
-
-	var msgbase = new MsgBase(sub);
-	if(msgbase.open!=undefined && msgbase.open()==false)
-		return to;
-
-	var hdr = msgbase.get_msg_header(false,msg);
-	if (hdr != null)
-		to = hdr.from;
-
-	msgbase.close();
-
-	return to;
+	return to; //no match
 }
 
 var username='';
@@ -643,7 +628,7 @@ while(client.socket.is_connected && !quit) {
 			newsgroups=hdr.newsgroups.split(',');
 
 			if(hdr.to==undefined && hdr.reply_id!=undefined)
-				hdr.to=getReferenceTo(hdr.reply_id);
+				hdr.to=getReferenceTo(hdr);
 
 			if(hdr.to==undefined && hdr.newsgroups!=undefined)
 				hdr.to=hdr.newsgroups;
