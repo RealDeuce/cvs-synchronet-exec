@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.21 2003/10/18 01:13:53 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.22 2003/11/07 04:04:40 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -527,6 +527,7 @@ var   TG_NODESYNC	=(1<<3)		/* Call Nodesync, get msgs, etc.			*/
 var   TG_CTRLKEYS	=(1<<4)		/* Interpret ^P ^U ^T, etc locally			*/
 var   TG_PASSTHRU	=(1<<5)		/* Pass-through telnet commands/responses	*/
 var   TG_RLOGIN		=(1<<6)		/* Use BSD RLogin protocol					*/
+var   TG_NOCHKTIME	=(1<<7)		/* Don't check time left online					*/
 					    		/********************************************/
 
 					    		/********************************************/
