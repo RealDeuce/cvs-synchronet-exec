@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.10 2004/01/30 20:31:44 cyan Exp $
+// $Id: ircd_unreg.js,v 1.11 2004/04/17 23:47:52 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.10 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.11 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -331,7 +331,7 @@ function Unregistered_Commands() {
 		new_user.ircclass = my_iline.ircclass;
 		hcc_counter++;
 		this.numeric("001", ":Welcome to the Synchronet IRC Service, " + new_user.nuh);
-		this.numeric("002", ":Your host is " + servername + ", running " + VERSION);
+		this.numeric("002", ":Your host is " + servername + ", running version " + VERSION);
 		this.numeric("003", ":This server was created " + strftime("%a %b %e %Y at %H:%M:%S %Z",server_uptime));
 		this.numeric("004", servername + " " + VERSION + " oiwbgscrkfydnhF biklmnopstv");
 		this.numeric("005", "MODES=" + max_modes + " MAXCHANNELS=" + max_user_chans + " CHANNELLEN=" + max_chanlen + " MAXBANS=" + max_bans + " NICKLEN=" + max_nicklen + " TOPICLEN=" + max_topiclen + " KICKLEN=" + max_kicklen + " CHANTYPES=#& PREFIX=(ov)@+ NETWORK=Synchronet CASEMAPPING=ascii CHANMODES=b,k,l,imnpst STATUSMSG=@+ :are available on this server.");
@@ -344,7 +344,8 @@ function Unregistered_Commands() {
 			server.client_update(this.socket, this.nick, this.hostname);
 		server_bcast_to_servers("NICK " + this.nick + " 1 " + new_user.created + " + " + this.uprefix + " " + this.hostname + " " + servername + " 0 " + ip_to_int(new_user.ip) + " :" + this.realname);
 		// we're no longer unregistered.
-		delete Unregistered[this];
+		delete Unregistered[this.id];
+		delete this;
 	}
 }
 
