@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.17 2003/09/08 12:19:30 cyan Exp $
+// $Id: ircd.js,v 1.18 2003/09/09 04:06:52 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.17 $".split(' ')[1];
+const REVISION = "$Revision: 1.18 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -3259,7 +3259,7 @@ function IRCClient_registered_commands(command, cmdline) {
 			var str = cmdline.slice(cmdline.indexOf(" ")+1);
 			if (str[0] == ":")
 				str = str.slice(1);
-			this.services_msg("NickServ",ircstring(cmdline));
+			this.services_msg("NickServ",str);
 			break;
 		case "MS":
 		case "MEMOSERV":
@@ -3270,7 +3270,7 @@ function IRCClient_registered_commands(command, cmdline) {
 			var str = cmdline.slice(cmdline.indexOf(" ")+1);
 			if (str[0] == ":")
 				str = str.slice(1);
-			this.services_msg("MemoServ",ircstring(cmdline));
+			this.services_msg("MemoServ",str);
 			break;
 		case "OS":
 		case "OPERSERV":
@@ -3281,7 +3281,7 @@ function IRCClient_registered_commands(command, cmdline) {
 			var str = cmdline.slice(cmdline.indexOf(" ")+1);
 			if (str[0] == ":")
 				str = str.slice(1);
-			this.services_msg("OperServ",ircstring(cmdline));
+			this.services_msg("OperServ",str);
 			break;
 		case "IDENTIFY":
 			if (!cmd[1]) {
