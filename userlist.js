@@ -1,6 +1,12 @@
+// userlist.js
+
+// A sample user listing script for Synchronet v3.1+
+
+// $Id: userlist.js,v 1.3 2003/07/25 21:51:41 rswindell Exp $
+
 load("sbbsdefs.js");
 
-var lastuser=system.stats.total_users;
+var lastuser=system.lastuser;
 var u = new User(1);
 
 for(i=1;i<=lastuser;i++) {
