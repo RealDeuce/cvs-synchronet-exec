@@ -2,7 +2,7 @@
 
 // Utility functions for Synchronet external mail processors
 
-// $Id: mailproc_util.js,v 1.5 2004/04/20 09:24:37 rswindell Exp $
+// $Id: mailproc_util.js,v 1.6 2005/01/15 22:28:01 rswindell Exp $
 
 load("sbbsdefs.js");
 load("mailutil.js");	// mail_get_name() and mail_get_address()
@@ -51,7 +51,7 @@ function get_msg_body(msgtxt)
 	var hdr = true;
 
 	for(i in msgtxt) {
-		if(msgtxt[i].length==0)	{ // Header terminator
+		if(hdr && msgtxt[i].length==0)	{ // Header terminator
 			hdr = false;
 			continue;
 		}
