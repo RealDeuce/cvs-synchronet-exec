@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.23 2004/12/31 02:42:19 rswindell Exp $
+// $Id: jsdocs.js,v 1.24 2004/12/31 02:44:42 rswindell Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -257,7 +257,7 @@ f.printf("Generated for <b>Synchronet v%s</b>, compiled %s\n"
 		 ,system.full_version,system.compiled_when);
 f.writeln("<br><font size=-1>");
 if(min_ver)
-	f.writeln("Includes Properties and Methods added in Synchronet v" + verstr(min_ver) + " only.");
+	f.writeln("Includes Properties and Methods added or substantially modified in Synchronet v" + verstr(min_ver) + " only.");
 else
 	f.writeln("Property and Method version numbers (when available) indicate the Synchronet version when the " +
 		  "item was added or modified.");
