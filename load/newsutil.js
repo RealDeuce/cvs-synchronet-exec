@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.9 2004/04/16 21:59:36 rswindell Exp $
+// $Id: newsutil.js,v 1.10 2004/04/17 03:37:31 rswindell Exp $
 
 RFC822HEADER = 0xb0	// from smbdefs.h
 
@@ -26,6 +26,10 @@ function write_news_header(hdr,writeln)
 	if(hdr.replyto!=undefined)
 		writeln("Reply-To: " + hdr.replyto);
 	if(hdr.reply_id!=undefined)
+		writeln("In-Reply-To: " + hdr.reply_id);
+	if(hdr.references!=undefined)
+		writeln("References: " + hdr.references);
+	else if(hdr.reply_id!=undefined)
 		writeln("References: " + hdr.reply_id);
 
 	/* FidoNet header fields */
@@ -107,6 +111,9 @@ function parse_news_header(hdr, line)
 			hdr.replyto_net_type=NET_INTERNET;
 			hdr.replyto=data;
 			break;
+		case "in-reply-to":
+			hdr.reply_id=data;
+			break;
 		case "date":
 			hdr.date=data;
 			break;
@@ -117,7 +124,9 @@ function parse_news_header(hdr, line)
 			hdr.id=data;
 			break;
 		case "references":
-			hdr.reply_id=data;
+			hdr.references=data;
+			if(!hdr.reply_id && data.length)
+				hdr.reply_id=data.match(/(?:\S+\s)*(\S+)$/)[1];
 			break;
 		case "x-gateway":
 			hdr.gateway=data;
