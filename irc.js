@@ -3,9 +3,9 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.6 2003/03/06 10:52:09 deuce Exp $
+// $Id: irc.js,v 1.7 2003/03/06 10:58:11 deuce Exp $
 
-const REVISION = "$Revision: 1.6 $".split(' ')[1];
+const REVISION = "$Revision: 1.7 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -881,7 +881,7 @@ function Channels_nick_add(nick,cname)  {
 	var i=0;
 	var j=0;
 
-	for(i=0;i<length;i++)  {
+	for(i=0;i<this.length;i++)  {
 		if(cname.toUpperCase()==this.channel[i].name)  {
 			this.channel[i].nick.push(nick);
 		}
