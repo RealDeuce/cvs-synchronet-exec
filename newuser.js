@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.2 2003/01/03 11:21:26 rswindell Exp $
+// $Id: newuser.js,v 1.3 2003/01/03 11:45:04 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -54,7 +54,7 @@ function chk_qwk_id(str)
 	if(str.indexOf('&')>=0)
 		return(false);
 
-	if(system.matchuser(str,true) || system.trashcan(str))
+	if(system.matchuser(str,true)!=user.number || system.trashcan(str))
 		return(false);
 
 	return(true);
