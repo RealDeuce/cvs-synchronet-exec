@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.1 2003/09/27 09:27:29 cyan Exp $
+// $Id: irclib.js,v 1.2 2003/10/22 11:11:17 cyan Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.1 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.2 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-0.1(" + IRCLIB_REVISION + ")";
 
 // Connect to a server as a client.
@@ -128,4 +128,19 @@ function IRC_quit(server,reason) {
 		reason = IRCLIB_VERSION;
 
 	server.send("QUIT :" + reason + "\r\n");
+}
+
+// This function is intended to match against so-called "IRC wildcards", which
+// is a simple wildcarding syntax (* = match 0 or more characters, ? = always
+// match one character only.)  The match is case insensitive.
+// EXAMPLE: IRC_match("cyan@weyland-yutani.net","*@weyland-yutani.net");
+// RETURNS: Same as Javascript match() (the matched string on success, or
+// false on failure)
+function IRC_match(mtchstr,mask) {
+	var final_mask="^";
+	mask=mask.replace(/[.]/g,"\\\.");
+	mask=mask.replace(/[?]/g,".");
+	mask=mask.replace(/[*]/g,".*?");
+	final_mask=final_mask + mask + "$";
+	return mtchstr.toUpperCase().match(final_mask.toUpperCase());
 }
