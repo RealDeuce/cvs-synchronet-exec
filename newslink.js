@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.77 2005/02/04 00:44:49 rswindell Exp $
+// $Id: newslink.js,v 1.78 2005/02/23 01:44:48 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.77 $".split(' ')[1];
+const REVISION = "$Revision: 1.78 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -53,6 +53,7 @@ var import_amount = 0;				// Import a fixed number of messages per group
 var lines_per_yield = 5;			// Release time-slices ever x number of lines
 var yield_length = 1;				// Length of yield (in milliseconds)
 var max_newsgroups_per_article = 5;	// Used for spam-detection
+var unmangle = false;
 
 // Parse arguments
 for(i=0;i<argc;i++) {
@@ -70,6 +71,8 @@ for(i=0;i<argc;i++) {
 		email_addresses = false;
 	else if(argv[i].toLowerCase()=="-nm")	// no mangling of e-mail addresses
 		antispam = "";
+	else if(argv[i].toLowerCase()=="-um")	// un-mangle e-mail addresses when importing
+		unmangle = true;
 	else if(argv[i].toLowerCase()=="-ix") 	// import a fixed number of messages
 	{
 		import_amount = parseInt(argv[i+1]);
@@ -124,6 +127,12 @@ function unique_fname(dir,fname)
 		new_fname=format("%.*s.%lu%s",fname.length-ext.length,fname,file_num++,ext);
 	}
 	return(dir + new_fname);
+}
+
+// Remove NewsLink anti-spam meature from e-mail address
+function unmangle_addr(addr)
+{
+	return addr.replace(/\.remove-\S+-this/,"");
 }
 
 var host;
@@ -181,6 +190,9 @@ while(!cfg_file.eof) {
 			break;
 		case "debug":
 			debug=true;
+			break;
+		case "unmangle":
+			unmangle=true;
 			break;
 		case "slave":
 			slave=true;
@@ -774,6 +786,9 @@ for(i in area) {
 		}
 		if(flags.indexOf('r')>=0) 	// remove "Newsgroups:" header field
 			delete hdr.newsgroups;
+
+		if(unmangle)
+			hdr.from_net_addr = unmangle_addr(hdr.from_net_addr);
 
 		hdr.from_net_type=NET_INTERNET;
 //		hdr.from_net_addr=hdr.from;
