@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.73 2003/09/20 08:24:14 rswindell Exp $
+// $Id: nntpservice.js,v 1.74 2003/11/14 22:17:28 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.73 $".split(' ')[1];
+const REVISION = "$Revision: 1.74 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -557,6 +557,7 @@ while(client.socket.is_connected && !quit) {
 			var header=true;
 			var body="";
 			var newsgroups=new Array();
+			var lines=0;
 			while(client.socket.is_connected) {
 
 				line = client.socket.recvline(512 /*maxlen*/, 300 /*timeout*/);
@@ -582,12 +583,23 @@ while(client.socket.is_connected && !quit) {
 						line=line.slice(1);		// Skip prepended dots
 					body += line;
 					body += "\r\n";
+					lines++;
 					continue;
 				}
 				log(line);
 
 				parse_news_header(hdr,line);	// from newsutil.js
 			}
+
+			if(user.limits!=undefined
+				&& lines > user.limits.lines_per_message) {
+				log(format("!Message of %u lines exceeds user limit (%u lines)"
+					,lines,user.limits.lines_per_message));
+				writeln(format("441 posting failed, number of lines (%u) exceeds max (%u)"
+					,lines,user.limits.lines_per_message));
+				break;
+			}
+
 			newsgroups=hdr.newsgroups.split(',');
 
 			if(hdr.to==undefined && hdr.reply_id!=undefined)
@@ -635,8 +647,8 @@ while(client.socket.is_connected && !quit) {
 							if(msgbase.open!=undefined && msgbase.open()==false)
 								continue;
 						    if(msgbase.save_msg(hdr,body)) {
-							    log(format("%s posted a message (%lu chars) on %s"
-									,user.alias, body.length, newsgroups[n]));
+							    log(format("%s posted a message (%u chars, %u lines) on %s"
+									,user.alias, body.length, lines, newsgroups[n]));
 							    writeln("240 article posted ok");
 							    posted=true;
 								msgs_posted++;
