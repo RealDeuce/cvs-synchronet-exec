@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.75 2003/10/08 11:32:47 cyan Exp $
+// $Id: ircd.js,v 1.76 2003/10/08 11:43:12 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.75 $".split(' ')[1];
+const REVISION = "$Revision: 1.76 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1472,7 +1472,7 @@ function writeout(sock,str) {
 		if (sent)
 			return 1;
 		log("!Warning: Socket error: " + sock.error + " -- Retrying.");
-		mswait(1);
+		mswait(100);
 		if (!sock.is_connected)
 			return 0; // Failure
 	}
