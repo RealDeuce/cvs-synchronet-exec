@@ -1,10 +1,10 @@
 /* ircmsg.js */
 
-/* $Id: ircmsg.js,v 1.16 2004/11/19 08:22:02 deuce Exp $ */
+/* $Id: ircmsg.js,v 1.17 2004/11/19 08:57:15 deuce Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.16 $".split(' ')[1];
+const REVISION = "$Revision: 1.17 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -12,6 +12,7 @@ var port=6667;
 var nick="nick";
 var msg;
 var join=false;
+var passedmsg=0;
 
 for(i=0;i<argc;i++) {
 	switch(argv[i]) {
@@ -32,15 +33,14 @@ for(i=0;i<argc;i++) {
 			break;
 		case "-m":
 			msg=argv[++i];
+			passedmsg=1;
 			break;
 	}
 }
 
-if(msg!=undefined) {
-	msg.replace(/\t/,
-		function(str,offset,s) {
-			return('        '.substr(0,(offset % 8)));
-	});
+if(passedmsg && (msg==undefined || msg.search(/^\s*$/)!=-1)) {
+	log("-m specified with blank message... aborting");
+	exit();
 }
 
 log("Using nick: " + nick);
@@ -74,10 +74,14 @@ if(join) {
 		log(response);
 }
 
-if(msg)
+if(msg) {
+	msg=expand_tabs(msg);
 	send(msg);
-else while(msg=readln())
+}
+else while(msg=readln()) {
+	msg=expand_tabs(msg);
 	send(msg);
+}
 
 while(my_server.poll(0) && (response=my_server.recvline()))
 	log(response);
@@ -86,7 +90,26 @@ IRC_quit(my_server);
 
 function send(msg)
 {
+	if(msg==undefined || msg.search(/^\s*$/)!=-1) {
+		log("Not sending blank message");
+		return;
+	}
 	log("Sending: " + msg);
 	if(!my_server.send("PRIVMSG "+channel+" :"+msg+"\r\n"))
 		alert("send failure");
+}
+
+function expand_tabs(msg)
+{
+	if(msg!=undefined) {
+		var s=msg;
+		do {
+			msg=s;
+			s=msg.replace(/\t/,
+				function(str,offset,s) {
+					return('        '.substr(0,8 - offset % 8));
+			});
+		} while(s!=msg);
+	}
+	return(msg);
 }
