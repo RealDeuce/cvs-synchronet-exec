@@ -3,9 +3,9 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.12 2003/06/13 21:56:53 deuce Exp $
+// $Id: irc.js,v 1.13 2003/10/27 11:21:14 rswindell Exp $
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -55,6 +55,13 @@ default_channel=default_channel.replace(/\s+/g,"_");
 sock=new Socket();
 history=new History();
 screen=new Screen();
+
+if(!sock.bind(0,server.interface_ip_address)) {
+	log(format("!IRC ERROR %d binding socket to %s"
+		,sock.last_error,server.interface_ip_address));
+	alert("socket error");
+	clean_exit();
+}
 
 // Connect
 if(!sock.connect(irc_server,irc_port)) {

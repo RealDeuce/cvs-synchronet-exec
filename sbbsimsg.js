@@ -3,9 +3,9 @@
 // Synchronet inter-bbs instant message module
 // uses Finger and SMTP TCP/IP protocols
 
-// $Id: sbbsimsg.js,v 1.18 2003/07/03 02:02:16 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.19 2003/10/27 11:21:14 rswindell Exp $
 
-const REVISION = "$Revision: 1.18 $".split(' ')[1];
+const REVISION = "$Revision: 1.19 $".split(' ')[1];
 
 const UDP_RESPONSE_TIMEOUT = 5000	// milliseconds
 
@@ -147,7 +147,7 @@ function list_users(show)
 		sys[i].udp=false;	// Reset the udp flag
 	sock = new Socket(SOCK_DGRAM);
 	//sock.debug=true;
-	sock.bind();
+	sock.bind(0,server.interface_ip_address);
 	for(i=0;sys[i]!=undefined && !(bbs.sys_status&SS_ABORT);i++) {
 		if(sys[i].ip==undefined)
 			continue;
@@ -206,6 +206,7 @@ function list_users(show)
 		replies++;	// we're adding the number of Finger requests here
 
 		sock = new Socket();
+		sock.bind(0,server.interface_ip_address);
 		is_connected = false;
 		if(sys[i].ip != undefined) {
 			is_connected = sock.connect(sys[i].ip,79,5);
@@ -270,6 +271,7 @@ function send_msg(dest, msg)
 	printf("\1h\1ySending...\r\1w");
 	sock = new Socket();
 	//sock.debug = true;
+	sock.bind(0,server.interface_ip_address);
 	do {
 		if(!sock.connect(host,25)) {
 			alert("Connection to " + host + " failed with error " + sock.last_error);
