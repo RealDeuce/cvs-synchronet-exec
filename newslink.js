@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.73 2003/12/30 09:15:52 rswindell Exp $
+// $Id: newslink.js,v 1.74 2004/04/01 11:56:10 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.73 $".split(' ')[1];
+const REVISION = "$Revision: 1.74 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -352,8 +352,11 @@ for(i in area) {
 			continue;
 		if(hdr.attr&MSG_DELETE)	/* marked for deletion */
 			continue;
-		if(hdr.attr&MSG_MODERATED && !(hdr.attr&MSG_VALIDATED))
-			continue;
+		if(hdr.attr&MSG_MODERATED && !(hdr.attr&MSG_VALIDATED)) {
+			print("Stopping at unvalidated moderated message: " + ptr);
+			ptr--;
+			break;
+		}
 		if(hdr.attr&MSG_PRIVATE)/* no private messages on NNTP */
 			continue;
 		if(hdr.from_net_type==NET_INTERNET)	/* no dupe loop */
