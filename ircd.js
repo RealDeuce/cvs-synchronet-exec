@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.61 2003/09/30 23:52:40 rswindell Exp $
+// $Id: ircd.js,v 1.62 2003/10/01 00:19:44 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.61 $".split(' ')[1];
+const REVISION = "$Revision: 1.62 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1015,9 +1015,10 @@ while (!server.terminated) {
 			if(this.socket_select==undefined)
 			{
 				ClientObject.work();
+			} else {
+				poll_clients.push(ClientObject.socket.descriptor);
+				poll_client_map.push(thisClient);
 			}
-             poll_clients.push(ClientObject.socket.descriptor);
-             poll_client_map.push(thisClient);
 		}
     }
 	if(this.socket_select!=undefined)
@@ -1107,6 +1108,9 @@ function IRCClient(socket,new_id,local_client,do_newconn) {
 	this.numeric208=IRCClient_numeric208;
 	this.numeric261=IRCClient_numeric261;
 	this.numeric322=IRCClient_numeric322;
+	this.numeric331=IRCClient_numeric331;
+	this.numeric332=IRCClient_numeric332;
+	this.numeric333=IRCClient_numeric333;
 	this.numeric351=IRCClient_numeric351;
 	this.numeric352=IRCClient_numeric352;
 	this.numeric353=IRCClient_numeric353;
@@ -1502,6 +1506,18 @@ function IRCClient_numeric322(chan) {
 	if (!(chan.mode&CHANMODE_SECRET) || (this.mode&USERMODE_OPER) ||
 	    this.onchannel(chan.nam.toUpperCase()) )
 		this.numeric(322, channel_name + " " + chan.count_users() + " :" + chan.topic);
+}
+
+function IRCClient_numeric331(chan) {
+	this.numeric(331, chan.nam + " :No topic is set.");
+}
+
+function IRCClient_numeric332(chan) {
+	this.numeric(332, chan.nam + " :" + chan.topic);
+}
+
+function IRCClient_numeric333(chan) {
+	this.numeric(333, chan.nam + " " + chan.topicchangedby + " " + chan.topictime);
 }
 
 function IRCClient_numeric351() {
@@ -2705,10 +2721,16 @@ function IRCClient_do_join(chan_name,join_key) {
 		// add to existing channel
 		Channels[chan].users.push(this.id);
 		var str="JOIN :" + Channels[chan].nam;
-		if (this.parent)
+		if (this.parent) {
 			this.bcast_to_channel(Channels[chan].nam, str, false);
-		else
+		} else {
 			this.bcast_to_channel(Channels[chan].nam, str, true);
+			if (Channels[chan].topic) {
+				this.numeric332(Channels[chan]);
+				this.numeric333(Channels[chan]);
+			} else {
+				this.numeric331(Channels[chan]);
+		}
 		if (chan_name[0] != "&")
 			server_bcast_to_servers(":" + this.nick + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam);
 	} else {
@@ -4095,7 +4117,7 @@ function IRCClient_registered_commands(command, cmdline) {
 				this.numeric461("TOPIC");
 				break;
 			}
-			chanid = searchbychannel(cmd[1]);
+			var chanid = searchbychannel(cmd[1]);
 			if (!chanid) {
 				this.numeric403(cmd[1]);
 				break;
@@ -4121,10 +4143,10 @@ function IRCClient_registered_commands(command, cmdline) {
 				}
 			} else { // we're just looking at one
 				if (chanid.topic) {
-					this.numeric("332", chanid.nam + " :" + chanid.topic);
-					this.numeric("333", chanid.nam + " " + chanid.topicchangedby + " " + chanid.topictime);
+					this.numeric332(chanid);
+					this.numeric333(chanid);
 				} else {
-					this.numeric("331", chanid.nam + " :No topic is set.");
+					this.numeric331(chanid);
 				}
 			}
 			break;
