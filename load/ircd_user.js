@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.1 2003/12/04 10:38:33 cyan Exp $
+// $Id: ircd_user.js,v 1.2 2003/12/04 21:29:16 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.1 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -1452,6 +1452,6 @@ function User_Quit(str,suppress_bcast,is_netsplit,origin) {
 	delete Local_Users[this.id];
 	delete Users[this.nick.toUpperCase()];
 	delete this;
-	rebuild_socksel_array();
+	rebuild_socksel_array = true;
 }
 

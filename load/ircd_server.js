@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.4 2003/12/04 11:59:28 cyan Exp $
+// $Id: ircd_server.js,v 1.5 2003/12/04 21:29:16 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.4 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.5 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -1023,7 +1023,7 @@ function Server_Quit(str,suppress_bcast,is_netsplit,origin) {
 	delete Local_Servers[this.id];
 	delete Servers[this.nick.toLowerCase()];
 	delete this;
-	rebuild_socksel_array();
+	rebuild_socksel_array = true;
 }
 
 function IRCClient_synchronize() {
