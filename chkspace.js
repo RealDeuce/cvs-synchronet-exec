@@ -2,7 +2,7 @@
 
 // Requires minimum free disk space (in megabytes) as first argument
 
-// $Id: chkspace.js,v 1.6 2004/04/23 08:18:41 rswindell Exp $
+// $Id: chkspace.js,v 1.7 2004/11/18 21:10:46 rswindell Exp $
 
 // Example: "?chkspace [dir1] [dir2] [minfreespace]"
 
@@ -39,7 +39,7 @@ for(i in dirs) {
 
 	if(!msgbase.save_msg(hdr, "WARNING: Only " + freespace + " kilobytes of free disk space in " 
 		+ dirs[i] + " on " + system.timestr()))
-		log(LOG_ERROR,"!Error " + msgbase.last_error + "saving mail message");
+		log(LOG_ERR,"!Error " + msgbase.last_error + "saving mail message");
 
 	log(LOG_INFO,"E-mailed low disk space notification to sysop");
 }
