@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.8 2004/03/26 02:50:26 rswindell Exp $
+// $Id: newsutil.js,v 1.9 2004/04/16 21:59:36 rswindell Exp $
 
 RFC822HEADER = 0xb0	// from smbdefs.h
 
@@ -77,13 +77,13 @@ function parse_news_header(hdr, line)
 		return;
 
 	data=line.slice(sp+1);
-	while(data.charAt(0)==' ')	// trim prepended spaces
+	while(data.charAt(0)==' '	// trim prepended spaces
+		|| data.charAt(0)=='\t')	
 		data=data.slice(1);
 	data=truncsp(data);			// trim trailing spaces
 
 	line=line.substr(0,sp);
-	while(line.charAt(0)==' ')	// trim prepended spaces
-		line=line.slice(1);
+	line=truncsp(line);			// trim trailing spaces (support "field : data" syntax)
 
 	switch(line.toLowerCase()) {
 		case "to":
