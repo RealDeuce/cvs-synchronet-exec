@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.13 2003/09/06 08:19:19 cyan Exp $
+// $Id: ircd.js,v 1.14 2003/09/06 08:30:10 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.13 $".split(' ')[1];
+const REVISION = "$Revision: 1.14 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -2262,6 +2262,18 @@ function IRCClient_registered_commands(command, cmdline) {
 					break;
 				default:
 					break;
+			}
+			break;
+		case "EVAL":	/* Evaluate a JavaScript expression */
+			if (!(this.mode&USERMODE_OPER)) {
+				this.numeric481();
+				break;
+			}
+			cmd.shift();
+			try {
+				this.server_notice("Result: " + eval(cmd.toString()));
+			} catch(e) {
+				this.server_notice("!" + e);
 			}
 			break;
 		case "INFO":
