@@ -1,8 +1,9 @@
 /* ircmsg.js */
 
-/* $Id: ircwho.js,v 1.2 2004/11/25 21:19:04 deuce Exp $ */
+/* $Id: ircwho.js,v 1.3 2004/11/25 21:21:23 deuce Exp $ */
 
-load("irclib.js");	// Thanks Cyan!
+if(this.IRCLIB_REVISION==undefined)
+	load("irclib.js");	// Thanks Cyan!
 
 var ircserver="vert.synchro.net";
 var channel="#synchronet";
