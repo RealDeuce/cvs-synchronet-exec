@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.6 2003/12/04 10:41:15 cyan Exp $
+// $Id: irclib.js,v 1.7 2003/12/10 13:59:03 cyan Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.6 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.7 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -140,7 +140,7 @@ function IRC_match(mtchstr,mask) {
 	var final_mask="^";
 	mask=mask.replace(/[.]/g,"\\\.");
 	mask=mask.replace(/[?]/g,".");
-	mask=mask.replace(/[*]/g,".*?");
+	mask=mask.replace(/[*]/g,"(.*)?");
 	final_mask=final_mask + mask + "$";
 	return mtchstr.toUpperCase().match(final_mask.toUpperCase());
 }
