@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.36 2003/09/19 09:02:37 rswindell Exp $
+// $Id: ircd.js,v 1.37 2003/09/19 09:21:15 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.36 $".split(' ')[1];
+const REVISION = "$Revision: 1.37 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -874,6 +874,9 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 
 read_config_file();
 
+if(this.js==undefined)			// v3.10?
+	js = { terminated: false };
+
 if(this.server==undefined) {	// Running from JSexec?
 	if (cmdline_port)
 		default_port = cmdline_port;
@@ -914,7 +917,7 @@ while (!server.terminated) {
 
 	if(server.terminated)
 		break;
-	if(this.js!=undefined && js.terminated)
+	if(js.terminated)
 		break;
 
 	// Setup a new socket if a connection is accepted.
