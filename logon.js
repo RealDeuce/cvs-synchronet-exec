@@ -2,7 +2,7 @@
 
 // Synchronet v3.10 Default Logon Module
 
-// $Id: logon.js,v 1.3 2003/02/24 08:26:55 rswindell Exp $
+// $Id: logon.js,v 1.4 2005/02/09 22:46:48 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -61,7 +61,7 @@ if(user.security.exemptions&UFLAG_H)
 
 // Print logon screens based on security level
 if(file_exists(system.text_dir + "menu/logon" + user.level + ".*"))
-	menu(logon + user.level);
+	bbs.menu("logon" + user.level);
 
 // Print successively numbered logon screens (logon, logon1, logon2, etc.)
 for(i=0;;i++) {
