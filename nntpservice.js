@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.71 2003/04/23 09:06:13 rswindell Exp $
+// $Id: nntpservice.js,v 1.72 2003/07/27 11:11:42 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.71 $".split(' ')[1];
+const REVISION = "$Revision: 1.72 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -30,17 +30,23 @@ var auto_login = false;
 var msgs_read = 0;
 var msgs_posted = 0;
 var slave = false;
+var bogus_cmd_counter = 0;
+var max_bogus_cmds = 10;
+var filter_bogus_clients = false;
 
 // Parse arguments
-for(i=0;i<argc;i++)
+for(i=0;i<argc;i++) {
 	if(argv[i].toLowerCase()=="-d")
 		debug = true;
+	else if(argv[i].toLowerCase()=="-f")
+		filter_bogus_clients = true;
 	else if(argv[i].toLowerCase()=="-na")
 		no_anonymous = true;
 	else if(argv[i].toLowerCase()=="-auto") {
 		no_anonymous = true;
 		auto_login = true;
 	}
+}
 
 // Write a string to the client socket
 function write(str)
@@ -281,6 +287,7 @@ while(client.socket.is_connected && !quit) {
 			else {
 				writeln("411 no such newsgroup");
 				log("!no such group");
+				bogus_cmd_counter++;
 			}
 			break;
 
@@ -398,10 +405,12 @@ while(client.socket.is_connected && !quit) {
 		case "STAT":
 			if(msgbase==null) {
 				writeln("412 no newsgroup selected");
+				bogus_cmd_counter++;
 				break;
 			}
 			if(cmd[1]==undefined) {
 				writeln("420 no current article has been selected");
+				bogus_cmd_counter++;
 				break;
 			}
 			if(cmd[1]!='') {
@@ -643,6 +652,17 @@ while(client.socket.is_connected && !quit) {
 			writeln("500 Syntax error or unknown command");
 			log("!unknown command");
 			break;
+	}
+
+	if(user.security.restrictions&UFLAG_G	/* Only guest/anonymous logins can be "bogus" */
+		&& bogus_cmd_counter >= max_bogus_cmds) {
+		log(format("!TOO MANY BOGUS COMMANDS (%u)", bogus_cmd_counter));
+		if(filter_bogus_clients) {
+			log("!FILTERING CLIENT'S IP ADDRESS: " + client.ip_address);
+			system.filter_ip("NNTP","- TOO MANY BOGUS COMMANDS (Example: " + cmdline +")"
+				, client.host_name, client.ip_address, client.user_name);
+		}
+		break;
 	}
 }
 
