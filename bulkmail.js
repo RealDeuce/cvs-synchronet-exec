@@ -6,7 +6,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.1 $".split(' ')[1];
+const REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 print("Synchronet BulkMailer " + REVISION);
 
@@ -27,7 +27,7 @@ file_remove(fname)
 
 console.editfile(fname);
 
-if(!fexist(fname))	// Edit aborted
+if(!file_exists(fname))	// Edit aborted
 	exit();
 
 file = new File(fname);
