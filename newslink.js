@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.70 2003/12/13 10:48:50 rswindell Exp $
+// $Id: newslink.js,v 1.71 2003/12/13 10:51:11 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.70 $".split(' ')[1];
+const REVISION = "$Revision: 1.71 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -727,7 +727,7 @@ for(i in area) {
 		}
 		if(use_twitlist 
 			&& (system.findstr(twitlist_fname,hdr.from) 
-				|| system.findstr(twitlist_fname,hdr.to)) {
+				|| system.findstr(twitlist_fname,hdr.to))) {
 			printf("Filtering message from %s to %s\r\n", hdr.from, hdr.to);
 			continue;
 		}
