@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.62 2003/10/01 00:19:44 cyan Exp $
+// $Id: ircd.js,v 1.63 2003/10/01 01:37:18 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.62 $".split(' ')[1];
+const REVISION = "$Revision: 1.63 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2730,6 +2730,7 @@ function IRCClient_do_join(chan_name,join_key) {
 				this.numeric333(Channels[chan]);
 			} else {
 				this.numeric331(Channels[chan]);
+			}
 		}
 		if (chan_name[0] != "&")
 			server_bcast_to_servers(":" + this.nick + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam);
@@ -3253,8 +3254,10 @@ function IRCClient_unregistered_commands(command, cmdline) {
 						break;
 				}
 			}
-			if ((!this_nline || ((this_nline.password == "*") &&
-			    !this.sentps)) && !qwk_slave) {
+			if ( (!this_nline || 
+			      ( (this_nline.password == "*") && !this.sentps &&
+			        !(this_nline.flags&NLINE_CHECK_QWKPASSWD) ) 
+			     ) && !qwk_slave) {
 				this.quit("ERROR: Server not configured.",true);
 				return 0;
 			}
@@ -3324,8 +3327,7 @@ function IRCClient_unregistered_commands(command, cmdline) {
 	if (this.realname && this.uprefix && (this.nick != "*") &&
 	    !this.server) {
 		// Check for a valid I:Line.
-		var tmp_iline;
-		tmp_iline = this.searchbyiline();
+		var tmp_iline = this.searchbyiline();
 		if (!tmp_iline) {
 			this.numeric(463, ":Your host isn't among the privileged.");
 			this.quit("You are not authorized to use this server.",true);
