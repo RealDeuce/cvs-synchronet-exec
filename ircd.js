@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.105 2003/12/10 04:38:07 cyan Exp $
+// $Id: ircd.js,v 1.106 2003/12/13 06:58:30 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.105 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.106 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2774,9 +2774,8 @@ function IRCClient_check_timeout() {
 
 function IRCClient_finalize_server_connect(states) {
 	hcc_counter++;
-	umode_notice(USERMODE_ROUTING,"Routing","Link with " + this.nick +
-		"[unknown@" + this.hostname + "] established, states: " +
-		states);
+	gnotice("Link with " + this.nick + "[unknown@" + this.hostname +
+		"] established, states: " + states);
 	if (server.client_update != undefined)
 		server.client_update(this.socket, this.nick, this.hostname);
 	if (!this.sentps) {
