@@ -2,7 +2,7 @@
 
 # Global String Command Module for Synchronet
 
-# $Id: str_cmds.src,v 1.11 2001/11/04 23:22:43 rswindell Exp $
+# $Id: str_cmds.src,v 1.12 2001/11/15 03:10:09 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -228,7 +228,12 @@ if_true
 	if_true
 		chksyspass
 		if_true
-			exec_int "%y -i"	
+			compare_ars "UNIX"
+			if_true
+				exec_int "%y -i"	
+			else
+				exec_int "%y"	
+				end_if
 			end_if	
 		return
 		end_if
