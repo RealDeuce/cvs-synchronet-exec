@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.58 2002/10/30 10:36:02 rswindell Exp $
+// $Id: nntpservice.js,v 1.59 2002/11/01 02:24:46 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -16,7 +16,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.58 $".split(' ')[1];
+const REVISION = "$Revision: 1.59 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -455,6 +455,8 @@ while(client.socket.is_connected) {
 						,hdr.from
 						,hdr.from.replace(/ /g,".").toLowerCase()
 						,hdr.from_net_addr));
+				if(hdr.from_org!=undefined)
+					writeln("Organization: " + hdr.from_org);
 				writeln("To: " + hdr.to);
 				writeln("X-Comment-To: " + hdr.to);
 				writeln("Subject: " + hdr.subject);
@@ -589,6 +591,9 @@ while(client.socket.is_connected) {
 					case "from":
 						if(user.security.restrictions&(UFLAG_G|UFLAG_Q)) // Guest or Network Node
 							hdr.from=data;
+						break;
+					case "organization":
+						hdr.from_org=data;
 						break;
 					case "reply-to":
 						hdr.replyto_net_type=NET_INTERNET;

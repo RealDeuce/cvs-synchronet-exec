@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.35 2002/10/31 04:46:49 rswindell Exp $
+// $Id: newslink.js,v 1.36 2002/11/01 02:24:46 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -20,7 +20,7 @@
 // t		do not add tearline to imported messages
 // a		convert extended-ASCII chars to ASCII on imported messages
 
-const REVISION = "$Revision: 1.35 $".split(' ')[1];
+const REVISION = "$Revision: 1.36 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -325,6 +325,8 @@ for(i in area) {
 				,hdr.from
 				,hdr.from.replace(/ /g,".").toLowerCase()
 				,system.inetaddr,antispam));
+		if(hdr.from_org!=undefined)
+			writeln("Organization: " + hdr.from_org);
 		writeln("To: " + hdr.to);
 		writeln("X-Comment-To: " + hdr.to);
 		writeln("Subject: " + hdr.subject);
@@ -487,6 +489,9 @@ for(i in area) {
 					break;
 				case "from":
 					hdr.from=data;
+					break;
+				case "organization":
+					hdr.from_org=data;
 					break;
 				case "reply-to":
 					hdr.replyto_net_type=NET_INTERNET;
