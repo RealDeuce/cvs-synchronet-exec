@@ -3,7 +3,7 @@
 // Script to create the Guest/Anonymous user account
 // This is normally executed from logon.js (rev 1.7+)
 
-// $Id: makeguest.js,v 1.3 2003/03/04 22:40:03 rswindell Exp $
+// $Id: makeguest.js,v 1.4 2003/03/05 00:44:32 rswindell Exp $
 
 // Don't create guest account if sysop account hasn't been created yet
 if(!system.stats.total_users)	{
@@ -21,6 +21,7 @@ load("sbbsdefs.js");	// needed for UFLAG_* definitions
 
 // Create the account
 guest=system.new_user("Guest");
+guest.handle="Guest";
 guest.gender='?';
 guest.comment="This is the auto-generated Guest/Anonymous user account.";
 
