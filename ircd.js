@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.51 2003/09/28 10:26:07 cyan Exp $
+// $Id: ircd.js,v 1.52 2003/09/28 15:02:09 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.51 $".split(' ')[1];
+const REVISION = "$Revision: 1.52 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1981,7 +1981,7 @@ function IRCClient_do_msg(target,type_str,send_str) {
 			str = type_str + " " + target + " :" + send_str;
 			target_socket.originatorout(str,this);
 			if (target_socket.away && (type_str == "PRIVMSG") &&
-			    !this.server)
+			    !this.server && this.local)
 				this.numeric(301, target_socket.nick + " :" + target_socket.away);
 		} else {
 			this.numeric401(target);
@@ -4217,9 +4217,9 @@ function IRCClient_registered_commands(command, cmdline) {
 				break;
 			}
 			if (cmd[2]) {
-				var dest_server = searchbyserver(cmd[1]);
+				var dest_server = searchbyserver(cmd[2]);
 				if (!dest_server) {
-					this.numeric402(cmd[1]);
+					this.numeric402(cmd[2]);
 					break;
 				}
 				if (dest_server != -1) {
