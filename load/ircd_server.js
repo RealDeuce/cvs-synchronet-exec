@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.3 2003/12/04 11:00:08 cyan Exp $
+// $Id: ircd_server.js,v 1.4 2003/12/04 11:59:28 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.3 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.4 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -1005,10 +1005,10 @@ function Server_Quit(str,suppress_bcast,is_netsplit,origin) {
 		this.netsplit();
 	}
 
-	if((server.client_remove!=undefined) && this.local)
-		server.client_remove(this.socket);
-
 	if (this.local) {
+		if (server.client_remove!=undefined)
+			server.client_remove(this.socket);
+
 		this.rawout("ERROR :Closing Link: [" + this.uprefix + "@" + this.hostname + "] (" + str + ")");
 		// FIXME: wrong phrasing below
 		umode_notice(USERMODE_CLIENT,"Client","SERVER exiting: " +
@@ -1106,3 +1106,4 @@ function IRCClient_server_chan_info(sni_chan) {
 	if (modeargs)
 		this.ircout("MODE " + sni_chan.nam + " " + modestr + " " + modeargs);
 }
+

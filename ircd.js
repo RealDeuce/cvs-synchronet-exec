@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.90 2003/12/04 10:36:42 cyan Exp $
+// $Id: ircd.js,v 1.91 2003/12/04 11:59:15 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.90 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.91 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -823,8 +823,16 @@ function IRCClient_netsplit(ns_reason) {
 	if (!ns_reason)
 		ns_reason = "net.split.net.split net.split.net.split";
 	for (sqclient in Users) {
-		if (Users[sqclient].servername == this.nick)
+		if (Users[sqclient] &&
+		    (Users[sqclient].servername == this.nick)
+		   )
 			Users[sqclient].quit(ns_reason,true,true);
+	}
+	for (sqserver in Servers) {
+		if (Servers[sqserver] &&
+		    (Servers[sqserver].linkparent == this.nick)
+		   )
+			Servers[sqserver].quit(ns_reason,true,true);
 	}
 }
 
@@ -896,11 +904,14 @@ function originatorout(str,origin) {
 
 	sendsock = this.socket;
 	if(this.local && !this.server) {
-		send_data = ":" + origin.nuh + " " + str;
-	} else if (this.parent) {
-		sendsock = Servers[this.parent].socket;
-		send_data = ":" + origin.nick + " " + str;
+		if (origin.server)
+			send_data = ":" + origin.nick + " " + str;
+		else
+			send_data = ":" + origin.nuh + " " + str;
 	} else if (this.server) {
+		send_data = ":" + origin.nick + " " + str;
+	} else if (!this.local) {
+		sendsock = Servers[this.parent].socket;
 		send_data = ":" + origin.nick + " " + str;
 	} else {
 		log("!ERROR: No socket to send to?");
@@ -1233,7 +1244,8 @@ function IRCClient_bcast_to_list(chan, str, bounce, list_bit) {
 function IRCClient_bcast_to_channel(chan, str, bounce) {
 	for(thisUser in chan.users) {
 		var aUser=chan.users[thisUser];
-		if ( ( aUser.id != this.id || (bounce) ) && aUser.local )
+		if ( ( aUser.id != this.id || (bounce) ) &&
+		     aUser.local )
 			aUser.originatorout(str,this);
 	}
 }
@@ -1511,8 +1523,8 @@ function IRCClient_do_info() {
 	this.numeric(371, ":   Palom, Psyko, Torke, and all the #square oldbies.");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":Synchronet " + system.full_version);
-	this.numeric(371, ":Running on " + system.os_version);
 	this.numeric(371, ":Compiled with " + system.compiled_with + " at " + system.compiled_when);
+	this.numeric(371, ":Running on " + system.os_version);
 	this.numeric(371, ":Utilizing socket library: " + system.socket_lib);
 	this.numeric(371, ":Javascript library: " + system.js_version);
 	this.numeric(371, ":This BBS has been up since " + system.timestr(system.uptime));
@@ -1522,7 +1534,7 @@ function IRCClient_do_info() {
 		this.numeric(371, ":" + server.version_detail);
 	}
 	this.numeric(371, ":IRCd CVS revisions:")
-	this.numeric(371, ":Main: " + MAIN_REVISION + " User: " + USER_REVISION + " Channel: " + CHANNEL_REVISION + " Server: " + SERVER_REVISION + " Unreg: " + UNREG_REVISION);
+	this.numeric(371, ":Main(" + MAIN_REVISION + ") User(" + USER_REVISION + ") Channel(" + CHANNEL_REVISION + ") Server(" + SERVER_REVISION + ") Unreg(" + UNREG_REVISION + ")");
 	this.numeric(371, ":IRClib Version: " + IRCLIB_VERSION);
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":This program is distributed under the terms of the GNU General Public");
