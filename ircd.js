@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.114 2005/04/05 07:13:01 cyan Exp $
+// $Id: ircd.js,v 1.115 2005/04/05 07:31:44 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.114 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.115 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -738,7 +738,7 @@ while (!server.terminated) {
 	// Check for pending DNS hostname resolutions.
 	for(this_unreg in Unregistered) {
 		if (Unregistered[this_unreg] &&
-		    Unregistered[this_unreg].pending_resolve)
+		    Unregistered[this_unreg].pending_resolve_time)
 			Unregistered[this_unreg].resolve_check();
 	}
 

@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.12 2005/04/05 07:13:01 cyan Exp $
+// $Id: ircd_unreg.js,v 1.13 2005/04/05 07:31:44 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.12 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -75,6 +75,7 @@ function Unregistered_Client(id,socket) {
 	    (this.ip.slice(0,8) == "192.168.") ||
 	    (this.ip.slice(0,7) == "172.16." )) {
 		this.hostname = servername;
+		this.pending_resolve_time = false;
 	} else {
 		this.pending_resolve = load(true,"dnshelper.js",this.ip);
 	}
@@ -267,7 +268,7 @@ function Unregistered_Commands() {
 		if (!usernum)
 			this.uprefix = "~" + this.uprefix;
 		this.criteria_met = true;
-		if (this.hostname && !this.pending_resolve)
+		if (this.hostname && !this.pending_resolve_time)
 			this.welcome();
 	}
 }
@@ -294,15 +295,12 @@ function Unregistered_Resolve_Check() {
 			this.hostname = my_resolved;
 		else
 			this.hostname = servername;
-		this.pending_resolve = false;
-		return 1;
-	}
-	if ( (time() - this.pending_resolve_time) > 5) {
+		this.pending_resolve_time = false;
+	} else if ( (time() - this.pending_resolve_time) > 5) {
 		this.hostname = this.ip;
-		this.pending_resolve = false;
-		return 1;
+		this.pending_resolve_time = false;
 	}
-	if (this.criteria_met)
+	if (this.criteria_met && !this.pending_resolve_time)
 		this.welcome();
 	return 0;
 }
