@@ -2,11 +2,11 @@
 
 // Client for Synchronet dynamic DNS service (yourbbs.synchro.net)
 
-// $Id: dyndns.js,v 1.4 2003/10/27 11:21:14 rswindell Exp $
+// $Id: dyndns.js,v 1.5 2004/01/20 09:46:57 rswindell Exp $
 
 // usage: ?dyndns <password>
 
-const REVISION = "$Revision: 1.4 $".split(' ')[1];
+const REVISION = "$Revision: 1.5 $".split(' ')[1];
 
 printf("Synchronet Dynamic DNS Client %s\r\n", REVISION);
 
@@ -29,7 +29,8 @@ for(h in host_list) {
 		printf("Error %lu connecting to %s\r\n",sock.last_error,host_list[h]);
 		continue;
 	}
-	while(sock.is_connected) {
+	var count=0;
+	while(sock.is_connected && count++<10) {
 		str=sock.readline();
 		print(str);
 		switch(str) {
