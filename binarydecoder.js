@@ -4,11 +4,11 @@
 // for UUE and yEnc encoded binary attachments
 // Requires Synchronet v3.10m or later
 
-// $Id: binarydecoder.js,v 1.7 2003/07/10 10:02:01 rswindell Exp $
+// $Id: binarydecoder.js,v 1.8 2003/07/10 22:03:38 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.7 $".split(' ')[1];
+const REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 printf("Synchronet Binary Decoder %s session started\r\n", REVISION);
 
@@ -448,7 +448,7 @@ function add_part(list,sub_code,hdr
 			printf("!Failed to parse part number from: %s\r\n",hdr.subject);
 			return(false);
 		}
-		printf("Parsed part number: %u\r\n",part);
+//		printf("Parsed part number: %u\r\n",part);
 	}
 	if(total==undefined || total<part) {	/* must parse from subject (yuck) */
 		total=hdr.subject.lastIndexOf('(');
@@ -464,7 +464,7 @@ function add_part(list,sub_code,hdr
 			printf("!Failed to parse total parts from: %s\r\n",hdr.subject);
 			return(false);
 		}
-		printf("Parsed total parts: %u\r\n",total);
+//		printf("Parsed total parts: %u\r\n",total);
 	}
 
 	/* Search database for existing file object */
