@@ -6,13 +6,13 @@
 // and export any new messages to the mail database to be sent to one or more
 // list-server e-mail addresses.
 
-// $Id: mlistgate.js,v 1.6 2004/05/22 00:48:41 rswindell Exp $
+// $Id: mlistgate.js,v 1.7 2004/05/22 00:51:37 rswindell Exp $
 
 // Configuration file (in ctrl/mlistgate.cfg) format:
 
 // <subcode> <fromaddr> <toaddr> [toaddr] [...]
 
-const REVISION = "$Revision: 1.6 $".split(' ')[1];
+const REVISION = "$Revision: 1.7 $".split(' ')[1];
 
 printf("Synchronet Mailing List Gateway %s session started\r\n", REVISION);
 
@@ -159,7 +159,7 @@ for(i in area) {
 		delete hdr.thread_next;
 		delete hdr.thread_first;
 
-		var listservers = area[i];
+		var listservers = new Array(area[i]);
 		while(listservers.length) {	/* For each list server... */
 
 			listserv=listservers.shift();
