@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-html.js,v 1.14 2004/12/17 01:53:37 rswindell Exp $
+// $Id: ftp-html.js,v 1.15 2005/01/13 04:18:39 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);	// Used to defeat caching browsers
@@ -36,7 +36,7 @@ function secstr(sec)
 	return(format("%02u:%02u",sec/60,sec%60));
 }
 
-var title = system.name + " BBS - FTP Server";
+var title = system.name + " - FTP Server";
 var font_face = "<font face=Arial,Helvetica,sans-serif>";
 var font_size = 2;	// Change base font size here
 if(client.socket.local_port!=21)
