@@ -1,8 +1,8 @@
-// newuser.src
+// newuser.js
 
 // New user login module
 
-// $Id: newuser.js,v 1.3 2003/01/03 11:45:04 rswindell Exp $
+// $Id: newuser.js,v 1.4 2003/01/03 22:01:03 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
