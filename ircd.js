@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.91 2003/12/04 11:59:15 cyan Exp $
+// $Id: ircd.js,v 1.92 2003/12/04 12:09:29 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.91 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.92 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2890,7 +2890,7 @@ function IRCClient_set_chanmode(chan,modeline,bounce_modes) {
 				for (member in chan.modelist[cm]) {
 					cmode.delmodes += MODE[cm].modechar;
 					cmode.delmodeargs += " " +
-						chan.modelist[cm][member];
+						chan.modelist[cm][member].nick;
 					delete chan.modelist[cm][member];
 				}
 			}
