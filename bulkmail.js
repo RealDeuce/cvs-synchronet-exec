@@ -6,7 +6,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 print("Synchronet BulkMailer " + REVISION);
 
@@ -60,6 +60,9 @@ var sent=0;
 for(i=1; i<=lastuser; i++)
 {
     u = new User(i);
+
+	if(u.settings&(USER_DELETED|USER_INACTIVE))
+		continue;
 
     if(!u.compare_ars(ars))
 		continue;
