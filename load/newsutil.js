@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.5 2004/03/17 03:50:54 rswindell Exp $
+// $Id: newsutil.js,v 1.6 2004/03/24 09:59:36 rswindell Exp $
 
 RFC822HEADER = 0xb0	// from smbdefs.h
 
@@ -52,7 +52,7 @@ function write_news_header(hdr,writeln)
 function parse_news_header(hdr, line)
 {
 	/* Parse header lines */
-	if(line.charAt(0)==' ' || line.charAt(0)=='\t' && hdr.field_list) {
+	if((line.charAt(0)==' ' || line.charAt(0)=='\t') && hdr.field_list) {
 		/* "folded" header field */
 		hdr.field_list.push(
 			{	type: RFC822HEADER, 
