@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.24 2004/09/17 23:42:25 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.25 2004/09/22 20:41:57 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -591,6 +591,21 @@ var FI_USERXFER  	=6			/* User Xfer Download                       */
 var FI_CLOSE 	  	=7			/* Close any open records					*/
 					    		/********************************************/
 
+
+if(this.LOG_EMERG==undefined) {	/* temporary backward compatibility kludge	*/
+	                            /********************************************/   
+                                /* Log "levels" supported by log() function */   
+                                /********************************************/   
+var LOG_EMERG       =0			/* system is unusable                       */   
+var LOG_ALERT       =1			/* action must be taken immediately         */   
+var LOG_CRIT        =2			/* critical conditions                      */   
+var LOG_ERR         =3			/* error conditions                         */   
+var LOG_WARNING     =4			/* warning conditions                       */   
+var LOG_NOTICE      =5			/* normal but significant condition         */   
+var LOG_INFO        =6			/* informational                            */   
+var LOG_DEBUG       =7			/* debug-level messages                     */   
+                                /********************************************/ 
+}
 								/* Message attributes */
 var MSG_PRIVATE 		=(1<<0)
 var MSG_READ			=(1<<1)
