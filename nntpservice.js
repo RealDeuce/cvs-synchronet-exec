@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.76 2003/12/07 06:58:31 rswindell Exp $
+// $Id: nntpservice.js,v 1.77 2004/04/01 11:57:31 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.76 $".split(' ')[1];
+const REVISION = "$Revision: 1.77 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -33,6 +33,7 @@ var slave = false;
 var bogus_cmd_counter = 0;
 var max_bogus_cmds = 10;
 var filter_bogus_clients = false;
+var include_mail = true;
 
 // Parse arguments
 for(i=0;i<argc;i++) {
@@ -42,6 +43,8 @@ for(i=0;i<argc;i++) {
 		filter_bogus_clients = true;
 	else if(argv[i].toLowerCase()=="-na")
 		no_anonymous = true;
+	else if(argv[i].toLowerCase()=="-mail")
+		include_mail = true;
 	else if(argv[i].toLowerCase()=="-auto") {
 		no_anonymous = true;
 		auto_login = true;
@@ -229,6 +232,13 @@ while(client.socket.is_connected && !quit) {
 			}
 			else {
 				writeln("215 list of newsgroups follows");
+				if(include_mail && user.security.level == 99) {
+					msgbase=new MsgBase("mail");
+					if(msgbase.open()==true) {
+						writeln(format("mail %u %u n", msgbase.last_msg, msgbase.first_msg));
+						msgbase.close();
+					}
+				}
 				for(g in msg_area.grp_list)
 					for(s in msg_area.grp_list[g].sub_list) {
 						msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
@@ -248,6 +258,8 @@ while(client.socket.is_connected && !quit) {
 
 		case "XGTITLE":
 			writeln("282 list of newsgroups follows");
+			if(include_mail && user.security.level == 99)
+				writeln("mail complete mail database");
 			for(g in msg_area.grp_list)
 				for(s in msg_area.grp_list[g].sub_list)
 					writeln(format("%s %s"
@@ -268,16 +280,25 @@ while(client.socket.is_connected && !quit) {
 				break;
 			}
 			found=false;
-			for(g in msg_area.grp_list)
-				for(s in msg_area.grp_list[g].sub_list)
-					if(msg_area.grp_list[g].sub_list[s].newsgroup.toLowerCase()==cmd[1].toLowerCase()) {
-						msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
-						if(msgbase.open!=undefined && msgbase.open()==false)
-							continue;
-						found=true;
-						selected=msg_area.grp_list[g].sub_list[s];
-						break;
-					}
+			if(include_mail && user.security.level==99 && cmd[1].toLowerCase()=="mail") {
+				msgbase=new MsgBase("mail");
+				if(msgbase.open()==true) {
+					selected = { newsgroup: "mail" };
+					found=true;
+				}
+			}
+			if(!found) {
+				for(g in msg_area.grp_list)
+					for(s in msg_area.grp_list[g].sub_list)
+						if(msg_area.grp_list[g].sub_list[s].newsgroup.toLowerCase()==cmd[1].toLowerCase()) {
+							msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+							if(msgbase.open!=undefined && msgbase.open()==false)
+								continue;
+							found=true;
+							selected=msg_area.grp_list[g].sub_list[s];
+							break;
+						}
+			}
 			if(found)
 				writeln(format("211 %u %u %u %s group selected"
 					,msgbase.total_msgs	// articles in group
