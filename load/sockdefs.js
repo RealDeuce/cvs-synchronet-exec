@@ -5,7 +5,7 @@
  * Per RFC 790, September 1981, taken from the BSD file netinet/in.h.
  */
 
-/* $Id: sockdefs.js,v 1.3 2002/06/14 11:14:43 rswindell Exp $ */
+/* $Id: sockdefs.js,v 1.4 2003/05/08 22:53:00 rswindell Exp $ */
 
 /*
  * Protocols
@@ -96,4 +96,5 @@ var sockopts = [
 	"BROADCAST",
 	"OOBINLINE",
 	"ACCEPTCONN",
+	"TCP_NODELAY",
 ];
