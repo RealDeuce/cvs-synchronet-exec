@@ -3,9 +3,9 @@
 // Synchronet inter-bbs instant message module
 // uses Finger and SMTP TCP/IP protocols
 
-// $Id: sbbsimsg.js,v 1.12 2002/11/05 11:07:26 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.13 2002/11/09 11:29:04 rswindell Exp $
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 const UDP_RESPONSE_TIMEOUT = 5000	// milliseconds
 
@@ -284,6 +284,8 @@ function send_msg(dest, msg)
 			alert("Invalid SOML response: " + rsp);
 			break;
 		}
+		if(dest.indexOf('<')<0)
+			dest = '<' + dest + '>';
 		sock.send("RCPT TO: "+dest+"\r\n");
 		if(Number((rsp=sock.recvline()).slice(0,3))!=250) {
 			alert("Invalid RCPT TO response: " + rsp);
