@@ -2,18 +2,18 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.21 2005/01/19 02:15:28 rswindell Exp $
+// $Id: listserver.js,v 1.22 2005/02/12 01:12:36 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.21 $".split(' ')[1];
+const REVISION = "$Revision: 1.22 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
 
 js.auto_terminate=false;
 
-var ini_fname = system.ctrl_dir + "listserver.ini";
+var ini_fname = file_cfgname(system.ctrl_dir, "listserver.ini");
 
 ini_file = new File(ini_fname);
 if(!ini_file.open("r")) {

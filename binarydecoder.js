@@ -4,7 +4,7 @@
 // for UUE and yEnc encoded binary attachments
 // Requires Synchronet v3.10m or later
 
-// $Id: binarydecoder.js,v 1.11 2004/08/29 07:36:15 rswindell Exp $
+// $Id: binarydecoder.js,v 1.12 2005/02/12 01:12:36 rswindell Exp $
 
 // The default attachment storage directory is data/subs/attach
 
@@ -18,7 +18,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.11 $".split(' ')[1];
+const REVISION = "$Revision: 1.12 $".split(' ')[1];
 
 printf("Synchronet Binary Decoder %s session started\r\n", REVISION);
 
@@ -30,7 +30,7 @@ remove_msg=true;
 remove_non_bin_msgs=true;
 sub = new Array();
 
-var ini_fname = system.ctrl_dir + "binarydecoder.ini";
+var ini_fname = file_cfgname(system.ctrl_dir, "binarydecoder.ini");
 file = new File(ini_fname);
 file.open("r");
 
