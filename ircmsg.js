@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.21 2004/11/19 09:43:57 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.22 2004/11/19 09:51:49 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.21 $".split(' ')[1];
+const REVISION = "$Revision: 1.22 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -81,7 +81,7 @@ if(join) {
 if(msg)
 	send(msg);
 else while(msg=readln())	/* read from stdin */
-	msg=expand_tabs(msg);
+	send(msg);
 
 while(my_server.poll(0) && (response=my_server.recvline()))
 	log(response);
