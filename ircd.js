@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.86 2003/11/20 09:05:02 rswindell Exp $
+// $Id: ircd.js,v 1.87 2003/11/26 11:49:41 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.86 $".split(' ')[1];
+const REVISION = "$Revision: 1.87 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -986,7 +986,8 @@ if(this.server==undefined) {		// Running from JSexec?
 	else if (mline_port)
 		default_port = mline_port;
 
-	server = { socket: false, terminated: false };
+	server = { socket: false, terminated: false,
+		version_detail: "JSexec " + jsexec_revision };
 	server.socket = create_new_socket(default_port)
 	if (!server.socket)
 		exit();
@@ -5662,7 +5663,7 @@ function IRCClient_server_commands(origin, command, cmdline) {
 				// Detect if this is a TSMODE.  If so, handle.
 				if (parseInt(cmd[2]) == cmd[2]) {
 					// desynchronized MODE command.
-					if (parseInt(cmd[2]) < chan.created)
+					if (parseInt(cmd[2]) > chan.created)
 						break;
 					cmd.shift();
 				}
