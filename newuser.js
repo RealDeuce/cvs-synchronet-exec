@@ -2,13 +2,15 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.1 2003/01/03 11:14:05 rswindell Exp $
+// $Id: newuser.js,v 1.2 2003/01/03 11:21:26 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
 send_newuser_welcome = true; // Set to false to disable the new user welcome msg
 
 load("sbbsdefs.js");
+
+console.clear();
 
 if(!user.address.length) {
 	printf("\1y\1hWhere did you hear about this BBS? ");
