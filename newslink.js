@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.67 2003/11/05 10:41:43 rswindell Exp $
+// $Id: newslink.js,v 1.68 2003/11/06 10:52:48 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.67 $".split(' ')[1];
+const REVISION = "$Revision: 1.68 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -81,6 +81,9 @@ for(i=0;i<argc;i++) {
 	else
 		cfg_fname = argv[i];
 }
+
+if(this.js==undefined) 		// v3.10?
+	js = { terminated: false };
 
 // Write a string to the server socket
 function write(str)
@@ -258,7 +261,7 @@ for(i in area) {
 		break;
 	}
 
-	if(file_exists(stop_semaphore))
+	if(js.terminated || file_exists(stop_semaphore))
 		break;
 
 //	printf("%s\r\n",area[i].toString());
@@ -326,7 +329,11 @@ for(i in area) {
 	if(debug)
 		print("exporting local messages");
 	last_msg=msgbase.last_msg;
-	for(;socket.is_connected && ptr<=last_msg && !file_exists(stop_semaphore);ptr++) {
+	for(;socket.is_connected 
+		&& ptr<=last_msg 
+		&& !js.terminated
+		&& !file_exists(stop_semaphore)
+		;ptr++) {
 		if(this.console!=undefined)
 			console.line_counter = 0;
 		hdr = msgbase.get_msg_header(
@@ -472,7 +479,11 @@ for(i in area) {
 		ptr++;
 	}
 
-	for(;socket.is_connected && ptr<=last_msg && !file_exists(stop_semaphore);ptr++) {
+	for(;socket.is_connected 
+		&& ptr<=last_msg 
+		&& !js.terminated
+		&& !file_exists(stop_semaphore)
+		;ptr++) {
 		if(this.console!=undefined)
 			console.line_counter = 0;
 		writeln(format("ARTICLE %lu",ptr));
