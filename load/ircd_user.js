@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.4 2003/12/13 07:25:01 cyan Exp $
+// $Id: ircd_user.js,v 1.5 2003/12/30 13:54:55 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.4 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.5 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -1406,10 +1406,11 @@ function User_Work() {
 			var str = cmdline.slice(cmdline.indexOf(" ")+1);
 			if (str[0] == ":")
 				str = str.slice(1);
-			if (cmd[1][1] == "#")
-				var services_target = "ChanServ";
+			var services_target;
+			if (cmd[1][0] == "#")
+				services_target = "ChanServ";
 			else
-				var services_target = "NickServ";
+				services_target = "NickServ";
 			this.services_msg(services_target,"IDENTIFY " + str);
 			break;
 		default:

@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.3 2003/12/06 02:31:01 cyan Exp $
+// $Id: ircd_channel.js,v 1.4 2003/12/30 13:54:55 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.3 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.4 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -566,7 +566,8 @@ function IRCClient_do_join(chan_name,join_key) {
 				return 0;
 			}
 			if ((Channels[chan].mode&CHANMODE_LIMIT) &&
-			    (Channels[chan].count_users() >= Channels[chan].arg[CHANMODE_LIMIT])) {
+			    (true_array_len(Channels[chan].users) >=
+			     Channels[chan].arg[CHANMODE_LIMIT])) {
 				this.numeric("471", Channels[chan].nam + " :Cannot join channel (+l: channel is full)");
 				return 0;
 			}
