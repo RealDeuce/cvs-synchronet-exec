@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.60 2003/06/11 20:44:07 rswindell Exp $
+// $Id: newslink.js,v 1.61 2003/06/14 08:41:42 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.60 $".split(' ')[1];
+const REVISION = "$Revision: 1.61 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -493,7 +493,7 @@ for(i in area) {
 					line=line.slice(1);		// Skip prepended dots
 
                 if(flags.indexOf('b')>=0) {        // decode attachments   
-                    if(line.substr(0,6)=="begin ") {   
+                    if(file==undefined && line.substr(0,6)=="begin ") {   
 						 // Parse uuencode header   
 						 arg=line.split(/\s+/);   
 						 arg.splice(0,2);        // strip "begin 666 "   
@@ -568,7 +568,7 @@ for(i in area) {
             }
 			/* Append MD5 to history file */
 			if(md5_file.open("a")) {
-				md5_file.printf("%s %s\n",md5,file.name);
+				md5_file.printf("%s %s\n",md5,file_getname(file.name));
 				md5_file.close();
 			} else
 				printf("!ERROR %d (%s) creating/appending %s\r\n"
