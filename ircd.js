@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.78 2003/10/16 07:46:29 cyan Exp $
+// $Id: ircd.js,v 1.79 2003/10/17 09:34:34 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.78 $".split(' ')[1];
+const REVISION = "$Revision: 1.79 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -4715,6 +4715,7 @@ function IRCClient_registered_commands(command, cmdline) {
 				switch(cmd[1].toUpperCase()) {
 					case "TKLINES":
 						this.numeric382("temp klines");
+						umode_notice(USERMODE_SERVER,"Notice",this.nick + " is clearing temp klines while whistling innocently");
 						for (kl in KLines) {
 							if(KLines[kl].type ==
 							   "k")
@@ -4724,16 +4725,17 @@ function IRCClient_registered_commands(command, cmdline) {
 					case "GC":
 						if (js.gc!=undefined) {
 							this.numeric382("garbage collecting");
+							umode_notice(USERMODE_SERVER,"Notice",this.nick + " is garbage collecting while whistling innocently");
 							js.gc();
 						}
 						break;
 					case "AKILLS":
 						this.numeric382("akills");
+						umode_notice(USERMODE_SERVER,"Notice",this.nick + " is rehashing akills");
 						for (kl in KLines) {
 							if(KLines[kl].type ==
 							   "A")
-								delete KLines[kl
-];
+								delete KLines[kl];
 						}
 						break;
 					default:
