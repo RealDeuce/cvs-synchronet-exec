@@ -2,13 +2,13 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.27 2004/10/14 23:58:32 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.28 2004/12/30 02:55:48 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
  * @format.use-tabs true	(see http://www.synchro.net/ptsc_hdr.html)		*
  *																			*
- * Copyright 2001 Rob Swindell - http://www.synchro.net/copyright.html		*
+ * Copyright 2004 Rob Swindell - http://www.synchro.net/copyright.html		*
  *																			*
  * This program is free software; you can redistribute it and/or			*
  * modify it under the terms of the GNU General Public License				*
@@ -527,7 +527,8 @@ var   TG_NODESYNC	=(1<<3)		/* Call Nodesync, get msgs, etc.			*/
 var   TG_CTRLKEYS	=(1<<4)		/* Interpret ^P ^U ^T, etc locally			*/
 var   TG_PASSTHRU	=(1<<5)		/* Pass-through telnet commands/responses	*/
 var   TG_RLOGIN		=(1<<6)		/* Use BSD RLogin protocol					*/
-var   TG_NOCHKTIME	=(1<<7)		/* Don't check time left online					*/
+var   TG_NOCHKTIME	=(1<<7)		/* Don't check time left online				*/
+var   TG_NOTERMTYPE =(1<<8)		/* Request client "DONT TERM_TYPE"			*/
 					    		/********************************************/
 
 					    		/********************************************/
