@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.96 2003/12/04 21:29:16 cyan Exp $
+// $Id: ircd.js,v 1.97 2003/12/05 02:14:47 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.96 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.97 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -688,6 +688,9 @@ if(this.resolve_host==undefined) {	// v3.10?
 	resolve_hostnames = false;
 	sync_310 = true;
 }
+
+if (jsexec_revision_detail==undefined)
+	jsexec_revision_detail = "JSexec";
 
 if(this.server==undefined) {		// Running from JSexec?
 	if (cmdline_port)
