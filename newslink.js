@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.41 2002/11/02 21:24:35 rswindell Exp $
+// $Id: newslink.js,v 1.42 2003/01/01 04:46:07 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -20,7 +20,7 @@
 // t		do not add tearline to imported messages
 // a		convert extended-ASCII chars to ASCII on imported messages
 
-const REVISION = "$Revision: 1.41 $".split(' ')[1];
+const REVISION = "$Revision: 1.42 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -117,6 +117,10 @@ while(!cfg_file.eof) {
 		continue;
 	str=line.split(/\s+/);
 	switch(str[0].toLowerCase()) {
+		case "disabled":
+			printf("!NewsLink DISABLED in %s\r\n",cfg_fname);
+			delete cfg_file;
+			exit();
 		case "server":
 			server=str[1];
 			break;
