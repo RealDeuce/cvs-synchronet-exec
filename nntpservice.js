@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.66 2003/01/31 04:11:24 rswindell Exp $
+// $Id: nntpservice.js,v 1.67 2003/02/24 20:42:10 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.66 $".split(' ')[1];
+const REVISION = "$Revision: 1.67 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -405,7 +405,7 @@ while(client.socket.is_connected) {
 			}
 			if(cmd[1]!='') {
 				if(cmd[1].indexOf('<')>=0)		/* message-id */
-					current_article=Number(cmd[1].slice(1,-1));
+					current_article=Number(cmd[1].slice(cmd[1].indexOf('.')+1,-1));
 				else
 					current_article=Number(cmd[1]);
 			}
@@ -417,6 +417,12 @@ while(client.socket.is_connected) {
 			hdr=null;
 			body=null;
 			hdr=msgbase.get_msg_header(false,current_article);
+
+			if(hdr==null) {
+				writeln("430 no such article found");
+				break;
+			}
+
 			if(cmd[0].toUpperCase()!="HEAD")
 				body=msgbase.get_msg_body(false,current_article
 					,true /* remove ctrl-a codes */
@@ -429,10 +435,6 @@ while(client.socket.is_connected) {
 /* Eliminate dupe loops
 			if(user.security.restrictions&UFLAG_Q && hdr!=null)
 */
-			if(hdr==null) {
-				writeln("430 no such article found");
-				break;
-			}
 			if(hdr.attr&MSG_MODERATED && !(hdr.attr&MSG_VALIDATED)) {
 				writeln("430 unvalidated message");
 				break;
