@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.18 2003/09/09 04:06:52 cyan Exp $
+// $Id: ircd.js,v 1.19 2003/09/09 08:37:36 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.18 $".split(' ')[1];
+const REVISION = "$Revision: 1.19 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -191,9 +191,9 @@ function dec_to_ip(ip) {
 
 function terminate_everything(terminate_reason) {
 	for(thisClient in Clients) {
-		var client = Clients[thisClient];
-		if (client.local)
-			client.quit(terminate_reason,false)
+		var Client = Clients[thisClient];
+		if (Client.local)
+			Client.quit(terminate_reason,false)
 	}
 }
 
@@ -833,11 +833,12 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 read_config_file();
 log(VERSION + " started.");
 
+if(this.branch!=undefined)
+	branch.limit=0; // we're not an infinite loop.
+
 ///// Main Loop /////
 while (!server.terminated) {
 
-	if(this.branch!=undefined)
-		branch.limit=0; // we're not an infinite loop.
 	mswait(1); // don't peg the CPU
 
 	if(server.terminated)
