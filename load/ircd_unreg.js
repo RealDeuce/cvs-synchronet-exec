@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.5 2003/12/09 00:00:37 cyan Exp $
+// $Id: ircd_unreg.js,v 1.6 2003/12/10 06:29:07 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.5 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -351,6 +351,8 @@ function Unregistered_Commands() {
 function Unregistered_Quit(msg) {
 	if (msg)
 		this.rawout("ERROR :" + msg);
+	if (server.client_remove!=undefined)
+		server.client_remove(this.socket);
 	this.socket.close();
 	delete Local_Sockets[this.id];
 	delete Local_Sockets_Map[this.id];
