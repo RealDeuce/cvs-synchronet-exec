@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.50 2003/04/23 11:07:47 rswindell Exp $
+// $Id: newslink.js,v 1.51 2003/04/23 18:28:32 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -23,7 +23,7 @@
 // u		uudecode attachments
 // i		import all (not just new articles)
 
-const REVISION = "$Revision: 1.50 $".split(' ')[1];
+const REVISION = "$Revision: 1.51 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -520,7 +520,7 @@ for(i in area) {
 
 		
 		if(file!=undefined) {
-			var parital=false;
+			var partial=false;
 			if(file.is_open==true) { /* Partial attachment? */
 				md5=file.md5_hex;
 				file.close();
