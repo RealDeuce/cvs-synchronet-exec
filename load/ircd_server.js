@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.2 2003/12/04 10:54:19 cyan Exp $
+// $Id: ircd_server.js,v 1.3 2003/12/04 11:00:08 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.2 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -75,6 +75,7 @@ function IRC_Server() {
 	// Global Functions
 	this.check_timeout=IRCClient_check_timeout;
 	this.set_chanmode=IRCClient_set_chanmode;
+	this.check_nickname=IRCClient_check_nickname;
 	// Output helper functions (shared)
 }
 
@@ -430,7 +431,7 @@ function Server_Work() {
 				ThisOrigin.nick = cmd[1];
 			} else if (cmd[10]) {
 				if (!this.hub) {
-					if(!this.check_nickname(cmd[1])) {
+					if(!this.check_nickname(cmd[1],true)) {
 						umode_notice(USERMODE_OPER,"Notice","Server " + this.nick + " trying to introduce invalid nickname: " + cmd[1] + ", killed.");
 						this.ircout("KILL " + cmd[1] + " :Bogus Nickname.");
 						break;
