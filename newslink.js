@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.31 2002/09/16 08:35:48 rswindell Exp $
+// $Id: newslink.js,v 1.32 2002/10/13 09:40:24 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -14,7 +14,7 @@
 // area		subboard (internal code) newsgroup
 // ...
 
-const REVISION = "$Revision: 1.31 $".split(' ')[1];
+const REVISION = "$Revision: 1.32 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -217,7 +217,7 @@ for(i in area) {
 	/* Read Pointer File */
 	/*********************/
 	export_ptr = 0;
-	import_ptr = 0;
+	import_ptr = ~0;	// Set to highest possible message number
 	ptr_fname = msgbase.file + ".snl";
 	ptr_file = new File(ptr_fname);
 	if(ptr_file.open("rb")) {
