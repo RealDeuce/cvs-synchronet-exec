@@ -2,7 +2,7 @@
 
 /* JSexec script for periodic Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.10 2004/09/16 19:27:31 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.11 2004/09/17 00:01:34 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
@@ -25,10 +25,10 @@ var build_output = "build_output.txt";
 
 if(platform=="win32") {
 	archive="sbbs_src.zip";
-	archive_cmd="pkzip25 -add -dir -excl=*output.txt " + archive;
+	archive_cmd="pkzip25 -exclude=*output.txt -add -dir " + archive;
 } else {
 	archive="sbbs_src.tgz";
-	archive_cmd="tar -czvf " + archive + " *";
+	archive_cmd="tar --exclude=*output.txt -czvf " + archive + " *";
 }
 
 var builds
