@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.56 2002/10/25 08:55:58 rswindell Exp $
+// $Id: nntpservice.js,v 1.57 2002/10/25 09:12:59 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -16,7 +16,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.56 $".split(' ')[1];
+const REVISION = "$Revision: 1.57 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -213,6 +213,17 @@ while(client.socket.is_connected) {
 						));
 					msgbase.close();
 				}
+			writeln(".");	// end of list
+			break;
+
+		case "XGTITLE":
+			writeln("282 list of newsgroups follows");
+			for(g in msg_area.grp_list)
+				for(s in msg_area.grp_list[g].sub_list)
+					writeln(format("%s %s"
+						,msg_area.grp_list[g].sub_list[s].newsgroup
+						,msg_area.grp_list[g].sub_list[s].description
+						));
 			writeln(".");	// end of list
 			break;
 
