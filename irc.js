@@ -2,9 +2,9 @@
 
 // Deuce's IRC client module for Synchronet
 
-// $Id: irc.js,v 1.2 2003/01/06 00:27:06 rswindell Exp $
+// $Id: irc.js,v 1.3 2003/01/16 02:00:50 rswindell Exp $
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -1110,7 +1110,7 @@ function Screen_print_line(line)  {
 			}
 		}
 	}
-	if(i<78)  {
+	if(i<=78)  {
 		console.print(prev_colour+line.substr(linestart));
 		this.line.shift();
 		this.line.push(prev_colour+line.substr(linestart));
