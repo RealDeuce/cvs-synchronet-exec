@@ -4,7 +4,7 @@
 
 // Planned replacement for exec/typehtml.src (Baja version)
 
-// $Id: typehtml.js,v 1.3 2003/07/17 03:46:27 rswindell Exp $
+// $Id: typehtml.js,v 1.4 2003/08/28 04:20:03 rswindell Exp $
 
 var NORMAL			="\1N\1H"
 var HEADING1		="\1H\1Y"
@@ -20,12 +20,15 @@ var STRIKE_THROUGH	="\1N\1K\x017"
 var LIST_ITEM 		="\1N\r\n    \1H\1Wo \1G"
 
 var f;
-var mono=false;
+var mono=true;
 
 for(i in argv) {
 	switch(argv[i].toLowerCase()) {
 	case "-mono":
 		mono=true;
+		break;
+	case "-color":
+		mono=false;
 		break;
 	default:
 		f = new File(argv[i]);
