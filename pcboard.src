@@ -2,7 +2,7 @@
 
 # PCBoard v15.1 menu/command emulation
 
-# $Id: pcboard.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
+# $Id: pcboard.src,v 1.5 2001/06/22 02:57:52 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -239,7 +239,7 @@ cmdstr WHO
 	end_cmd
 
 cmdstr CHAT
-	chat_section
+	exec_bin chat_sec
 	end_cmd
 
 cmdstr NEWS

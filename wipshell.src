@@ -3,7 +3,7 @@
 # WIP Windows Interface Protocol {tm} Durand Communications Networks, Inc.
 # Command Shell for Synchronet Multinode BBS Software
 
-# $Id: wipshell.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
+# $Id: wipshell.src,v 1.5 2001/06/22 02:57:52 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -30,7 +30,7 @@ logkey_comma
 
 cmdkey C
 	print_local "Chat\r\n"
-        chat_section
+        exec_bin chat_sec
         end_cmd
 
 cmdkey D
