@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.68 2003/02/26 06:40:53 rswindell Exp $
+// $Id: nntpservice.js,v 1.69 2003/03/07 07:27:30 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.68 $".split(' ')[1];
+const REVISION = "$Revision: 1.69 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -400,7 +400,7 @@ while(client.socket.is_connected) {
 				break;
 			}
 			if(cmd[1]==undefined) {
-				writeln("420 article selected");
+				writeln("420 no current article has been selected");
 				break;
 			}
 			if(cmd[1]!='') {
@@ -422,6 +422,8 @@ while(client.socket.is_connected) {
 				writeln("430 no such article found");
 				break;
 			}
+
+			current_article=hdr.number;
 
 			if(cmd[0].toUpperCase()!="HEAD")
 				body=msgbase.get_msg_body(false,current_article
