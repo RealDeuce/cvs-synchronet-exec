@@ -3,9 +3,9 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.9 2003/03/11 10:17:49 rswindell Exp $
+// $Id: irc.js,v 1.10 2003/03/28 05:21:19 deuce Exp $
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -26,8 +26,21 @@ var nick=user.handle;
 var nicks=new Array();
 var loading=true;
 var init_passthru=console.ctrlkey_passthru;
+var real_names=true;
 console.ctrlkey_passthru=~(134217728);
 
+/* Command-line options go BEFORE command-line args */
+LOOP :
+while(1)  {
+	switch(argv[0])  {
+		case "-A":
+		case "-a":
+			real_names=false;
+			argv.shift();
+		default:
+			break LOOP;
+	}
+}
 /* Command-line args can override default server values */
 if(argv[0]!=undefined)
 	irc_server=argv[0];
@@ -57,7 +70,7 @@ nick=nick.replace(/\s+/g,"_");
 sock.send("NICK "+nick+"\r\n");
 username=user.alias;
 username=username.replace(/\s+/g,"_");
-sock.send("USER "+username+" 0 * :"+user.name+"\r\n");
+sock.send("USER "+username+" 0 * :"+(real_names?user.name:user.alias)+"\r\n");
 
 channels=new Channels();
 
@@ -1301,7 +1314,7 @@ function Screen_handle_key(key)  {
 			break;
 		default:
 			if(ascii(key)<ascii(' '))  {
-				if(console.handle_ctrlkey!=undefined)  {
+				if(ascii(key) != 27 && console.handle_ctrlkey!=undefined)  {
 					console.line_counter=0;	// defeat pause
 					console.ansi_gotoxy(1,console.screen_rows-1);
 					console.clearline();
