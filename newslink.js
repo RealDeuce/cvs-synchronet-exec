@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.80 2005/03/03 03:29:03 rswindell Exp $
+// $Id: newslink.js,v 1.81 2005/03/04 21:22:15 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.80 $".split(' ')[1];
+const REVISION = "$Revision: 1.81 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -524,7 +524,7 @@ for(i in area) {
 		if(parseInt(readln())==224) {
 			printf("Getting headers for articles %u through %u\r\n", ptr, last_msg);
 			article_list = new Array();
-			while((rsp=readln())!='.' && socket.is_connected) {
+			while((rsp=readln())!='.' && socket.is_connected && !js.terminated) {
 				if(rsp)
 					article_list.push(parseInt(rsp));
 			}
@@ -558,7 +558,7 @@ for(i in area) {
 		var recv_lines=0;
         var file=undefined;   
         var md5; 
-		while(socket.is_connected) {
+		while(socket.is_connected && !js.terminated) {
 
 			if(recv_lines && lines_per_yield && (recv_lines%lines_per_yield)==0)
 				sleep(yield_length);
@@ -572,7 +572,7 @@ for(i in area) {
 
 			recv_lines++;
 
-			//printf("msgtxt: %s\r\n",line);
+//			printf("msgtxt: %s\r\n",line);
 
 			if(line==".") {
 //				print("End of message text");
