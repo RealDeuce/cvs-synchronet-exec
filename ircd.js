@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.41 2003/09/21 11:06:19 cyan Exp $
+// $Id: ircd.js,v 1.42 2003/09/21 11:13:45 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.41 $".split(' ')[1];
+const REVISION = "$Revision: 1.42 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -3905,7 +3905,7 @@ function IRCClient_server_commands(origin, command, cmdline) {
 				if (chan.created > parseInt(cmd[1]))
 					chan.created = parseInt(cmd[1]);
 
-				this.bcast_to_servers_raw(":" + servername + " SJOIN " + chan.created + " " + chan.nam + " " + chan.chanmode(true) + " :" + new_chan_members)
+				this.bcast_to_servers_raw(":" + ThisOrigin.nick + " SJOIN " + chan.created + " " + chan.nam + " " + chan.chanmode(true) + " :" + new_chan_members)
 			} else {
 				ThisOrigin.channels.push(chan.nam.toUpperCase());
 				chan.users.push(ThisOrigin.id);
