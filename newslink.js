@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.43 2003/01/10 02:06:16 rswindell Exp $
+// $Id: newslink.js,v 1.44 2003/03/08 07:40:03 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -21,7 +21,7 @@
 // a		convert extended-ASCII chars to ASCII on imported messages
 // r		remove "Newsgroups:" header field from imported messages
 
-const REVISION = "$Revision: 1.43 $".split(' ')[1];
+const REVISION = "$Revision: 1.44 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -236,7 +236,7 @@ for(i in area) {
 	/* Read Pointer File */
 	/*********************/
 	export_ptr = 0;
-	import_ptr = ~0;	// Set to highest possible message number
+	import_ptr = NaN;	// Set to highest possible message number
 	ptr_fname = msgbase.file + ".snl";
 	ptr_file = new File(ptr_fname);
 	if(ptr_file.open("rb")) {
@@ -403,7 +403,7 @@ for(i in area) {
 	if(ptr < first_msg)
 		ptr = first_msg;
 	else {
-		if(ptr > last_msg)
+		if(ptr > last_msg || isNaN(ptr))
 			ptr = last_msg;
 		ptr++;
 	}
