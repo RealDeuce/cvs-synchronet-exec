@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.22 2003/04/02 00:43:56 rswindell Exp $
+// $Id: fingerservice.js,v 1.23 2003/04/23 09:06:59 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.22 $".split(' ')[1];
+const REVISION = "$Revision: 1.23 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -96,10 +96,15 @@ function xtrn_name(code)
 	if(this.xtrn_area==undefined)
 		return(code);
 
-	for(s in xtrn_area.sec_list)
-		for(p in xtrn_area.sec_list[s].prog_list)
-			if(xtrn_area.sec_list[s].prog_list[p].code.toLowerCase()==code.toLowerCase())
-				return(xtrn_area.sec_list[s].prog_list[p].name);
+	if(xtrn_area.prog!=undefined)
+		if(xtrn_area.prog[code]!=undefined)
+			return(xtrn_area.prog[code].name);
+	else {	/* old way */
+		for(s in xtrn_area.sec_list)
+			for(p in xtrn_area.sec_list[s].prog_list)
+				if(xtrn_area.sec_list[s].prog_list[p].code.toLowerCase()==code.toLowerCase())
+					return(xtrn_area.sec_list[s].prog_list[p].name);
+	}
 	return(code);
 }
 
