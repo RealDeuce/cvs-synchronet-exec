@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.6 2003/09/02 10:43:13 cyan Exp $
+// $Id: ircd.js,v 1.7 2003/09/02 20:15:49 rswindell Exp $
 //
 // ircd.js
 //
@@ -353,11 +353,11 @@ function wallopers(str) {
 function push_nickbuf(oldnick,newnick) {
 	NickHistory.unshift(new NickBuf(oldnick,newnick));
 	if(NickHistory.length >= nick_buffer)
-		NickHistory.pop;
+		NickHistory.pop();
 }
 
 function search_nickbuf(bufnick) {
-	for (nb=0;nb<nick_buffer;nb++) {
+	for (nb=0;nb<NickHistory.length;nb++) {
 		if (NickHistory[nb] && (bufnick.toUpperCase() == NickHistory[nb].oldnick.toUpperCase())) {
 			if (!searchbynick(NickHistory[nb].newnick))
 				return search_nickbuf(NickHistory[nb].newnick);
