@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.32 2003/09/12 18:39:48 cyan Exp $
+// $Id: ircd.js,v 1.33 2003/09/12 21:03:26 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.32 $".split(' ')[1];
+const REVISION = "$Revision: 1.33 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -859,6 +859,7 @@ nick_pointer = 0;
 
 // Parse command-line arguments.
 config_filename="";
+var cmdline_port;
 for (cmdarg=0;cmdarg<argc;cmdarg++) {
 	switch(argv[cmdarg].toLowerCase()) {
 		case "-f":
