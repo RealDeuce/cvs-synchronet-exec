@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.35 2003/09/19 08:34:05 rswindell Exp $
+// $Id: ircd.js,v 1.36 2003/09/19 09:02:37 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.35 $".split(' ')[1];
+const REVISION = "$Revision: 1.36 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -196,6 +196,7 @@ function int_to_ip(ip) {
 }
 
 function terminate_everything(terminate_reason) {
+	log("Terminating: " + terminate_reason);
 	for(thisClient in Clients) {
 		var Client = Clients[thisClient];
 		if (Client && Client.local)
@@ -3231,9 +3232,7 @@ function IRCClient_registered_commands(command, cmdline) {
 				break;
 			}
 			log("!ERROR! Shutting down the ircd as per " + this.ircnuh);
-			if(this.js!=undefined)
-				js.terminated = true;
-			server.terminated = true;
+			js.terminated = true;
 			break;
 		case "REHASH":
 			if (!((this.mode&USERMODE_OPER) &&
