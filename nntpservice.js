@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.70 2003/03/07 08:39:45 rswindell Exp $
+// $Id: nntpservice.js,v 1.71 2003/04/23 09:06:13 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.70 $".split(' ')[1];
+const REVISION = "$Revision: 1.71 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -95,6 +95,7 @@ var username='';
 var msgbase=null;
 var selected=null;
 var current_article=0;
+var quit=false;
 
 writeln(format("200 %s News (Synchronet %s%s-%s NNTP Service %s)"
 		,system.name,system.version,system.revision,system.platform,REVISION));
@@ -102,7 +103,7 @@ writeln(format("200 %s News (Synchronet %s%s-%s NNTP Service %s)"
 if(!no_anonymous)
 	login("guest");	// Login as guest/anonymous by default
 
-while(client.socket.is_connected) {
+while(client.socket.is_connected && !quit) {
 
 	// Get Request
 	cmdline = client.socket.recvline(512 /*maxlen*/, 300 /*timeout*/);
@@ -163,7 +164,7 @@ while(client.socket.is_connected) {
 			continue;
 		case "QUIT":
 			writeln("205 closing connection - goodbye!");
-			client.socket.close();
+			quit=true;
 			continue;
 	}
 
@@ -558,7 +559,7 @@ while(client.socket.is_connected) {
 				//log(format("msgtxt: %s",line));
 
 				if(line==".") {
-					log("End of message text");
+					log(format("End of message text (%u chars)",body.length));
 					break;
 				}
 				if(line=="" && header) {
@@ -624,7 +625,8 @@ while(client.socket.is_connected) {
 							if(msgbase.open!=undefined && msgbase.open()==false)
 								continue;
 						    if(msgbase.save_msg(hdr,body)) {
-							    log(format("%s posted a message on %s",user.alias,newsgroups[n]));
+							    log(format("%s posted a message (%lu chars) on %s"
+									,user.alias, body.length, newsgroups[n]));
 							    writeln("240 article posted ok");
 							    posted=true;
 								msgs_posted++;
