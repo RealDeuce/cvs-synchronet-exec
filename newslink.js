@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.48 2003/04/23 02:01:22 rswindell Exp $
+// $Id: newslink.js,v 1.49 2003/04/23 03:11:22 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -22,7 +22,7 @@
 // r		remove "Newsgroups:" header field from imported messages
 // u		uudecode attachments
 
-const REVISION = "$Revision: 1.48 $".split(' ')[1];
+const REVISION = "$Revision: 1.49 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -509,7 +509,7 @@ for(i in area) {
 			file.close();
 
 		if(truncsp(body).length==0) {
-			printf("Not importing blank message: %lu",ptr);
+			printf("Message %lu not imported (blank)",ptr);
 			continue;
 		}
 
