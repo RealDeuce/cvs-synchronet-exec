@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.23 2003/09/09 17:59:13 cyan Exp $
+// $Id: ircd.js,v 1.24 2003/09/09 20:31:01 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.23 $".split(' ')[1];
+const REVISION = "$Revision: 1.24 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -194,7 +194,7 @@ function dec_to_ip(ip) {
 function terminate_everything(terminate_reason) {
 	for(thisClient in Clients) {
 		var Client = Clients[thisClient];
-		if (Client.local)
+		if (Client && Client.local)
 			Client.quit(terminate_reason,false)
 	}
 	exit();
@@ -204,9 +204,11 @@ function searchbynick(nick) {
 	if (!nick)
 		return 0;
 	for(thisClient in Clients) {
-		Client=Clients[thisClient];
-		if ((nick.toUpperCase() == Client.nick.toUpperCase()) &&
-		    Client.conntype && !Client.server)
+		var Client=Clients[thisClient];
+		if (Client 
+			&& nick.toUpperCase() == Client.nick.toUpperCase() 
+			&& Client.conntype 
+			&& !Client.server)
 			return Client; // success!
 	}
 	return 0; // failure
