@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.64 2003/07/01 08:22:33 rswindell Exp $
+// $Id: newslink.js,v 1.65 2003/09/20 08:24:14 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.64 $".split(' ')[1];
+const REVISION = "$Revision: 1.65 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -411,7 +411,7 @@ for(i in area) {
 			+ system.inetaddr
 			+ " [Synchronet "
 			+ system.version + system.revision 
-			+ "-" + system.platform
+			+ "-" + system.platform + system.beta_version
 			+ " NewsLink " + REVISION
 			+ "]"
 			);

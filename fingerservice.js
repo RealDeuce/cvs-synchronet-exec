@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.25 2003/05/14 19:59:17 rswindell Exp $
+// $Id: fingerservice.js,v 1.26 2003/09/20 08:24:13 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.25 $".split(' ')[1];
+const REVISION = "$Revision: 1.26 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -196,7 +196,7 @@ if(request.charAt(0)=='?') {	// Handle "special" requests
 		case "ver":
 			writeln("Synchronet Finger Service " + REVISION);
 			writeln(server.version);
-			writeln(system.version_notice + system.revision);
+			writeln(system.version_notice + system.revision + system.beta_version);
 			writeln("Compiled " + system.compiled_when + " with " + system.compiled_with);
 			writeln(system.js_version);
 			writeln(system.os_version);
