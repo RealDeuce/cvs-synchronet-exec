@@ -2,7 +2,7 @@
 
 # Synchronet v2.20 Logon Module
 
-# $Id: logon.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
+# $Id: logon.src,v 1.5 2000/11/08 22:15:40 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -88,9 +88,9 @@ set i 0
 	add i 1
 	compare i 1
 	if_equal
-		set str "LOGON"
+		set str "logon"
 	else
-		sprintf str "LOGON%ld" i
+		sprintf str "logon%ld" i
 		end_if
 	chkfile "%zmenu/%s.*"
 	if_false
@@ -111,7 +111,7 @@ user_event event_logon
 clear_abort
 cls
 str logonlst
-set logonlst "%jLOGON.LST"
+set logonlst "%jlogon.lst"
 get_file_length i logonlst
 compare i 1
 if_less
