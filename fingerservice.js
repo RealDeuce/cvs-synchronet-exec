@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.24 2003/05/08 22:55:01 rswindell Exp $
+// $Id: fingerservice.js,v 1.25 2003/05/14 19:59:17 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.24 $".split(' ')[1];
+const REVISION = "$Revision: 1.25 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -85,7 +85,7 @@ function send_file(fname)
 function test_port(port)
 {
 	sock = new Socket();
-	success = sock.connect("localhost",port);
+	success = sock.connect(system.host_name,port);
 	sock.close();
 
 	return(success);
