@@ -6,13 +6,13 @@
 // and export any new messages to the mail database to be sent to one or more
 // list-server e-mail addresses.
 
-// $Id: mlistgate.js,v 1.2 2003/11/14 02:18:42 rswindell Exp $
+// $Id: mlistgate.js,v 1.3 2004/05/21 23:35:15 rswindell Exp $
 
 // Configuration file (in ctrl/mlistgate.cfg) format:
 
 // <subcode> <fromaddr> <toaddr> [toaddr] [...]
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 printf("Synchronet Mailing List Gateway %s session started\r\n", REVISION);
 
@@ -165,9 +165,12 @@ for(i in area) {
 			hdr.from_net_type = NET_INTERNET;
 
 			/* Copy to message base */
-			mailbase.save_msg(hdr,body);
-			printf("Exported message %lu to list server: %s\r\n",ptr,listserv);
-			exported++;
+			if(mailbase.save_msg(hdr,body)) {
+				printf("Exported message %lu to list server: %s\r\n",ptr,listserv);
+				exported++;
+			} else
+				printf("ERROR %s exporting message %lu to list server: %s\r\n"
+					,msgbase.error, ptr, listserv);
 		}
 	}
 	if(ptr > msgbase.last_msg)
