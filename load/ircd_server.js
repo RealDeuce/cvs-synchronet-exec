@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.7 2003/12/05 14:19:04 cyan Exp $
+// $Id: ircd_server.js,v 1.8 2003/12/06 06:49:01 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.7 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -72,6 +72,7 @@ function IRC_Server() {
 	this.synchronize=IRCClient_synchronize;
 	this.reintroduce_nick=IRCClient_reintroduce_nick;
 	this.finalize_server_connect=IRCClient_finalize_server_connect;
+	this.do_msg=IRCClient_do_msg;
 	// Global Functions
 	this.check_timeout=IRCClient_check_timeout;
 	this.set_chanmode=IRCClient_set_chanmode;
@@ -636,7 +637,7 @@ function Server_Work() {
 			} else {
 				break;
 			}
-			this.bcast_to_servers_raw(":" + newsrv.linkparent + " SERVER " + newsrv.nick + " " + (parseInt(newsrv.hops)+1) + " :" + newsrv.realname);
+			this.bcast_to_servers_raw(":" + newsrv.linkparent + " SERVER " + newsrv.nick + " " + (parseInt(newsrv.hops)+1) + " :" + newsrv.info);
 			break;
 		case "SJOIN":
 			if (!cmd[2])
