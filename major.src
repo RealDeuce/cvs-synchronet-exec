@@ -2,7 +2,7 @@
 
 # MajorBBS Clone Command Shell for Synchronet
 
-# $Id: major.src,v 1.6 2001/06/22 02:57:51 rswindell Exp $
+# $Id: major.src,v 1.7 2004/05/10 21:14:40 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -54,7 +54,7 @@ cmdkey E
 
 	cmdkey W
 		print "_\r\nbhE-mail (User name or number): w"
-		getname 25
+		getname 40
 		compare_str ""
 		if_true
 			end_cmd
@@ -77,7 +77,7 @@ cmdkey E
 
 	cmdkey U
 		print "_\r\nbhE-mail (User name or number): w"
-		getname 25
+		getname 40
 		compare_str ""
 		if_true
 			end_cmd

@@ -3,7 +3,7 @@
 # WIP Windows Interface Protocol {tm} Durand Communications Networks, Inc.
 # Command Shell for Synchronet Multinode BBS Software
 
-# $Id: wipshell.src,v 1.6 2002/07/19 00:26:26 rswindell Exp $
+# $Id: wipshell.src,v 1.7 2004/05/10 21:14:40 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -179,7 +179,7 @@ end_cmd
 
 :sendmail
 print "\r\nbhSend E-mail to (User name or number): n"
-getname 25
+getname 40
 compare_str ""
 if_true
 	return
