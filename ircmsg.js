@@ -1,10 +1,10 @@
 /* ircmsg.js */
 
-/* $Id: ircmsg.js,v 1.17 2004/11/19 08:57:15 deuce Exp $ */
+/* $Id: ircmsg.js,v 1.18 2004/11/19 09:02:08 deuce Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.17 $".split(' ')[1];
+const REVISION = "$Revision: 1.18 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -38,7 +38,7 @@ for(i=0;i<argc;i++) {
 	}
 }
 
-if(passedmsg && (msg==undefined || msg.search(/^\s*$/)!=-1)) {
+if(passedmsg && (msg==undefined || msg.search(/^[\r\n]*$/)!=-1)) {
 	log("-m specified with blank message... aborting");
 	exit();
 }
@@ -90,7 +90,7 @@ IRC_quit(my_server);
 
 function send(msg)
 {
-	if(msg==undefined || msg.search(/^\s*$/)!=-1) {
+	if(msg==undefined || msg.search(/^[\r\n]*$/)!=-1) {
 		log("Not sending blank message");
 		return;
 	}
