@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.80 2004/05/27 01:46:39 rswindell Exp $
+// $Id: nntpservice.js,v 1.81 2004/08/21 01:35:12 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -27,7 +27,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.80 $".split(' ')[1];
+const REVISION = "$Revision: 1.81 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -100,6 +100,12 @@ function getReferenceTo(hdr) {
 			    }
 
 	return to; //no match
+}
+
+// Generate an Xref header
+function xref(msgbase, hdr)
+{
+	return(format("%s %s:%u",system.local_host_name, msgbase.cfg.newsgroup, hdr.number));
 }
 
 var username='';
@@ -231,6 +237,7 @@ while(client.socket.is_connected && !quit) {
 				writeln("References:");
 				writeln("Bytes:");
 				writeln("Lines:");
+				writeln("Xref:");
 			}
 			else {
 				writeln("215 list of newsgroups follows");
@@ -337,7 +344,7 @@ while(client.socket.is_connected && !quit) {
 					continue;
 				if(hdr.attr&MSG_DELETE)	/* marked for deletion */
 					continue;
-				writeln(format("%u\t%s\t%s\t%s\t%s\t%s\t%u\t%u"
+				writeln(format("%u\t%s\t%s\t%s\t%s\t%s\t%u\t%u\t%s"
 					,i
 					,hdr.subject
 					,hdr.from
@@ -346,6 +353,7 @@ while(client.socket.is_connected && !quit) {
 					,hdr.reply_id	// references
 					,hdr.data_length	// byte count
 					,Math.round(hdr.data_length/79)+1	// line count
+					,xref(msgbase,hdr);
 					));
 			}
 			writeln(".");	// end of list
@@ -399,6 +407,9 @@ while(client.socket.is_connected && !quit) {
 						break;
 					case "lines":
 						field=Math.round(hdr.data_length/79)+1;
+						break;
+					case "xref":
+						field=xref(msgbase,hdr):
 						break;
 					/* FidoNet header fields */
 					case "x-ftn-pid":
