@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.10 2001/08/04 01:32:14 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.11 2001/11/09 02:06:30 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -426,7 +426,7 @@ var   FILE_ANON 	=(1<<1)		/* Anonymous upload							*/
 					    		/********************************************/
 								/* Bits in the mode of bbs.exec()           */
 					    		/********************************************/
-var   EX_CC			=(1<<0)		/* Use command.com to load other process    */
+var   EX_SH			=(1<<0)		/* Use system shell to load other process   */
 var   EX_OUTR		=(1<<1)		/* Copy DOS output to remote                */
 var   EX_OUTL 		=(1<<2)		/* Use _lputc() for local DOS output		*/
 var   EX_INR		=(1<<3)		/* Trap int 16h keyboard input requests     */
@@ -436,6 +436,7 @@ var   EX_POPEN		=(1<<7)		/* Leave COM port open						*/
 var   EX_OFFLINE	=(1<<8)		/* Run this program offline					*/
 var   EX_NATIVE		=(1<<9)		/* Native 32-bit application				*/
 var   EX_BG			=(1<<10)	/* Back-ground/detached process				*/
+var   EX_BIN		=(1<<11)	/* Binary mode (no Unix LF to CR/LF)		*/
 					    		/********************************************/
 
 					    		/********************************************/
