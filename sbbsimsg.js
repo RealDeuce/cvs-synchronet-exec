@@ -3,9 +3,9 @@
 // Synchronet inter-bbs instant message module
 // uses Finger and SMTP TCP/IP protocols
 
-// $Id: sbbsimsg.js,v 1.17 2003/01/09 04:11:18 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.18 2003/07/03 02:02:16 rswindell Exp $
 
-const REVISION = "$Revision: 1.17 $".split(' ')[1];
+const REVISION = "$Revision: 1.18 $".split(' ')[1];
 
 const UDP_RESPONSE_TIMEOUT = 5000	// milliseconds
 
@@ -208,11 +208,11 @@ function list_users(show)
 		sock = new Socket();
 		is_connected = false;
 		if(sys[i].ip != undefined) {
-			is_connected = sock.connect(sys[i].ip,79);
+			is_connected = sock.connect(sys[i].ip,79,5);
 			if(!is_connected)
 				sys[i].ip = undefined;	// IP no good, remove from cache
 		}
-		if(!is_connected && !sock.connect(sys[i].addr,79)) {
+		if(!is_connected && !sock.connect(sys[i].addr,79,5)) {
 			log(format("!Finger connection to %s FAILED with error %d"
 				,sys[i].addr,sock.last_error));
 			alert("system not available");
