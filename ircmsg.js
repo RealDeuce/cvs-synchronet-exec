@@ -1,10 +1,10 @@
 /* ircmsg.js */
 
-/* $Id: ircmsg.js,v 1.15 2004/11/19 08:16:45 deuce Exp $ */
+/* $Id: ircmsg.js,v 1.16 2004/11/19 08:22:02 deuce Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.15 $".split(' ')[1];
+const REVISION = "$Revision: 1.16 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -36,10 +36,12 @@ for(i=0;i<argc;i++) {
 	}
 }
 
-msg.replace(/\t/,
-	function(str,offset,s) {
-		return('        '.substr(0,(offset % 8)));
+if(msg!=undefined) {
+	msg.replace(/\t/,
+		function(str,offset,s) {
+			return('        '.substr(0,(offset % 8)));
 	});
+}
 
 log("Using nick: " + nick);
 log("Connecting to: " +server+ " port " + port);
