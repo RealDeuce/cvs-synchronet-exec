@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.57 2002/10/25 09:12:59 rswindell Exp $
+// $Id: nntpservice.js,v 1.58 2002/10/30 10:36:02 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -16,7 +16,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.57 $".split(' ')[1];
+const REVISION = "$Revision: 1.58 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -78,11 +78,14 @@ function getReferenceTo(reference) {
 	var msg = parseInt(reference.replace(re,"$1"));
 
 	var msgbase = new MsgBase(sub);
-	if (msgbase != null) {
-		var hdr = msgbase.get_msg_header(false,msg);
-		if (hdr != null)
-			to = hdr.from;
-	}
+	if(msgbase.open!=undefined && msgbase.open()==false)
+		return to;
+
+	var hdr = msgbase.get_msg_header(false,msg);
+	if (hdr != null)
+		to = hdr.from;
+
+	msgbase.close();
 
 	return to;
 }
@@ -205,6 +208,8 @@ while(client.socket.is_connected) {
 			for(g in msg_area.grp_list)
 				for(s in msg_area.grp_list[g].sub_list) {
 					msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+					if(msgbase.open!=undefined && msgbase.open()==false)
+						continue;
 					writeln(format("%s %u %u %s"
 						,msg_area.grp_list[g].sub_list[s].newsgroup
 						,msgbase.last_msg
@@ -237,9 +242,12 @@ while(client.socket.is_connected) {
 			for(g in msg_area.grp_list)
 				for(s in msg_area.grp_list[g].sub_list)
 					if(msg_area.grp_list[g].sub_list[s].newsgroup.toLowerCase()==cmd[1].toLowerCase()) {
-						found=true;
 						msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+						if(msgbase.open!=undefined && msgbase.open()==false)
+							continue;
+						found=true;
 						selected=msg_area.grp_list[g].sub_list[s];
+						break;
 					}
 			if(found)
 				writeln(format("211 %u %u %u %s group selected"
@@ -652,6 +660,8 @@ while(client.socket.is_connected) {
 							    hdr.from=user.name;	// Use real names
 
 						    msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+							if(msgbase.open!=undefined && msgbase.open()==false)
+								continue;
 						    if(msgbase.save_msg(hdr,body)) {
 							    log(format("%s posted a message on %s",user.alias,newsgroups[n]));
 							    writeln("240 article posted ok");
