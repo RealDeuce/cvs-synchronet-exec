@@ -2,11 +2,11 @@
 
 // Client for Synchronet dynamic DNS service (yourbbs.synchro.net)
 
-// $Id: dyndns.js,v 1.5 2004/01/20 09:46:57 rswindell Exp $
+// $Id: dyndns.js,v 1.6 2004/01/30 21:09:47 cyan Exp $
 
 // usage: ?dyndns <password>
 
-const REVISION = "$Revision: 1.5 $".split(' ')[1];
+const REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 printf("Synchronet Dynamic DNS Client %s\r\n", REVISION);
 
@@ -20,7 +20,8 @@ function writeln(str)
 
 for(h in host_list) {
 	sock = new Socket();
-	if(!sock.bind(0,server.interface_ip_address)) {
+	if( (this.server != undefined) &&
+	    !sock.bind(0,server.interface_ip_address)) {
 		printf("Error %lu binding socket to %s\r\n"
 			,sock.last_error,server.interface_ip_address);
 		continue;
