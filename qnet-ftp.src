@@ -1,6 +1,6 @@
 # qnet-ftp.src
 
-# $Id: qnet-ftp.src,v 1.1 2001/04/10 01:49:31 rswindell Exp $
+# $Id: qnet-ftp.src,v 1.2 2001/06/22 02:29:46 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -20,8 +20,7 @@
 #
 # *QNET-FTP VERT vert.synchro.net YOURPASS
 #
-# The asterisk is important! YOURPASS is your QWKnet password here on Vertrauen
-. 
+# The asterisk is important! YOURPASS is your QWKnet password here on Vertrauen. 
 #
 # No modification or recompilation of this module should be necessary.
 
