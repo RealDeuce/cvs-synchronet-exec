@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.19 2005/01/18 04:04:28 rswindell Exp $
+// $Id: listserver.js,v 1.20 2005/01/18 06:10:31 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.19 $".split(' ')[1];
+const REVISION = "$Revision: 1.20 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -44,13 +44,13 @@ for(var l in list_array) {
 	/* Set default list addresses */
 	if(!list.address)
 		list.address = format("%s@%s", list.name, system.inet_addr);
-	if(!msg_area.sub[list.sub]) {
+	if(!msg_area.sub[list.sub.toLowerCase()]) {
 		log(LOG_WARNING,"ListServer: !Unrecognized sub-board internal code: '" + list.sub + "'");
 		list.disabled=true;
 		continue;
 	}
 	if(!list.description)
-		list.description = msg_area.sub[list.sub].description;
+		list.description = msg_area.sub[list.sub.toLowerCase()].description;
 	if(list.confirm==undefined)
 		list.confirm=true;
 
