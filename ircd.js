@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.109 2003/12/30 14:32:56 cyan Exp $
+// $Id: ircd.js,v 1.110 2003/12/30 15:38:36 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.109 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.110 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -752,23 +752,24 @@ while (!server.terminated) {
 		}
 	}
 
-	if (rebuild_socksel_array) {
-		Selectable_Sockets = new Array;
-		Selectable_Sockets_Map = new Array
-		for (i in Local_Sockets) {
-			Selectable_Sockets.push(Local_Sockets[i]);
-			Selectable_Sockets_Map.push(Local_Sockets_Map[i]);
-		}
-		rebuild_socksel_array = false;
-	}
-
 	// Check for ping timeouts, and, do work on the sockets if we're 3.10
 	for(this_sock in Selectable_Sockets) {
 		if (Selectable_Sockets_Map[this_sock] &&
 		    Selectable_Sockets_Map[this_sock].check_timeout())
 			continue;
-		if(this.socket_select==undefined)
+		if(sync_310)
 			Selectable_Sockets_Map[this_sock].work();
+	}
+
+
+	if (rebuild_socksel_array) {
+		Selectable_Sockets = new Array;
+		Selectable_Sockets_Map = new Array;
+		for (i in Local_Sockets) {
+			Selectable_Sockets.push(Local_Sockets[i]);
+			Selectable_Sockets_Map.push(Local_Sockets_Map[i]);
+		}
+		rebuild_socksel_array = false;
 	}
 
 	// do some work.
