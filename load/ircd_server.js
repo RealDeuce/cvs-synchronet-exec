@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.14 2003/12/17 06:04:35 cyan Exp $
+// $Id: ircd_server.js,v 1.15 2003/12/30 14:32:56 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.14 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.15 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -203,10 +203,15 @@ function Server_Work() {
 		case "AWAY":
 			if (ThisOrigin.server)
 				break;
-			if (!cmd[1])
+			var send_away = "AWAY";
+			if (!cmd[1]) {
 				ThisOrigin.away = "";
-			else
-				ThisOrigin.away = IRC_string(cmdline);
+			} else {
+				var my_ircstr = IRC_string(cmdline);
+				ThisOrigin.away = my_ircstr;
+				send_away += " :" + my_ircstr;
+			}
+			this.bcast_to_servers_raw(":" + ThisOrigin.nick + " " + send_away);
 			break;
 		case "CHATOPS":
 			if (!cmd[1])
