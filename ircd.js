@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.81 2003/10/24 23:06:31 cyan Exp $
+// $Id: ircd.js,v 1.82 2003/10/27 11:23:33 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.81 $".split(' ')[1];
+const REVISION = "$Revision: 1.82 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -602,6 +602,7 @@ function connect_to_server(this_cline,the_port) {
 	else if (!the_port)
 		the_port = default_port; // try a safe default.
 	connect_sock = new Socket();
+	connect_sock.bind(0,server.interface_ip_address);
 	connect_sock.connect(this_cline.host,the_port,ob_sock_timeout);
 	if (connect_sock.is_connected) {
 		umode_notice(USERMODE_ROUTING,"Routing",
@@ -895,7 +896,7 @@ function read_config_file() {
 function create_new_socket(port) {
 	log("Creating new socket object on port " + port);
 	var newsock = new Socket();
-	if(!newsock.bind(port)) {
+	if(!newsock.bind(port,server.interface_ip_address)) {
 		log("!Error " + newsock.error + " binding socket to TCP port " + port);
 		return 0;
 	}
@@ -1326,7 +1327,7 @@ function IRCClient_Quit(str,suppress_bcast,is_netsplit,origin) {
 		umode_notice(USERMODE_CLIENT,"Client","Client exiting: " +
 			this.nick + " (" + this.uprefix + "@" + this.hostname +
 			") [" + str + "] [" + this.ip + "]");
-		this.socket.close();
+//		this.socket.close();
 	}
 
 	this.conntype=TYPE_EMPTY;
