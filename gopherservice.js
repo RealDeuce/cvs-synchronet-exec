@@ -9,7 +9,7 @@
 load("sbbsdefs.js");
 load("nodedefs.js");
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 const GOPHER_PORT = client.socket.local_port;
 
 var debug = false;
@@ -228,7 +228,7 @@ switch(field[0]) {
 			writeln("From : " + hdr.from);
 			writeln("Date : " + system.timestr(hdr.when_written_time));
 			writeln("");
-			body=msgbase.get_msg_body(false,Number(field[2]),true)
+			body=msgbase.get_msg_body(false,Number(field[2]),true,true)
 			writeln(body);
 			msgbase.close();
 			break;
