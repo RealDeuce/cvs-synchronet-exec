@@ -1,10 +1,10 @@
 /* ircmsg.js */
 
-/* $Id: ircmsg.js,v 1.12 2004/11/19 07:59:32 deuce Exp $ */
+/* $Id: ircmsg.js,v 1.13 2004/11/19 08:01:46 deuce Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -36,7 +36,7 @@ for(i=0;i<argc;i++) {
 	}
 }
 
-if(msg == undefined || msg=='') {
+if(msg == undefined || msg.search(/^\s*$/)) {
 	log("Cowardly refusing to send empty message");
 	exit();
 }
