@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.19 2003/07/08 03:43:23 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.20 2003/09/26 23:16:55 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -548,6 +548,15 @@ var	SCAN_FIND		=(1<<4)		/* Scan for text in messages				*/
 var	SCAN_UNREAD		=(1<<5)		/* Find un-read messages to you 			*/
 					    		/********************************************/
 
+								/********************************************/
+								/* Bits in msg_area.sub[].scan_cfg			*/
+								/********************************************/
+var SCAN_CFG_NEW	=(1<<0)		/* Auto-scan for new messages				*/
+var SCAN_CFG_TOYOU	=(1<<1)		/* Auto-scan for unread messages to you		*/
+var SCAN_CFG_YONLY	=(1<<8)		/* Auto-scan for new messages to you only	*/
+								/********************************************/
+
+								/********************************************/
 								/********************************************/
 								/* Bits in mode for bbs.scan_dirs()			*/
 								/* bbs.list_files() & bbs.list_file_info()	*/
