@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.4 2003/01/03 22:01:03 rswindell Exp $
+// $Id: newuser.js,v 1.5 2003/01/04 15:44:52 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -97,7 +97,7 @@ if(system.name=="Vertrauen" &&
 /* Send New User Welcome E-mail */
 /********************************/
 welcome_msg = system.text_dir + "welcome.msg"; 
-if(send_newuser_welcome && file_exists(welcome_msg) && !qnet)
+if(send_newuser_welcome && file_exists(welcome_msg) && !qnet && user.number>1)
 	send_newuser_welcome_msg(welcome_msg);
 
 function send_newuser_welcome_msg(fname)
