@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.50 2002/08/09 07:28:54 rswindell Exp $
+// $Id: nntpservice.js,v 1.51 2002/08/14 07:01:22 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.50 $".split(' ')[1];
+const REVISION = "$Revision: 1.51 $".split(' ')[1];
 
 var debug = false;
 var no_anonymous = false;
@@ -52,6 +52,10 @@ function getReferenceTo(reference) {
 
 	//if TO is already established, return...
 	if (reference=="")
+		return to;
+
+	//if this didn't originate from this bbs.
+	if (reference.indexOf(system.inet_addr) < 0)
 		return to;
 
 	//Load the msgbase the original post was from
