@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.45 2003/03/12 10:18:30 rswindell Exp $
+// $Id: newslink.js,v 1.46 2003/03/19 00:01:04 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -21,7 +21,7 @@
 // a		convert extended-ASCII chars to ASCII on imported messages
 // r		remove "Newsgroups:" header field from imported messages
 
-const REVISION = "$Revision: 1.45 $".split(' ')[1];
+const REVISION = "$Revision: 1.46 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -151,6 +151,7 @@ while(!cfg_file.eof) {
 		case "tagline":
 			str.shift();				// Remove first element (keyword)
 			tagline=str.join(' ');		// Combine remaining elements (tagline)
+			tagline+="\r\n";
 			break;
 		default:
 			printf("!UNRECOGNIZED configuration keyword: %s\r\n",str[0]);
