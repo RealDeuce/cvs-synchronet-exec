@@ -4,11 +4,11 @@
 // for UUE and yEnc encoded binary attachments
 // Requires Synchronet v3.10m or later
 
-// $Id: binarydecoder.js,v 1.9 2003/07/12 11:23:16 rswindell Exp $
+// $Id: binarydecoder.js,v 1.10 2004/05/05 22:23:22 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 
 printf("Synchronet Binary Decoder %s session started\r\n", REVISION);
 
@@ -96,8 +96,7 @@ for(i in sub) {
 
 		hdr = msgbase.get_msg_header(
 			/* retrieve by offset? */	false,
-			/* message number */		ptr,
-			/* regenerate msg-id? */	false
+			/* message number */		ptr
 			);
 		if(hdr == null)
 			continue;
@@ -367,8 +366,9 @@ for(i in sub) {
 			}
 			parts_file.writeln("[" + obj.name + "]");
 			for(prop in obj)
-				parts_file.printf("%-20s=%s\n"
-					,prop.toString(), obj[prop].toString());
+				if(obj[prop]!=undefined)
+					parts_file.printf("%-20s=%s\n"
+						,prop.toString(), obj[prop].toString());
 			parts_file.writeln("; end of file: " + obj.name );
 			parts_file.writeln();
 		}

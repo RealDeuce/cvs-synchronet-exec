@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.74 2004/04/01 11:56:10 rswindell Exp $
+// $Id: newslink.js,v 1.75 2004/05/05 22:23:22 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.74 $".split(' ')[1];
+const REVISION = "$Revision: 1.75 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -345,8 +345,7 @@ for(i in area) {
 			console.line_counter = 0;
 		hdr = msgbase.get_msg_header(
 			/* retrieve by offset? */	false,
-			/* message number */		ptr,
-			/* regenerate msg-id? */	false
+			/* message number */		ptr
 			);
 		if(hdr == null)
 			continue;
