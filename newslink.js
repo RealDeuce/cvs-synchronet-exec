@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.54 2003/05/15 00:46:58 rswindell Exp $
+// $Id: newslink.js,v 1.55 2003/05/15 00:52:11 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -22,8 +22,9 @@
 // r		remove "Newsgroups:" header field from imported messages
 // u		uudecode attachments
 // i		import all (not just new articles)
+// s		no subject filtering
 
-const REVISION = "$Revision: 1.54 $".split(' ')[1];
+const REVISION = "$Revision: 1.55 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -449,7 +450,7 @@ for(i in area) {
 		var hdr={ from: "", to: newsgroup, subject: "", id: "" };
 		var line_counter=0;
 		var recv_lines=0;
-		var file;
+		var file=undefined;
 		var md5;
 		while(socket.is_connected) {
 
@@ -483,7 +484,7 @@ for(i in area) {
 				if(flags.indexOf('u')>=0) {	// uudecode attachments
 					if(line.substr(0,6)=="begin ") {
 						// Parse uuencode header
-						arg=line.split(' ');
+						arg=line.split(/\s+/);
 						arg.splice(0,2);	// strip "begin 666 "
 						fname=file_getname(arg.join(" "));
 						if(file_exists(attachment_dir + fname)) { // generate unique name, if necessary
@@ -546,7 +547,9 @@ for(i in area) {
 			}
 			md5_list.push(md5);
 			if(partial)
-				file_rename(file.name,hdr.subject.replace(/\//g,'.'));
+				file_rename(file.name
+					,attachment_dir 
+						+ hdr.subject.replace(/\//g,'.').replace(/ /g,'_') + ".part");
 		}
 
 		if(truncsp(body).length==0) {
@@ -567,7 +570,7 @@ for(i in area) {
 			&& hdr.gateway.indexOf(system.inetaddr)!=-1)
 			continue;
 
-		if(system.trashcan("subject",hdr.subject)) {
+		if(flags.indexOf('s')==-1 && system.trashcan("subject",hdr.subject)) {
 			printf("!BLOCKED subject: %s\r\n",hdr.subject);
 			var reason = format("Blocked subject (%s)",hdr.subject);
 			system.spamlog("NNTP","NOT IMPORTED",reason,hdr.from,server,hdr.to);
