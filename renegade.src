@@ -1,6 +1,6 @@
 # renegade.src
 
-# $Id: renegade.src,v 1.5 2001/06/22 02:57:52 rswindell Exp $
+# $Id: renegade.src,v 1.6 2003/07/12 06:31:48 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -449,6 +449,14 @@ cmdkey ?
 		menu renegade/transfer
 		end_if
 	end_cmd
+
+# Sysop Menu
+compare_ars SYSOP or exempt Q or I or N
+if_true
+	cmdkey *
+		call sysop
+		end_cmd
+	end_if
 
 # Commands
 
