@@ -3,7 +3,7 @@
 // Script to create the Guest/Anonymous user account
 // This is normally executed from logon.js (rev 1.7+)
 
-// $Id: makeguest.js,v 1.2 2003/02/21 01:10:40 rswindell Exp $
+// $Id: makeguest.js,v 1.3 2003/03/04 22:40:03 rswindell Exp $
 
 // Don't create guest account if sysop account hasn't been created yet
 if(!system.stats.total_users)	{
@@ -20,19 +20,19 @@ if(system.matchuser("Guest")) {
 load("sbbsdefs.js");	// needed for UFLAG_* definitions
 
 // Create the account
-user=system.new_user("Guest");
-user.gender='?';
-user.comment="This is the auto-generated Guest/Anonymous user account.";
+guest=system.new_user("Guest");
+guest.gender='?';
+guest.comment="This is the auto-generated Guest/Anonymous user account.";
 
 // Setup intelligent security parameters
-user.security.restrictions|=UFLAG_G;	// can't edit defaults (main 'Guest' indicator)
-user.security.restrictions|=UFLAG_K;	// can't read sent mail
-user.security.restrictions|=UFLAG_P;	// can't post
-user.security.restrictions|=UFLAG_M;	// can't post on networked subs (redundant)
-user.security.restrictions|=UFLAG_W;	// can't write to the auto-message
-user.security.exemptions|=UFLAG_G;		// multiple simultaneous logins
-user.security.exemptions|=UFLAG_L;		// unlimited logons per day
-user.security.exemptions|=UFLAG_T;		// unlimited time online
-user.security.exemptions|=UFLAG_P;		// permanent (never expires)
+guest.security.restrictions|=UFLAG_G;	// can't edit defaults (main 'Guest' indicator)
+guest.security.restrictions|=UFLAG_K;	// can't read sent mail
+guest.security.restrictions|=UFLAG_P;	// can't post
+guest.security.restrictions|=UFLAG_M;	// can't post on networked subs (redundant)
+guest.security.restrictions|=UFLAG_W;	// can't write to the auto-message
+guest.security.exemptions|=UFLAG_G;		// multiple simultaneous logins
+guest.security.exemptions|=UFLAG_L;		// unlimited logons per day
+guest.security.exemptions|=UFLAG_T;		// unlimited time online
+guest.security.exemptions|=UFLAG_P;		// permanent (never expires)
 
-printf("Guest account (user #%d) created successfully.\r\n",user.number);
+printf("Guest account (user #%d) created successfully.\r\n",guest.number);
