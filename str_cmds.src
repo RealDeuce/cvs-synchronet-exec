@@ -2,7 +2,7 @@
 
 # Global String Command Module for Synchronet
 
-# $Id: str_cmds.src,v 1.4 2000/11/01 05:01:53 rswindell Exp $
+# $Id: str_cmds.src,v 1.5 2000/11/01 11:42:23 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -216,6 +216,7 @@ if_true
 		end_if
 
 	compare_str "SPY"
+	if_true
 		chksyspass
 		if_true
 			shift_str 3
