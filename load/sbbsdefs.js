@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.14 2002/08/27 05:50:28 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.15 2002/08/29 00:43:07 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -393,6 +393,9 @@ var   SUB_GATE		=(1<<24)	/* Gateway between Network types			*/
 var   SUB_LZH 		=(1<<25)	/* Use LZH compression for msgs				*/
 var   SUB_SSDEF		=(1<<26)	/* Default ON for Scan for Your msgs		*/
 var   SUB_HYPER		=(1<<27)	/* Hyper allocation							*/
+var   SUB_EDIT		=(1<<28)	/* Users can edit msg text after posting	*/
+var   SUB_EDITLAST	=(1<<29)	/* Users can edit last message only			*/
+var   SUB_NOUSERSIG	=(1<<30)	/* Suppress user signatures					*/
 					    		/********************************************/
 
     							/********************************************/
