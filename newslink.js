@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.29 2002/08/09 07:28:54 rswindell Exp $
+// $Id: newslink.js,v 1.30 2002/09/15 00:26:33 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -14,7 +14,7 @@
 // area		subboard (internal code) newsgroup
 // ...
 
-const REVISION = "$Revision: 1.29 $".split(' ')[1];
+const REVISION = "$Revision: 1.30 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -319,6 +319,8 @@ for(i in area) {
 		if(hdr.newsgroups==undefined)
 			hdr.newsgroups=newsgroup;
 		writeln("Newsgroups: " + hdr.newsgroups);
+		if(hdr.replyto!=undefined)
+			writeln("Reply-To: " + hdr.replyto);
 		if(hdr.reply_id!=undefined)
 			writeln("References: " + hdr.reply_id);
 		writeln("X-Gateway: "
@@ -446,12 +448,14 @@ for(i in area) {
 				continue;
 
 			data=line.slice(sp+1);
-			while(data.charAt(0)==' ')	// skip prepended spaces
+			while(data.charAt(0)==' ')	// trim prepended spaces
 				data=data.slice(1);
+			data=truncsp(data);			// trim trailing spaces
 
 			line=line.substr(0,sp);
-			while(line.charAt(0)==' ')	// skip prepended spaces
+			while(line.charAt(0)==' ')	// trim prepended spaces
 				line=line.slice(1);
+			line=truncsp(line);			// trim trailing spaces
 
 			switch(line.toLowerCase()) {
 				case "to":
@@ -469,6 +473,10 @@ for(i in area) {
 					break;
 				case "from":
 					hdr.from=data;
+					break;
+				case "reply-to"
+					hdr.replyto_net_type=NET_INTERNET;
+					hdr.replyto=data;
 					break;
 				case "date":
 					hdr.date=data;
