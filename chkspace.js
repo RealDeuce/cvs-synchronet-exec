@@ -2,7 +2,7 @@
 
 // Requires minimum free disk space (in megabytes) as first argument
 
-// $Id: chkspace.js,v 1.7 2004/11/18 21:10:46 rswindell Exp $
+// $Id: chkspace.js,v 1.8 2004/11/18 21:28:45 rswindell Exp $
 
 // Example: "?chkspace [dir1] [dir2] [minfreespace]"
 
@@ -22,7 +22,7 @@ if(!dirs.length)
 
 msgbase = new MsgBase("mail");
 if(msgbase.open()==false) {
-	log("!ERROR " + msgbase.last_error);
+	log(LOG_ERR,"!ERROR " + msgbase.last_error);
 	exit();
 }
 
