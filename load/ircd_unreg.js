@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.4 2003/12/08 23:33:53 cyan Exp $
+// $Id: ircd_unreg.js,v 1.5 2003/12/09 00:00:37 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.4 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.5 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -170,7 +170,7 @@ function Unregistered_Commands() {
 				this.numeric461("SERVER");
 				break;
 			}
-			if (Servers[cmd[1].toUpperCase()]) {
+			if (Servers[cmd[1].toLowerCase()]) {
 				this.quit("Server already exists.");
 				return 0;
 			}
