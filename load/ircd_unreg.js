@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.7 2003/12/13 07:25:01 cyan Exp $
+// $Id: ircd_unreg.js,v 1.8 2004/01/01 08:38:31 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -15,12 +15,12 @@
 //
 // Synchronet IRC Daemon as per RFC 1459, link compatible with Bahamut 1.4
 //
-// Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2004 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.7 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {

@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.5 2003/12/30 13:54:55 cyan Exp $
+// $Id: ircd_user.js,v 1.6 2004/01/01 08:38:31 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -15,13 +15,13 @@
 //
 // Synchronet IRC Daemon as per RFC 1459, link compatible with Bahamut 1.4
 //
-// Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2004 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 // ** Handle registered clients.
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.5 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
