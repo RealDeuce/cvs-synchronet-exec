@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.12 2003/09/06 06:45:04 cyan Exp $
+// $Id: ircd.js,v 1.13 2003/09/06 08:19:19 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -1129,7 +1129,7 @@ function IRCClient_motd() {
 	if (motd_file.exists==false)
 		this.numeric(422, ":MOTD file missing: " + motd_file.name);
 	else if (motd_file.open("r")==false)
-		this.numeric(422, ":MOTD error " + errno + " opening: " + motd_file.name);
+		this.numeric(424, ":MOTD error " + errno + " opening: " + motd_file.name);
 	else {
 		this.numeric(375, ":- " + servername + " Message of the Day -");
 		this.numeric(372, ":- " + strftime("%m/%d/%Y %H:%M",motd_file.date));
@@ -1463,12 +1463,16 @@ function IRCClient_do_msg(target,type_str,send_str) {
 			this.bcast_to_channel_servers(chan.nam, str);
 		}
 	} else {
-		if (target.match("[@]")) {
+		if (target.match("[@]+")) {
 			var msg_arg = target.split('@');
 			var real_target = msg_arg[0];
 			var target_server = searchbyserver(msg_arg[1]);
 			if (!target_server) {
 				this.numeric401(target);
+				return 0;
+			}
+			if (target_server == -1) {
+				this.numeric(407, target + " :Duplicate recipients, no message delivered.");
 				return 0;
 			}
 			target = msg_arg[0] + "@" + msg_arg[1];
@@ -1477,13 +1481,14 @@ function IRCClient_do_msg(target,type_str,send_str) {
 		}
 		target_socket = searchbynick(real_target);
 		if (target_socket) {
-			if (!(target_server &&
-			    (target_server.nick.toUpperCase() ==
-			     target_socket.servername.toUpperCase()) 
-			   ) ) {
+			if (target_server &&
+			    (target_server.parent != target_socket.parent)) {
 				this.numeric401(target);
 				return 0;
 			}
+			if (target_server && 
+			    (target_server.id == target_socket.parent) )
+				target = real_target;
 			str = type_str + " " + target + " :" + send_str;
 			target_socket.originatorout(str,this);
 			if (target_socket.away && (type_str == "PRIVMSG") &&
