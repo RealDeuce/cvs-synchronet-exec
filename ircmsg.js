@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.20 2004/11/19 09:39:37 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.21 2004/11/19 09:43:57 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.20 $".split(' ')[1];
+const REVISION = "$Revision: 1.21 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -35,7 +35,7 @@ for(i=0;i<argc;i++) {
 		case "-m":
 			msg=argv[++i];
 			if(msg==undefined || msg.search(/^[\r\n]*$/)!=-1) {
-				log("-m specified with blank message... aborting");
+				alert("-m specified with blank message... aborting");
 				exit();
 			}
 			break;
@@ -45,9 +45,9 @@ for(i=0;i<argc;i++) {
 log("Using nick: " + nick);
 log("Connecting to: " +server+ " port " + port);
 my_server = IRC_client_connect(server,nick,undefined,undefined,port);
-if (!my_server) {
-        log("!Couldn't connect to " + server);
-        exit();
+if(!my_server) {
+	alert("!Couldn't connect to " + server);
+	exit();
 }
 
 var done=0;
