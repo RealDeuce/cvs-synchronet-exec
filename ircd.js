@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.31 2003/09/12 18:20:43 cyan Exp $
+// $Id: ircd.js,v 1.32 2003/09/12 18:39:48 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.31 $".split(' ')[1];
+const REVISION = "$Revision: 1.32 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -4029,12 +4029,16 @@ function IRCClient_server_commands(origin, command, cmdline) {
 			this.ircout("PONG " + servername + " :" + cmd[1]);
 			break;
 		case "PONG":
-			if (cmd[2] && !match_irc_mask(servername, cmd[2])) {
-				var dest_server = searchbyserver(cmd[2]);
-				if (!dest_server)
+			if (cmd[2]) {
+				if (cmd[2][0] == ":")
+					cmd[2] = cmd[2].slice(1);
+				if (!match_irc_mask(servername, cmd[2])) {
+					var dest_server = searchbyserver(cmd[2]);
+					if (!dest_server)
+						break;
+					dest_server.rawout(":" + ThisOrigin.nick + " PONG " + cmd[1] + " " + dest_server.nick);
 					break;
-				dest_server.rawout(":" + ThisOrigin.nick + " PONG " + cmd[1] + " " + dest_server.nick);
-				break;
+				}
 			}
 			this.pinged = false;
 			break;
