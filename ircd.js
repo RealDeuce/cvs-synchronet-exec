@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.71 2003/10/07 13:31:20 cyan Exp $
+// $Id: ircd.js,v 1.72 2003/10/08 10:40:32 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.71 $".split(' ')[1];
+const REVISION = "$Revision: 1.72 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -915,8 +915,8 @@ function check_qwk_passwd(qwkid,password) {
 	var usernum = system.matchuser(qwkid);
 	var bbsuser = new User(usernum);
 	if ((password.toUpperCase() ==
-	     bbsuser.security.password.toUpperCase()) &&
-	    (bbsuser.security.restrictions&UFLAG_Q) )
+	     bbsuser.security.password.toUpperCase())  ) //&&
+//	    (bbsuser.security.restrictions&UFLAG_Q) )
 		return 1;
 	return 0;
 }
@@ -1462,40 +1462,81 @@ function IRCClient_RMChan(rmchan_obj) {
 
 //////////////////// Output Helper Functions ////////////////////
 function IRCClient_rawout(str) {
+	var sent;
+	var sendsock;
+	var str_end;
+	var str_beg;
+
 	if (debug)
 		log(format("[RAW->%s]: %s",this.nick,str));
+
 	if(this.conntype && this.local) {
-		this.socket.send(str + "\r\n");
+		sendsock = this.socket;
 	} else if (this.conntype && this.parent) {
 		if ((str[0] == ":") && str[0].match(["!"])) {
 			str_end = str.slice(str.indexOf(" ")+1);
 			str_beg = str.slice(0,str.indexOf("!"));
 			str = str_beg + " " + str_end;
 		}
-		Clients[this.parent].socket.send(str + "\r\n");
+		sendsock = Clients[this.parent].socket;
+	} else {
+		log("!ERROR: No socket to send to?");
+		return 0;
 	}
+
+	sent = sendsock.send(str + "\r\n");
+
+	if (!sent)
+		log("!ERROR: Socket write failed: " + sendsock.error);
 }
 
 function IRCClient_originatorout(str,origin) {
+	var send_data;
+	var sendsock;
+	var sent;
+
 	if (debug)
 		log(format("[%s->%s]: %s",origin.nick,this.nick,str));
+
+	sendsock = this.socket;
 	if((this.conntype == TYPE_USER) && this.local && !this.server) {
-		this.socket.send(":" + origin.ircnuh + " " + str + "\r\n");
+		send_data = ":" + origin.ircnuh + " " + str + "\r\n";
 	} else if (this.conntype && this.parent) {
-		Clients[this.parent].socket.send(":" + origin.nick + " " + str + "\r\n");
+		sendsock = Clients[this.parent].socket;
+		send_data = ":" + origin.nick + " " + str + "\r\n";
 	} else if (this.conntype && this.server) {
-		this.socket.send(":" + origin.nick + " " + str + "\r\n");
+		send_data = ":" + origin.nick + " " + str + "\r\n";
+	} else {
+		log("!ERROR: No socket to send to?");
+		return 0;
 	}
+
+	sent = sendsock.send(send_data + "\r\n");
+
+	if (!sent)
+		log("!ERROR: Socket write failed: " + sendsock.error);
 }
 
 function IRCClient_ircout(str) {
+	var sendsock;
+	var sent;
+
 	if (debug)
 		log(format("[%s->%s]: %s",servername,this.nick,str));
+
 	if(this.conntype && this.local) {
-		this.socket.send(":" + servername + " " + str + "\r\n");
+		sendsock = this.socket;
 	} else if (this.conntype && this.parent) {
-		Clients[this.parent].socket.send(":" + servername + " " + str + "\r\n");
+		sendsock = Clients[this.parent].socket;
+	} else {
+		log("!ERROR: No socket to send to?");
+		return 0;
 	}
+
+	sent = sendsock.send(":" + servername + " " + str + "\r\n");
+
+	if (!sent)
+		log("!ERROR: Socket write failed: " + sendsock.error);
 }
 
 function IRCClient_server_notice(str) {
