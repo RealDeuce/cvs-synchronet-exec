@@ -1,10 +1,10 @@
 /* ircmsg.js */
 
-/* $Id: ircmsg.js,v 1.9 2004/11/19 07:28:27 deuce Exp $ */
+/* $Id: ircmsg.js,v 1.10 2004/11/19 07:54:21 deuce Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -48,8 +48,14 @@ var done=0;
 while(!done) {
 	while(!done && (response=my_server.recvline())) {
 		var resp=response.split(/\s+/);
+		if(resp[1]=='433') {
+			/* Nick in use... */
+			nick+='_';
+			my_server.send("NICK " + nick + "\r\n");
+			
+		}
 log(resp[1]);
-		if(resp[1]=='433' || resp[1]=='422' || resp[1]=='376')
+		if(resp[1]=='422' || resp[1]=='376')
 			done=1;
 		log(response);
 	}
