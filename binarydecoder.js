@@ -4,11 +4,11 @@
 // for UUE and yEnc encoded binary attachments
 // Requires Synchronet v3.10m or later
 
-// $Id: binarydecoder.js,v 1.8 2003/07/10 22:03:38 rswindell Exp $
+// $Id: binarydecoder.js,v 1.9 2003/07/12 11:23:16 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.8 $".split(' ')[1];
+const REVISION = "$Revision: 1.9 $".split(' ')[1];
 
 printf("Synchronet Binary Decoder %s session started\r\n", REVISION);
 
@@ -588,7 +588,7 @@ function combine_parts(list)
 
 		var pi;
 		for(pi=1;pi<=obj.total;pi++) {
-			printf("Processing part %u of %u\r\n",pi,obj.total);
+			printf("Processing part %u of %u: ",pi,obj.total);
 			var prefix=format("part%u.",pi);
 			sub_code=obj[prefix + "sub"];
 			var msgbase=new MsgBase(sub_code);
@@ -614,9 +614,19 @@ function combine_parts(list)
 
 			first_line=obj[prefix + "first_line"];
 			last_line=obj[prefix + "last_line"];
-			for(var l=first_line;l<=last_line;l++)
-				file.write(lines[l]);
+			end=obj[prefix + "end"];
+			for(var l=first_line;l<=last_line;l++) {
+				if(!file.write(lines[l]))
+					break;
+			}
+			printf("%u lines\r\n",l-first_line);
 
+			file.flush();
+			if(end!=undefined && file.length != end) {
+				printf("!Length after decode (%lu) not as expected (%lu)\r\n"
+					,file.length, end);
+				break;
+			}
 			if(!msgbase.remove_msg(ptr) && remove_msg)
 				printf("!FAILED to remove message number %ld\r\n",ptr);
 
