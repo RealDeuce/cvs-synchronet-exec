@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.42 2003/09/21 11:13:45 cyan Exp $
+// $Id: ircd.js,v 1.43 2003/09/21 11:39:32 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.42 $".split(' ')[1];
+const REVISION = "$Revision: 1.43 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -2562,12 +2562,8 @@ function IRCClient_unregistered_commands(command, cmdline) {
 			}
 			var this_nline = 0;
 			for (nl in NLines) {
-				if ((NLines[nl].password == this.password) &&
-				    (NLines[nl].servername == cmd[1])) {
-					this_nline = NLines[nl];
-					break;
-				} else if ((NLines[nl].flags&NLINE_CHECK_QWKPASSWD) &&
-				           match_irc_mask(cmd[1],NLines[nl].servername)) {
+				if ((NLines[nl].flags&NLINE_CHECK_QWKPASSWD) &&
+				    match_irc_mask(cmd[1],NLines[nl].servername)) {
 					var qwkid = cmd[1].slice(0,cmd[1].indexOf(".")).toUpperCase();
 					var usernum = system.matchuser(qwkid);
 					var bbsuser = new User(usernum);
@@ -2578,6 +2574,11 @@ function IRCClient_unregistered_commands(command, cmdline) {
 						this_nline = NLines[nl];
 						break;
 					}
+				} else if ((NLines[nl].password == this.password) &&
+				           (match_irc_mask(cmd[1],NLines[nl].servername))
+				          ) {
+						this_nline = NLines[nl];
+						break;
 				}
 			}
 			if (!this_nline || ((this_nline.password == "*") &&
