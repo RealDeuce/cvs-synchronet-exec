@@ -4,7 +4,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -396,6 +396,7 @@ function write_user_list(user_list, user_file)
 		user_file.writeln("[" + user_list[u].name + "]");
 		for(var p in user_list[u])
 			user_file.writeln(p + " = " + user_list[u][p]);
+		user_file.writeln();
 	}
 }
 
