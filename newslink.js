@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.34 2002/10/30 10:36:02 rswindell Exp $
+// $Id: newslink.js,v 1.35 2002/10/31 04:46:49 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -20,7 +20,7 @@
 // t		do not add tearline to imported messages
 // a		convert extended-ASCII chars to ASCII on imported messages
 
-const REVISION = "$Revision: 1.34 $".split(' ')[1];
+const REVISION = "$Revision: 1.35 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -28,7 +28,7 @@ var tearline = format("--- Synchronet %s%s-%s NewsLink %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
 var tagline	=  format(" *  %s - %s - telnet://%s\r\n"
 					  ,system.name,system.location,system.inetaddr);
-var antispam = format("remove-%s-this."
+var antispam = format(".remove-%s-this"
 					  ,random(50000).toString(36));
 
 var cfg_fname = system.ctrl_dir + "newslink.cfg";
@@ -308,23 +308,23 @@ for(i in area) {
 		if(!email_addresses)
 			writeln(format("From: %s@%s",hdr.from,newsgroup));
 		else if(hdr.from.indexOf('@')!=-1)
-			writeln(format("From: %s%s",antispam,hdr.from));
+			writeln(format("From: %s%s",hdr.from,antispam));
 		else if(hdr.from_net_type && hdr.from_net_addr!=null) {
 			if(hdr.from_net_addr.indexOf('@')!=-1)
 				writeln(format("From: \"%s\" <%s%s>"
 					,hdr.from
-					,antispam,hdr.from_net_addr));
+					,hdr.from_net_addr,antispam));
 			else
 				writeln(format("From: \"%s\" <%s@%s%s>"
 					,hdr.from
 					,hdr.from.replace(/ /g,".").toLowerCase()
-					,antispam,hdr.from_net_addr));
+					,hdr.from_net_addr,antispam));
 		}
 		else
 			writeln(format("From: \"%s\" <%s@%s%s>"
 				,hdr.from
 				,hdr.from.replace(/ /g,".").toLowerCase()
-				,antispam,system.inetaddr));
+				,system.inetaddr,antispam));
 		writeln("To: " + hdr.to);
 		writeln("X-Comment-To: " + hdr.to);
 		writeln("Subject: " + hdr.subject);
