@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.1 2002/11/02 03:33:35 rswindell Exp $
+// $Id: newsutil.js,v 1.2 2002/11/02 06:23:11 rswindell Exp $
 
 
 function write_news_header(hdr)
@@ -100,7 +100,7 @@ function parse_news_header(hdr, line)
 			hdr.ftn_pid=data;
 			break;
 		case "x-ftn-tid":
-			hdr.ftn_pid=data;
+			hdr.ftn_tid=data;
 			break;
 		case "x-ftn-area":
 			hdr.ftn_area=data;
