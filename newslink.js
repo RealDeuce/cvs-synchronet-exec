@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.53 2003/04/30 23:52:22 rswindell Exp $
+// $Id: newslink.js,v 1.54 2003/05/15 00:46:58 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -23,7 +23,7 @@
 // u		uudecode attachments
 // i		import all (not just new articles)
 
-const REVISION = "$Revision: 1.53 $".split(' ')[1];
+const REVISION = "$Revision: 1.54 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -485,9 +485,16 @@ for(i in area) {
 						// Parse uuencode header
 						arg=line.split(' ');
 						arg.splice(0,2);	// strip "begin 666 "
-						fname=getfilename(arg.join(" "));
-						if(file_exists(attachment_dir + fname)) // generate unique name, if necessary
-							fname=ptr + "_" + fname;
+						fname=file_getname(arg.join(" "));
+						if(file_exists(attachment_dir + fname)) { // generate unique name, if necessary
+							ext=fname.lastIndexOf('.');
+							if(ext<0)
+								ext="";
+							else
+								ext=fname.slice(ext);
+							// Convert filename.ext to filename.<article>.ext
+							fname=format("%.*s.%lu%s",fname.length-ext.length,fname,ptr,ext);
+						}
 						fname=attachment_dir + fname;
 
 						file=new File(fname);
