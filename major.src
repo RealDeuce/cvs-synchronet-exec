@@ -2,7 +2,7 @@
 
 # MajorBBS Clone Command Shell for Synchronet
 
-# $Id: major.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
+# $Id: major.src,v 1.5 2001/04/10 01:51:14 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -10,7 +10,7 @@
 
 :main
 cmd_home
-menu majro/main
+menu major/main
 getstr 10
 compare_str ""
 if_true
