@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.24 2004/11/19 10:35:43 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.25 2004/11/19 10:40:10 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.24 $".split(' ')[1];
+const REVISION = "$Revision: 1.25 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -96,19 +96,23 @@ exit();
 
 function send(msg)
 {
+	sendit=true;
+
 	if(msg==undefined || msg.search(/^[\r\n]*$/)!=-1) {
 		log("Not sending blank message");
-		return;
+		sendit=false;
 	}
 	for(i in exclude) {
 		if(msg.search(exclude[i])>=0) {
 			log("Excluding: " + msg);
-			return;
+			sendit=false;
 		}
 	}
-	log("Sending: " + msg);
-	if(!my_server.send("PRIVMSG "+channel+" :"+expand_tabs(msg)+"\r\n"))
-		alert("send failure");
+	if(sendit) {
+		log("Sending: " + msg);
+		if(!my_server.send("PRIVMSG "+channel+" :"+expand_tabs(msg)+"\r\n"))
+			alert("send failure");
+	}
 }
 
 function expand_tabs(msg)
