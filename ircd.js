@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.10 2003/09/05 07:49:15 cyan Exp $
+// $Id: ircd.js,v 1.11 2003/09/06 06:01:36 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.10 $".split(' ')[1];
+const REVISION = "$Revision: 1.11 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -1111,7 +1111,11 @@ function IRCClient_lusers() {
 
 function IRCClient_motd() {
 	motd_file = new File(system.text_dir + "ircmotd.txt");
-	if (motd_file.open("r")) {
+	if (motd_file.exists==false)
+		this.numeric(422, ":MOTD file missing: " + motd_file.name);
+	else if (motd_file.open("r")==false)
+		this.numeric(422, ":MOTD error " + errno + " opening: " + motd_file.name);
+	else {
 		this.numeric(375, ":- " + servername + " Message of the Day -");
 		this.numeric(372, ":- " + strftime("%m/%d/%Y %H:%M",motd_file.date));
 		while (!motd_file.eof) {
@@ -1119,8 +1123,7 @@ function IRCClient_motd() {
 			if (motd_line != null)
 				this.numeric(372, ":- " + motd_line);
 		}
-	} else {
-		this.numeric(422, ":MOTD file is missing.");
+		motd_file.close();
 	}
 	this.numeric(376, ":End of /MOTD command.");
 }
