@@ -3,9 +3,9 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.10 2003/03/28 05:21:19 deuce Exp $
+// $Id: irc.js,v 1.11 2003/05/15 07:30:04 deuce Exp $
 
-const REVISION = "$Revision: 1.10 $".split(' ')[1];
+const REVISION = "$Revision: 1.11 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -37,6 +37,7 @@ while(1)  {
 		case "-a":
 			real_names=false;
 			argv.shift();
+			break;
 		default:
 			break LOOP;
 	}
@@ -63,7 +64,8 @@ if(!sock.connect(irc_server,irc_port)) {
 	clean_exit();
 }
 
-sock.send("PASS "+user.security.password+"\r\n");
+// sock.send("PASS "+user.security.password+"\r\n");	// for futire use with JS IRC server
+sock.send("PASS \r\n");
 if (nick=="")
 	nick=user.alias;
 nick=nick.replace(/\s+/g,"_");
