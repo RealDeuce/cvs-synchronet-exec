@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.12 2003/12/14 01:32:32 cyan Exp $
+// $Id: ircd_server.js,v 1.13 2003/12/14 03:08:36 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.12 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -402,7 +402,7 @@ function Server_Work() {
 			}
 			break;
 		case "NICK":
-			if (!cmd[2] || ThisOrigin.server || (!cmd[8] && (cmd[2][0] != ":")) )
+			if (!cmd[2] || (!cmd[8] && (cmd[2][0] != ":")) )
 				break;
 			var collide = Users[cmd[1].toUpperCase()];
 			if ((collide) && (parseInt(collide.created) >
