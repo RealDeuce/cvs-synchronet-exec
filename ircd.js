@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.103 2003/12/08 23:33:53 cyan Exp $
+// $Id: ircd.js,v 1.104 2003/12/09 12:03:06 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.103 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.104 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2322,6 +2322,8 @@ function IRCClient_do_complex_list(cmd) {
 	var list = new List();
 	var listmask;
 	var listmask_items;
+
+	this.numeric321();
 
 	for (lc in cmd[1]) {
 		switch(cmd[1][lc]) {
