@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.78 2005/02/23 01:44:48 rswindell Exp $
+// $Id: newslink.js,v 1.79 2005/02/28 08:19:52 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.78 $".split(' ')[1];
+const REVISION = "$Revision: 1.79 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -787,7 +787,7 @@ for(i in area) {
 		if(flags.indexOf('r')>=0) 	// remove "Newsgroups:" header field
 			delete hdr.newsgroups;
 
-		if(unmangle)
+		if(hdr.from_net_addr && unmangle)
 			hdr.from_net_addr = unmangle_addr(hdr.from_net_addr);
 
 		hdr.from_net_type=NET_INTERNET;
