@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.19 2003/09/09 08:37:36 rswindell Exp $
+// $Id: ircd.js,v 1.20 2003/09/09 10:43:45 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.19 $".split(' ')[1];
+const REVISION = "$Revision: 1.20 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -78,6 +78,8 @@ var max_user_chans = 10;		// Maximum channels users can join
 var max_bans = 25;			// Maximum bans (+b) per channel
 var max_topiclen = 307;			// Maximum length of topic per channel
 var max_kicklen = 307;			// Maximum length of kick reasons
+
+var default_port = 6667;
 
 // User modes
 var USERMODE_NONE		=(1<<0); // NONE
@@ -510,7 +512,7 @@ function connect_to_server(this_cline,the_port) {
 	if (!the_port && this_cline.port)
 		the_port = this_cline.port;
 	else if (!the_port)
-		the_port = "6667"; // try a safe default.
+		the_port = default_port; // try a safe default.
 	connect_sock = new Socket();
 	connect_sock.connect(this_cline.host,the_port,ob_sock_timeout);
 	if (connect_sock.is_connected) {
@@ -803,11 +805,10 @@ function read_config_file() {
 ///////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
+log(VERSION + " started.");
+
 Clients = new Array;
 Channels = new Array;
-
-server.socket.nonblocking = true;	// REQUIRED!
-server.socket.debug = false;		// Will spam your log if true :)
 
 hcc_total = 0;
 hcc_users = 0;
@@ -824,14 +825,35 @@ nick_pointer = 0;
 // Parse command-line arguments.
 config_filename="";
 for (cmdarg=0;cmdarg<argc;cmdarg++) {
-	if(argv[cmdarg].toLowerCase()=="-f") {
-		config_filename = argv[cmdarg+1];
-		cmdarg++;
+	switch(argv[cmdarg].toLowerCase()) {
+		case "-f":
+			config_filename = argv[++cmdarg];
+			break;
+		case "-p":
+			default_port = argv[++cmdarg];
+			break;
 	}
 }
 
 read_config_file();
-log(VERSION + " started.");
+
+if(this.server==undefined) {	// Running from JSexec?
+	log("Creating server object");
+	server = { socket: new Socket(), terminated: false };
+	if(!server.socket.bind(default_port)) {
+		log("!Error " + server.socket.error + " binding socket to TCP port " + default_port);
+		exit();
+	}
+	log(format("%04u ",server.socket.descriptor)
+		+ "IRC server socket bound to TCP port " + default_port);
+	if(!server.socket.listen(5 /* backlog */)) {
+		log("!Error " + server.socket.error + " setting up socket for listening");
+		exit();
+	}
+}
+
+server.socket.nonblocking = true;	// REQUIRED!
+server.socket.debug = false;		// Will spam your log if true :)
 
 if(this.branch!=undefined)
 	branch.limit=0; // we're not an infinite loop.
@@ -2364,7 +2386,7 @@ function IRCClient_registered_commands(command, cmdline) {
 			if (!cmd[2] && con_cline.port)
 				cmd[2] = con_cline.port;
 			if (!cmd[2] && !con_cline.port)
-				cmd[2] = "6667";
+				cmd[2] = String(default_port);
 			if (!cmd[2].match(/^[0-9]+$/)) {
 				this.server_notice("Invalid port: " + cmd[2]);
 				break;
