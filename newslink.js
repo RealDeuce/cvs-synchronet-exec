@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.52 2003/04/24 09:58:29 rswindell Exp $
+// $Id: newslink.js,v 1.53 2003/04/30 23:52:22 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -23,7 +23,7 @@
 // u		uudecode attachments
 // i		import all (not just new articles)
 
-const REVISION = "$Revision: 1.52 $".split(' ')[1];
+const REVISION = "$Revision: 1.53 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -454,7 +454,7 @@ for(i in area) {
 		while(socket.is_connected) {
 
 			if(recv_lines && lines_per_yield && (recv_lines%lines_per_yield)==0)
-				sleep(1);
+				yield();
 
 			line = socket.recvline(512 /*maxlen*/, 300 /*timeout*/);
 
