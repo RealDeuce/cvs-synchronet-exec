@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.16 2002/11/30 23:12:30 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.17 2003/06/06 23:35:03 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -494,6 +494,9 @@ var   EVENT_LOGON	=1			/* Execute during logon sequence			*/
 var   EVENT_LOGOFF	=2			/* Execute during logoff sequence			*/
 var   EVENT_NEWUSER	=3			/* Execute during newuser app.				*/
 var   EVENT_BIRTHDAY=4			/* Execute on birthday						*/
+var   EVENT_POST	=5			/* Execute after message posted				*/
+var   EVENT_UPLOAD	=6			/* Execute after file uploaded				*/
+var   EVENT_DOWNLOAD=7			/* Execute after file downloaded			*/
 					    		/********************************************/
 
 					    		/********************************************/
