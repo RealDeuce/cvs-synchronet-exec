@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $id$
+// $Id: ftp-html.js,v 1.12 2003/03/11 03:54:53 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);	// Used to defeat caching browsers
