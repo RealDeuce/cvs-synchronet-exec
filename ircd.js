@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.94 2003/12/04 20:42:21 cyan Exp $
+// $Id: ircd.js,v 1.95 2003/12/04 20:55:21 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.94 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.95 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -3159,28 +3159,8 @@ function IRCClient_setusermode(modestr) {
 	if (bcast_addmodes)
 		bcast_modestr += "+" + bcast_addmodes;
 	if (bcast_delmodes)
-		bcast_modestr += "-" + bc|= USERMODE_CHAR[mym];
-		} else if ((umode.del_flags&USERMODE_CHAR[mym]) &&
-		    (this.mode&USERMODE_CHAR[mym])) {
-			delmodes += mym;
-			if (USERMODE_BCAST[mym])
-				bcast_delmodes += mym;
-			this.mode &= ~USERMODE_CHAR[mym];
-		}
-	}
-	if (!addmodes && !delmodes)
-		return 0;
-	var final_modestr = "";
-	var bcast_modestr = "";
-	if (addmodes)
-		final_modestr += "+" + addmodes;
-	if (delmodes)
-		final_modestr += "-" + delmodes;
-	if (bcast_addmodes)
-		bcast_modestr += "+" + bcast_addmodes;
-	if (bcast_delmodes)
 		bcast_modestr += "-" + bcast_delmodes;
-	if (!this.parent) {
+	if (!this.local) {
 		this.originatorout("MODE "+this.nick+" "+final_modestr,this);
 		if (bcast_addmodes || bcast_delmodes)
 			this.bcast_to_servers("MODE "+this.nick+" "+bcast_modestr,this);
@@ -3275,4 +3255,31 @@ function YLine(pingfreq,connfreq,maxlinks,sendq) {
 	this.pingfreq = pingfreq;
 	this.connfreq = connfreq;
 	this.maxlinks = maxlinks;
-	this.sendq = s
+	this.sendq = sendq;
+}
+
+function ZLine(ipmask,reason) {
+	this.ipmask = ipmask;
+	this.reason = reason;
+}
+
+function WhoWas(nick,uprefix,host,realname,server,serverdesc) {
+	this.nick = nick;
+	this.uprefix = uprefix;
+	this.host = host;
+	this.realname = realname;
+	this.server = server;
+	this.serverdesc = serverdesc;
+}
+
+function NickBuf(oldnick,newnick) {
+	this.oldnick = oldnick;
+	this.newnick = newnick;
+}
+
+// used for tracking true SJOIN nicks.
+function SJOIN_Nick(nick,isop,isvoice) {
+	this.nick = nick;
+	this.isop = isop;
+	this.isvoice = isvoice;
+}
