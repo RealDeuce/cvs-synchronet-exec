@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.43 2003/09/21 11:39:32 cyan Exp $
+// $Id: ircd.js,v 1.44 2003/09/22 02:56:39 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.43 $".split(' ')[1];
+const REVISION = "$Revision: 1.44 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -273,6 +273,8 @@ function IRCClient_searchbyiline() {
 // used to fetch 'strings' from all sorts of commands.  PRIVMSG, NOTICE,
 // USER, PING, etc.
 function ircstring(str,startword) {
+	var cindex;
+
 	if (startword) {
 		for(sw_counter=0;sw_counter<startword;sw_counter++) {
 			str=str.slice(str.indexOf(" ")+1);
@@ -632,7 +634,8 @@ function IRCClient_tweaktmpmodelist(tmp_cl,tmp_ncl,chan) {
 }
 
 function count_channels() {
-	tmp_counter=0;
+	var tmp_counter = 0;
+
 	for (tmp_count in Channels) {
 		if (Channels[tmp_count])
 			tmp_counter++;
@@ -641,6 +644,8 @@ function count_channels() {
 }
 
 function count_servers(count_all) {
+	var tmp_counter;
+
 	if (count_all)
 		tmp_counter=1; // we start by counting ourself.
 	else
@@ -656,9 +661,10 @@ function count_servers(count_all) {
 }
 
 function count_nicks(count_bit) {
+	var tmp_counter = 0;
+
 	if(!count_bit)
 		count_bit=USERMODE_NONE;
-	tmp_counter=0;
 	for (tmp_count in Clients) {
 		if ((Clients[tmp_count] != undefined) && 
 		    ((Clients[tmp_count].conntype == TYPE_USER) ||
@@ -673,7 +679,8 @@ function count_nicks(count_bit) {
 }
 
 function count_local_nicks() {
-	tmp_counter=0;
+	var tmp_counter = 0;
+
 	for (tmp_count in Clients) {
 		if ((Clients[tmp_count] != undefined) &&
 		    !Clients[tmp_count].parent)
@@ -3756,6 +3763,9 @@ function IRCClient_server_commands(origin, command, cmdline) {
 			nickid.invited=chanid.nam.toUpperCase();
 			break;
 		case "KICK":
+			var chanid;
+			var nickid;
+
 			if (!cmd[2])
 				break;
 			chanid = searchbychannel(cmd[1]);
@@ -3865,7 +3875,11 @@ function IRCClient_server_commands(origin, command, cmdline) {
 					}
 					var member_obj = searchbynick(chan_members[member]);
 					if (!member_obj)
-						break;
+						continue;
+
+					if (member_obj.onchannel(chan.nam.toUpperCase()))
+						continue;
+
 					member_obj.channels.push(chan.nam.toUpperCase());
 					chan.users.push(member_obj.id);
 					member_obj.bcast_to_channel(chan.nam, "JOIN " + chan.nam, false);
@@ -3908,6 +3922,9 @@ function IRCClient_server_commands(origin, command, cmdline) {
 
 				this.bcast_to_servers_raw(":" + ThisOrigin.nick + " SJOIN " + chan.created + " " + chan.nam + " " + chan.chanmode(true) + " :" + new_chan_members)
 			} else {
+				if (ThisOrigin.onchannel(chan.nam.toUpperCase()))
+					break;
+
 				ThisOrigin.channels.push(chan.nam.toUpperCase());
 				chan.users.push(ThisOrigin.id);
 				ThisOrigin.bcast_to_channel(chan.nam, "JOIN " + chan.nam, false);
