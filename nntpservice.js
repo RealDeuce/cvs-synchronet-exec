@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.55 2002/09/24 22:50:37 rswindell Exp $
+// $Id: nntpservice.js,v 1.56 2002/10/25 08:55:58 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -16,7 +16,12 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.55 $".split(' ')[1];
+const REVISION = "$Revision: 1.56 $".split(' ')[1];
+
+var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
+					  ,system.version,system.revision,system.platform,REVISION);
+var tagline	=  format(" *  %s - %s - telnet://%s\r\n"
+					  ,system.name,system.location,system.inetaddr);
 
 var debug = false;
 var no_anonymous = false;
@@ -369,6 +374,10 @@ while(client.socket.is_connected) {
 				body=msgbase.get_msg_body(false,current_article
 					,true /* remove ctrl-a codes */
 					,true /* rfc822 formatted text */);
+
+			// force taglines for QNET Users on local messages
+			if(user.security.restrictions&UFLAG_Q && !hdr.from_net_type)
+				body += "\r\n" + tearline + tagline;
 
 /* Eliminate dupe loops
 			if(user.security.restrictions&UFLAG_Q && hdr!=null)
