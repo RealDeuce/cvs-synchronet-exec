@@ -2,7 +2,7 @@
 
 # Global String Command Module for Synchronet
 
-# $Id: str_cmds.src,v 1.10 2001/04/10 01:49:56 rswindell Exp $
+# $Id: str_cmds.src,v 1.11 2001/11/04 23:22:43 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -215,7 +215,7 @@ if_true
 		return
                 end_if
 
-	compare_str "DOS"
+	compare_str "DOS"	# DOS/Windows shell
 	if_true
 		chksyspass
 		if_true
@@ -224,12 +224,12 @@ if_true
 		return
 		end_if
 
-	compare_str "SHELL"	# OS-independant shell
+	compare_str "SHELL"	# Unix shell (-i for interactive)
 	if_true
 		chksyspass
 		if_true
-			exec_int "%y"
-			end_if
+			exec_int "%y -i"	
+			end_if	
 		return
 		end_if
 
