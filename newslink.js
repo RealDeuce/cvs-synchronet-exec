@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.62 2003/06/17 11:29:40 rswindell Exp $
+// $Id: newslink.js,v 1.63 2003/07/01 02:59:23 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.62 $".split(' ')[1];
+const REVISION = "$Revision: 1.63 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -52,6 +52,7 @@ var email_addresses = true;			// Include e-mail addresses in headers
 var import_amount = 0;				// Import a fixed number of messages per group
 var lines_per_yield = 5;			// Release time-slices ever x number of lines
 var yield_length = 1;				// Length of yield (in milliseconds)
+var max_newsgroups_per_article = 5;	// Used for spam-detection
 
 // Parse arguments
 for(i=0;i<argc;i++) {
@@ -182,6 +183,9 @@ while(!cfg_file.eof) {
 			break;
 		case "yield_length":
 			yield_length=parseInt(str[1]);
+			break;
+		case "max_newsgroups_per_article":
+			max_newsgroups_per_article=parseInt(str[1]);
 			break;
 
 		default:
@@ -672,6 +676,16 @@ for(i in area) {
 			continue;
 		}
 
+		if(max_newsgroups_per_article && hdr.newsgroups!=undefined) {
+			var ngarray=hdr.newsgroups.split(',');
+			if(ngarray.length>max_newsgroups_per_article) {
+				var reason = format("Too many newsgroups (%d): %s",ngarray.length, hdr.newsgroups);
+				printf("!%s\r\n",reason);
+				system.spamlog("NNTP","NOT IMPORTED",reason,hdr.from,server,hdr.to);
+				continue;
+			}
+		}
+
 		if(hdr.to==newsgroup && hdr.newsgroups!=undefined)
 			hdr.to=hdr.newsgroups;
 
@@ -686,8 +700,8 @@ for(i in area) {
 			continue;
 
 		if(flags.indexOf('s')==-1 && system.trashcan("subject",hdr.subject)) {
-			printf("!BLOCKED subject: %s\r\n",hdr.subject);
 			var reason = format("Blocked subject (%s)",hdr.subject);
+			printf("!%s\r\n",reason);
 			system.spamlog("NNTP","NOT IMPORTED",reason,hdr.from,server,hdr.to);
 			continue;
 		}
