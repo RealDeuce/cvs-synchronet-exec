@@ -3,10 +3,10 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.2 2002/11/02 06:23:11 rswindell Exp $
+// $Id: newsutil.js,v 1.3 2002/11/02 07:04:17 rswindell Exp $
 
 
-function write_news_header(hdr)
+function write_news_header(hdr,writeln)
 {
 	/* Required header fields */
 	writeln("To: " + hdr.to);

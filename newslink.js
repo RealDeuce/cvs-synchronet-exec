@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.39 2002/11/02 03:35:59 rswindell Exp $
+// $Id: newslink.js,v 1.40 2002/11/02 07:04:17 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -20,7 +20,7 @@
 // t		do not add tearline to imported messages
 // a		convert extended-ASCII chars to ASCII on imported messages
 
-const REVISION = "$Revision: 1.39 $".split(' ')[1];
+const REVISION = "$Revision: 1.40 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -34,7 +34,7 @@ var antispam = format(".remove-%s-this"
 var cfg_fname = system.ctrl_dir + "newslink.cfg";
 
 load("sbbsdefs.js");
-load("newsutil.js");
+load("newsutil.js");	// write_news_header() and parse_news_header()
 
 var debug = false;
 var slave = false;
@@ -332,7 +332,7 @@ for(i in area) {
 		if(hdr.from_org==undefined && !hdr.from_net_type)
 			hdr.from_org=system.name;
 
-		write_news_header(hdr); // from newsutil.js
+		write_news_header(hdr,writeln); // from newsutil.js
 
 		writeln("X-Gateway: "
 			+ system.inetaddr
