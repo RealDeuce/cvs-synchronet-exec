@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.56 2003/05/21 20:35:09 rswindell Exp $
+// $Id: newslink.js,v 1.57 2003/05/22 06:16:30 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -23,7 +23,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.56 $".split(' ')[1];
+const REVISION = "$Revision: 1.57 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -287,7 +287,8 @@ for(i in area) {
 	/*************************/
 	if(debug)
 		print("exporting local messages");
-	for(;socket.is_connected && ptr<=msgbase.last_msg;ptr++) {
+	last_msg=msgbase.last_msg;
+	for(;socket.is_connected && ptr<=last_msg;ptr++) {
 		console.line_counter = 0;
 		hdr = msgbase.get_msg_header(
 			/* retrieve by offset? */	false,
