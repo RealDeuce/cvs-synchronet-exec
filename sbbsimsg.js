@@ -3,9 +3,9 @@
 // Synchronet inter-bbs instant message module
 // uses Finger and SMTP TCP/IP protocols
 
-// $Id: sbbsimsg.js,v 1.11 2002/10/17 01:48:01 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.12 2002/11/05 11:07:26 rswindell Exp $
 
-const REVISION = "$Revision: 1.11 $".split(' ')[1];
+const REVISION = "$Revision: 1.12 $".split(' ')[1];
 
 const UDP_RESPONSE_TIMEOUT = 5000	// milliseconds
 
@@ -142,7 +142,7 @@ function list_users(show)
 
 	/* UDP systems */
 	sock = new Socket(SOCK_DGRAM);
-	sock.debug=true;
+	//sock.debug=true;
 	sock.bind();
 	for(i=0;sys[i]!=undefined && !(bbs.sys_status&SS_ABORT);i++) {
 		if(sys[i].ip==undefined)
