@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.60 2003/09/30 23:43:17 rswindell Exp $
+// $Id: ircd.js,v 1.61 2003/09/30 23:52:40 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.60 $".split(' ')[1];
+const REVISION = "$Revision: 1.61 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -938,10 +938,13 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 
 read_config_file();
 
-if(this.js==undefined)			// v3.10?
+if(this.js==undefined)				// v3.10?
 	js = { terminated: false };
 
-if(this.server==undefined) {	// Running from JSexec?
+if(this.resolve_host==undefined)	// v3.10?
+	resolve_hostnames = false;
+
+if(this.server==undefined) {		// Running from JSexec?
 	if (cmdline_port)
 		default_port = cmdline_port;
 	else if (mline_port)
