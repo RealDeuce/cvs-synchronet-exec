@@ -4,11 +4,11 @@
 // for UUE and yEnc encoded binary attachments
 // Requires Synchronet v3.10m or later
 
-// $Id: binarydecoder.js,v 1.1 2003/05/21 03:41:47 rswindell Exp $
+// $Id: binarydecoder.js,v 1.2 2003/05/21 03:45:29 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.1 $".split(' ')[1];
+const REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 printf("Synchronet Binary Decoder %s session started\r\n", REVISION);
 
@@ -423,8 +423,8 @@ function combine_parts(list)
 	for(li=0; li<list.length; li++) {
 		if(list[li].parts!=list[li].total)
 			continue;
-		printf("File complete: %s (%lu parts)\r\n",list[li].name,list[li].parts);
-		console.pause();
+		printf("File complete: %s (%s parts)\r\n"
+			,list[li].name,list[li].parts.toString());
 	}
 }
 
