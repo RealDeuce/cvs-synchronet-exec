@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.63 2002/11/02 07:04:17 rswindell Exp $
+// $Id: nntpservice.js,v 1.64 2002/11/11 23:59:08 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.63 $".split(' ')[1];
+const REVISION = "$Revision: 1.64 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -121,6 +121,10 @@ while(client.socket.is_connected) {
 
 	switch(cmd[0].toUpperCase()) {
 		case "AUTHINFO":
+			if(cmd[1]==undefined) {
+				writeln("500 Syntax error or unknown command");
+				break;
+			}
 			switch(cmd[1].toUpperCase()) {
 				case "USER":
 					username='';
@@ -205,20 +209,32 @@ while(client.socket.is_connected) {
 			break;
 
 		case "LIST":
-			writeln("215 list of newsgroups follows");
-			for(g in msg_area.grp_list)
-				for(s in msg_area.grp_list[g].sub_list) {
-					msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
-					if(msgbase.open!=undefined && msgbase.open()==false)
-						continue;
-					writeln(format("%s %u %u %s"
-						,msg_area.grp_list[g].sub_list[s].newsgroup
-						,msgbase.last_msg
-						,msgbase.first_msg
-						,msg_area.grp_list[g].sub_list[s].can_post ? "y" : "n"
-						));
-					msgbase.close();
-				}
+			if(cmd[1]!=undefined && cmd[1].toUpperCase()=="OVERVIEW.FMT") {
+				writeln("215 Order of fields in overview database.");
+				writeln("Subject:");
+				writeln("From:");
+				writeln("Date:");
+				writeln("Message-ID:");
+				writeln("References:");
+				writeln("Bytes:");
+				writeln("Lines:");
+			}
+			else {
+				writeln("215 list of newsgroups follows");
+				for(g in msg_area.grp_list)
+					for(s in msg_area.grp_list[g].sub_list) {
+						msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+						if(msgbase.open!=undefined && msgbase.open()==false)
+							continue;
+						writeln(format("%s %u %u %s"
+							,msg_area.grp_list[g].sub_list[s].newsgroup
+							,msgbase.last_msg
+							,msgbase.first_msg
+							,msg_area.grp_list[g].sub_list[s].can_post ? "y" : "n"
+							));
+						msgbase.close();
+					}
+			}
 			writeln(".");	// end of list
 			break;
 
@@ -239,6 +255,10 @@ while(client.socket.is_connected) {
 			break;
 
 		case "GROUP":
+			if(cmd[1]==undefined) {
+				writeln("411 no group specified");
+				break;
+			}
 			found=false;
 			for(g in msg_area.grp_list)
 				for(s in msg_area.grp_list[g].sub_list)
@@ -264,6 +284,10 @@ while(client.socket.is_connected) {
 			break;
 
 		case "XOVER":
+			if(cmd[1]==undefined) {
+				writeln("500 Syntax error or unknown command");
+				break;
+			}
 			if(msgbase==null) {
 				writeln("412 no news group selected");
 				break;
@@ -297,6 +321,10 @@ while(client.socket.is_connected) {
 			break;
 
 		case "XHDR":
+			if(cmd[1]==undefined || cmd[2]==undefined) {
+				writeln("500 Syntax error or unknown command");
+				break;
+			}
 			if(msgbase==null) {
 				writeln("412 no news group selected");
 				break;
@@ -498,7 +526,7 @@ while(client.socket.is_connected) {
    			break;
 
 		case "IHAVE":
-			if(cmd[1].indexOf('@' + system.inetaddr)!=-1) {	// avoid dupe loop
+			if(cmd[1]!=undefined && cmd[1].indexOf('@' + system.inetaddr)!=-1) {	// avoid dupe loop
 				writeln("435 that article came from here. Don't send.");
 				continue;
 			}
