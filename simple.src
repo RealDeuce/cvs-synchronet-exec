@@ -2,7 +2,7 @@
 
 # Simple Synchronet Command Shell - for beginner/first-time users
 
-# $Id: simple.src,v 1.3 2000/10/26 11:37:38 rswindell Exp $
+# $Id: simple.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -17,8 +17,8 @@ node_action node_main
 cls
 async
 
-menu simple\main
-menu simple\prompt
+menu simple/main
+menu simple/prompt
 print "n"
 
 getstrupr 10
@@ -47,8 +47,8 @@ cmdstr S
 	cmd_home
 	cls
         async
-	menu simple\sendmsg
-	menu simple\prompt
+	menu simple/sendmsg
+	menu simple/prompt
 	print "n"
 	getstrupr 10
 	crlf
@@ -92,8 +92,8 @@ cmdstr R
 	cmd_home
 	cls
 	async
-	menu simple\readmsg
-	menu simple\prompt
+	menu simple/readmsg
+	menu simple/prompt
 	print "n"
 	getstrupr 10
 	crlf
@@ -206,8 +206,8 @@ cmdstr F
 	cmd_home
 	cls
 	async
-	menu simple\filelist
-	menu simple\prompt
+	menu simple/filelist
+	menu simple/prompt
 	print "n"
 	getstrupr 10
 	crlf
@@ -270,7 +270,7 @@ cmdstr U
 	if_false
 		end_cmd
 		end_if
-	chkfile "..\text\menu\upload.*"
+	chkfile "%ztext/menu/upload.*"
 	if_true
 		menu upload
                 end_if

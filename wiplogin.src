@@ -1,6 +1,6 @@
 # wiplogin.src
 
-# $Id: wiplogin.src,v 1.3 2000/10/26 11:38:15 rswindell Exp $
+# $Id: wiplogin.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
 
 # ANSWER.WIP requires button press
 
@@ -51,7 +51,7 @@ if_greater_or_equal
 cmd_home
 clear_abort
 cls
-printfile "%zMENU\LOGIN.WIP"
+printfile "%zmenu/login.wip"
 sync
 print_local "\r\n[WIP] Login Menu: "
 
@@ -61,7 +61,7 @@ logkey_comma
 cmdkey L
 	print_local "Login\r\n"
 	print_local "Enter name: "
-	printfile "%zMENU\NAMEPASS.WIP"
+	printfile "%zmenu/namepass.wip"
 	getstr str 25 K_UPRLWR|K_LOWPRIO|K_NOECHO
 	truncsp str
 	compare_str ""
