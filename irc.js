@@ -3,9 +3,9 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.5 2003/03/06 10:47:51 deuce Exp $
+// $Id: irc.js,v 1.6 2003/03/06 10:52:09 deuce Exp $
 
-const REVISION = "$Revision: 1.5 $".split(' ')[1];
+const REVISION = "$Revision: 1.6 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -1280,6 +1280,14 @@ function Screen_handle_key(key)  {
 				this.input_pos--;
 			}
 			this.update_input_line();
+			break;
+		case "\x02":		// Home
+			this.input_pos=0;
+			this.update_input_line()
+			break;
+		case "\x05":		// End
+			this.input_pos=this.input_buffer.length;
+			this.update_input_line()
 			break;
 		case "\x06":		// right arrow
 			if(this.input_pos < (this.input_buffer.length))  {
