@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.28 2004/12/30 02:55:48 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.29 2005/01/11 04:57:46 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -345,6 +345,8 @@ var   UQ_CMDSHELL	=(1<<14)	/* Ask for command shell					*/
 var   UQ_XEDIT		=(1<<15)	/* Ask for external editor					*/
 var   UQ_NODEF		=(1<<16)	/* Don't ask for default settings			*/
 var   UQ_NOCOMMAS	=(1<<17)	/* Do not require commas in location		*/
+var   UQ_NONETMAIL	=(1<<18)	/* Don't ask for e-mail/netmail address		*/
+var   UQ_NOUPRLWR	=(1<<19)	/* Don't force upper/lower case strings		*/
 					    		/********************************************/
 
 							    /********************************************/
