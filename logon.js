@@ -2,7 +2,7 @@
 
 // Synchronet v3.10 Default Logon Module
 
-// $Id: logon.js,v 1.2 2003/02/22 00:16:54 rswindell Exp $
+// $Id: logon.js,v 1.3 2003/02/24 08:26:55 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -28,7 +28,7 @@ if(user.security.restrictions&UFLAG_G) {
 		if(!location || !location.length)
 			continue;
 		bbs.log_str("  " + location);
-		bbs.location=location;
+		user.location=location;
 		break;
 	}
 
