@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.5 2003/01/04 15:44:52 rswindell Exp $
+// $Id: newuser.js,v 1.6 2003/02/04 00:20:42 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -12,7 +12,7 @@ load("sbbsdefs.js");
 
 console.clear();
 
-if(!user.address.length) {
+if(!user.address.length && user.number>1) {
 	printf("\1y\1hWhere did you hear about this BBS? ");
 	user.address=console.getstr(30,K_LINE);
 }
