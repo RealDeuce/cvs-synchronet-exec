@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.11 2004/12/28 22:40:52 rswindell Exp $
+// $Id: newuser.js,v 1.12 2004/12/28 22:46:37 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -94,8 +94,10 @@ if(qnet) {
 if(ask_sysop 
 	&& !console.noyes("\r\n\1bAre you a sysop of a \1wSynchronet\1b BBS (unsure, hit '\1wN\1b')")) {
 	user.security.flags1|=UFLAG_S;
-	if(qnet)
-		user.qwk_settings=(QWK_RETCTLA|QWK_EMAIL|QWK_DELMAIL|QWK_NOINDEX|QWK_NOCTRL|QWK_VIA|QWK_TZ|QWK_MSGID);
+	if(qnet) {
+		user.qwk_settings|=(QWK_RETCTLA|QWK_NOINDEX|QWK_NOCTRL|QWK_VIA|QWK_TZ|QWK_MSGID);
+		user.qwk_settings&=~QWK_FILES;
+	}
 	else if(console.yesno("\r\nDo you wish to access the Synchronet BBS List database"))
 		bbs.exec_xtrn("SBL");
 }
