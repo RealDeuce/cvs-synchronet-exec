@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.9 2004/01/15 08:45:58 cyan Exp $
+// $Id: ircd_unreg.js,v 1.10 2004/01/30 20:31:44 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.9 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.10 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -342,7 +342,7 @@ function Unregistered_Commands() {
 			") [" + this.ip + "] {1}");
 		if (server.client_update != undefined)
 			server.client_update(this.socket, this.nick, this.hostname);
-		server_bcast_to_servers("NICK " + this.nick + " 1 " + this.created + " + " + this.uprefix + " " + this.hostname + " " + servername + " 0 " + ip_to_int(new_user.ip) + " :" + this.realname);
+		server_bcast_to_servers("NICK " + this.nick + " 1 " + new_user.created + " + " + this.uprefix + " " + this.hostname + " " + servername + " 0 " + ip_to_int(new_user.ip) + " :" + this.realname);
 		// we're no longer unregistered.
 		delete Unregistered[this];
 	}

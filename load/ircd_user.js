@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.7 2004/01/15 08:45:58 cyan Exp $
+// $Id: ircd_user.js,v 1.8 2004/01/30 20:31:44 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.7 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -837,18 +837,15 @@ function User_Work() {
 					if ((chans[nc][0] == "#") ||
 					    (chans[nc][0] == "&")) {
 						chan = Channels[chans[nc].toUpperCase()];
-						if (chan) {
+						if (chan)
 							this.names(chan);
-						} else {
-							this.numeric401(chans[nc]);
-							break;
-						}
+						else
+							continue;
 					} else {
-						this.numeric403(chans[nchan]);
-						break;
+						continue;
 					}
 				}
-				this.numeric(366, chan.nam + " :End of /NAMES list.");
+				this.numeric(366, chans[nc] + " :End of /NAMES list.");
 			}
 			break;
 		case "NICK":
