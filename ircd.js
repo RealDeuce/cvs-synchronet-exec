@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.111 2004/01/01 08:38:31 cyan Exp $
+// $Id: ircd.js,v 1.112 2004/01/15 08:45:57 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.111 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.112 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1717,7 +1717,7 @@ function IRCClient_do_summon(summon_user) {
 function IRCClient_do_links(mask) {
 	if (!mask)
 		mask = "*";
-	umode_notice(USERMODE_SPY,"Spy","LINKS " + mask + " requested from " +
+	umode_notice(USERMODE_SPY,"Spy","LINKS " + mask + " requested by " +
 		this.nick + " (" + this.uprefix + "@" + this.hostname + ") [" +
 		this.servername + "]");
 	for(thisServer in Servers) {
