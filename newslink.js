@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.76 2004/05/17 19:23:01 rswindell Exp $
+// $Id: newslink.js,v 1.77 2005/02/04 00:44:49 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.76 $".split(' ')[1];
+const REVISION = "$Revision: 1.77 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -263,13 +263,22 @@ var imported=0;
 var twitlist_fname = system.ctrl_dir + "twitlist.cfg";
 var use_twitlist = file_exists(twitlist_fname);
 
+function article_listed(list, article)
+{
+	var i;
+
+	for(i in list)
+		if(list[i]==article)
+			return(list.splice(i,1));
+
+	return(false);
+}
+
 printf("Scanning %lu message bases...\r\n",area.length);
 for(i in area) {
 	
-	if(!socket.is_connected) {
-		print("Disconnected");
+	if(!socket.is_connected)
 		break;
-	}
 
 	if(js.terminated || file_exists(stop_semaphore))
 		break;
@@ -491,6 +500,18 @@ for(i in area) {
 		ptr++;
 	}
 
+	delete article_list;
+	if(ptr<=last_msg) {
+		writeln(format("XOVER %u-%u", ptr, last_msg));
+		if(parseInt(readln())==224) {
+			printf("Getting headers for articles %u through %u\r\n", ptr, last_msg);
+			article_list = new Array();
+			while((rsp=readln())!='.' && rsp)
+				article_list.push(parseInt(rsp));
+			printf("%u new articles\r\n", article_list.length);
+		}
+	}
+
 	for(;socket.is_connected 
 		&& ptr<=last_msg 
 		&& !js.terminated
@@ -498,11 +519,15 @@ for(i in area) {
 		;ptr++) {
 		if(this.console!=undefined)
 			console.line_counter = 0;
+
+		if(article_list && !article_listed(article_list,ptr))
+			continue;
+
+		printf("Retrieving article: %u\r\n", ptr);
 		writeln(format("ARTICLE %lu",ptr));
 		rsp = readln();
 		if(rsp==null || rsp[0]!='2') {
-			if(debug)
-				printf("!ARTICLE %lu ERROR: %s\r\n",ptr,rsp);
+			printf("!ARTICLE %lu ERROR: %s\r\n",ptr,rsp);
 			continue;
 		}
 		body="";
@@ -762,6 +787,7 @@ for(i in area) {
 			printf("!IMPORT %lu ERROR: %s\r\n", ptr, msgbase.last_error);
 	}
 
+	ptr--;	/* point to last requested article number */
 	if(ptr > last_msg)
 		ptr = last_msg;
 	import_ptr = ptr;
@@ -781,8 +807,12 @@ for(i in area) {
 //		load("binarydecoder.js",sub);
 }
 
-writeln("quit");
-readln();
+if(!socket.is_connected)
+	print("!DISCONNECTED BY SERVER");
+else {
+	writeln("quit");
+	readln();
+}
 
 delete socket;
 
