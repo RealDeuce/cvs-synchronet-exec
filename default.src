@@ -2,7 +2,7 @@
 
 # Default Command Shell for Synchronet Version 2.00a+
 
-# $Id: default.src,v 1.4 2000/11/08 05:22:25 rswindell Exp $
+# $Id: default.src,v 1.5 2001/04/15 16:51:00 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -347,6 +347,7 @@ end_cmd
 print "Problem in command shell."
 pause
 hangup
+return
 
 ############################### E-mail Section ################################
 
