@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.2 2003/12/04 21:29:16 cyan Exp $
+// $Id: ircd_user.js,v 1.3 2003/12/05 14:19:04 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.2 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -1430,7 +1430,7 @@ function User_Quit(str,suppress_bcast,is_netsplit,origin) {
 	if (!this.parent)
 		ww_serverdesc = serverdesc;
 	else
-		ww_serverdesc = Servers[this.parent].info;
+		ww_serverdesc = Servers[this.parent.toLowerCase()].info;
 	WhoWasHistory[whowas_pointer] = new WhoWas(this.nick,this.uprefix,this.hostname,this.realname,this.servername,ww_serverdesc);
 	whowas_pointer++;
 	if (!suppress_bcast)

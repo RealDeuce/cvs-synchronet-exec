@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.2 2003/12/04 21:29:16 cyan Exp $
+// $Id: ircd_unreg.js,v 1.3 2003/12/05 14:19:04 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.2 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -221,7 +221,7 @@ function Unregistered_Commands() {
 			new_server.socket = this.socket;
 			new_server.hops = cmd[2];
 			new_server.info = IRC_string(cmdline);
-			new_server.parent = cmd[1].toLowerCase();
+			new_server.parent = cmd[1];
 			new_server.linkparent = servername;
 			new_server.id = this.id;
 			new_server.flags = this_nline.flags;
