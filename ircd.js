@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.88 2003/11/26 11:56:46 cyan Exp $
+// $Id: ircd.js,v 1.89 2003/11/26 12:24:20 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.88 $".split(' ')[1];
+const REVISION = "$Revision: 1.89 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -987,7 +987,7 @@ if(this.server==undefined) {		// Running from JSexec?
 		default_port = mline_port;
 
 	server = { socket: false, terminated: false,
-		version_detail: "JSexec " + jsexec_revision };
+		version_detail: jsexec_revision_detail };
 	server.socket = create_new_socket(default_port)
 	if (!server.socket)
 		exit();
