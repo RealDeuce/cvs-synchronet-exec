@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.53 2002/09/15 00:20:54 rswindell Exp $
+// $Id: nntpservice.js,v 1.54 2002/09/15 00:27:39 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -15,7 +15,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.53 $".split(' ')[1];
+const REVISION = "$Revision: 1.54 $".split(' ')[1];
 
 var debug = false;
 var no_anonymous = false;
@@ -163,7 +163,7 @@ while(client.socket.is_connected) {
 			for (var i=1; i<=system.stats.total_users; i++) {
 				oUser.number = i;
 				if (oUser.ip_address == client.ip_address)
-					if (!(oUser.exemptions&UFLAG_Q)) //don't count qnet users
+					if (!(oUser.security.restrictions&UFLAG_Q)) //don't count qnet users
 						if (oUser.stats.laston_date > iLastOn) { //more recent than last match
 							iLastOn = oUser.stats.laston_date;
 							sUser = oUser.alias;
@@ -437,6 +437,8 @@ while(client.socket.is_connected) {
 				else
 					writeln("Newsgroups: " + selected.newsgroup);
 
+				if(hdr.replyto!=undefined)
+					writeln("Reply-To: " + hdr.replyto);
 				if(hdr.reply_id!=undefined)
 					writeln("References: " + hdr.reply_id);
 				/* FidoNet header */
