@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.71 2003/12/13 10:51:11 rswindell Exp $
+// $Id: newslink.js,v 1.72 2003/12/29 22:35:18 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.71 $".split(' ')[1];
+const REVISION = "$Revision: 1.72 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -130,6 +130,7 @@ var server;
 var port=119;
 var username;
 var password;
+var interface_ip_address=server.interface_ip_address;
 area = new Array();
 
 /******************************/
@@ -159,6 +160,9 @@ while(!cfg_file.eof) {
 			break;
 		case "port":
 			port=parseInt(str[1]);
+			break;
+		case "interface":
+			interface_ip_address=str[1];
 			break;
 		case "user":
 			username=str[1];
@@ -192,7 +196,6 @@ while(!cfg_file.eof) {
 		case "max_newsgroups_per_article":
 			max_newsgroups_per_article=parseInt(str[1]);
 			break;
-
 		default:
 			print("!UNRECOGNIZED configuration keyword: " + str[0]);
 			break;
@@ -215,7 +218,7 @@ if(server==undefined || !server.length) {
 printf("Connecting to %s port %d ...\r\n",server,port);
 socket = new Socket();
 //socket.debug=true;
-socket.bind(0,server.interface_ip_address);
+socket.bind(0,interface_ip_address);
 if(!socket.connect(server,port)) {
 	printf("!Error %d connecting to %s port %d\r\n"
 		,socket.last_error,server,port);
