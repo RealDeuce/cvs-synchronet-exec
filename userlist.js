@@ -2,7 +2,7 @@
 
 // A sample user listing script for Synchronet v3.1+
 
-// $Id: userlist.js,v 1.4 2003/07/28 22:54:21 rswindell Exp $
+// $Id: userlist.js,v 1.5 2004/05/13 23:23:56 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -22,6 +22,6 @@ for(i=1;i<=lastuser;i++) {
 		,u.location
 		,u.connection
 		);
-	if(bbs.sys_status&SS_ABORT)
+	if(this.bbs!=undefined && bbs.sys_status&SS_ABORT)
 		break;
 }	
