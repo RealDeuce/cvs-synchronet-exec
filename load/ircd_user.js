@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.8 2004/01/30 20:31:44 cyan Exp $
+// $Id: ircd_user.js,v 1.9 2004/10/22 17:48:25 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.8 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.9 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -901,12 +901,14 @@ function User_Work() {
 				if(((cmd[1].toUpperCase() ==
 				    OLines[ol].nick.toUpperCase()) &&
 				   (IRC_match(this.uprefix + "@" +
-				    this.hostname,OLines[ol].hostmask)) &&
-				   (cmd[2] == OLines[ol].password) &&
-				   !(OLines[ol].flags&OLINE_CHECK_SYSPASSWD))
-				||
-				   ((OLines[ol].flags&OLINE_CHECK_SYSPASSWD) &&
-				    system.check_syspass(cmd[2]) )
+				   this.hostname,OLines[ol].hostmask)) &&
+				   (
+				     (cmd[2] == OLines[ol].password) &&
+				     !(OLines[ol].flags&OLINE_CHECK_SYSPASSWD)
+				   ) || (
+				    (OLines[ol].flags&OLINE_CHECK_SYSPASSWD) &&
+				    system.check_syspass(cmd[2])
+				   )
 				) {
 					oper_success=true;
 					this.ircclass = OLines[ol].ircclass;
