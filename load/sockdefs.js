@@ -5,7 +5,7 @@
  * Per RFC 790, September 1981, taken from the BSD file netinet/in.h.
  */
 
-/* $Id: sockdefs.js,v 1.2 2002/06/14 11:05:06 rswindell Exp $ */
+/* $Id: sockdefs.js,v 1.3 2002/06/14 11:14:43 rswindell Exp $ */
 
 /*
  * Protocols
@@ -90,10 +90,10 @@ var sockopts = [
 	"RCVLOWAT",	
 	"SNDTIMEO",	
 	"RCVTIMEO",
-	"REUSEADDR",	
-	"KEEPALIVE",	
-	"DONTROUTE",	
-	"BROADCAST",	
-	"OOBINLINE",	
-	"ACCEPTCONN",	
+	"KEEPALIVE",
+	"REUSEADDR",
+	"DONTROUTE",
+	"BROADCAST",
+	"OOBINLINE",
+	"ACCEPTCONN",
 ];
