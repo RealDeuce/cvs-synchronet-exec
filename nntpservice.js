@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.51 2002/08/14 07:01:22 rswindell Exp $
+// $Id: nntpservice.js,v 1.52 2002/09/09 21:16:13 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -14,7 +14,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.51 $".split(' ')[1];
+const REVISION = "$Revision: 1.52 $".split(' ')[1];
 
 var debug = false;
 var no_anonymous = false;
@@ -360,16 +360,16 @@ while(client.socket.is_connected) {
 
 			switch(cmd[0].toUpperCase()) {
 				case "ARTICLE":
-					writeln(format("220 %s article retrieved - head and body follow",hdr.id));
+					writeln(format("220 %d %s article retrieved - head and body follow",current_article,hdr.id));
 					break;
 				case "HEAD":
-					writeln(format("221 %s article retrieved - header follows",hdr.id));
+					writeln(format("221 %d %s article retrieved - header follows",current_article,hdr.id));
 					break;
 				case "BODY":
-					writeln(format("222 %s article retrieved - body follows",hdr.id));
+					writeln(format("222 %d %s article retrieved - body follows",current_article,hdr.id));
 					break;
 				case "STAT":
-					writeln(format("223 %s article retrieved",hdr.id));
+					writeln(format("223 %d %s article retrieved",current_article,hdr.id));
 					break;
 			}
 			if(cmd[0].toUpperCase()=="STAT")
