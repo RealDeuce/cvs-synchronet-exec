@@ -1,9 +1,11 @@
 // makeguest.js
 
+// Script to create the Guest/Anonymous user account
+// This is normally executed from logon.js (rev 1.7+)
+
+// $Id: makeguest.js,v 1.2 2003/02/21 01:10:40 rswindell Exp $
+
 // Don't create guest account if sysop account hasn't been created yet
-
-// $Id: makeguest.js,v 1.1 2003/02/20 02:54:32 rswindell Exp $
-
 if(!system.stats.total_users)	{
 	printf("No users in database.\r\n");
 	exit();
@@ -33,4 +35,4 @@ user.security.exemptions|=UFLAG_L;		// unlimited logons per day
 user.security.exemptions|=UFLAG_T;		// unlimited time online
 user.security.exemptions|=UFLAG_P;		// permanent (never expires)
 
-printf("Guest account (#%d) created successfully\r\n",user.number);
+printf("Guest account (user #%d) created successfully.\r\n",user.number);
