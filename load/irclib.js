@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.5 2003/12/01 09:18:27 cyan Exp $
+// $Id: irclib.js,v 1.6 2003/12/04 10:41:15 cyan Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.5 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.6 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -216,4 +216,14 @@ function IRC_check_host(host,wilds,uh,nick) {
 	if (!host.match(regexp))
 		return 1;
 	return 0;
+}
+
+// Splits a "nick!user@host" string into its three distinct parts.
+// RETURNS: An array containing nick in [0], user in [1], and host in [2].
+function IRC_split_nuh(str) {
+	var tmp = new Array;
+	tmp[0] = str.split("!")[0];
+	tmp[1] = str.split("!")[1].split("@")[0];
+	tmp[2] = str.split("@")[1];
+	return tmp;
 }
