@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.1 2003/12/04 10:37:51 cyan Exp $
+// $Id: ircd_server.js,v 1.2 2003/12/04 10:54:19 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.1 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -473,7 +473,8 @@ function Server_Work() {
 			}
 			break;
 		case "NOTICE":
-			if (!cmd[1])
+			// FIXME: servers should be able to send notices.
+			if (!cmd[1] || ThisOrigin.server)
 				break;
 			var my_ircstr = IRC_string(cmdline);
 			if ( !cmd[2] || ( !cmd[3] && (
@@ -802,7 +803,7 @@ function Server_Work() {
 				break;
 			}
 			// message from our uplink telling us a server is gone
-			if (this.id == sq_server.parent) {
+			if (this.nick == sq_server.parent) {
 				sq_server.quit(reason,false,false,ThisOrigin);
 				break;
 			}
