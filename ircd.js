@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.72 2003/10/08 10:40:32 cyan Exp $
+// $Id: ircd.js,v 1.73 2003/10/08 10:41:58 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.72 $".split(' ')[1];
+const REVISION = "$Revision: 1.73 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -915,8 +915,8 @@ function check_qwk_passwd(qwkid,password) {
 	var usernum = system.matchuser(qwkid);
 	var bbsuser = new User(usernum);
 	if ((password.toUpperCase() ==
-	     bbsuser.security.password.toUpperCase())  ) //&&
-//	    (bbsuser.security.restrictions&UFLAG_Q) )
+	     bbsuser.security.password.toUpperCase()) &&
+	    (bbsuser.security.restrictions&UFLAG_Q) )
 		return 1;
 	return 0;
 }
