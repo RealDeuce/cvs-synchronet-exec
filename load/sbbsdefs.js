@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.15 2002/08/29 00:43:07 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.16 2002/11/30 23:12:30 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -526,6 +526,18 @@ var	SCAN_TOYOU		=(1<<3)		/* Scan for messages to you 				*/
 var	SCAN_FIND		=(1<<4)		/* Scan for text in messages				*/
 var	SCAN_UNREAD		=(1<<5)		/* Find un-read messages to you 			*/
 					    		/********************************************/
+
+								/********************************************/
+								/* Bits in mode for bbs.scan_dirs()			*/
+								/* bbs.list_files() & bbs.list_file_info()	*/
+								/********************************************/
+var FL_ULTIME		=(1<<0)		/* List files by upload time                */
+var FL_DLTIME		=(1<<1)		/* List files by download time              */
+var FL_NO_HDR		=(1<<2)		/* Don't list directory header              */
+var FL_FINDDESC		=(1<<3)		/* Find text in description                 */
+var FL_EXFIND		=(1<<4)		/* Find text in description - extended info */
+var FL_VIEW			=(1<<5)		/* View ZIP/ARC/GIF etc. info               */
+								/********************************************/
 
 					    		/********************************************/
 								/* Values of mode for bbs.list_users()		*/
