@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.39 2003/09/20 08:24:14 rswindell Exp $
+// $Id: ircd.js,v 1.40 2003/09/20 23:15:40 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.39 $".split(' ')[1];
+const REVISION = "$Revision: 1.40 $".split(' ')[1];
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
@@ -1781,6 +1781,7 @@ function IRCClient_do_info() {
 	this.numeric(371, ":     Deuce: Hacking and OOP conversions.");
 	this.numeric(371, ":DigitalMan: Additional hacking and API stuff.");
 	this.numeric(371, ": ");
+	this.numeric(371, ":Synchronet " + system.full_version);
 	this.numeric(371, ":Running on " + system.os_version);
 	this.numeric(371, ":Compiled with " + system.compiled_with + " at " + system.compiled_when);
 	this.numeric(371, ":Socket Library: " + system.socket_lib);
