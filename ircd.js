@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.79 2003/10/17 09:34:34 cyan Exp $
+// $Id: ircd.js,v 1.80 2003/10/24 21:42:58 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.79 $".split(' ')[1];
+const REVISION = "$Revision: 1.80 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1644,6 +1644,9 @@ function IRCClient_numeric352(user,show_ips_only,chan) {
 	var who_mode="";
 	var disp;
 	var disphost;
+
+	if (!user)
+		return 0;
 
 	if (!chan)
 		disp = "*";
