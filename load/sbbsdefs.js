@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.18 2003/07/02 03:16:17 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.19 2003/07/08 03:43:23 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -149,7 +149,20 @@ var   CON_DOWNARROW =(1<<12)	/* Down arrow hit - from getstr()			*/
 var   CON_NO_INACT  =(1<<13)	/* User inactivity detection disabled		*/
 var   CON_BACKSPACE =(1<<14)	/* Backspace key - from getstr(K_LEFTEXIT)	*/
 var   CON_LEFTARROW =(1<<15)	/* Left arrow hit - from getstr(K_LEFTEXIT)	*/
+var   CON_INSERT	=(1<<16)	/* Insert mode - for use with getstr()		*/
+var	  CON_DELETELINE=(1<<17)	/* Deleted line - from getstr(K_LEFTEXIT)	*/
 					    		/********************************************/
+
+								/********************************************/
+								/* Special inkey()/getkey() return values	*/
+								/********************************************/
+var	  KEY_UP		='\x1e'		/* ctrl-^ (up arrow)						*/
+var	  KEY_DOWN		='\x0a'		/* ctrl-j (dn arrow)						*/
+var   KEY_RIGHT		='\x06'		/* ctrl-f (rt arrow)						*/
+var	  KEY_LEFT		='\x1d'		/* ctrl-] (lf arrow)						*/
+var	  KEY_HOME		='\x02'		/* ctrl-b (home)							*/
+var   KEY_END       ='\x05'		/* ctrl-e (end)								*/
+								/********************************************/
 
 							    /********************************************/
 							    /* console.attributes, also used for ansi()	*/
