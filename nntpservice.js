@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.54 2002/09/15 00:27:39 rswindell Exp $
+// $Id: nntpservice.js,v 1.55 2002/09/24 22:50:37 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -11,11 +11,12 @@
 // Tested clients:
 //					Microsoft Outlook Express 6
 //					Netscape Communicator 4.77
+//					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.54 $".split(' ')[1];
+const REVISION = "$Revision: 1.55 $".split(' ')[1];
 
 var debug = false;
 var no_anonymous = false;
