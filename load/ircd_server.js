@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.17 2004/01/30 20:31:44 cyan Exp $
+// $Id: ircd_server.js,v 1.18 2005/04/05 07:13:01 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -15,13 +15,13 @@
 //
 // Synchronet IRC Daemon as per RFC 1459, link compatible with Bahamut 1.4
 //
-// Copyright 2003-2004 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2005 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 // ** Server to server operation is governed here.
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.17 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.18 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
