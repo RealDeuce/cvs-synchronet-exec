@@ -1,6 +1,6 @@
 // file_size.js
 
-// $Id: file_size.js,v 1.1 2005/03/08 02:57:51 rswindell Exp $
+// $Id: file_size.js,v 1.2 2005/03/08 03:07:17 rswindell Exp $
 
 // Function for returning a string representation of a file size
 
@@ -11,8 +11,8 @@ function file_size_str(size, bytes)
 			return format("%ldB",size);
 		if(size<10000)         /* Bytes with comma */
 			return format("%ld,%03ldB",(size/1000),(size%1000));
-		size = size/1024;
 	}
+	size = size/1024;
 	if(size<1000)  /* KB */
 		return format("%ldK",size);
 	if(size<100000)  /* KB With comma */
