@@ -2,9 +2,15 @@
 
 /* JSexec script for periodic Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.13 2004/09/17 08:28:32 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.14 2004/09/22 21:21:45 rswindell Exp $ */
 
 load("sbbsdefs.js");
+
+var keep = false;
+
+for(i=0;i<argc;i++)
+	if(argv[i]=="-k")
+		keep=true;
 
 var date_str = strftime("%b-%d-%y");	/* mmm-dd-yy */
 
@@ -155,7 +161,7 @@ bail(0);
 
 function bail(code)
 {
-	if(cleanup) {
+	if(cleanup && !keep) {
 		chdir(temp_dir + "/..");
 		log(LOG_INFO, "Executing: " + cleanup + temp_dir);
 		var retval=system.exec(cleanup + temp_dir);
