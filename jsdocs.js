@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.19 2003/07/08 01:13:43 rswindell Exp $
+// $Id: jsdocs.js,v 1.20 2003/09/10 10:05:55 rswindell Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -222,7 +222,7 @@ writeln("<tr><td>" + "errno".bold() + "<td>number<td>last system error number</t
 writeln("<tr><td>" + "errno_str".bold() + "<td>string<td>description of last system error</td>");
 f.writeln("</ul>");
 
-document_object("branch"	,branch);
+document_object("js"		,js);
 document_object("system"	,system);
 document_object("server"	,server);
 document_object("client"	,client);
