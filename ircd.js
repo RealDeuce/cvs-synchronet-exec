@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.58 2003/09/30 11:13:23 cyan Exp $
+// $Id: ircd.js,v 1.59 2003/09/30 11:16:37 cyan Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.58 $".split(' ')[1];
+const REVISION = "$Revision: 1.59 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -259,7 +259,6 @@ function searchbychannel(chan) {
 function searchbyserver(server_name,ignore_wildcards) {
 	if (!server_name)
 		return 0;
-	log("ignore wildcards? " + ignore_wildcards);
 	if ((ignore_wildcards &&
 	    (servername.toUpperCase() == server_name.toUpperCase()) ) ||
 	   (!ignore_wildcards && match_irc_mask(servername,server_name)) )
