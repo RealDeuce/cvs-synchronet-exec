@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.79 2004/04/19 16:19:26 rswindell Exp $
+// $Id: nntpservice.js,v 1.80 2004/05/27 01:46:39 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -27,7 +27,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.79 $".split(' ')[1];
+const REVISION = "$Revision: 1.80 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -666,6 +666,41 @@ while(client.socket.is_connected && !quit) {
 							    msgbase.close();
 							    delete msgbase;
 						    }
+
+						    msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
+							if(msgbase.open!=undefined && msgbase.open()==false)
+								continue;
+
+							/* NNTP Control Message? */
+							if(hdr.control!=undefined) {
+								var ctrl_msg = hdr.control.split(/\s+/);
+								var target;
+								if(ctrl_msg.length) {
+									switch(ctrl_msg[0].toLowerCase()) {
+										case "cancel":
+											target=msgbase.get_msg_header(ctrl_msg[1]);
+											if(target==null) {
+												log("!Invalid Message-ID: " + ctrl_msg[1]);
+												break;
+											}
+											if(logged_in && ((target.from_ext==user.number
+												&& msg_area.grp_list[g].sub_list[s].settings&SUB_DEL)
+												|| msg_area.grp_list[g].sub_list[s].is_operator)) {
+												if(msgbase.remove_msg(ctrl_msg[1])) {
+													posted=true;
+													log("Message deleted: " + ctrl_msg[1]);
+												} else
+													log("!ERROR " + msgbase.error + 
+														" deleting message: " + ctrl_msg[1]);
+												continue;
+											}
+											break;
+									}
+								}
+								log("!Invalid control message: " + hdr.control);
+								break;
+							}
+
 						    if(msg_area.grp_list[g].sub_list[s].settings&SUB_NAME
 							    && !(user.security.restrictions&(UFLAG_G|UFLAG_Q)))
 							    hdr.from=user.name;	// Use real names
@@ -674,19 +709,17 @@ while(client.socket.is_connected && !quit) {
 							else
 								hdr.attr&=~MSG_MODERATED;
 
-						    msgbase=new MsgBase(msg_area.grp_list[g].sub_list[s].code);
-							if(msgbase.open!=undefined && msgbase.open()==false)
-								continue;
 						    if(msgbase.save_msg(hdr,body)) {
 							    log(format("%s posted a message (%u chars, %u lines) on %s"
 									,user.alias, body.length, lines, newsgroups[n]));
-							    writeln("240 article posted ok");
 							    posted=true;
 								msgs_posted++;
 						    } else
 							    log(format("!ERROR saving mesage: %s",msgbase.last_error));
 					    }
-			if(!posted) {
+			if(posted)
+			    writeln("240 article posted ok");
+			else {
 				log("!post failure");
 				writeln("441 posting failed");
 			}

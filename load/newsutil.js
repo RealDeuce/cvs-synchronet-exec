@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.12 2004/04/20 09:22:16 rswindell Exp $
+// $Id: newsutil.js,v 1.13 2004/05/27 01:46:39 rswindell Exp $
 
 load("mailutil.js");
 
@@ -154,6 +154,11 @@ function parse_news_header(hdr, line)
 			break;
 		case "x-ftn-reply":
 			hdr.ftn_reply=data;
+			break;
+
+		/* NNTP control messages */
+		case "control":
+			hdr.control=data;
 			break;
 
 		default:
