@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.23 2004/11/19 10:33:17 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.24 2004/11/19 10:35:43 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.23 $".split(' ')[1];
+const REVISION = "$Revision: 1.24 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -100,11 +100,12 @@ function send(msg)
 		log("Not sending blank message");
 		return;
 	}
-	for(i in exclude)
+	for(i in exclude) {
 		if(msg.search(exclude[i])>=0) {
 			log("Excluding: " + msg);
 			return;
 		}
+	}
 	log("Sending: " + msg);
 	if(!my_server.send("PRIVMSG "+channel+" :"+expand_tabs(msg)+"\r\n"))
 		alert("send failure");
