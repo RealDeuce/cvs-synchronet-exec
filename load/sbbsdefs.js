@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.26 2004/09/22 21:27:31 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.27 2004/10/14 23:58:32 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -533,9 +533,8 @@ var   TG_NOCHKTIME	=(1<<7)		/* Don't check time left online					*/
 					    		/********************************************/
 								/* Bits in console.telnet_mode				*/
 					    		/********************************************/
-var TELNET_MODE_BIN_RX	=(1<<0) /* Binary receive (no CR to CRLF xlat)		*/
-var TELNET_MODE_ECHO	=(1<<1)	/* Echo remotely							*/
-var TELNET_MODE_GATE	=(1<<2)	/* Pass-through telnet commands/responses	*/
+var TELNET_MODE_GATE=(1<<2)		/* Pass-through telnet commands/responses	*/
+var TELNET_MODE_OFF	=(1<<3)		/* Not a telnet connection					*/
 					    		/********************************************/
 
 					    		/********************************************/
