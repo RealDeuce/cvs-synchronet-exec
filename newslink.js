@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.30 2002/09/15 00:26:33 rswindell Exp $
+// $Id: newslink.js,v 1.31 2002/09/16 08:35:48 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -14,7 +14,7 @@
 // area		subboard (internal code) newsgroup
 // ...
 
-const REVISION = "$Revision: 1.30 $".split(' ')[1];
+const REVISION = "$Revision: 1.31 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -474,7 +474,7 @@ for(i in area) {
 				case "from":
 					hdr.from=data;
 					break;
-				case "reply-to"
+				case "reply-to":
 					hdr.replyto_net_type=NET_INTERNET;
 					hdr.replyto=data;
 					break;
