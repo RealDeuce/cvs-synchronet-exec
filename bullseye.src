@@ -2,7 +2,7 @@
 
 # Bulletins written in Baja by Rob Swindell
 
-# $Id: bullseye.src,v 1.6 2003/01/15 22:36:11 rswindell Exp $
+# $Id: bullseye.src,v 1.7 2004/12/31 21:35:16 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -65,7 +65,7 @@ if_true	# not end of file
 		compare_substr str ".htm"
 		replace_text 563 "\1n\1h\1b{\1wContinue? Yes/No\1b} "
 		if_true
-			exec_bin typehtml
+			exec "?typehtml -color %s"
 		else
 			printfile str 0
 			end_if
