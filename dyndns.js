@@ -2,11 +2,11 @@
 
 // Client for Synchronet dynamic DNS service (yourbbs.synchro.net)
 
-// $Id: dyndns.js,v 1.2 2003/07/27 10:34:23 rswindell Exp $
+// $Id: dyndns.js,v 1.3 2003/10/25 19:15:07 rswindell Exp $
 
 // usage: ?dyndns <password>
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 printf("Synchronet Dynamic DNS Client %s\r\n", REVISION);
 
@@ -33,6 +33,12 @@ for(h in host_list) {
 				break;
 			case "pw?":
 				writeln(argv[0]);
+				break;
+			case "ip?":
+				if(argv[1])
+					writeln(argv[1]);
+				else
+					writeln("");
 				break;
 			default:
 				writeln("");
