@@ -2,20 +2,24 @@
 
 // Utility functions for Synchronet external mail processors
 
-// $Id: mailproc_util.js,v 1.1 2003/10/21 23:57:23 rswindell Exp $
+// $Id: mailproc_util.js,v 1.2 2003/10/22 01:01:18 rswindell Exp $
 
 // Parses raw RFC822-formatted messages for use with SMTP Mail Processors
 // Returns an array of header fields parsed from the msgtxt
 // msgtxt is an array of lines from the source (RFC822) message text
 function parse_msg_header(msgtxt)
 {
+	var last_field;
 	var hdr={};
 
 	for(i in msgtxt) {
-		if(msgtxt[i].length==0)	/* Header delimiter */
+		if(msgtxt[i].length==0)	// Header terminator
 			break;
-		var match = msgtxt[i].match(/\s*(\S+)\s*:\s*(.*)/);
-		hdr[match[0]]=match[1];
+		var match = msgtxt[i].match(/(\S+)\s*:\s*(.*)/);
+		if(match)
+			hdr[last_field=match[1]]=match[2];
+		else if(last_field)		// Folded header field
+			hdr[last_field]+=msgtxt[i];
 	}	
 		
 	return(hdr);
