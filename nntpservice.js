@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.86 2005/02/03 11:11:09 rswindell Exp $
+// $Id: nntpservice.js,v 1.87 2005/03/23 22:54:03 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -27,7 +27,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.86 $".split(' ')[1];
+const REVISION = "$Revision: 1.87 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -103,9 +103,12 @@ function getReferenceTo(hdr) {
 }
 
 // Generate an Xref header
-function xref(msgbase, hdr)
+function xref(hdr)
 {
-	return(format("%s %s:%u",system.local_host_name, msgbase.cfg.newsgroup, hdr.number));
+	return(format("%s %s:%u"
+		,system.local_host_name	// "name of the host (with domains omitted)" per RFC1036 sec 2.2.13
+		,selected.newsgroup
+		,hdr.number));
 }
 
 var username='';
@@ -375,7 +378,7 @@ while(client.socket.is_connected && !quit) {
 					,hdr.reply_id	// references
 					,hdr.data_length	// byte count
 					,Math.round(hdr.data_length/79)+1	// line count
-					,xref(msgbase,hdr)
+					,xref(hdr)
 					));
 			}
 			writeln(".");	// end of list
@@ -431,7 +434,7 @@ while(client.socket.is_connected && !quit) {
 						field=Math.round(hdr.data_length/79)+1;
 						break;
 					case "xref":
-						field=xref(msgbase,hdr);
+						field=xref(hdr);
 						break;
 					/* FidoNet header fields */
 					case "x-ftn-pid":
