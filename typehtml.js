@@ -4,7 +4,7 @@
 
 // Planned replacement for exec/typehtml.src (Baja version)
 
-// $Id: typehtml.js,v 1.4 2003/08/28 04:20:03 rswindell Exp $
+// $Id: typehtml.js,v 1.5 2004/12/31 22:08:26 rswindell Exp $
 
 var NORMAL			="\1N\1H"
 var HEADING1		="\1H\1Y"
@@ -37,7 +37,7 @@ for(i in argv) {
 }
 
 if(this.f==undefined) {
-	print("usage: typehtml [-mono] <filename>");
+	print("usage: typehtml [-mono | -color] <filename>");
 	exit(1);
 }
 
