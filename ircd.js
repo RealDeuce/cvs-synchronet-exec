@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.101 2003/12/05 15:29:32 cyan Exp $
+// $Id: ircd.js,v 1.102 2003/12/06 02:31:01 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.101 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.102 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -45,7 +45,7 @@ const VERSION_STR = "Synchronet "
 // It also enables some more verbose WALLOPS, especially as they pertain to
 // blocking functions.
 // The special "DEBUG" oper command also switches this value.
-var debug = true;
+var debug = false;
 
 // Resolve connecting clients' hostnames?  If set to false, everyone will have
 // an IP address instead of a hostname in their nick!user@host identifier.
@@ -440,7 +440,7 @@ function search_nickbuf(bufnick) {
 			if (!Users[NickHistory[nb].newnick.toUpperCase()])
 				return search_nickbuf(NickHistory[nb].newnick);
 			else
-				return NickHistory[nb].newnick;
+				return Users[NickHistory[nb].newnick.toUpperCase()];
 		}
 	}
 	return 0;

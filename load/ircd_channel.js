@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.2 2003/12/05 15:29:33 cyan Exp $
+// $Id: ircd_channel.js,v 1.3 2003/12/06 02:31:01 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.2 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -38,7 +38,7 @@ const CHANMODE_VOICE		=(1<<11); // v
 
 // These are used in the mode crunching section to figure out what character
 // to display in the crunched MODE line.
-function Mode (modechar,args,state,list,isnick) {
+function Mode(modechar,args,state,list,isnick) {
 	// The mode's character
 	this.modechar = modechar;
 	// Does this mode take a single argument only?
@@ -657,7 +657,7 @@ function IRCClient_part_all() {
 
 	for(thisChannel in this.channels) {
 		partingChannel=this.channels[thisChannel];
-		this.do_part(Channels[partingChannel].nam);
+		this.do_part(partingChannel.nam);
 	}
 }
 
