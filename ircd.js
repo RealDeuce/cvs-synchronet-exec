@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.106 2003/12/13 06:58:30 cyan Exp $
+// $Id: ircd.js,v 1.107 2003/12/13 07:25:01 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.106 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.107 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -634,6 +634,8 @@ Local_Sockets_Map = new Array;
 Selectable_Sockets = new Array;
 Selectable_Sockets_Map = new Array;
 
+Global_CommandLine = ""; // We use this to track if a cmdline causes a crash.
+
 hcc_total = 0;
 hcc_users = 0;
 hcc_counter = 0;
@@ -774,9 +776,14 @@ while (!server.terminated) {
 		mswait(1000);
 	} else if (this.socket_select!=undefined) {
 		var readme = socket_select(Selectable_Sockets, 1 /*secs*/);
-		for(thisPolled in readme) {
-			if (Selectable_Sockets_Map[readme[thisPolled]])
-				Selectable_Sockets_Map[readme[thisPolled]].work();
+		try {
+			for(thisPolled in readme) {
+				if (Selectable_Sockets_Map[readme[thisPolled]])
+						Selectable_Sockets_Map[readme[thisPolled]].work();
+			}
+		} catch(e) {
+			gnotice("FATAL ERROR: " + e + " CMDLINE: " + Global_CommandLine);
+			terminate_everything("Terminated: A fatal error occured!");
 		}
 	}
 

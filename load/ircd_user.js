@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.3 2003/12/05 14:19:04 cyan Exp $
+// $Id: ircd_user.js,v 1.4 2003/12/13 07:25:01 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.3 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.4 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -256,6 +256,8 @@ function User_Work() {
 
 	if (!cmdline)
 		return 0;
+
+	Global_CommandLine = cmdline;
 
 	// Only accept up to 512 bytes from clients as per RFC1459.
 	cmdline = cmdline.slice(0,512);

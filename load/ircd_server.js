@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.10 2003/12/13 06:58:30 cyan Exp $
+// $Id: ircd_server.js,v 1.11 2003/12/13 07:25:01 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.10 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.11 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -96,6 +96,8 @@ function Server_Work() {
 
 	if(cmdline==null)
 		return 0;
+
+	Global_CommandLine = cmdline;
 
 	if (debug)
 		log(format("[%s<-%s]: %s",servername,this.nick,cmdline));
@@ -241,10 +243,10 @@ function Server_Work() {
 				"GNOTICE :" + my_ircstr);
 			break;
 		case "ERROR":
-			umode_notice(USERMODE_ROUTING,"Notice", "ERROR from " +
-				this.nick + "[(+)0@" + this.hostname + "] -- "+
-				IRC_string(cmdline));
-			ThisOrigin.quit(IRC_string(cmdline));
+			var my_ircstr = IRC_string(cmdline);
+			gnotice("ERROR from " + this.nick + " [(+)0@" +
+				this.hostname + "] -- " + my_ircstr);
+			ThisOrigin.quit(my_ircstr);
 			break;
 		case "INFO":
 			if (!cmd[1])
@@ -1018,11 +1020,10 @@ function Server_Quit(str,suppress_bcast,is_netsplit,origin) {
 		if (server.client_remove!=undefined)
 			server.client_remove(this.socket);
 
-		this.rawout("ERROR :Closing Link: [" + this.uprefix + "@" + this.hostname + "] (" + str + ")");
 		// FIXME: wrong phrasing below
-		umode_notice(USERMODE_CLIENT,"Client","SERVER exiting: " +
-			this.nick + " (" + this.uprefix + "@" + this.hostname +
-			") [" + str + "] [" + this.ip + "]");
+		gnotice("Closing Link: " + this.nick + " (" + str + ")");
+		this.rawout("ERROR :Closing Link: [" + this.uprefix + "@" + this.hostname + "] (" + str + ")");
+
 		if (this.socket!=undefined)
 			this.socket.close();
 		delete Local_Sockets[this.id];
