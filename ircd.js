@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.59 2003/09/30 11:16:37 cyan Exp $
+// $Id: ircd.js,v 1.60 2003/09/30 23:43:17 rswindell Exp $
 //
 // ircd.js
 //
@@ -23,7 +23,7 @@ load("sockdefs.js");
 load("nodedefs.js");
 
 // CVS revision
-const REVISION = "$Revision: 1.59 $".split(' ')[1];
+const REVISION = "$Revision: 1.60 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1009,7 +1009,7 @@ while (!server.terminated) {
              ClientObject.local )
 		{
 			ClientObject.check_timeout();
-			if(socket_select==undefined)
+			if(this.socket_select==undefined)
 			{
 				ClientObject.work();
 			}
@@ -1017,7 +1017,7 @@ while (!server.terminated) {
              poll_client_map.push(thisClient);
 		}
     }
-	if(socket_select!=undefined)
+	if(this.socket_select!=undefined)
 	{
 		readme=socket_select(poll_clients, 1 /* seconds */);
 		for(thisPolled in readme)
