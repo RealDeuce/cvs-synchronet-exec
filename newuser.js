@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.6 2003/02/04 00:20:42 rswindell Exp $
+// $Id: newuser.js,v 1.7 2003/08/27 23:46:34 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -107,7 +107,7 @@ function send_newuser_welcome_msg(fname)
 		log("!ERROR " + errno_str + " opening " + fname);
 		return(false);
 	}
-	msgtxt = lfexpand(file.read(file_size(fname)));
+	msgtxt = lfexpand(file.read(file.length));
 	file.close();
 	delete file;
 
