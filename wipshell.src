@@ -3,7 +3,7 @@
 # WIP Windows Interface Protocol {tm} Durand Communications Networks, Inc.
 # Command Shell for Synchronet Multinode BBS Software
 
-# $Id: wipshell.src,v 1.5 2001/06/22 02:57:52 rswindell Exp $
+# $Id: wipshell.src,v 1.6 2002/07/19 00:26:26 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -252,7 +252,7 @@ cmdkey B
 
 cmdkey C
 	print_local "Config\r\n"
-	menu XFERCFG
+	menu xfercfg
 	async
 	print "\r\nyhConfig: n"
 	getcmd ?QBEP\r

@@ -2,7 +2,7 @@
 
 # Simple Synchronet Command Shell - for beginner/first-time users
 
-# $Id: simple.src,v 1.5 2001/06/22 02:57:52 rswindell Exp $
+# $Id: simple.src,v 1.6 2002/07/19 00:26:26 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -348,7 +348,7 @@ return
 
 :msg_cfg
 
-menu MAINCFG
+menu maincfg
 async
 print "\r\nyhCommand: n"
 getstrupr 10

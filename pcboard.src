@@ -2,7 +2,7 @@
 
 # PCBoard v15.1 menu/command emulation
 
-# $Id: pcboard.src,v 1.5 2001/06/22 02:57:52 rswindell Exp $
+# $Id: pcboard.src,v 1.6 2002/07/19 00:26:26 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -230,7 +230,7 @@ cmdstr P
 	end_cmd
 
 cmdstr I
-	menu ../ANSWER
+	menu ../answer
 	menu pcboard/welcome
 	end_cmd
 
