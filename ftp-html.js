@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-html.js,v 1.18 2005/04/20 20:19:40 rswindell Exp $
+// $Id: ftp-html.js,v 1.19 2005/04/20 20:22:29 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);    // Used to defeat caching browsers
@@ -371,12 +371,13 @@ if(ftp.file_list.length) {
             var uploader=ftp.file_list[i].uploader;
             if(ftp.file_list[i].settings&FILE_ANON)
                 uploader="Anonymous";
-			else if(!(user.security.restrictions&UFLAG_G)) { /* ! Guest/Anonymous */
+			else {
 				if(uploader == "-> ADDFILES <-")
-					uploader="Sysop".link("mailto:sysop@"+system.inetaddr);
-				else
+					uploader=system.operator;
+				if(!(user.security.restrictions&UFLAG_G)) /* ! Guest/Anonymous */
 					uploader=uploader.link("mailto:" + uploader + "@" + system.inetaddr);
 			}
+
             writeln("<td nowrap>" + dat_font + uploader);
 
             /* download count */
