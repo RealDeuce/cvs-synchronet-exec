@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.11 2005/04/05 07:13:01 cyan Exp $
+// $Id: ircd_user.js,v 1.12 2005/04/26 21:36:43 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.11 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.12 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -1287,14 +1287,16 @@ function User_Work() {
 				break;
 			}
 			if (cmd[2]) {
-				var dest_server = searchbyserver(cmd[2]);
+				var dest_server = searchbyserver(cmd[1]);
 				if (!dest_server) {
-					this.numeric402(cmd[2]);
+					this.numeric402(cmd[1]);
 					break;
 				}
 				if (dest_server != -1) {
-					dest_server.rawout(":" + this.nick + " WHOIS " + cmd[1] + " " + dest_server.nick);
+					dest_server.rawout(":" + this.nick + " WHOIS " + dest_server.nick + " :" + IRC_string(cmdline));
 					break;
+				} else {
+					cmd[1] = cmd[2];
 				}
 			}
 			var wi_nicks = cmd[1].split(",");

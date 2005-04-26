@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.19 2005/04/05 18:28:32 cyan Exp $
+// $Id: ircd_server.js,v 1.20 2005/04/26 21:36:43 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.19 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.20 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -975,10 +975,8 @@ function Server_Work() {
 		case "WHOIS":
 			if (!cmd[2] || ThisOrigin.server)
 				break;
-			if (cmd[2][0] == ":")
-				cmd[2] = cmd[2].slice(1);
-			if (IRC_match(servername, cmd[2])) {
-				var wi_nicks = cmd[1].split(",");
+			if (searchbyserver(cmd[1]) == -1) {
+				var wi_nicks = IRC_string(cmd[2]).split(",");
 				for (wi_nick in wi_nicks) {
 				var wi = Users[wi_nicks[wi_nick].toUpperCase()];
 					if (wi)
@@ -988,10 +986,10 @@ function Server_Work() {
 				} 
 				ThisOrigin.numeric(318, wi_nicks[0]+" :End of /WHOIS list.");
 			} else {
-				var dest_server = searchbyserver(cmd[2]);
+				var dest_server = searchbyserver(cmd[1]);
 				if (!dest_server)
 					break;
-				dest_server.rawout(":" + ThisOrigin.nick + " WHOIS " + cmd[1] + " " + dest_server.nick);
+				dest_server.rawout(":" + ThisOrigin.nick + " WHOIS " + dest_server.nick + " :" + IRC_string(cmd[2]));
 			}
 			break;
 		case "CAPAB":
