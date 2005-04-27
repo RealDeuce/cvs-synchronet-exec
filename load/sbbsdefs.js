@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.29 2005/01/11 04:57:46 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.30 2005/04/27 23:36:06 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -225,6 +225,9 @@ var   USER_EXTDESC 	=(1<<19)	/* Extended file descriptions				*/
 var   USER_AUTOHANG	=(1<<20)	/* Auto-hang-up after transfer				*/
 var   USER_WIP 		=(1<<21)	/* Supports WIP terminal emulation			*/
 var   USER_AUTOLOGON=(1<<22)	/* AutoLogon via IP							*/
+var	  USER_HTML		=(1<<23)	/* Using Deuce's HTML terminal (*cough*)	*/
+var	  USER_NOPAUSESPIN=(1<<24)	/* No spinning cursor at pause prompt		*/
+
 					    		/********************************************/
 
 					    		/********************************************/
