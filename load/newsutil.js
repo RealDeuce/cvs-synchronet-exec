@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.13 2004/05/27 01:46:39 rswindell Exp $
+// $Id: newsutil.js,v 1.14 2005/04/28 22:55:47 rswindell Exp $
 
 load("mailutil.js");
 
@@ -169,6 +169,7 @@ function parse_news_header(hdr, line)
 					data: line + ": " + data 
 				}
 			);
+			hdr[line.toLowerCase()]=data;
 			break;
 	}
 }
