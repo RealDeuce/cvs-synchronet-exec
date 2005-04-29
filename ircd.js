@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.117 2005/04/28 16:56:38 cyan Exp $
+// $Id: ircd.js,v 1.118 2005/04/29 16:27:02 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.117 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.118 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1147,7 +1147,7 @@ function IRCClient_lusers() {
 function num_noninvis_users() {
 	var counter = 0;
 	for(myuser in Users) {
-		if (!Users[myuser].mode&USERMODE_INVISIBLE)
+		if (!(Users[myuser].mode&USERMODE_INVISIBLE))
 			counter++;
 	}
 	return counter;
