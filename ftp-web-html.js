@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-web-html.js,v 1.2 2005/04/20 23:00:46 runemaster Exp $
+// $Id: ftp-web-html.js,v 1.3 2005/05/04 06:34:08 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);    // Used to defeat caching browsers
@@ -96,7 +96,7 @@ var prevdir;
 var hdr_font="<font color=silver>";
 var dat_font="<font color=#CCCCCC>";
 
-if(!(user.security.restrictions&UFLAG_G)) { /* !Guest or Anonymous */
+if(!(user.security.restrictions&UFLAG_G) && system.matchuser("Guest")) { /* !Guest or Anonymous */
     /* Logout button */
     writeln("<table align=right>");
     writeln("<form>");
@@ -106,7 +106,7 @@ if(!(user.security.restrictions&UFLAG_G)) { /* !Guest or Anonymous */
     writeln("</form>");
     writeln("</table><br /><br />");
 
-writeln("<table nowrap class=\"ftp_stats\"><tr><td>");
+	writeln("<table nowrap class=\"ftp_stats\"><tr><td>");
 
     /* User Info */
     writeln("<table nowrap align=left>");
@@ -146,7 +146,7 @@ writeln("<table nowrap class=\"ftp_stats\"><tr><td>");
         ,user.stats.files_downloaded));
     writeln("</table>");
 
-writeln("</tr></td></table>");  
+	writeln("</tr></td></table>");  
     
     writeln("<br>");
 } else if(ftp.curlib.name==undefined) { /* Login */

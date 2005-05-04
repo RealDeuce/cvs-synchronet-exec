@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-html.js,v 1.19 2005/04/20 20:22:29 rswindell Exp $
+// $Id: ftp-html.js,v 1.20 2005/05/04 06:34:08 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);    // Used to defeat caching browsers
@@ -84,7 +84,7 @@ var prevdir;
 var hdr_font="<font color=black>";
 var dat_font="<font color=#112233>";
 
-if(!(user.security.restrictions&UFLAG_G)) { /* !Guest or Anonymous */
+if(!(user.security.restrictions&UFLAG_G) && system.matchuser("Guest")) { /* !Guest or Anonymous */
     /* Logout button */
     writeln("<table align=right>");
     writeln("<form>");
