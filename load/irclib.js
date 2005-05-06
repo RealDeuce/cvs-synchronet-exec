@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.8 2005/05/06 22:46:20 rswindell Exp $
+// $Id: irclib.js,v 1.9 2005/05/06 22:59:00 rswindell Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.8 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.9 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -128,7 +128,9 @@ function IRC_quit(server,reason) {
 		reason = IRCLIB_VERSION;
 
 	server.send("QUIT :" + reason + "\r\n");
-	server.poll(5);	/* wait for a response or disconnect */
+	var start=time();
+	while(server.is_connected && time()-start<5)
+		mswait(500);
 }
 
 // This function is intended to match against so-called "IRC wildcards", which
