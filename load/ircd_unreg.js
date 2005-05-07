@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.13 2005/04/05 07:31:44 cyan Exp $
+// $Id: ircd_unreg.js,v 1.14 2005/05/07 18:54:05 rswindell Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.13 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.14 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -280,6 +280,8 @@ function Unregistered_Quit(msg) {
 		this.rawout("ERROR :" + msg);
 	if (server.client_remove!=undefined)
 		server.client_remove(this.socket);
+	if(server.clients != undefined)
+		log(LOG_DEBUG,format("%d clients", server.clients));
 	this.socket.close();
 	delete Local_Sockets[this.id];
 	delete Local_Sockets_Map[this.id];
@@ -290,7 +292,7 @@ function Unregistered_Quit(msg) {
 
 function Unregistered_Resolve_Check() {
 	var my_resolved = this.pending_resolve.read();
-	if (my_resolved) {
+	if (my_resolved && my_resolved!=null) {
 		if (my_resolved.search(/[.]/))
 			this.hostname = my_resolved;
 		else
