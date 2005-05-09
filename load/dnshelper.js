@@ -1,4 +1,4 @@
-// $Id: dnshelper.js,v 1.2 2005/05/06 08:07:23 rswindell Exp $
+// $Id: dnshelper.js,v 1.3 2005/05/09 04:36:22 rswindell Exp $
 
 /*
    dnshelper.js -- quick script to do a DNS resolution and display the result.
@@ -18,4 +18,5 @@
    acceptable.  Otherwise simply use resolve_host() as per normal.
 */
 
-resolve_host(argv[0]);
+if(resolve_host(argv[0])==null)
+	false;	// Work-around for bug in v3.12a (segfault when decoding "null")
