@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.24 2004/12/31 02:44:42 rswindell Exp $
+// $Id: jsdocs.js,v 1.25 2005/05/13 01:16:11 rswindell Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -273,6 +273,7 @@ writeln("<tr><td>" + "argc".bold() + "<td>number<td>number of arguments passed t
 writeln("<tr><td>" + "argv".bold() + "<td>array<td>array of argument strings (argv.length == argc)</td>");
 writeln("<tr><td>" + "errno".bold() + "<td>number<td>last system error number</td>");
 writeln("<tr><td>" + "errno_str".bold() + "<td>string<td>description of last system error</td>");
+writeln("<tr><td>" + "socket_errno".bold() + "<td>number<td>last socket-related error number (same as <i>errno</i> on Unix platforms)</td>");
 f.writeln("</ul>");
 
 document_object("js"		,js);
