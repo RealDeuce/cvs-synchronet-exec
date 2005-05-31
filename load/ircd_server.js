@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.22 2005/05/31 04:59:48 cyan Exp $
+// $Id: ircd_server.js,v 1.23 2005/05/31 05:04:10 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.22 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.23 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -654,7 +654,7 @@ function Server_Work() {
 				var newsrv = this;
 			} else if (hops > 1) {
 				if (this.hub) {
-					if (searchbyserver(lcserver)) {
+					if (searchbyserver(cmd[1])) {
 						this.quit("Server " + cmd[1] + " already exists.");
 						return 0;
 					}
