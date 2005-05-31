@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.119 2005/05/31 04:59:47 cyan Exp $
+// $Id: ircd.js,v 1.120 2005/05/31 06:22:57 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.119 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.120 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -915,7 +915,7 @@ function ircout(str) {
 }
 
 function Queue_Add(str) {
-	this.bytes = this.bytes + str.length;
+	this.bytes += str.length;
 	this.queue.push(str);
 }
 
@@ -2748,7 +2748,7 @@ function IRCClient_check_timeout() {
 
 function IRCClient_check_sendq() {
 	if (this.sendq.bytes && this.socket.send(this.sendq.queue[0] + "\r\n")) {
-		this.sendq.bytes = this.sendq.bytes - this.sendq.queue[0].length;
+		this.sendq.bytes -= this.sendq.queue[0].length;
 		this.sendq.queue.shift();
 	}
 }
