@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.12 2005/04/26 21:36:43 cyan Exp $
+// $Id: ircd_user.js,v 1.13 2005/05/31 04:59:48 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.12 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -153,6 +153,8 @@ function IRC_User(id) {
 	this.ircout=ircout;
 	this.originatorout=originatorout;
 	this.rawout=rawout;
+	this.sendq = new IRC_Queue();
+	this.recvq = new IRC_Queue();
 	// Output helper functions (shared)
 	this.bcast_to_channel=IRCClient_bcast_to_channel;
 	this.bcast_to_channel_servers=IRCClient_bcast_to_channel_servers;
@@ -193,6 +195,7 @@ function IRC_User(id) {
 	// Global functions
 	this.check_nickname=IRCClient_check_nickname;
 	this.check_timeout=IRCClient_check_timeout;
+	this.check_sendq=IRCClient_check_sendq;
 	this.get_usermode=IRCClient_get_usermode;
 	this.netsplit=IRCClient_netsplit;
 	this.onchanwith=IRCClient_onchanwith;
