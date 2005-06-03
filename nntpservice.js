@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.87 2005/03/23 22:54:03 rswindell Exp $
+// $Id: nntpservice.js,v 1.88 2005/06/03 21:04:28 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -27,7 +27,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.87 $".split(' ')[1];
+const REVISION = "$Revision: 1.88 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -158,9 +158,14 @@ while(client.socket.is_connected && !quit) {
 					writeln("381 More authentication required");
 					break;
 				case "PASS":
-					if(login(username,cmd[2]))
-						writeln("281 Authentication successful");
-					else
+					logout();
+					if(login(username,cmd[2])) {
+						if(no_anonymous && user.security.restrictions&UFLAG_G) {
+							writeln("502 Anonymous/Guest logins disallowed");
+							logout();
+						} else
+							writeln("281 Authentication successful");
+					} else
 						writeln("502 Authentication failure");
 					break;
 				default:
