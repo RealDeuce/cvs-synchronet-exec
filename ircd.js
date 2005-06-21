@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.120 2005/05/31 06:22:57 cyan Exp $
+// $Id: ircd.js,v 1.121 2005/06/21 05:10:19 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.120 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.121 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -346,7 +346,7 @@ function isklined(kl_str) {
 	for(the_kl in KLines) {
 		if (KLines[the_kl].hostmask &&
 		    IRC_match(kl_str,KLines[the_kl].hostmask))
-			return 1;
+			return KLines[the_kl];
 	}
 	return 0;
 }
@@ -363,8 +363,9 @@ function iszlined(zl_ip) {
 function scan_for_klined_clients() {
 	for(thisUser in Local_Users) {
 		var theuser=Local_Users[thisUser];
-		if (theuser.uprefix && isklined(theuser.uprefix + "@" + theuser.hostname))
-			theuser.quit("User has been K:Lined (" + KLines[thiskl].reason + ")");
+		var kline=isklined(theuser.uprefix + "@" + theuser.hostname));
+		if (kline)
+			theuser.quit("User has been K:Lined (" + kline.reason + ")");
 		if (iszlined(theuser.ip))
 			theuser.quit("User has been Z:Lined");
 	}
