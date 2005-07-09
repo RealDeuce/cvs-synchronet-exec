@@ -1,3 +1,5 @@
+// $Id: query_pr.js,v 1.14 2005/07/09 20:20:36 deuce Exp $
+
 load("sbbsdefs.js");
 load("sockdefs.js");
 load("gnatslib.js");
