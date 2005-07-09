@@ -1,9 +1,9 @@
-// $Id: send_pr.js,v 1.15 2005/07/09 08:07:23 rswindell Exp $
+// $Id: send_pr.js,v 1.16 2005/07/09 08:23:11 rswindell Exp $
 
 load("sbbsdefs.js");
 load("gnatslib.js");
 
-const REVISION = "$Revision: 1.15 $".split(' ')[1];
+const REVISION = "$Revision: 1.16 $".split(' ')[1];
 
 console.clear();
 console.center(format("Synchronet Bug Submission Module %s\r\n", REVISION));
@@ -105,7 +105,7 @@ body += "X-Send-Pr-Version: Synchronet send_pr.js\r\n";
 body += "\r\n";
 body += ">Submitter-Id:\t" + pr.SubmitterId + "\r\n";
 body += ">Originator:\t" + pr.Originator + "\r\n";
-body += ">Organization:\r\n\t" + pr.Organization + "\r\n";
+body += ">Organization:\t" + pr.Organization + "\r\n";
 body += ">Confidential:\t" + pr.Confidential + "\r\n";
 body += ">Synopsis:\t" + pr.Synopsis + "\r\n";
 body += ">Severity:\t" + pr.Severity + "\r\n";
@@ -113,7 +113,7 @@ body += ">Priority:\t" + pr.Priority + "\r\n";
 body += ">Category:\t" + pr.Category + "\r\n";
 body += ">Class:\t" + pr.Class + "\r\n";
 body += ">Release:\t" + pr.Release + "\r\n";
-body += ">Environment:\r\n" + pr.Enviroment + "\r\n";
+body += ">Environment:\r\n" + pr.Environment + "\r\n";
 body += ">Description:\r\n" + pr.Description;
 body += ">How-To-Repeat:\r\n" + pr.HowToRepeat;
 body += ">Fix:\r\n" + pr.Fix;
