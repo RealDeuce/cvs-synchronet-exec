@@ -3,7 +3,7 @@
 // Synchronet External Program Section
 // Menus displayed to users via Telnet/RLogin
 
-// $Id: xtrn_sec.js,v 1.3 2005/01/08 08:51:13 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.4 2005/07/09 08:09:10 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -72,11 +72,13 @@ while(bbs.online) {
 				write(bbs.text(XtrnProgLstUnderline)); 
 			}
 			console.crlf();
+			var n;
 			if(xtrn_area.sec_list[xsec].prog_list.length >= 10)
 				n=(xtrn_area.sec_list[xsec].prog_list.length/2)+(xtrn_area.sec_list[xsec].prog_list.length&1);
 			else
 				n=xtrn_area.sec_list[xsec].prog_list.length;
 
+			var i;
 			for(i=0;i<n;i++) {
 				printf(bbs.text(XtrnProgLstFmt),i+1
 					,xtrn_area.sec_list[xsec].prog_list[i].name
@@ -111,7 +113,7 @@ while(bbs.online) {
 		}
 		bbs.exec_xtrn(xtrn_area.sec_list[xsec].prog_list[i].code); 
 
-		if(xtrn_area.sec_list[xsec].prog_list[i].settingsXTRN_PAUSE)
+		if(xtrn_area.sec_list[xsec].prog_list[i].settings&XTRN_PAUSE)
 			bbs.line_counter=2;	/* force a pause before CLS */
 	}
 	if(xtrn_area.sec_list.length<2)
