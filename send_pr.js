@@ -1,9 +1,9 @@
-// $Id: send_pr.js,v 1.14 2005/07/09 08:00:27 rswindell Exp $
+// $Id: send_pr.js,v 1.15 2005/07/09 08:07:23 rswindell Exp $
 
 load("sbbsdefs.js");
 load("gnatslib.js");
 
-const REVISION = "$Revision: 1.14 $".split(' ')[1];
+const REVISION = "$Revision: 1.15 $".split(' ')[1];
 
 console.clear();
 console.center(format("Synchronet Bug Submission Module %s\r\n", REVISION));
@@ -24,7 +24,7 @@ pr.Organization = system.name;
 pr.Confidential = console.noyes("Confidential")?'no':'yes';
 if(console.aborted)
 	exit();
-console.print("\1YOne-line synopsis of the problem\r\n:\1W ");
+console.print("\r\n\1YOne-line synopsis of the problem\r\n:\1W ");
 pr.Synopsis = console.getstr();
 if(console.aborted)
 	exit();
@@ -99,8 +99,8 @@ var body='';
 body += "To: bugs\r\n";
 body += "CC:\r\n";
 body += "Subject: "+pr.Synopsis+"\r\n";
-body += "From: "+user.name+" <"+user.alias+"@"+system.inet_addr+">\r\n";
-body += "Reply-To: "+user.name+" <"+user.alias+"@"+system.inet_addr+">\r\n";
+body += "From: "+user.name+" <"+user.email+">\r\n";
+body += "Reply-To: "+user.name+" <"+user.email+">\r\n";
 body += "X-Send-Pr-Version: Synchronet send_pr.js\r\n";
 body += "\r\n";
 body += ">Submitter-Id:\t" + pr.SubmitterId + "\r\n";
