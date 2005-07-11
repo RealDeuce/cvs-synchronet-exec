@@ -1,4 +1,4 @@
-// $Id: query_pr.js,v 1.14 2005/07/09 20:20:36 deuce Exp $
+// $Id: query_pr.js,v 1.15 2005/07/11 05:34:36 deuce Exp $
 
 load("sbbsdefs.js");
 load("sockdefs.js");
@@ -18,7 +18,13 @@ query.text.text="Any";
 query.text.expr=undefined;
 query.text.field="fieldtype:Text";
 query.text.list=undefined;
-query.text.desc="Text Fields";
+query.text.desc="Single Line Text Fields";
+query.text=new Object;
+query.multitext.text="Any";
+query.multitext.expr=undefined;
+query.multitext.field="fieldtype:Multitext";
+query.multitext.list=undefined;
+query.multitext.desc="Multi Line Text Fields";
 query.category=new Object;
 query.category.text="Any";
 query.category.expr=undefined;
