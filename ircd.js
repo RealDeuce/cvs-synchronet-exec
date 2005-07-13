@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.123 2005/07/13 18:25:07 rswindell Exp $
+// $Id: ircd.js,v 1.124 2005/07/13 21:33:03 rswindell Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.123 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.124 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -772,6 +772,7 @@ while (!server.terminated) {
 			}
 		} catch(e) {
 			gnotice("FATAL ERROR: " + e + " CMDLINE: " + Global_CommandLine);
+			log(LOG_ERR,"JavaScript exception: " + e + " CMDLINE: " + Global_CommandLine);
 			terminate_everything("A fatal error occured!", /* ERROR? */true);
 		}
 	}
