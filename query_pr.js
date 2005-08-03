@@ -1,4 +1,4 @@
-// $Id: query_pr.js,v 1.18 2005/08/03 21:13:14 deuce Exp $
+// $Id: query_pr.js,v 1.19 2005/08/03 23:23:00 deuce Exp $
 
 load("sbbsdefs.js");
 load("sockdefs.js");
@@ -353,5 +353,5 @@ function handle_error()
 {
 	writeln(gnats.error);
 	console.pause();
-	clean_exit();
+	clean_exit(1);
 }
