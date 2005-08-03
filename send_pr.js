@@ -1,9 +1,9 @@
-// $Id: send_pr.js,v 1.18 2005/07/09 08:53:42 rswindell Exp $
+// $Id: send_pr.js,v 1.19 2005/08/03 02:16:23 deuce Exp $
 
 load("sbbsdefs.js");
 load("gnatslib.js");
 
-const REVISION = "$Revision: 1.18 $".split(' ')[1];
+const REVISION = "$Revision: 1.19 $".split(' ')[1];
 
 const MAX_LINE_LEN = 78
 
@@ -11,7 +11,7 @@ console.clear();
 console.center(format("Synchronet Bug Submission Module %s\r\n", REVISION));
 console.crlf();
 
-gnats=new GNATS("gnats.bbsdev.net","guest");
+gnats=new GNATS("bugs.synchro.net","guest");
 if(!gnats.connect()) {
 	writeln(gnats.error);
 	exit();
