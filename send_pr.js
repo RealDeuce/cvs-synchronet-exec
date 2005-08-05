@@ -1,9 +1,9 @@
-// $Id: send_pr.js,v 1.19 2005/08/03 02:16:23 deuce Exp $
+// $Id: send_pr.js,v 1.20 2005/08/05 17:52:09 deuce Exp $
 
 load("sbbsdefs.js");
 load("gnatslib.js");
 
-const REVISION = "$Revision: 1.19 $".split(' ')[1];
+const REVISION = "$Revision: 1.20 $".split(' ')[1];
 
 const MAX_LINE_LEN = 78
 
@@ -123,6 +123,8 @@ body += ">Fix:\r\n" + pr.Fix;
 if(!gnats.submit(body)) {
 	alert(gnats.error);
 	console.pause();
-} else
+} else {
 	console.print("\1y\1hProblem Report (PR) submitted successfully.\r\n");
+	console.print(gnats.message);
+}
 gnats.close();
