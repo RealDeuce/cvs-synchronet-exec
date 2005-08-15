@@ -2,7 +2,7 @@
 
 # Login module for Synchronet BBS v2.2+
 
-# $Id: login.src,v 1.7 2002/11/14 03:46:53 rswindell Exp $
+# $Id: login.src,v 1.8 2005/08/15 21:26:45 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -25,6 +25,7 @@ set str "Guest"
 matchuser guest str		# save Guest account number in guest
 
 :top
+sync
 compare c 10
 if_greater_or_equal
 	hangup
