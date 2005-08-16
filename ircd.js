@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.125 2005/07/19 01:09:59 cyan Exp $
+// $Id: ircd.js,v 1.126 2005/08/16 21:57:18 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.125 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.126 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -177,6 +177,9 @@ function parse_nline_flags(flags) {
 				break;
 			case "k":
 				nline_flags |= NLINE_CHECK_WITH_QWKMASTER;
+				break;
+			case "d":
+				nline_flags |= NLINE_IS_DREAMHAVEN;
 				break;
 			default:
 				log("!WARNING Unknown N:Line flag '" + flags[thisflag] + "' in config.");
