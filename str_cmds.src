@@ -2,7 +2,7 @@
 
 # Global String Command Module for Synchronet
 
-# $Id: str_cmds.src,v 1.13 2002/09/04 09:31:30 rswindell Exp $
+# $Id: str_cmds.src,v 1.14 2005/08/31 23:09:06 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -64,7 +64,7 @@ if_true
 		if_true
 			shift_str 4
 			call get_arg
-			printfile_str
+			printfile "%s"
 			end_if
 		return
 		end_if
