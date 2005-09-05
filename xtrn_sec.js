@@ -3,7 +3,7 @@
 // Synchronet External Program Section
 // Menus displayed to users via Telnet/RLogin
 
-// $Id: xtrn_sec.js,v 1.4 2005/07/09 08:09:10 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.5 2005/09/05 19:32:48 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -15,6 +15,8 @@ const XtrnProgLstTitles		=381
 const XtrnProgLstUnderline	=382
 const XtrnProgLstFmt		=383
 const WhichXtrnProg			=384
+
+var multicolumn = true;
 
 while(bbs.online) {
 
@@ -61,34 +63,33 @@ while(bbs.online) {
 		else {
 			printf(bbs.text(XtrnProgLstHdr),xtrn_area.sec_list[xsec].name);
 			write(bbs.text(XtrnProgLstTitles));
-			if(xtrn_area.sec_list[xsec].prog_list.length >= 10) {
+			if(multicolumn && xtrn_area.sec_list[xsec].prog_list.length >= 10) {
 				write("     ");
 				write(bbs.text(XtrnProgLstTitles)); 
 			}
 			console.crlf();
 			write(bbs.text(XtrnProgLstUnderline));
-			if(xtrn_area.sec_list[xsec].prog_list.length >= 10) {
+			if(multicolumn && xtrn_area.sec_list[xsec].prog_list.length >= 10) {
 				write("     ");
 				write(bbs.text(XtrnProgLstUnderline)); 
 			}
 			console.crlf();
 			var n;
-			if(xtrn_area.sec_list[xsec].prog_list.length >= 10)
-				n=(xtrn_area.sec_list[xsec].prog_list.length/2)+(xtrn_area.sec_list[xsec].prog_list.length&1);
+			if(multicolumn && xtrn_area.sec_list[xsec].prog_list.length >= 10)
+				n=Math.floor(xtrn_area.sec_list[xsec].prog_list.length/2)+(xtrn_area.sec_list[xsec].prog_list.length&1);
 			else
 				n=xtrn_area.sec_list[xsec].prog_list.length;
 
-			var i;
+			var i,j;
 			for(i=0;i<n;i++) {
 				printf(bbs.text(XtrnProgLstFmt),i+1
 					,xtrn_area.sec_list[xsec].prog_list[i].name
 					,xtrn_area.sec_list[xsec].prog_list[i].cost);
 
-				if(xtrn_area.sec_list[xsec].prog_list.length>=10) {
-					j=(xtrn_area.sec_list[xsec].prog_list.length/2)+i+(xtrn_area.sec_list[xsec].prog_list.length&1);
+				if(multicolumn
+					&& xtrn_area.sec_list[xsec].prog_list.length>=10) {
+					j=Math.floor(xtrn_area.sec_list[xsec].prog_list.length/2)+i+(xtrn_area.sec_list[xsec].prog_list.length&1);
 					if(j<xtrn_area.sec_list[xsec].prog_list.length) {
-						log(format("%d %d",j,xtrn_area.sec_list[xsec].prog_list.length));
-						log(xtrn_area.sec_list[xsec].prog_list[j]);
 						write("     ");
 						printf(bbs.text(XtrnProgLstFmt),j+1
 							,xtrn_area.sec_list[xsec].prog_list[j].name
