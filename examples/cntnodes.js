@@ -5,7 +5,7 @@
 // Usage: 	load("cntnodes.js");
 // 		cntnodes();
 
-// $Id: cntnodes.js,v 1.2 2005/09/12 19:25:44 deuce Exp $
+// $Id: cntnodes.js,v 1.3 2005/09/12 19:29:44 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -22,11 +22,18 @@ function cntnodes()
 	nodes_wfc=0
 
 	for(i=0; i<system.nodes; i++) {
-		if(system.node_list[i].status & NODE_WFC)
-			nodes_wfc++;
-		if(system.node_list[i].status & NODE_INUSE)
-			nodes_inuse++;
+		switch(system.node_list[i].status) {
+			case NODE_WFC:
+				NODES_WFC++;
+				break;
+			case NODE_LOGON:
+			case NODE_NEWUSER:
+			case NODE_INUSE:
+			case NODE_QUIET:
+				NODES_INUSE++;
+				break;
+		}
 	}
-	writeln("Nodes in use="+nodes_inuse+"  Waiting for Caller="+nodes_wfc);
+	writeln("Nodes in use="+NODES_INUSE+"  Waiting for Caller="+NODES_WFC);
 }
 
