@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.32 2005/08/31 20:33:33 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.33 2005/09/13 19:38:12 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -678,3 +678,12 @@ var GLOB_APPEND		=(1<<5)		/* Append to results of a previous call.  */
 var GLOB_NOESCAPE   =(1<<6)		/* Backslashes don't quote metacharacters.  */
 var GLOB_PERIOD     =(1<<7)		/* Leading `.' can be matched by metachars.  */
 var GLOB_ONLYDIR    =(1<<13)	/* Match only directories.  */
+
+								/********************************************/
+								/* Values for which in bbs.read_mail()		*/
+								/********************************************/
+var MAIL_YOUR			=0		/* mail sent to you							*/
+var MAIL_SENT			=1		/* mail you have sent						*/
+var MAIL_ANY			=2		/* mail sent to or from you					*/
+var MAIL_ALL			=3		/* all mail (ignores usernumber arg)		*/
+								/********************************************/
