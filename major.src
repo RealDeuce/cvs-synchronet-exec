@@ -2,7 +2,7 @@
 
 # MajorBBS Clone Command Shell for Synchronet
 
-# $Id: major.src,v 1.7 2004/05/10 21:14:40 rswindell Exp $
+# $Id: major.src,v 1.8 2005/09/15 18:31:25 deuce Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -344,6 +344,6 @@ if_true
         return
 	end_if
 
-exec_bin str_cmds
+exec "?str_cmds %s"
 goto sysop
 

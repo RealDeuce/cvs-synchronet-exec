@@ -2,7 +2,7 @@
 
 # Default Command Shell for Synchronet Version 2.00a+
 
-# $Id: default.src,v 1.9 2004/05/10 21:14:40 rswindell Exp $
+# $Id: default.src,v 1.10 2005/09/15 18:31:25 deuce Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -148,7 +148,7 @@ cmdkey ;
 	else
 		getstrupr 40
 		end_if
-	exec_bin str_cmds
+	exec "?str_cmds %s"
 	end_cmd
 
 cmdkey T
@@ -651,7 +651,7 @@ cmdkey ;
 	else
                 getstrupr 40
 		end_if
-	exec_bin str_cmds
+	exec "?str_cmds %s"
 	end_cmd
 
 cmdkey Q
