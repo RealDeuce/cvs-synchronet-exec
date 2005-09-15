@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.1 2005/09/15 18:31:25 deuce Exp $
+// $Id: str_cmds.js,v 1.2 2005/09/15 18:35:14 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -289,6 +289,7 @@ function str_cmds(str)
 				var files=0;
 				var bytes=0;
 				var dirs=0;
+				// ToDo: Is bbs.curlib and bbs.curdir an index to the *_list array?
 				str=file_area.lib_list[bbs.curlib].dir_list[bbs.curdir].path;
 				write("\r\nDirectory of: "+str+"\r\n\r\n");
 				a=directory(str+"*",GLOB_NOSORT);
@@ -386,7 +387,6 @@ function str_cmds(str)
 				write(bbs.text(ResortWarning));
 				return;
 			}
-			// ToDo: Is bbs.curlib and bbs.curdir an index to the *_list array?
 			if(str.search(/^ALL$/i)!=-1) {
 				for(i=0;i<file_area.lib_list.length;i++) {
 					for(j=0;j<file_area.lib_list[i].length;j++) {
@@ -394,6 +394,7 @@ function str_cmds(str)
 					}
 				}
 			}
+			// ToDo: Is bbs.curlib and bbs.curdir an index to the *_list array?
 			else if(str.search(/^LIB$/i)!=-1) {
 				for(j=0;j<file_area.lib_list[bbs.curlib].length;j++) {
 					bbs.resort_dir(file_area.lib_list[bbs.curlib].dir_list[j].number);
