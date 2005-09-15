@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.4 2005/09/15 20:40:47 deuce Exp $
+// $Id: str_cmds.js,v 1.5 2005/09/15 20:41:55 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -129,7 +129,7 @@ function str_cmds(str)
 
 		if(str=="MEM") {
 			// ToDo "MEM" not implemented
-			write("\r\n\001h\001rMEM command not implemented.");
+			writeln("\r\n\001h\001rMEM command not implemented.");
 			return;
 		}
 
@@ -511,7 +511,7 @@ function str_cmds(str)
 				return;
 
 			// ToDo "GET" not implemented
-			write("\r\nFILE_GET not implemented!");
+			writeln("\r\nFILE_GET not implemented!");
 			return;
 		}
 
@@ -532,7 +532,7 @@ function str_cmds(str)
 				return;
 
 			// ToDo "PUT" not implemented
-			write("\r\nPUT not implemented!");
+			writeln("\r\nPUT not implemented!");
 			return;
 		}
 	}
