@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.8 2005/09/16 15:36:07 deuce Exp $
+// $Id: str_cmds.js,v 1.9 2005/09/16 21:06:42 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -234,7 +234,10 @@ function str_cmds(str)
 		if(word=="UEDIT") {
 			// Prompts for syspass
 			str=str.substr(5);
-			bbs.edit_user(str);
+			if(parseInt(str))
+				bbs.edit_user(str);
+			else
+				bbs.edit_user();
 			return;
 		}
 
