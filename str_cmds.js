@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.7 2005/09/16 15:34:52 deuce Exp $
+// $Id: str_cmds.js,v 1.8 2005/09/16 15:36:07 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -359,7 +359,6 @@ function str_cmds(str)
 		}
 
 		if(word=="UPLOAD") {
-			// ToDo This apparently is broken.
 			str=str.substr(7);
 			if(str.toUpperCase()=="ALL") {
 				for(i=0; i<file_area.lib_list.length; i++) {
