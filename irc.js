@@ -3,9 +3,9 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.15 2005/08/05 22:44:15 deuce Exp $
+// $Id: irc.js,v 1.16 2005/09/21 17:50:23 deuce Exp $
 
-const REVISION = "$Revision: 1.15 $".split(' ')[1];
+const REVISION = "$Revision: 1.16 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -980,11 +980,11 @@ function Screen()  {
 		if(connected)  {
 			if(channels != undefined)  {
 				if(channels.current != undefined)  {
-					return "\x01N\x014 Nick: "+nick+"   Channel: "+channels.current.display+SPACEx80.substr(0,79-19-nick.length-channels.current.display.length)+"\x01N\x010\x01W";
+					return "\x01N\x014 Nick: "+nick+"   Channel: "+channels.current.display+SPACEx80.substr(0,79-34-nick.length-channels.current.display.length)+" /quit to exit \x01N\x010\x01W";
 				}
 			}
 		}
-		return "\x01N\x014 Nick: "+nick+"   Channel: No Channel"+SPACEx80.substr(0,79-29-nick.length)+"\x01N\x010\x01W";
+		return "\x01N\x014 Nick: "+nick+"   Channel: No Channel"+SPACEx80.substr(0,79-44-nick.length)+" /quit to exit \x01N\x010\x01W";
 	};
 	this.topicline getter=function() {
 		if(connected)  {
