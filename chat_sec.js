@@ -2,7 +2,7 @@
 
 // Chat Section for any/all Synchronet command shells
 
-// $Id: chat_sec.js,v 1.1 2005/09/12 20:16:12 deuce Exp $
+// $Id: chat_sec.js,v 1.2 2005/09/22 17:15:20 deuce Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -20,7 +20,7 @@ while(1) {
 	var str="";
 
 	// Display TEXT\MENU\CHAT.* if not in expert mode
-	if(!user.settings & USER_EXPERT) {
+	if(!(user.settings & USER_EXPERT)) {
 		bbs.menu("chat");
 	}
 
