@@ -2,7 +2,7 @@
 
 /* JSexec script for periodic Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.16 2004/10/23 07:07:48 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.17 2005/09/28 07:53:31 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
@@ -196,7 +196,7 @@ function send_email(subject, body)
 {
 	var msgbase = new MsgBase("mail");
 	if(msgbase.open()==false) {
-		log("!ERROR " + msgbase.last_error);
+		log(LOG_ERR,"!ERROR " + msgbase.last_error);
 		return(false);
 	}
 

@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.13 2005/05/31 04:59:48 cyan Exp $
+// $Id: ircd_user.js,v 1.14 2005/09/28 07:53:31 rswindell Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.13 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.14 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -452,7 +452,7 @@ function User_Work() {
 				this.server_notice("Invalid DIE password.");
 				break;
 			}
-			log("!ERROR! Shutting down the ircd as per " + this.nuh);
+			log(LOG_ERR,"!ERROR! Shutting down the ircd as per " + this.nuh);
 			js.terminated = true;
 			break;
 		case "ERROR":

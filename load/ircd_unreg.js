@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.16 2005/05/31 04:59:48 cyan Exp $
+// $Id: ircd_unreg.js,v 1.17 2005/09/28 07:53:31 rswindell Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.16 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.17 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -108,7 +108,7 @@ function Unregistered_Commands() {
 	if ((cmdline[0] == "\r") || (cmdline[0] == "\n"))
 		cmdline = cmdline.slice(1);
 	if (debug)
-		log("[UNREG]: " + cmdline);
+		log(LOG_DEBUG,"[UNREG]: " + cmdline);
 	cmd = cmdline.split(" ");
 	if (cmdline[0] == ":") {
 		// Silently ignore NULL originator commands.

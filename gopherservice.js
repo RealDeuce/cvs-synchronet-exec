@@ -9,7 +9,7 @@
 load("sbbsdefs.js");
 load("nodedefs.js");
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 const GOPHER_PORT = client.socket.local_port;
 
 var debug = false;
@@ -24,7 +24,7 @@ for(i=0;i<argc;i++)
 function write(str)
 {
 	if(debug)
-		log("rsp: " + str);
+		log(LOG_DEBUG,"rsp: " + str);
 	client.socket.send(str);
 }
 
@@ -48,17 +48,17 @@ function send_file(fname)
 var msgbase=null;
 
 if(!login("guest"))
-	log("!WARNING: NO GUEST ACCOUNT CONFIGURED");
+	log(LOG_WARNING,"!WARNING: NO GUEST ACCOUNT CONFIGURED");
 
 // Get Request
 request = client.socket.recvline(512 /*maxlen*/, 10 /*timeout*/);
 
 if(request==null) {
-	log("!TIMEOUT waiting for request");
+	log(LOG_WARNING,"!TIMEOUT waiting for request");
 	exit();
 }
 
-log("client request: '" + request + "'");
+log(LOG_DEBUG,"client request: '" + request + "'");
 
 var prefix="";
 var gopher_plus=false;

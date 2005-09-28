@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.27 2004/12/31 22:06:30 rswindell Exp $
+// $Id: fingerservice.js,v 1.28 2005/09/28 07:53:31 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.27 $".split(' ')[1];
+const REVISION = "$Revision: 1.28 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -121,13 +121,13 @@ else						// UDP
 	request = datagram;
 
 if(request==null) {
-	log("!TIMEOUT waiting for request");
+	log(LOG_WARNING,"!TIMEOUT waiting for request");
 	exit();
 }
 
 request = truncsp(request);
 
-log("client request: " + request);
+log(LOG_DEBUG,"client request: " + request);
 
 if(request.substr(0,2).toUpperCase()=="/W")	// "higher level of verbosity"
 	request=request.slice(2);				// ignored...

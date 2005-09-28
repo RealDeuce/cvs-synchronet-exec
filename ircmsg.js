@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.26 2004/11/19 10:51:55 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.27 2005/09/28 07:53:31 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.26 $".split(' ')[1];
+const REVISION = "$Revision: 1.27 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -46,8 +46,8 @@ for(i=0;i<argc;i++) {
 	}
 }
 
-log("Using nick: " + nick);
-log("Connecting to: " +server+ " port " + port);
+log(LOG_INFO,"Using nick: " + nick);
+log(LOG_INFO,"Connecting to: " +server+ " port " + port);
 my_server = IRC_client_connect(server,nick,undefined,undefined,port);
 if(!my_server) {
 	alert("!Couldn't connect to " + server);
@@ -62,7 +62,7 @@ while(!done) {
 			log(response);
 			/* Nick in use... */
 			nick+='_';
-			log("Using nick: " + nick);
+			log(LOG_INFO,"Using nick: " + nick);
 			my_server.send("NICK " + nick + "\r\n");
 		}
 		if(resp[1]=='422' || resp[1]=='376')

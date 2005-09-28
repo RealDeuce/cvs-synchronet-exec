@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.24 2005/08/16 21:57:18 cyan Exp $
+// $Id: ircd_server.js,v 1.25 2005/09/28 07:53:31 rswindell Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.24 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.25 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -454,7 +454,7 @@ function Server_Work() {
 					if (!test_server || (this.nick !=
 					    test_server.parent)) {
 						if (debug && test_server)
-							log("this.nick: " + this.nick + " test_server.parent: " + test_server.parent);
+							log(LOG_DEBUG,"this.nick: " + this.nick + " test_server.parent: " + test_server.parent);
 						umode_notice(USERMODE_OPER,"Notice","Server " + this.nick + " trying to introduce nick from server not behind it: " + cmd[1] + "@" + cmd[7]);
 						this.ircout("KILL " + cmd[1] + " :Invalid Origin.");
 						break;
