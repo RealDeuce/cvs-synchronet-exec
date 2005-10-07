@@ -2,7 +2,7 @@
 
 // Chat Section for any/all Synchronet command shells
 
-// $Id: chat_sec.js,v 1.2 2005/09/22 17:15:20 deuce Exp $
+// $Id: chat_sec.js,v 1.3 2005/10/07 01:52:29 rswindell Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -40,13 +40,13 @@ while(1) {
 		case "A":
 			writeln("");
 			user.chat_settings ^= CHAT_NOACT;
-			bbs.node_settings ^= NODE_AOFF;
+			system.node_list[bbs.node_num-1].misc ^= NODE_AOFF;
 			bbs.whos_online();
 			break;
 		case 'D':
 			writeln("");
 			user.chat_settings ^= CHAT_NOPAGE;
-			bbs.node_settings ^= NODE_POFF;
+			system.node_list[bbs.node_num-1].misc ^= NODE_POFF;
 			bbs.whos_online();
 			break;
 		case 'F':
