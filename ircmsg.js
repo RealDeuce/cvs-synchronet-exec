@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.27 2005/09/28 07:53:31 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.28 2005/10/12 08:49:36 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.27 $".split(' ')[1];
+const REVISION = "$Revision: 1.28 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -41,7 +41,7 @@ for(i=0;i<argc;i++) {
 			}
 			break;
 		case "-x":
-			exclude.push(RegExp(argv[++i],"gi"));
+			exclude.push(RegExp(argv[++i],"i"));
 			break;
 	}
 }
