@@ -1,4 +1,4 @@
-// $Id: sockinfo.js,v 1.2 2005/10/14 01:07:22 rswindell Exp $
+// $Id: sockinfo.js,v 1.3 2005/10/14 02:24:06 rswindell Exp $
 
 load("sockdefs.js");
 
@@ -6,7 +6,7 @@ var socket;
 if(this.client)
 	socket=client.socket;
 else
-	socket=new Socket(SOCK_STREAM,"test");
+	socket=new Socket(argv[0]=="udp" ? SOCK_DGRAM : SOCK_STREAM,"test");
 
 var option_list;
 if(socket.option_list)
