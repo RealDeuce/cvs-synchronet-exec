@@ -1,9 +1,13 @@
-// $Id: sockinfo.js,v 1.3 2005/10/14 02:24:06 rswindell Exp $
+// $Id: sockinfo.js,v 1.4 2005/10/14 07:52:39 rswindell Exp $
 
 load("sockdefs.js");
 
+var global=js.global;
+if(global==undefined)
+	global=this;
+
 var socket;
-if(this.client)
+if(global.client!=undefined)
 	socket=client.socket;
 else
 	socket=new Socket(argv[0]=="udp" ? SOCK_DGRAM : SOCK_STREAM,"test");
