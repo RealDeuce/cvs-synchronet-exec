@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.33 2005/09/13 19:38:12 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.34 2005/10/14 06:25:36 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -162,6 +162,7 @@ var   KEY_RIGHT		='\x06'		/* ctrl-f (rt arrow)						*/
 var	  KEY_LEFT		='\x1d'		/* ctrl-] (lf arrow)						*/
 var	  KEY_HOME		='\x02'		/* ctrl-b (home)							*/
 var   KEY_END       ='\x05'		/* ctrl-e (end)								*/
+var   KEY_DEL       ='\x7f'     /* (del)                                    */
 								/********************************************/
 
 							    /********************************************/
