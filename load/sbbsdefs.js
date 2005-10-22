@@ -1,8 +1,8 @@
 /* sbbsdefs.js */
 
-/* Synchronet Object Model var  ants definitions - (mostly bit-fields) */
+/* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.34 2005/10/14 06:25:36 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.35 2005/10/22 01:37:59 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
