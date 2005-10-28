@@ -3,9 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.21 2005/10/28 19:06:07 deuce Exp $
+// $Id: irc.js,v 1.22 2005/10/28 19:23:17 deuce Exp $
 
-const REVISION = "$Revision: 1.21 $".split(' ')[1];
+// disable auto-termination.
+js.auto_terminate=false;
+
+const REVISION = "$Revision: 1.22 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -122,6 +125,14 @@ while(!quit)  {
 	
 	if(!client.socket.is_connected)  {
 		sock.send("QUIT :Dropped Carrier.\r\n");
+		quit=1;
+		sock.close();
+		bbs.hangup();
+		clean_exit();
+	}
+
+	if(js.terminated) {
+		sock.send("QUIT :Client terminated.\r\n");
 		quit=1;
 		sock.close();
 		bbs.hangup();
