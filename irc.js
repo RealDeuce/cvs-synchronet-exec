@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.22 2005/10/28 19:23:17 deuce Exp $
+// $Id: irc.js,v 1.23 2005/11/02 23:25:35 deuce Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.22 $".split(' ')[1];
+const REVISION = "$Revision: 1.23 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -113,9 +113,6 @@ while(!connected)  {
 }
 
 // Main loop
-socks = new Array;
-socks.push(sock);
-socks.push(client.socket);
 while(!quit)  {
 	if(!sock.is_connected || !connected)  {
 		alert("Lost connection");
@@ -139,13 +136,10 @@ while(!quit)  {
 		clean_exit();
 	}
 
-	ready=socket_select(socks, 1);
-	for(thissock in ready) {
-		if(sock.poll(.01))
-			recieve_command();
-		else
-			screen.update();
-	}
+	if(sock.poll(.01))
+		recieve_command();
+	else
+		screen.update();
 }
 sock.close();
 clean_exit();
