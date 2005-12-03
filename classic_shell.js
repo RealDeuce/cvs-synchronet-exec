@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.2 2005/12/03 02:18:59 deuce Exp $
+// $Id: classic_shell.js,v 1.3 2005/12/03 19:10:14 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -384,7 +384,6 @@ while(1) {
 			continue main;
 
 		case '*':
-			// ToDo... see line 209 in execmsg.cpp
 			if(!msg_area.grp_list.length)
 				continue main;
 			if(file_exists(system.text_dir+"menu/subs"+(bbs.cursub+1)))
@@ -415,7 +414,6 @@ while(1) {
 			continue main;
 
 		case '/*':
-			// ToDo... see line 193 in execmsg.cpp
 			if(msg_area.grp_list.length) {
 				var i=0;
 				if(file_exists(system.text_dir+"menu/grps.*"))
