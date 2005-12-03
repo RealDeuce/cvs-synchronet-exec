@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.10 2005/10/07 01:51:42 rswindell Exp $
+// $Id: str_cmds.js,v 1.11 2005/12/03 20:22:58 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -21,7 +21,7 @@ load("text.js");
 
 if(argc>0)
 	str_cmds(argv.join(" "));	// use command-line arguments if supplied
-else if(bbs.command_str)
+else if(bbs.command_str && bbs.command_str != '')
 	str_cmds(bbs.command_str);	// otherwise, use command shell 'str' var, if supported (v3.13b)
 
 // For testing...
