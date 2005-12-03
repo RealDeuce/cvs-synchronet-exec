@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.4 2005/12/03 19:21:33 deuce Exp $
+// $Id: classic_shell.js,v 1.5 2005/12/03 20:21:01 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -26,8 +26,8 @@
 
 load("sbbsdefs.js");
 load("coldfuncs.js");
-load("str_cmds.js");
 bbs.command_str='';	// Clear STR (Contains the EXEC for default.js)
+load("str_cmds.js");
 var str;
 
 // Set return point for main menu commands (via end_cmd)
