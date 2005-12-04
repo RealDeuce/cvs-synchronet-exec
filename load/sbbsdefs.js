@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.35 2005/10/22 01:37:59 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.36 2005/12/04 23:22:55 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -687,4 +687,18 @@ var MAIL_YOUR			=0		/* mail sent to you							*/
 var MAIL_SENT			=1		/* mail you have sent						*/
 var MAIL_ANY			=2		/* mail sent to or from you					*/
 var MAIL_ALL			=3		/* all mail (ignores usernumber arg)		*/
+								/********************************************/
+
+								/********************************************/
+								/* 'mode' bits for bbs.email()/netmail()	*/
+								/********************************************/
+var WM_EXTDESC		=(1<<0)		/* Writing extended file description		*/
+var WM_EMAIL		=(1<<1)		/* Writing e-mail							*/
+var WM_NETMAIL		=(1<<2)		/* Writing NetMail							*/
+var WM_ANON 		=(1<<3)		/* Writing anonymous message				*/
+var WM_FILE 		=(1<<4)		/* Attaching a file to the message			*/
+var WM_NOTOP		=(1<<5)		/* Don't add top because we need top line   */
+var WM_QUOTE		=(1<<6)		/* Quote file available 					*/
+var WM_QWKNET		=(1<<7)		/* Writing QWK NetMail (25 char title)		*/
+var WM_PRIVATE		=(1<<8)		/* Private (for creating MSGINF file)		*/
 								/********************************************/
