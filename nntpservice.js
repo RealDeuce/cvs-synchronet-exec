@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.97 2005/11/27 09:16:50 rswindell Exp $
+// $Id: nntpservice.js,v 1.98 2005/12/20 22:44:54 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.97 $".split(' ')[1];
+const REVISION = "$Revision: 1.98 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -244,7 +244,7 @@ while(client.socket.is_connected && !quit) {
 			break;
 
 		case "LIST":
-			if(cmd[1]==undefined) {
+			if(cmd[1]==undefined || cmd[1].length==0) {
  				writeln("215 list of newsgroups follows");
 				if(include_mail && user.security.level == 99) {
 					msgbase=new MsgBase("mail");
@@ -313,13 +313,13 @@ while(client.socket.is_connected && !quit) {
 			break;
 
 		case "GROUP":
-			if(cmd[1]==undefined) {
+			if(cmd[1]==undefined || cmd[1].length==0) {
 				writeln("411 no group specified");
 				break;
 			}
 		case "LISTGROUP":
 			found=false;
-			if(cmd[1]==undefined) {
+			if(cmd[1]==undefined || cmd[1].length==0) {
 				if(!selected) {
 					writeln("412 no newsgroup selected");
 					break;
@@ -380,7 +380,7 @@ while(client.socket.is_connected && !quit) {
 				break;
 			}
 			var first, last;
-			if(cmd[1]==undefined)
+			if(cmd[1]==undefined || cmd[1].length==0)
 				first=last=current_article;
 			else if(cmd[1].indexOf('-')>=0)	{ /* range */
 				range=cmd[1].split('-');
@@ -497,7 +497,7 @@ while(client.socket.is_connected && !quit) {
 				bogus_cmd_counter++;
 				break;
 			}
-			if(cmd[1]==undefined) {
+			if(cmd[1]==undefined || cmd[1].length==0) {
 				writeln("420 no current article has been selected");
 				bogus_cmd_counter++;
 				break;
