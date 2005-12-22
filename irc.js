@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.26 2005/12/22 17:04:01 deuce Exp $
+// $Id: irc.js,v 1.27 2005/12/22 20:57:58 deuce Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.26 $".split(' ')[1];
+const REVISION = "$Revision: 1.27 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -668,6 +668,8 @@ function send_command(command,param)  {
 			sock.send("PRIVMSG "+send_to+" :\x01"+full_params+"\x01\r\n");
 			break;
 		case "PART":
+			// If the user specifies a channel, this SHOULD part that channel,
+			// not the current one.
 			channels.part(channels.current.name,param);
 			break;
 		case "N":
