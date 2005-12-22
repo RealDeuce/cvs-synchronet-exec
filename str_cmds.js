@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.14 2005/12/22 06:25:00 deuce Exp $
+// $Id: str_cmds.js,v 1.15 2005/12/22 06:25:49 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -687,7 +687,7 @@ function str_cmds(str)
 		}
 
 		if(str=="HELP") {
-			writeln("QUIET\tToggles anonymous setting (the node is listed online, but you are not");
+			writeln("ANON\tToggles anonymous setting (the node is listed online, but you are not");
 			writeln("\tmentioned).");
 		}
 		if(str=="ANON") {
