@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.13 2005/12/22 06:23:16 deuce Exp $
+// $Id: str_cmds.js,v 1.14 2005/12/22 06:25:00 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -457,7 +457,7 @@ function str_cmds(str)
 			writeln("\tPerforms a bulk upload in areaspec where area spec is ALL, LIB, or");
 			writeln("\tomitted.");
 			writeln("\tIf areaspec is ALL performs the bulk upload in all file areas.");
-			writeln("\tIf areaspec is LIB, does the same in all areas of teh current lib.");
+			writeln("\tIf areaspec is LIB, does the same in all areas of the current lib.");
 		}
 		if(word=="UPLOAD") {
 			str=str.substr(7);
