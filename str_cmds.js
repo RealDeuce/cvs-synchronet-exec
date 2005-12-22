@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.11 2005/12/03 20:22:58 deuce Exp $
+// $Id: str_cmds.js,v 1.12 2005/12/22 05:14:47 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -611,6 +611,14 @@ function str_cmds(str)
 
 	if(str=="POFF") {
 		bbs.node_settings ^= NODE_POFF;
+	}
+
+// Edit .plan
+	if(user.compare_ars("rest not G")) {
+		if(str=="PLAN") {
+			var plan=format("%suser/%04d.plan",system.data_dir,user.number);
+			console.editfile(plan);
+		}
 	}
 }
 
