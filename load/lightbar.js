@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.8 2005/12/30 17:57:11 deuce Exp $
+ * $Id: lightbar.js,v 1.9 2005/12/30 17:58:04 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -350,9 +350,3 @@ function Lightbar_getval(current)
 		}
 	}
 }
-
-var lb=new Lightbar();
-lb.force_width=15;
-lb.add("Option1","1");
-lb.add("Option2","2");
-lb.getval();
