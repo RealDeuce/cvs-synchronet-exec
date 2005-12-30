@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.5 2005/12/30 17:14:32 deuce Exp $
+ * $Id: lightbar.js,v 1.6 2005/12/30 17:20:24 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -30,7 +30,7 @@
  *  hbg: Background colour of a current item
  *  kfg: Hotkey forground colour for non-current item
  *  khfg: Hotkey foreground colour for current item
- *  current: Index of currently highlighted item (ToDo: This should be passed by reference (how?)!)
+ *  current: Index of currently highlighted item
  *  align: If width is greater than the text length, a zero indicates the text
  *         should be left-aligned, a 1 indicates it should be right-aligned, and
  *         a 2 indicates it should be centered.
