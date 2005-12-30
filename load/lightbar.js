@@ -1,8 +1,11 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.3 2005/12/30 06:21:17 deuce Exp $
+ * $Id: lightbar.js,v 1.4 2005/12/30 06:24:05 deuce Exp $
  */
 
+/* ToDo: Support multiple columns */
+/* ToDo: Support "seperators" (Perhaps just make items with no retval not
+ * ToDo: be selectable?) */
 //if(SYS_CLOSED==undefined)
 	load("sbbsdefs.js");
 
