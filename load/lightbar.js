@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.2 2005/12/30 06:19:06 deuce Exp $
+ * $Id: lightbar.js,v 1.3 2005/12/30 06:21:17 deuce Exp $
  */
 
 //if(SYS_CLOSED==undefined)
@@ -98,8 +98,16 @@ function Lightbar_getval(current)
 			return(null);
 		if(this.items[i].retval==undefined)
 			return(undefined);
-		return(this.items[i].retval);
+		retval=this.items[i].retval;
 	}
+
+	for(i=0; i<this.items.length; i++) {
+		if(retval==this.items[i].retval) {
+			this.current=i;
+			break;
+		}
+	}
+	return(retval);
 }
 
 /*
