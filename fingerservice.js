@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.32 2006/01/06 20:55:02 runemaster Exp $
+// $Id: fingerservice.js,v 1.33 2006/01/07 09:49:40 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.32 $".split(' ')[1];
+const REVISION = "$Revision: 1.33 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -289,6 +289,10 @@ if(request.charAt(0)=='?') {	// Handle "special" requests
 			break;
 
 		default:
+			if(file_exists(system.data_dir + "finger/" + file_getname(request))) {
+				send_file(system.data_dir + "finger/" + file_getname(request));
+				break;
+			}
 			writeln("Supported special requests (prepended with '?'):");
 			writeln("\tver");
 			writeln("\ttime");
@@ -300,6 +304,10 @@ if(request.charAt(0)=='?') {	// Handle "special" requests
 				writeln("\tfindfile");
             writeln("\tauto.msg");
 			writeln("\tlogon.lst");
+			var more = directory(system.data_dir + "finger/*");
+			for(var m in more)
+				if(!file_isdir(more[m]))
+					writeln("\t" + file_getname(more[m]));
 			log(format("!UNSUPPORTED SPECIAL REQUEST: '%s'",request));
 			break;
 	}
