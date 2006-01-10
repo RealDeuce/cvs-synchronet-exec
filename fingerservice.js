@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.34 2006/01/10 20:26:16 deuce Exp $
+// $Id: fingerservice.js,v 1.35 2006/01/10 20:37:19 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.34 $".split(' ')[1];
+const REVISION = "$Revision: 1.35 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -189,7 +189,7 @@ if(findfile && 0) {	// What is this supposed to do?
 // MODIFICATION BY MERLIN PART 1 ENDS HERE
 
 
-if(request.charAt(0)=='?') {	// Handle "special" requests
+if(request.charAt(0)=='?' || request.charAt(0)=='.') {	// Handle "special" requests
 	request=request.slice(1);
 	switch(request.toLowerCase()) {
 
@@ -293,7 +293,7 @@ if(request.charAt(0)=='?') {	// Handle "special" requests
 				send_file(system.data_dir + "finger/" + file_getname(request));
 				break;
 			}
-			writeln("Supported special requests (prepended with '?'):");
+			writeln("Supported special requests (prepended with '?' or '.'):");
 			writeln("\tver");
 			writeln("\ttime");
 			writeln("\tstats");
