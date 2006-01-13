@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.19 2006/01/13 19:19:13 deuce Exp $
+// $Id: lbshell.js,v 1.20 2006/01/13 19:22:47 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -708,16 +708,16 @@ while(1) {
 						clear_screen();
 						console.putmsg("\x01_\r\n\x01b\x01hE-mail (User name or number): \x01w");
 						str=console.getstr("",40,K_UPRLWR);
-						if(str==null || str=="")
-							break;
-						if(str=="Sysop")
-							str="1";
-						if(str.search(/\@/)!=-1)
-							bbs.netmail(str);
-						else {
-							i=bbs.finduser(str);
-							if(i>0)
-								bbs.email(i,WM_EMAIL);
+						if(str!=null && str!="") {
+							if(str=="Sysop")
+								str="1";
+							if(str.search(/\@/)!=-1)
+								bbs.netmail(str);
+							else {
+								i=bbs.finduser(str);
+								if(i>0)
+									bbs.email(i,WM_EMAIL);
+							}
 						}
 						draw_main(true);
 						break;
@@ -754,16 +754,16 @@ while(1) {
 						clear_screen();
 						console.putmsg("\x01_\r\n\x01b\x01hE-mail (User name or number): \x01w");
 						str=console.getstr("",40,K_UPRLWR);
-						if(str==null || str=="")
-							break;
-						if(str=="Sysop")
-							str="1";
-						if(str.search(/\@/)!=-1)
-							bbs.netmail(str,WM_FILE);
-						else {
-							i=bbs.finduser(str);
-							if(i>0)
-								bbs.email(i,WM_EMAIL|WM_FILE);
+						if(str!=null && str!="") {
+							if(str=="Sysop")
+								str="1";
+							if(str.search(/\@/)!=-1)
+								bbs.netmail(str,WM_FILE);
+							else {
+								i=bbs.finduser(str);
+								if(i>0)
+									bbs.email(i,WM_EMAIL|WM_FILE);
+							}
 						}
 						draw_main(true);
 						break;
