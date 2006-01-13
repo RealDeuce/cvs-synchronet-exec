@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.13 2006/01/13 00:41:10 deuce Exp $
+ * $Id: lightbar.js,v 1.14 2006/01/13 00:49:58 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -373,7 +373,7 @@ function Lightbar_getval(current)
 				break;
 			default:
 				for(i=0; i<this.items.length; i++) {
-					if(this.items[i].text.indexOf('|'+key)!=-1) {
+					if(this.items[i].text.indexOf('|'+key)!=-1 || this.items[i].text.indexOf('|'+key.toLowerCase())!=-1) {
 						if(this.items[i].retval==undefined)
 							continue;
 						this.current=i;
