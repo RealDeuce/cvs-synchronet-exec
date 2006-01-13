@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.13 2006/01/13 04:05:27 deuce Exp $
+// $Id: lbshell.js,v 1.14 2006/01/13 04:07:52 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -939,11 +939,7 @@ while(1) {
 						userlistloop: while(1) {
 							switch(userlists.getval()) {
 								case '-':
-									clear_screen();
 									break userlistloop;
-									draw_main(true);
-									infomenu.draw();
-									break;
 								case 'L':
 									clear_screen();
 									bbs.list_logons();
