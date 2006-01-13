@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.12 2006/01/12 18:27:43 deuce Exp $
+ * $Id: lightbar.js,v 1.13 2006/01/13 00:41:10 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -101,6 +101,7 @@ function Lightbar_failsafe_getval()
 	}
 	write("Choose an option: ");
 	i=console.getnum(i);
+	i--;
 	if(this.items[i]==undefined)
 		return(null);
 	if(this.items[i].retval==undefined)
