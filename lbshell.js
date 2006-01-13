@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.20 2006/01/13 19:22:47 deuce Exp $
+// $Id: lbshell.js,v 1.21 2006/01/13 19:25:03 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -30,7 +30,7 @@ var mainbar=new Lightbar;
 mainbar.direction=1;
 mainbar.xpos=2;
 mainbar.ypos=1;
-mainbar.hotkeys=KEY_DOWN|";";
+mainbar.hotkeys=KEY_DOWN+";";
 mainbar.add("|File","F");
 	var filemenu=new Lightbar;
 	filemenu.xpos=1;
