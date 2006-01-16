@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.21 2006/01/13 19:25:03 deuce Exp $
+// $Id: lbshell.js,v 1.22 2006/01/16 03:44:23 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -217,19 +217,23 @@ mainbar.add("|Info","I");
 	infomenu.add("|Text Files","T",25);
 	infomenu.add("\xc0\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xd9",undefined,undefined,"","");
 mainbar.add("|Goodbye","G");
-mainbar.add("String Command",";");
+mainbar.add("Commands",";");
 
 draw_main(true);
 var next_key='';
 while(1) {
 	var done=0;
 	var key=next_key;
+	var extra_select=false;
 	next_key='';
 	draw_main(false);
 	if(key=='')
 		key=mainbar.getval()
-	if(key==KEY_DOWN)
+	extra_select=false;
+	if(key==KEY_DOWN) {
 		key=mainbar.items[mainbar.current].retval;
+		extra_select=true;
+	}
 	switch(key) {
 		case ';':
 			mainbar.current=8;
@@ -1120,7 +1124,8 @@ while(1) {
 			draw_main(false);
 			break;
 		case 'G':
-			exit(1);
+			if(!extra_select)
+				exit(1);
 	}
 }
 
