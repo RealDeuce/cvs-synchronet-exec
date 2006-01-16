@@ -3,9 +3,9 @@
 // Synchronet inter-bbs instant message module
 // uses Finger and SMTP TCP/IP protocols
 
-// $Id: sbbsimsg.js,v 1.20 2006/01/16 20:48:32 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.21 2006/01/16 21:43:03 rswindell Exp $
 
-const REVISION = "$Revision: 1.20 $".split(' ')[1];
+const REVISION = "$Revision: 1.21 $".split(' ')[1];
 
 const UDP_RESPONSE_TIMEOUT = 5000	// milliseconds
 
@@ -354,7 +354,7 @@ while(bbs.online) {
 	console.mnemonics("~Telegram, ~Message, ~List, or ~Quit: ");
 	bbs.sys_status&=~SS_ABORT;
 	while(bbs.online && !(bbs.sys_status&SS_ABORT)) {
-		key=console.inkey(K_UPPER);
+		key=console.inkey(K_UPPER, 500);
 		if(key=='Q' || key=='L' || key=='T' || key=='M' || key=='\r')
 			break;
 		if(system.node_list[bbs.node_num-1].misc&(NODE_MSGW|NODE_NMSG)) {
@@ -365,7 +365,6 @@ while(bbs.online) {
 			console.crlf();
 			console.restoreline();
 		}
-		sleep(100);
 	}
 //	printf("key=%s\r\n",key);
 	switch(key) {
