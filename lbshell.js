@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.22 2006/01/16 03:44:23 deuce Exp $
+// $Id: lbshell.js,v 1.23 2006/01/20 02:32:14 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1027,7 +1027,7 @@ while(1) {
 					x_prog=xtrnsecs[curr_xtrnsec].getval();
 					if(x_prog==KEY_RIGHT)
 						break;
-					if(x_proc=='\b' || x_prog=='\x7f' || x_prog=='\x1b')
+					if(x_prog=='\b' || x_prog=='\x7f' || x_prog=='\x1b')
 						break;
 					clear_screen();
 					bbs.exec_xtrn(xtrn_area.sec_list[curr_xtrnsec].prog_list[parseInt(x_prog)].number);
