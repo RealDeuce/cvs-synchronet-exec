@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.16 2005/12/22 18:35:27 deuce Exp $
+// $Id: str_cmds.js,v 1.17 2006/01/28 00:09:43 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -133,7 +133,7 @@ function str_cmds(str)
 			if(bbs.check_syspass()) {
 				write(bbs.text(Filename));
 				if((str=console.getstr("",60))!=null) {
-					editfile(str);
+					console.editfile(str);
 				}
 			}
 		}
