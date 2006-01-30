@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.30 2006/01/30 03:53:39 deuce Exp $
+// $Id: lbshell.js,v 1.31 2006/01/30 04:43:31 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -40,7 +40,7 @@ mainbar.add("|File","F",undefined,undefined,undefined,user.compare_ars("REST T")
 	filemenu.hotkeys=KEY_LEFT+KEY_RIGHT+"\b\x7f\x1b";
 	filemenu.add("\xda\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xbf",undefined,undefined,"","");
 	filemenu.add("|List files","L",19);
-	filemenu.add("|Download","D",19,,undefined,undefined,user.compare_ars("REST D"));
+	filemenu.add("|Download","D",19,undefined,undefined,user.compare_ars("REST D"));
 	filemenu.add("File |Info       -->","I",19);
 		var fileinfo=new Lightbar;
 		fileinfo.xpos=22;
