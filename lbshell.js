@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.23 2006/01/20 02:32:14 deuce Exp $
+// $Id: lbshell.js,v 1.24 2006/01/30 00:30:31 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -39,7 +39,7 @@ mainbar.add("|File","F");
 	filemenu.rpadding="\xb3";
 	filemenu.hotkeys=KEY_LEFT+KEY_RIGHT+"\b\x7f\x1b";
 	filemenu.add("\xda\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xbf",undefined,undefined,"","");
-	filemenu.add("|Batch Download","B",19);
+	filemenu.add("|List files","L",19);
 	filemenu.add("|Download","D",19);
 	filemenu.add("File |Info       -->","I",19);
 		var fileinfo=new Lightbar;
@@ -58,8 +58,8 @@ mainbar.add("|File","F");
 	filemenu.add("|Search Descriptions","S",19);
 	filemenu.add("Search |Filenames","F",19);
 	filemenu.add("|Change Directory","C",19);
-	filemenu.add("|List files","L",19);
 	filemenu.add("|New File Scan","N",19);
+	filemenu.add("|Batch Transfer Menu","B",19);
 	filemenu.add("|Remove/Edit File","R",19);
 	filemenu.add("|Upload File","U",19);
 	filemenu.add("|View File","V",19);
