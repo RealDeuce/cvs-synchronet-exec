@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.27 2006/01/30 00:51:27 deuce Exp $
+// $Id: lbshell.js,v 1.28 2006/01/30 00:54:17 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -245,6 +245,10 @@ while(1) {
 			if(!console.aborted) {
 				var str=console.getstr("",40,K_EDIT);
 				clear_screen();
+				if(str=='?') {
+					if(!user.compare_ars("SYSOP"))
+						str='HELP';
+				}
 				if(str=='?') {
 					bbs.menu("sysmain");
 					console.pause();
