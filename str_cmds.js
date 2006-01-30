@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.17 2006/01/28 00:09:43 rswindell Exp $
+// $Id: str_cmds.js,v 1.18 2006/01/30 00:56:28 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -671,7 +671,7 @@ function str_cmds(str)
 //# Quiet Node
 	if(user.compare_ars("exempt Q")) {
 		if(str=="HELP")
-			writeln("QUIET\tToggles quit setting (you are not lised as online).");
+			writeln("QUIET\tToggles quiet setting (you are not lised as online).");
 		if(str=="QUIET") {
 			if(user.compare_ars("QUIET"))
 				system.node_list[bbs.node_num-1].status=NODE_INUSE;
