@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.17 2006/01/30 04:43:31 deuce Exp $
+ * $Id: lightbar.js,v 1.18 2006/01/30 05:46:05 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -341,7 +341,7 @@ function Lightbar_getval(current)
 		last_cur=this.current;
 
 		/* Get input */
-		var key=console.getkey(K_UPPER);
+		var key=console.getkey(K_UPPER|K_GETSTR);
 		if(this.hotkeys.indexOf(key)!=-1)
 			return(key);
 		switch(key) {
