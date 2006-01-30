@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.25 2006/01/30 00:31:53 deuce Exp $
+// $Id: lbshell.js,v 1.26 2006/01/30 00:37:14 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -642,7 +642,7 @@ while(1) {
 							switch(xfercfgmenu.getval()) {
 								case 'S':
 									clear_screen();
-									bbs.get_newscantime(bbs.new_file_time);
+									bbs.new_file_time=bbs.get_newscantime(bbs.new_file_time);
 									draw_main(true);
 									settingsmenu.draw();
 									break;
