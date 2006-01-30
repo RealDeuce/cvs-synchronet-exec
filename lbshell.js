@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.28 2006/01/30 00:54:17 deuce Exp $
+// $Id: lbshell.js,v 1.29 2006/01/30 01:05:42 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -122,7 +122,7 @@ mainbar.add("|Messages","M");
 	messagemenu.add("|Browse New Scan","B",24);
 	messagemenu.add("|QWK Packet Transfer","Q",24);
 	messagemenu.add("|Post a Message","P",24);
-	messagemenu.add("Post |Auto-Message","A",24);
+	messagemenu.add("Read/Post |Auto-Message","A",24);
 	messagemenu.add("|Find Text in Messages","F",24);
 	messagemenu.add("|Scan For Messages To You","S",24);
 	messagemenu.add("|Jump To New Sub-Board","J",24);
