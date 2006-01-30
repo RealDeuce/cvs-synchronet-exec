@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.35 2006/01/30 05:06:34 deuce Exp $
+// $Id: lbshell.js,v 1.36 2006/01/30 05:07:07 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -72,7 +72,7 @@ mainbar.add("|Settings","S");
 	settingsmenu.rpadding="\xb3";
 	settingsmenu.hotkeys=KEY_LEFT+KEY_RIGHT+"\b\x7f\x1b";
 	settingsmenu.add("\xda\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xbf",undefined,undefined,"","");
-	settingsmenu.add("|User Config","U",24,undefined,undefined,user.compare_ars("REST G"));
+	settingsmenu.add("|User Config","U",24);
 	settingsmenu.add("|Message Scan Config","M",24);
 	settingsmenu.add("To |You Scan Config","Y",24);
 	settingsmenu.add("Message |Pointers","P",24);
