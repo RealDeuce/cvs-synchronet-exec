@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.19 2006/01/30 05:50:26 deuce Exp $
+ * $Id: lightbar.js,v 1.20 2006/01/30 05:52:58 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -343,9 +343,10 @@ function Lightbar_getval(current)
 		/* Get input */
 		/*
 		 * ToDo: K_GETSTR is to ensure that the users SPIN mode isn't used
-		 * This is a hack.
+		 * This is a hack which triples the time that an ESC takes to be
+		 * procesed.
 		 */
-		var key=console.getkey(K_UPPER|K_GETSTR);
+		var key=console.getkey(K_UPPER|(user.settings&USER_SPIN?K_GETSTR:0));
 		if(this.hotkeys.indexOf(key)!=-1)
 			return(key);
 		switch(key) {
