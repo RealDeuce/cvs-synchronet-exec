@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.39 2006/02/02 01:58:32 deuce Exp $
+// $Id: lbshell.js,v 1.40 2006/02/02 02:02:47 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -684,7 +684,11 @@ while(1) {
 				switch(settingsmenu.getval()) {
 					case 'U':
 						clear_screen();
+						var oldshell=user.command_shell;
 						bbs.user_config();
+						/* Still using this shell? */
+						if(user.command_shell != oldshell)
+							exit(0);
 						draw_main(true);
 						break;
 					case 'M':
