@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.5 2006/02/07 21:56:19 deuce Exp $
+// $Id: graphic.js,v 1.6 2006/02/07 21:57:15 deuce Exp $
 
 /*
  * "Graphic" object
@@ -109,7 +109,7 @@ function Graphic_write(xpos, ypos, txt, attr)
 	var y=ypos-1;
 	var p=0;
 
-	while(p<txt.length && x<=this.width && y<=this.height) {
+	while(p<txt.length && x<this.width && y<this.height) {
 		this.data[x][y].ch=txt.substr(p,1);
 		if(attr!=undefined)
 			this.data[x][y].attr=attr;
