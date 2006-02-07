@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.43 2006/02/07 20:24:03 deuce Exp $
+// $Id: lbshell.js,v 1.44 2006/02/07 21:46:02 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -18,10 +18,13 @@
 
 load("sbbsdefs.js");
 load("lightbar.js");
+load("graphic.js");
 bbs.command_str='';	// Clear STR (Contains the EXEC for default.js)
 load("str_cmds.js");
 var str;
 const LBShell_Attr=0x37;
+var BackGround=new Graphic(80,23,LBShell_Attr,' ');
+var use_bg=BackGround.load(system.text_dir+"lbshell_bg.bin");
 var bars80="\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4\xc4";
 var spaces80="                                                                               ";
 
@@ -1825,6 +1828,18 @@ function cleararea(xpos,ypos,width,height,eol_allowed)
 	var x;
 	var y;
 
+	if(use_bg) {
+		if(ypos==1) {
+			console.gotoxy(1,1);
+			console.attributes=0x17;
+			console.cleartoeol();
+			mainbar.draw();
+			ypos++;
+			height--;
+		}
+		BackGround.draw(xpos,ypos,width,height,xpos-1,ypos-2);
+		return;
+	}
 	for(y=ypos; y<ypos+height; y++) {
 		if(eol_allowed) {
 			if(y==1) {
