@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.129 2006/02/07 20:06:19 cyan Exp $
+// $Id: ircd.js,v 1.130 2006/02/08 00:53:01 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.129 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.130 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1528,7 +1528,7 @@ function IRCClient_do_info() {
 		" (" + this.uprefix + "@" + this.hostname + ") [" +
 		this.servername + "]");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-=*[ The Synchronet IRCd v1.1b ]*=-=-=-=-=-=-=-=-=--");
-	this.numeric(371, ":  IRCd Copyright 2003-2005 by Randolph E. Sommerfeld <cyan@rrx.ca>");
+	this.numeric(371, ":  IRCd Copyright 2003-2006 by Randolph E. Sommerfeld <cyan@rrx.ca>");
 	this.numeric(371, ":" + system.version_notice + " " + system.copyright + ".");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-( A big thanks to the following )-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":DigitalMan (Rob Swindell): Resident coder god, various hacking all");

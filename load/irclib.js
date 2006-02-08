@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.10 2005/05/06 23:00:17 rswindell Exp $
+// $Id: irclib.js,v 1.11 2006/02/08 00:53:01 cyan Exp $
 //
 // irclib.js
 //
@@ -19,10 +19,10 @@
 // If you use this to create something neat, let me know about it! :)
 // Either email, or find me on #synchronet, irc.synchro.net, nick 'Cyan'
 //
-// Copyright 2003 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2005 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.10 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.11 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -142,12 +142,31 @@ function IRC_quit(server,reason) {
 // RETURNS: Same as Javascript match() (the matched string on success, or
 // false on failure)
 function IRC_match(mtchstr,mask) {
-	var final_mask="^";
-	mask=mask.replace(/[.]/g,"\\\.");
-	mask=mask.replace(/[?]/g,".");
-	mask=mask.replace(/[*]/g,"(.*)?");
-	final_mask=final_mask + mask + "$";
-	return mtchstr.toUpperCase().match(final_mask.toUpperCase());
+	var uc_mtchstr = mtchstr.toUpperCase();
+	var uc_mask = mask.toUpperCase();
+	var mask_len = mask.length;
+	var mptr = 0;
+
+	for (c in uc_mtchstr) {
+		/* Jump to the last '*' in a series of them. */
+		while ( (uc_mask[mptr] == "*") && (uc_mask[mptr+1] == "*") )
+			mptr++;
+		if (uc_mask[mptr] == "*") {
+			if (uc_mtchstr[c] == uc_mask[mptr+1])
+				mptr += 2;
+			continue;
+		} else if ( (uc_mtchstr[c] == uc_mask[mptr]) ||
+			    (uc_mask[mptr] == "?") ) {
+			mptr++;
+			continue;
+		} else {
+			return false; /* Instant failure */
+		}
+	}
+	if ( (mptr >= mask.length) ||
+	     ( ((mptr+1) == mask.length) && (uc_mask[mptr] == "*") ) )
+		return mtchstr;
+	return false;
 }
 
 // This will create a 'default mask' when given a complete user@host string.
