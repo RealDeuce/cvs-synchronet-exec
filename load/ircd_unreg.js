@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.20 2006/02/08 20:21:22 cyan Exp $
+// $Id: ircd_unreg.js,v 1.21 2006/02/08 20:34:10 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.20 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.21 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -199,9 +199,9 @@ function Unregistered_Commands() {
 				}
 			}
 			if ( (!this_nline ||
-			      ( (this_nline.password == "*") && 
-				!(this_nline.flags&NLINE_CHECK_QWKPASSWD) )
-			     ) && !qwk_slave && !this.outgoing) {
+			      ( (this_nline.password == "*") && !this.outgoing
+				&& !(this_nline.flags&NLINE_CHECK_QWKPASSWD) )
+			     ) && !qwk_slave) {
 				this.quit("Server not configured.");
 				return 0;
 			}
