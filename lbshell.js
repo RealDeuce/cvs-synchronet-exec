@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.51 2006/02/08 22:50:24 deuce Exp $
+// $Id: lbshell.js,v 1.52 2006/02/08 22:51:41 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1301,7 +1301,7 @@ function show_messagemenu()
 				break;
 			case 'N':
 				var typemenu=new Lightbar;
-				var width=38;
+				var width=23;
 				if(width<8+msg_area.grp_list[bbs.curgrp].name.length)
 					width=8+msg_area.grp_list[bbs.curgrp].name.length;
 				if(width<6+msg_area.grp_list[bbs.curgrp].sub_list[bbs.cursub].name.length)
