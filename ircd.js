@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.131 2006/02/08 20:21:22 cyan Exp $
+// $Id: ircd.js,v 1.132 2006/02/08 23:09:46 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.131 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.132 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -874,7 +874,7 @@ function rawout(str) {
 		return 0;
 	}
 
-	if (!this.sendq.bytes && !sendsock.send(str + "\r\n"))
+	if (this.sendq.bytes || !sendsock.send(str + "\r\n"))
 		this.sendq.add(str);
 }
 
@@ -901,7 +901,7 @@ function originatorout(str,origin) {
 		return 0;
 	}
 
-	if (!this.sendq.bytes && !sendsock.send(send_data + "\r\n"))
+	if (this.sendq.bytes || !sendsock.send(send_data + "\r\n"))
 		this.sendq.add(send_data);
 }
 
@@ -922,7 +922,7 @@ function ircout(str) {
 	}
 
 	send_data = ":" + servername + " " + str;
-	if (!this.sendq.bytes && !sendsock.send(send_data + "\r\n"))
+	if (this.sendq.bytes || !sendsock.send(send_data + "\r\n"))
 		this.sendq.add(send_data);
 }
 
