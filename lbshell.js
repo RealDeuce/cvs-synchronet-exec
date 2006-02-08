@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.46 2006/02/08 06:09:13 deuce Exp $
+// $Id: lbshell.js,v 1.47 2006/02/08 06:44:20 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -526,7 +526,6 @@ while(1) {
 						break;
 					case KEY_LEFT:
 						if(infomenu.items[infomenu.current].retval!='U') {
-							cleararea(infomenu.xpos,infomenu.ypos,infomenu.items[0].text.length,infomenu.items.length,true);
 							main_left();
 							done=1;
 							break infoloop;
@@ -575,14 +574,12 @@ while(1) {
 						draw_main(true);
 						break infoloop;
 					case KEY_RIGHT:
-						cleararea(infomenu.xpos,infomenu.ypos,infomenu.items[0].text.length,infomenu.items.length,true);
 						main_right();
 						done=1;
 						break infoloop;
 					case '\b':
 					case '\x7f':
 					case '\x1b':
-						cleararea(infomenu.xpos,infomenu.ypos,infomenu.items[0].text.length,infomenu.items.length,true);
 						break infoloop;
 				}
 			}
