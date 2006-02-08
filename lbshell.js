@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.49 2006/02/08 21:25:32 deuce Exp $
+// $Id: lbshell.js,v 1.50 2006/02/08 22:05:30 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1761,7 +1761,7 @@ function show_chatmenu()
 				}
 				break;
 		}
-		cur=emailmenu.current;
+		cur=chatmenu.current;
 	}
 }
 
