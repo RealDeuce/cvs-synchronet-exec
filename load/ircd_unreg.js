@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.19 2006/02/07 20:06:19 cyan Exp $
+// $Id: ircd_unreg.js,v 1.20 2006/02/08 20:21:22 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.19 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.20 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -42,6 +42,7 @@ function Unregistered_Client(id,socket) {
 	this.pending_resolve = false;
 	this.pending_resolve_time = time();
 	this.sendps = true; // Send the PASS/SERVER pair by default.
+	this.outgoing = false; /* We're an incoming connection by default */
 	// Variables (consts, really) that point to various state information
 	this.socket = socket;
 	////////// FUNCTIONS
@@ -200,7 +201,7 @@ function Unregistered_Commands() {
 			if ( (!this_nline ||
 			      ( (this_nline.password == "*") && 
 				!(this_nline.flags&NLINE_CHECK_QWKPASSWD) )
-			     ) && !qwk_slave) {
+			     ) && !qwk_slave && !this.outgoing) {
 				this.quit("Server not configured.");
 				return 0;
 			}

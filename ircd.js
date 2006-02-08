@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.130 2006/02/08 00:53:01 cyan Exp $
+// $Id: ircd.js,v 1.131 2006/02/08 20:21:22 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.130 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.131 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -181,7 +181,7 @@ function parse_nline_flags(flags) {
 				nline_flags |= NLINE_CHECK_WITH_QWKMASTER;
 				break;
 			case "d":
-				nline_flags |= NLINE_IS_DREAMHAVEN;
+				nline_flags |= NLINE_IS_DREAMFORGE;
 				break;
 			default:
 				log(LOG_WARNING,"!WARNING Unknown N:Line flag '" + flags[thisflag] + "' in config.");
@@ -410,6 +410,7 @@ function connect_to_server(this_cline,the_port) {
 		next_client_id++;
 		Unregistered[new_id]=new Unregistered_Client(new_id,connect_sock);
 		Unregistered[new_id].sendps = false; // Don't do P/S pair again
+		Unregistered[new_id].outgoing = true; /* Outgoing Connection */
 	}
 	this_cline.lastconnect = time();
 }

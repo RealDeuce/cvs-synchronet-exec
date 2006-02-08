@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.27 2006/02/07 20:06:19 cyan Exp $
+// $Id: ircd_server.js,v 1.28 2006/02/08 20:21:22 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,13 +21,13 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.27 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.28 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
 const NLINE_IS_QWKMASTER		=(1<<1);	// w
 const NLINE_CHECK_WITH_QWKMASTER	=(1<<2);	// k
-const NLINE_IS_DREAMHAVEN		=(1<<3);	// d
+const NLINE_IS_DREAMFORGE		=(1<<3);	// d
 
 ////////// Objects //////////
 function IRC_Server() {
