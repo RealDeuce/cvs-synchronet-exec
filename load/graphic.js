@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.6 2006/02/07 21:57:15 deuce Exp $
+// $Id: graphic.js,v 1.7 2006/02/08 19:50:16 deuce Exp $
 
 /*
  * "Graphic" object
@@ -87,7 +87,7 @@ function Graphic_load(filename)
 	var y;
 	var f=new File(filename);
 
-	if(!(f.open("rb",true)))
+	if(!(f.open("rb",true,4096)))
 		return(false);
 	for(y=0; y<this.height; y++) {
 		for(x=0; x<this.width; x++) {
