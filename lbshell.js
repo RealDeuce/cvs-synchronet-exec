@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.59 2006/02/09 02:20:16 deuce Exp $
+// $Id: lbshell.js,v 1.60 2006/02/09 02:22:15 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1705,7 +1705,7 @@ function show_chatmenu()
 				cleararea(chatmenu.xpos,chatmenu.ypos,chatmenu.items[0].text.length,chatmenu.items.length,true);
 				main_right();
 				return;
-			case 'J':
+			case 'M':
 				clear_screen();
 				bbs.multinode_chat();
 				draw_main(true);
@@ -1741,7 +1741,7 @@ function show_chatmenu()
 					bbs.exec("?irc -a "+str);
 				draw_main(true);
 				break;
-			case 'M':
+			case 'I':
 				clear_screen();
 				bbs.exec("?sbbsimsg");
 				draw_main(true);
