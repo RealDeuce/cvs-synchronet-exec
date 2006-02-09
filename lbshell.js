@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.56 2006/02/09 02:13:07 deuce Exp $
+// $Id: lbshell.js,v 1.57 2006/02/09 02:14:30 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1406,7 +1406,9 @@ function show_messagemenu()
 						case 'A':
 							clear_screen();
 							console.putmsg("\r\n\x01c\x01hYour Message Scan\r\n");
-							bbs.scan_subs(SCAN_TOYOU);
+							for(j=0; j<msg_area.grp_list.length; j++)
+								for(i=0; i<msg_area.grp_list[j].sub_list.length; i++)
+									bbs.scan_posts(msg_area.grp_list[bbs.curgrp].sub_list[i].number, SCAN_TOYOU);
 							draw_main(true);
 							messagemenu.draw();
 							break;
