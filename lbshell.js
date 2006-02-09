@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.58 2006/02/09 02:17:30 deuce Exp $
+// $Id: lbshell.js,v 1.59 2006/02/09 02:20:16 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1519,6 +1519,12 @@ function show_messagemenu()
 			case 'Q':
 				clear_screen();
 				bbs.qwk_sec();
+				draw_main(true);
+				break;
+			case 'V':
+				clear_screen();
+				bbs.sub_info();
+				console.pause();
 				draw_main(true);
 				break;
 		}
