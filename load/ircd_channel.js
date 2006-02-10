@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.7 2006/02/07 20:06:19 cyan Exp $
+// $Id: ircd_channel.js,v 1.8 2006/02/10 07:57:12 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.7 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -597,7 +597,8 @@ function IRCClient_do_join(chan_name,join_key) {
 			}
 		}
 		if (chan_name[0] != "&")
-			server_bcast_to_servers(":" + this.nick + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam);
+			server_bcast_to_servers(":" + this.nick + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam,BAHAMUT);
+			server_bcast_to_servers(":" + this.nick + " JOIN " + Channels[chan].created,DREAMFORGE);
 	} else {
 		// create a new channel
 		Channels[chan]=new Channel(chan);
@@ -612,9 +613,17 @@ function IRCClient_do_join(chan_name,join_key) {
 		Channels[chan].modelist[CHANMODE_OP] = new Array;
 		Channels[chan].modelist[CHANMODE_OP][this.id] = this;
 		var str="JOIN :" + chan_name;
-		this.originatorout(str,this);
-		if (chan_name[0] != "&")
-			server_bcast_to_servers(":" + servername + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam + " " + Channels[chan].chanmode() + " :@" + this.nick);
+		var create_op = "";
+		if (this.local) {
+			this.originatorout(str,this);
+			create_op = "@";
+		}
+		if (chan_name[0] != "&") {
+			server_bcast_to_servers(":" + servername + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam + " " + Channels[chan].chanmode() + " :" + create_op + this.nick,BAHAMUT);
+			server_bcast_to_servers(":" + this.nick + " JOIN " + Channels[chan].nam,DREAMFORGE);
+			if (create_op)
+				server_bcast_to_servers(":" + servername + " MODE " + Channels[chan].nam + " +o " + this.nick + " " + Channels[chan].created,DREAMFORGE);
+		}
 	}
 	if (this.invited.toUpperCase() == Channels[chan].nam.toUpperCase())
 		this.invited = "";

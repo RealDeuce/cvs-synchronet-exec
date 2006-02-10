@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.21 2006/02/08 20:34:10 cyan Exp $
+// $Id: ircd_unreg.js,v 1.22 2006/02/10 07:57:12 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.21 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.22 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -149,7 +149,7 @@ function Unregistered_Commands() {
 		case "PASS":
 			if (!cmd[1] || this.password)
 				break;
-			this.password = cmd[1];
+			this.password = IRC_string(cmd[1]);
 			break;
 		case "PONG":
 			this.pinged = false;
@@ -238,6 +238,8 @@ function Unregistered_Commands() {
 					}
 				}
 			}
+			if (this_nline.flags&NLINE_IS_DREAMFORGE)
+				new_server.type = DREAMFORGE;
 			new_server.finalize_server_connect("TS",this.sendps);
 			break;
 		case "USER":
