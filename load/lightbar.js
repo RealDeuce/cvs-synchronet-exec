@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.22 2006/02/08 05:54:19 deuce Exp $
+ * $Id: lightbar.js,v 1.23 2006/02/13 18:52:55 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -75,6 +75,8 @@ function Lightbar(items)
 	this.rpadding=null;
 	this.hblanks=2;
 	this.hotkeys='';
+	this.callback=undefined;
+	this.timeout=0;
 	if(items==undefined)
 		this.items=new Array();
 	else
@@ -367,7 +369,15 @@ function Lightbar_getval(current)
 		 * This is a hack which triples the time that an ESC takes to be
 		 * procesed.
 		 */
-		var key=console.getkey(K_UPPER|(user.settings&USER_SPIN?K_GETSTR:0));
+		var key=undefined;
+		while(key==undefined || key=='' || key==null) {
+			if(this.callback != undefined)
+				this.callback();
+			if(this.timeout>1)
+				key=console.inkey(K_UPPER|(user.settings&USER_SPIN?K_GETSTR:0),this.timeout);
+			else
+				key=console.getkey(K_UPPER|(user.settings&USER_SPIN?K_GETSTR:0));
+		}
 		if(this.hotkeys.indexOf(key)!=-1) {
 			this.nodraw=false;
 			return(key);
