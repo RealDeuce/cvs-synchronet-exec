@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.133 2006/02/10 07:57:12 cyan Exp $
+// $Id: ircd.js,v 1.134 2006/02/15 19:50:53 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.133 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.134 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1397,9 +1397,9 @@ function IRCClient_global(target,type_str,send_str) {
 			Client.originatorout(global_str,this);
 	}
 	global_str = ":" + this.nick + " " + global_str;
-	if(this.local)
+	if(this.local && this.parent) /* Incoming from a local server */
 		Servers[this.parent.toLowerCase()].bcast_to_servers_raw(global_str);
-	else if (this.flags&OLINE_CAN_GGNOTICE)
+	else if (this.flags&OLINE_CAN_GGNOTICE) /* From a local oper */
 		server_bcast_to_servers(global_str);
 	return 1;
 }
