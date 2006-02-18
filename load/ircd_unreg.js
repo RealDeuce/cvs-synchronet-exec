@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.22 2006/02/10 07:57:12 cyan Exp $
+// $Id: ircd_unreg.js,v 1.23 2006/02/18 01:36:29 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.22 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.23 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -380,7 +380,9 @@ function Unregistered_Welcome() {
 		") [" + this.ip + "] {" + hcc_counter + "}");
 	if (server.client_update != undefined)
 		server.client_update(this.socket, this.nick, this.hostname);
-	server_bcast_to_servers("NICK " + this.nick + " 1 " + new_user.created + " + " + this.uprefix + " " + this.hostname + " " + servername + " 0 " + ip_to_int(new_user.ip) + " :" + this.realname);
+	var nickstr = "NICK " + this.nick + " 1 " + new_user.created + " ";
+	server_bcast_to_servers(nickstr + "+ " + this.uprefix + " " + this.hostname + " " + servername + " 0 " + ip_to_int(new_user.ip) + " :" + this.realname,BAHAMUT);
+	server_bcast_to_servers(nickstr + this.uprefix + " " + this.hostname + " " + servername + " 0 " + " :" + this.realname,DREAMFORGE);
 	// we're no longer unregistered.
 	delete Unregistered[this.id];
 	delete this;

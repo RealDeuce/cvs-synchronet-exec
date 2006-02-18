@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.8 2006/02/10 07:57:12 cyan Exp $
+// $Id: ircd_channel.js,v 1.9 2006/02/18 01:36:29 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.8 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.9 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -598,7 +598,7 @@ function IRCClient_do_join(chan_name,join_key) {
 		}
 		if (chan_name[0] != "&")
 			server_bcast_to_servers(":" + this.nick + " SJOIN " + Channels[chan].created + " " + Channels[chan].nam,BAHAMUT);
-			server_bcast_to_servers(":" + this.nick + " JOIN " + Channels[chan].created,DREAMFORGE);
+			server_bcast_to_servers(":" + this.nick + " JOIN " + Channels[chan].nam + " " + Channels[chan].created,DREAMFORGE);
 	} else {
 		// create a new channel
 		Channels[chan]=new Channel(chan);
