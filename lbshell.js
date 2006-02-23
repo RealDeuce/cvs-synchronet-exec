@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.68 2006/02/23 22:14:44 deuce Exp $
+// $Id: lbshell.js,v 1.69 2006/02/23 22:23:19 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -46,22 +46,24 @@ var orig_passthru=console.ctrlkey_passthru;
 function handle_a_ctrlkey(key)
 {
 	var i;
+	var pause=false;
 	switch(key) {
 		case ctrl('O'):	/* CTRL-O - Pause */
 			break;
 		case ctrl('U'):	/* CTRL-U User List */
 		case ctrl('T'):	/* CTRL-T Time Info */
 		case ctrl('K'):	/* CTRL-K Control Key Menu */
+			pause=true;
 		case ctrl('P'):	/* Ctrl-P Messages */
 			clear_screen();
 			console.handle_ctrlkey(key);
-			redraw=true;
+			if(pause)
+				console.pause();
 			draw_main(true);
 			for(i=0; i<menus_displayed.length; i++)
 				menus_displayed[i].draw();
 			break;
 	}
-	console.pause;
 }
 
 function get_message()
