@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.13 2006/02/23 05:57:34 deuce Exp $
+// $Id: graphic.js,v 1.14 2006/02/23 21:48:28 deuce Exp $
 
 /*
  * "Graphic" object
@@ -158,7 +158,9 @@ function Graphic_putmsg(xpos, ypos, txt, attr, scroll)
 	if(curattr==undefined)
 		curattr=this.attribute;
 	/* Expand @-codes */
-	txt=txt.replace(/@(.*)@/g,
+	if(txt==undefined || txt==null || txt.length==0)
+		return(0);
+	txt=txt.toString().replace(/@(.*)@/g,
 		function (str, code, offset, s) {
 			return bbs.atcode(code);
 		}
