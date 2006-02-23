@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.12 2006/02/23 04:29:09 deuce Exp $
+// $Id: graphic.js,v 1.13 2006/02/23 05:57:34 deuce Exp $
 
 /*
  * "Graphic" object
@@ -299,4 +299,5 @@ function Graphic_putmsg(xpos, ypos, txt, attr, scroll)
 				}
 		}
 	}
+	return(scrolls);
 }
