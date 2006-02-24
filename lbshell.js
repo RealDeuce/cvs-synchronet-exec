@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.70 2006/02/24 00:23:16 deuce Exp $
+// $Id: lbshell.js,v 1.71 2006/02/24 16:59:31 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -596,7 +596,7 @@ while(1) {
 			while(!done) {
 				x_sec=xtrnsec.getval();
 				if(x_sec==KEY_LEFT)
-					x_sec=xtrnsec.current-1;
+					x_sec=(xtrnsec.current-1).toString();
 				if(x_sec==KEY_RIGHT) {
 					main_right();
 					break;
@@ -950,7 +950,7 @@ function show_filemenu()
 				menus_displayed.push(typemenu);
 				while(1) {
 					ret=typemenu.getval();
-					switch(typemenu.getval()) {
+					switch(ret) {
 						case ctrl('O'): /* CTRL-O - Pause */
 						case ctrl('U'): /* CTRL-U User List */
 						case ctrl('T'): /* CTRL-T Time Info */
