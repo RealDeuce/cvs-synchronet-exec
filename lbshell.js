@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.69 2006/02/23 22:23:19 deuce Exp $
+// $Id: lbshell.js,v 1.70 2006/02/24 00:23:16 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -776,11 +776,11 @@ function clear_screen()
 	 * If you'd like a header before non-menu stuff, this is the place to put
 	 * it.
 	 */
-	/* We are going to a line-mode thing... re-enable CTRL keys. */
-	console.ctrlkey_passthru=orig_passthru;
 
 	console.attributes=7;
 	console.clear();
+	/* We are going to a line-mode thing... re-enable CTRL keys. */
+	console.ctrlkey_passthru=orig_passthru;
 }
 
 function draw_main(topline)
