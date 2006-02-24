@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.71 2006/02/24 16:59:31 deuce Exp $
+// $Id: lbshell.js,v 1.72 2006/02/24 18:34:41 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -790,7 +790,7 @@ function draw_main(topline)
 	 * topline is false when the top line doesn't need redrawing.
 	 */
 	/* Disable CTRL keys that we "know" how to handle. */
-	console.ctrlkey_passthru|=3246080;
+	console.ctrlkey_passthru="+KOPTU";
 	if(topline)
 		cleararea(1,1,console.screen_columns,console.screen_rows,true);
 	else
