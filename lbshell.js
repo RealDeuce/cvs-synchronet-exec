@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.74 2006/03/01 01:27:45 deuce Exp $
+// $Id: lbshell.js,v 1.75 2006/03/03 04:46:33 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -23,6 +23,7 @@ const MessageTimeout=50;		/* 100ths of a second */
 
 
 load("sbbsdefs.js");
+load("nodedefs.js");
 load("lightbar.js");
 load("graphic.js");
 bbs.command_str='';	// Clear STR (Contains the EXEC for default.js)
@@ -533,6 +534,7 @@ while(1) {
 	var key=next_key;
 	var extra_select=false;
 	next_key='';
+	bbs.node_action=NODE_MAIN;
 	if(key=='')
 		key=mainbar.getval()
 	else
@@ -600,6 +602,7 @@ while(1) {
 			var xtrnsec=new Xtrnsecs;
 			menus_displayed.push(xtrnsec);
 			while(!done) {
+				bbs.node_action=NODE_;
 				x_sec=xtrnsec.getval();
 				if(x_sec==KEY_LEFT)
 					x_sec=(xtrnsec.current-1).toString();
@@ -835,6 +838,7 @@ function show_filemenu()
 {
 	var cur=1;
 	var nd=false;
+	bbs.node_action=NODE_XFER;
 	while(1) {
 		var filemenu=new Filemenu();
 		var ret;
