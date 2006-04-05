@@ -2,7 +2,7 @@
 
 # MajorBBS Clone Command Shell for Synchronet
 
-# $Id: major.src,v 1.8 2005/09/15 18:31:25 deuce Exp $
+# $Id: major.src,v 1.9 2006/04/05 10:00:22 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -104,7 +104,7 @@ cmdkey L
 	end_cmd
 
 cmdkey D
-	xtrn_section
+	exec_bin xtrn_sec
 	end_cmd
 
 cmdkey A

@@ -2,7 +2,7 @@
 
 # Simple Synchronet Command Shell - for beginner/first-time users
 
-# $Id: simple.src,v 1.7 2004/05/10 21:14:40 rswindell Exp $
+# $Id: simple.src,v 1.8 2006/04/05 10:00:22 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -169,19 +169,19 @@ end_cmd
 
 #Open door menu
 cmdstr O
-	xtrn_section
+	exec_bin xtrn_sec
 	end_cmd
 
 cmdstr OPEN
-	xtrn_section
+	exec_bin xtrn_sec
 	end_cmd
 
 cmdstr DOOR
-	xtrn_section
+	exec_bin xtrn_sec
 	end_cmd
 
 cmdstr DOORS
-	xtrn_section
+	exec_bin xtrn_sec
 	end_cmd
 
 #Account config (user defaults)

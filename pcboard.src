@@ -2,7 +2,7 @@
 
 # PCBoard v15.1 menu/command emulation
 
-# $Id: pcboard.src,v 1.7 2004/05/10 21:14:40 rswindell Exp $
+# $Id: pcboard.src,v 1.8 2006/04/05 10:00:22 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -247,11 +247,11 @@ cmdstr NEWS
 	end_cmd
 
 cmdstr DOOR
-	xtrn_section
-        end_cmd
+	exec_bin xtrn_sec
+    end_cmd
 
 cmdstr OPEN
-	xtrn_section
+	exec_bin xtrn_sec
 	end_cmd
 
 compare_word "OPEN "
