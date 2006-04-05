@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.22 2005/02/12 01:12:36 rswindell Exp $
+// $Id: listserver.js,v 1.23 2006/04/05 07:35:00 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.22 $".split(' ')[1];
+const REVISION = "$Revision: 1.23 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -501,9 +501,6 @@ function process_contribution(header, body, list)
 			,list.name, msgbase.error, list.sub)));
 		return(false);
 	}
-
-	// Convert from RFC822 to Synchronet-compatible
-	header = convert_msg_header(header);
 
 	if(msg_area.sub[list.sub.toLowerCase()].is_moderated)
 		header.attr |= MSG_MODERATED;
