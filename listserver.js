@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.24 2006/04/05 07:40:48 rswindell Exp $
+// $Id: listserver.js,v 1.25 2006/04/06 00:01:49 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.24 $".split(' ')[1];
+const REVISION = "$Revision: 1.25 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -294,7 +294,7 @@ for(var l in list_array) {
 
 		hdr.replyto_net_type = NET_INTERNET;
 		hdr.replyto_net_addr = list.address;
-		if(list.subject_mod==true)
+		if(list.subject_mod==true && hdr.subject.indexOf("[" + list.name + "]")==-1)
 			hdr.subject = "[" + list.name + "] " + hdr.subject;
 		if(!mailbase.save_msg(hdr,body,rcpt_list))
 			log(LOG_ERR,format("ListServer: %s !ERROR %s saving mail message"
