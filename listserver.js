@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.25 2006/04/06 00:01:49 rswindell Exp $
+// $Id: listserver.js,v 1.26 2006/04/17 08:06:46 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.25 $".split(' ')[1];
+const REVISION = "$Revision: 1.26 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -506,6 +506,9 @@ function process_contribution(header, body, list)
 
 	if(msg_area.sub[list.sub.toLowerCase()].is_moderated)
 		header.attr |= MSG_MODERATED;
+
+	// Remove [listname] from imported subject
+	header.subject=header.subject.replace(RegExp("\\["+listname+"\\]\\s*"), "");
 
 	if(!msgbase.save_msg(header, body.join('\r\n'))) {
 		log(LOG_ERR,format("ListServer: %s !ERROR %s saving message to sub: %s"
