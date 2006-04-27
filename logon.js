@@ -2,7 +2,7 @@
 
 // Synchronet v3.10 Default Logon Module
 
-// $Id: logon.js,v 1.5 2005/02/10 04:23:54 rswindell Exp $
+// $Id: logon.js,v 1.6 2006/04/27 02:27:39 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -112,4 +112,11 @@ if(user.security.level==99				/* Sysop logging on */
 	else if(!console.yesno("Ask again later"))
 		user.security.flags4&=~UFLAG_G;	/* Turn off flag 4G to not ask again */
 	console.crlf();
+}
+
+// Change to "true" if you want your RLogin server to act as a door game server only
+if(false	
+	&& bbs.sys_status&SS_RLOGIN) {
+	bbs.xtrn_sec();
+	bbs.hangup();
 }
