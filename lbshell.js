@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.75 2006/03/03 04:46:33 deuce Exp $
+// $Id: lbshell.js,v 1.76 2006/04/28 06:38:31 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -2299,7 +2299,7 @@ function cleararea(xpos,ypos,width,height,eol_allowed)
 		bgxo=xpos-1;	/* zero-based */
 		bgyo=ypos-2;	/* zero-based and make allowance for top line (The top of BackGround is at line 2) */
 		bgw=width;
-		bgh=mtop-ypos;	/* Height is here to the message window */
+		bgh=height;
 		if(bgyo+bgh>BackGround.height)	/* Too high? */
 			bgh=BackGround.height-bgyo;
 		if(ypos+bgh > mtop)
