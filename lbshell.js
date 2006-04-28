@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.77 2006/04/28 06:42:41 deuce Exp $
+// $Id: lbshell.js,v 1.78 2006/04/28 20:28:03 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -239,13 +239,13 @@ function Filemenu()
 		 format_opt("|Download file(s)",width,true)
 		,"D",width,undefined,undefined
 		,user.compare_ars("REST D")
-			|| (!file_area.lib_list[bbs.curdir].dir_list[bbs.curdir].can_download)
+			|| (!file_area.lib_list[bbs.curlib].dir_list[bbs.curdir].can_download)
 	);
 	this.add(
 		 format_opt("|Upload file(s)",width,true)
 		,"U",width,undefined,undefined
 		,user.compare_ars("REST U")
-			|| ((!file_area.lib_list[bbs.curdir].dir_list[bbs.curdir].can_upload)
+			|| ((!file_area.lib_list[bbs.curlib].dir_list[bbs.curdir].can_upload)
 			&& file_area.upload_dir==undefined)
 	);
 	this.add(
