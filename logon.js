@@ -1,8 +1,8 @@
 // logon.js
 
-// Synchronet v3.10 Default Logon Module
+// Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.6 2006/04/27 02:27:39 rswindell Exp $
+// $Id: logon.js,v 1.7 2006/05/01 06:37:53 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -75,6 +75,12 @@ for(i=0;;i++) {
 	}
 	bbs.menu(fname);
 }
+
+// Print one of text/menu/random*.*, picked at random
+// e.g. random1.asc, random2.asc, random3.asc, etc.
+var random_list = directory(system.text_dir + "menu/random*.*");
+if(random_list.length)
+	bbs.menu(file_getname(random_list[random(random_list.length)]).slice(0,-4));
 
 console.clear();
 bbs.user_event(EVENT_LOGON);
