@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.38 2006/02/01 04:10:17 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.39 2006/05/03 01:52:19 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -360,7 +360,7 @@ var   UQ_NOUPRLWR	=(1<<19)	/* Don't force upper/lower case strings		*/
 					    		/********************************************/
 
 							    /********************************************/
-							    /* node.settings							*/
+							    /* bbs.node_settings						*/
 							    /********************************************/
 var   NM_ANSALARM	=(1<<0)		/* Alarm locally on answer					*/
 var   NM_WFCSCRN	=(1<<1)		/* Wait for call screen                     */
