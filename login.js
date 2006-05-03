@@ -2,7 +2,7 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.2 2006/05/03 00:55:09 rswindell Exp $
+// $Id: login.js,v 1.3 2006/05/03 01:51:53 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -54,6 +54,7 @@ for(var c=0; c<10; c++) {
 		if(usernum) {
 			var u = new User(usernum);
 			if(!(u.settings&(USER_DELETED|USER_INACTIVE))
+				&& u.security.level < 90
 				&& netaddr_type(u.netmail) == NET_INTERNET
 				&& !console.noyes("Did you forget your password")) {
 				console.print("\1n\1c\1hPlease confirm your Internet e-mail address: \1y");
