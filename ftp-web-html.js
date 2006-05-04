@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-web-html.js,v 1.4 2005/05/04 06:41:18 rswindell Exp $
+// $Id: ftp-web-html.js,v 1.5 2006/05/04 20:27:38 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);    // Used to defeat caching browsers
@@ -58,7 +58,7 @@ writeln("<meta http-equiv='Content-Type' content='text/html; charset=IBM437'>");
 writeln('<link rel="stylesheet" type="text/css" href="http://' + format("%s:%s",system.host_name, http_port) + '/synchronet.css">');
 
 writeln("</head>");
-writeln('<body style="background-image: url(http://' + format("%s:%s",system.host_name, http_port) +'/graphics/bg_grad.jpg)";>');
+writeln('<body style="background-image: url(http://' + format("%s:%s",system.host_name, http_port) +'/images/default/bg_grad.jpg)";>');
 //writeln(font_face);
 
 writeln('<table class="welcome_main" width="95%"><tr><td>');
@@ -186,13 +186,13 @@ if(!(user.security.restrictions&UFLAG_G) && system.matchuser("Guest")) { /* !Gue
 
 writeln('<table align="center" width="100%"  border="0" cellspacing="0" cellpadding="0">');
     writeln('<tr>');
-    writeln('<td style="background-image: url(http://' + format("%s:%s",system.host_name, http_port) + '/graphics/tnav_bg.gif); background-repeat: repeat-x; text-align: left;" width="1%"><img src="http://' + format("%s:%s"
+    writeln('<td style="background-image: url(http://' + format("%s:%s",system.host_name, http_port) + '/images/default/tnav_bg.gif); background-repeat: repeat-x; text-align: left;" width="1%"><img src="http://' + format("%s:%s"
         ,system.host_name
         ,http_port) 
-        + '/graphics/tnav_left.gif" width="5" height="32" alt="" /></td>');
+        + '/images/default/tnav_left.gif" width="5" height="32" alt="" /></td>');
     writeln('<td style="background-image: url(http://' 
         + format("%s:%s",system.host_name, http_port) 
-        + '/graphics/tnav_bg.gif); background-repeat: repeat-x;">');
+        + '/images/default/tnav_bg.gif); background-repeat: repeat-x;">');
         if(ftp.curlib.name==undefined) 
             writeln('<span class="tlink">FTP Server Root</span>');
         else
@@ -210,8 +210,8 @@ if(ftp.curdir.name!=undefined)
 if(ftp.curdir.settings!=undefined && ftp.curdir.settings&DIR_FREE)
     write(" - FREE");
     writeln('</td>');
-    writeln('<td style="background-image: url(http://' + format("%s:%s",system.host_name, http_port) + '/graphics/tnav_bg.gif); background-repeat: repeat-x; text-align: right;" width="1%"><img src="http://' + format("%s:%s",system.host_name, http_port) 
-        + '/graphics/tnav_right.gif" width="5" height="32" alt="" /></td>');
+    writeln('<td style="background-image: url(http://' + format("%s:%s",system.host_name, http_port) + '/images/default/tnav_bg.gif); background-repeat: repeat-x; text-align: right;" width="1%"><img src="http://' + format("%s:%s",system.host_name, http_port) 
+        + '/images/default/tnav_right.gif" width="5" height="32" alt="" /></td>');
     writeln('</tr>');
 writeln('</table>');
 writeln('<br />');
