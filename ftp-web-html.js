@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-web-html.js,v 1.6 2006/05/04 20:32:34 rswindell Exp $
+// $Id: ftp-web-html.js,v 1.7 2006/05/04 20:34:02 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);    // Used to defeat caching browsers
@@ -51,7 +51,7 @@ writeln("</title>");
 writeln("<meta name='GENERATOR' content='" + system.version + "'>");
 // The following line is necessary for IBM extended-ASCII in descriptions 
 writeln("<meta http-equiv='Content-Type' content='text/html; charset=IBM437'>");
-writeln('<link rel="stylesheet" type="text/css" href="http://' + format("%s:%u",system.host_name, http_port) + '/synchronet.css">');
+writeln('<link rel="stylesheet" type="text/css" href="http://' + format("%s:%u",system.host_name, http_port) + '/default.css">');
 
 writeln("</head>");
 writeln('<body style="background-image: url(http://' + format("%s:%u",system.host_name, http_port) +'/images/default/bg_grad.jpg)";>');
