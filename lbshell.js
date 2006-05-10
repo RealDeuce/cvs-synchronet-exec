@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.78 2006/04/28 20:28:03 deuce Exp $
+// $Id: lbshell.js,v 1.79 2006/05/10 23:24:46 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -535,6 +535,7 @@ while(1) {
 	var extra_select=false;
 	next_key='';
 	bbs.node_action=NODE_MAIN;
+	bbs.nodesync();
 	if(key=='')
 		key=mainbar.getval()
 	else
@@ -838,6 +839,7 @@ function show_filemenu()
 	var cur=1;
 	var nd=false;
 	bbs.node_action=NODE_XFER;
+	bbs.nodesync();
 	while(1) {
 		var filemenu=new Filemenu();
 		var ret;
