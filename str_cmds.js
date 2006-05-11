@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.20 2006/03/01 01:05:39 rswindell Exp $
+// $Id: str_cmds.js,v 1.21 2006/05/11 00:02:44 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -831,7 +831,7 @@ function display_node(node_num)
 		write(']'); }
 	if(node.errors)
 		printf(" %d error%s",node.errors, node.errors>1 ? 's' : '' );
-	printf("\n");
+	printf("\r\n");
 }
 
 function add_commas(val, pad)
