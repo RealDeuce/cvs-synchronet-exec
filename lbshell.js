@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.80 2006/05/11 00:00:19 deuce Exp $
+// $Id: lbshell.js,v 1.81 2006/05/11 06:37:32 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -616,8 +616,13 @@ while(1) {
 					console.pause();
 					bbs.menu("sysxfer");
 				}
-				else
+				else {
+					var oldshell=user.command_shell;
 					str_cmds(str);
+					/* Still using this shell? */
+					if(user.command_shell != oldshell)
+						exit(0);
+				}
 				console.pause();
 				draw_main(true);
 			}
