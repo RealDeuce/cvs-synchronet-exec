@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.81 2006/05/11 06:37:32 deuce Exp $
+// $Id: lbshell.js,v 1.82 2006/05/12 01:32:54 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -100,21 +100,19 @@ function get_message()
 		system.node_list[bbs.node_num-1].misc &= ~NODE_UDAT;
 	}
 
-	/* New day? */
-	if(!(system.status & SS_NEWDAY))
-		bbs.nodesync();
-
 	/* Interrupted? */
 	if(system.node_list[bbs.node_num-1].misc & NODE_INTR) {
-		rows+=MessageWindow.putmsg(1,MessageWindow.height,bbs.text(CfgLibLstHdr),MessageWindow_Attr,true);
+		rows+=MessageWindow.putmsg(1,MessageWindow.height,bbs.text(NodeLocked),MessageWindow_Attr,true);
 		log("Interrupted");
 		hangup_now=true;
 	}
 
 	/* Sysop Chat? */
 	if(system.node_list[bbs.node_num-1].misc & NODE_LCHAT) {
-		rows+=MessageWindow.putmsg(1,MessageWindow.height,bbs.text(CfgLibLstHdr),MessageWindow_Attr,true);
-		bbs.private_chat();
+		// TODO: No way of calling bbs.priave_chat(true)
+		// bbs.private_chat();
+		console.pause();
+		bbs.nodesync();
 		draw_main(true);
 		for(i=0; i<menus_displayed.length; i++)
 			menus_displayed[i].draw();
@@ -123,6 +121,10 @@ function get_message()
 	/* Time left warning? */
 	if((bbs.timeleft/60)/(5-console.timeleft_warning) && (!user.compare_ars("SYSOP")))
 		rows+=MessageWindow.putmsg(1,MessageWindow.height,format(bbs.text(OnlyXminutesLeft),bbs.timeleft/60,(timeleft/60)?"s":""),MessageWindow_Attr,true);
+
+	/* New day? */
+//	if(!(system.status & SS_NEWDAY))
+//		bbs.nodesync();
 
 	return(rows);
 }
