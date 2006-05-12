@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.82 2006/05/12 01:32:54 deuce Exp $
+// $Id: lbshell.js,v 1.83 2006/05/12 01:34:08 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -111,7 +111,6 @@ function get_message()
 	if(system.node_list[bbs.node_num-1].misc & NODE_LCHAT) {
 		// TODO: No way of calling bbs.priave_chat(true)
 		// bbs.private_chat();
-		console.pause();
 		bbs.nodesync();
 		draw_main(true);
 		for(i=0; i<menus_displayed.length; i++)
