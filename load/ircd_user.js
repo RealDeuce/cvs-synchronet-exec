@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.16 2006/05/18 21:05:57 cyan Exp $
+// $Id: ircd_user.js,v 1.17 2006/05/18 21:08:58 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.16 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.17 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -863,8 +863,7 @@ function User_Work() {
 				var str="NICK " + the_nick;
 				this.bcast_to_uchans_unique(str);
 				this.originatorout(str,this);
-				if (the_nick.toUpperCase() != this.nick.toUpperC
-ase()) {
+				if (the_nick.toUpperCase() != this.nick.toUpperCase()) {
 					this.created = time();
 					push_nickbuf(this.nick,the_nick);
 					// move our Users entry over.
