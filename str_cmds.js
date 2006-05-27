@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.22 2006/05/11 00:04:48 deuce Exp $
+// $Id: str_cmds.js,v 1.23 2006/05/27 02:31:08 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -647,10 +647,6 @@ function str_cmds(str)
 				str=console.getstr("",60);
 				if(str=="")
 					return;
-			}
-			if(!file_exists(str)) {
-				write(bbs.text(FileNotFound));
-				return;
 			}
 			if(!bbs.check_syspass())
 				return;
