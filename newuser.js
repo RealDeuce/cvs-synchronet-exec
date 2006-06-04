@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.13 2005/09/28 07:53:31 rswindell Exp $
+// $Id: newuser.js,v 1.14 2006/06/04 05:00:17 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -17,6 +17,9 @@ if(system.name=="Vertrauen") {
 	ask_qnet=true;
 	ask_sysop=true;
 }
+
+if(bbs.sys_status&SS_RLOGIN)
+	ask_qnet=false;
 
 console.clear();
 
