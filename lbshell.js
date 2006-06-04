@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.83 2006/05/12 01:34:08 deuce Exp $
+// $Id: lbshell.js,v 1.84 2006/06/04 19:22:13 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -96,7 +96,7 @@ function get_message()
 
 	/* Check if user data has changed */
 	if((system.node_list[bbs.node_num-1].misc & NODE_UDAT) && user.compare_ars("REST NOT G")) {
-		user.cached=FALSE;
+		user.cached=false;
 		system.node_list[bbs.node_num-1].misc &= ~NODE_UDAT;
 	}
 
