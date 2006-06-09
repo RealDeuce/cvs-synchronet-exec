@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-web-html.js,v 1.7 2006/05/04 20:34:02 rswindell Exp $
+// $Id: ftp-web-html.js,v 1.8 2006/06/09 19:36:15 rswindell Exp $
 
 var start=new Date();
 var time_stamp=start.valueOf().toString(36);    // Used to defeat caching browsers
@@ -362,7 +362,7 @@ if(ftp.file_list.length) {
                 && ftp.file_list[i].credits > (user.security.credits+user.security.free_credits))
             ) {
             write('<td class="ftp_dirlist" align="left">');
-            writeln('<a class="ftp_dirlist" href="javascript:alert("Sorry, you do not have enough credits to download this file."); ">' 
+            writeln('<a class="ftp_dirlist" href="javascript:alert(\"Sorry, you do not have enough credits to download this file.\"); ">' 
             + ftp.file_list[i].name + '</a><td>');
         } else {
             write('<th class="ftp_dirlist" align=left>');
