@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.23 2006/05/27 02:31:08 rswindell Exp $
+// $Id: str_cmds.js,v 1.24 2006/06/16 02:32:20 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -752,15 +752,18 @@ function str_cmds(str)
 			writeln("PLAN\tEdits or deletes your .plan file (displayed when somebody fingers you).");
 		if(str=="PLAN") {
 			var plan=format("%suser/%04d.plan",system.data_dir,user.number);
+			if(!file_exists(plan))
+				plan=format("%suser/%04d.pla",system.data_dir,user.number);
 			if(file_exists(plan)) {
 				if(console.yesno("Display current .plan"))
 					console.printfile(plan);
 				if(!console.noyes("Delete current .plan"))
 					file_remove(plan);
 			}
-			if(console.yesno("Edit/Create .plan"))
+			if(console.yesno("Edit/Create .plan")) {
+				console.editfile(plan);
 				console.printfile(plan);
-			console.editfile(plan);
+			}
 		}
 	}
 }
