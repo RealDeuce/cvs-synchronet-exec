@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.35 2006/01/10 20:37:19 rswindell Exp $
+// $Id: fingerservice.js,v 1.36 2006/06/16 01:12:05 rswindell Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -24,7 +24,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.35 $".split(' ')[1];
+const REVISION = "$Revision: 1.36 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -426,6 +426,8 @@ write(format("Last login %s %s\r\nvia %s from %s [%s]\r\n"
 	  ,u.ip_address));
 var plan;
 plan=format("%suser/%04d.plan",system.data_dir,u.number);
+if(!file_exists(plan))	/* Use 8.3 filename for DOS-editor compatibility? */
+	plan=format("%suser/%04d.pla",system.data_dir,u.number);
 if(file_exists(plan)) {
 	write("Plan:\r\n");
 	send_file(plan);
