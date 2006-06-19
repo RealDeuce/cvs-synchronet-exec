@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.18 2006/06/19 16:07:00 cyan Exp $
+// $Id: ircd_user.js,v 1.19 2006/06/19 16:20:26 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.18 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.19 $".split(' ')[1];
 
 const USERMODE_NONE		=(1<<0); // NONE
 const USERMODE_OPER		=(1<<1); // o
@@ -1303,7 +1303,7 @@ function User_Work() {
 				cmd[1] = cmd[2];
 			}
 		}
-		var wi_nicks = cmd[1].split(",");
+		var wi_nicks = IRC_string(cmd[1],0).split(",");
 		for (wi_nick in wi_nicks) {
 			var wi = Users[wi_nicks[wi_nick].toUpperCase()];
 			if (wi)
