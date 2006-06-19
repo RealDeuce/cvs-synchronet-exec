@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.32 2006/06/19 16:07:00 cyan Exp $
+// $Id: ircd_server.js,v 1.33 2006/06/19 16:36:08 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.32 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.33 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -963,7 +963,7 @@ function Server_Work() {
 			var chan = Channels[cmd[1].toUpperCase()];
 			if (!chan)
 				break;
-			var the_topic = IRC_string(cmdline,2);
+			var the_topic = IRC_string(cmdline,4);
 			if (the_topic == chan.topic)
 				break;
 			chan.topic = the_topic;
