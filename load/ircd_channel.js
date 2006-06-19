@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.9 2006/02/18 01:36:29 cyan Exp $
+// $Id: ircd_channel.js,v 1.10 2006/06/19 16:07:00 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.9 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.10 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -201,7 +201,7 @@ function Channel_chanmode(show_args) {
 
 function Channel_isbanned(banned_nuh) {
 	for (this_ban in this.modelist[CHANMODE_BAN]) {
-		if(IRC_match(banned_nuh,this.modelist[CHANMODE_BAN][this_ban]))
+		if(wildmatch(banned_nuh,this.modelist[CHANMODE_BAN][this_ban]))
 			return 1;
 	}
 	return 0;
