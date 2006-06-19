@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.11 2006/02/08 00:53:01 cyan Exp $
+// $Id: irclib.js,v 1.12 2006/06/19 06:11:10 cyan Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003-2005 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.11 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.12 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -85,20 +85,28 @@ function IRC_server_connect(hostname,servername,password,description,port) {
 // Simply takes a string and returns the 'IRC string' (i.e. what's after a :)
 // Moves up to 'arg' argument before parsing, if defined.
 // RETURNS: The 'IRC string' of 'str'
+/* Fixme: Real IRCd behaviour involves ignoring any ":" after the definied
+   offset. */
 function IRC_string(str,arg) {
 	var cindex;
+	var sw_counter;
+	var sindex;
 
 	if (arg) {
 		for(sw_counter=0;sw_counter<arg;sw_counter++) {
+			var my_index = str.indexOf(" ");
+			if (my_index == -1)
+				return ""; /* If we can't get to it, then the str is empty. */
 			str=str.slice(str.indexOf(" ")+1);
 		}
 	}
 	cindex = str.indexOf(":")+1;
-	if (!cindex)
-		cindex = str.lastIndexOf(" ")+1;
-	if (!cindex)
-		return str;
-	return(str.slice(cindex));
+	if (cindex)
+		return(str.slice(cindex));
+	sindex = str.indexOf(" ");
+	if (sindex != -1)
+		return(str.slice(0,sindex));
+	return(str);
 }
 
 // Takes a string in and strips off the IRC originator, if applicable.
