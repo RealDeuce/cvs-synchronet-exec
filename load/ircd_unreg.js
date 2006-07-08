@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.24 2006/06/19 16:07:00 cyan Exp $
+// $Id: ircd_unreg.js,v 1.25 2006/07/08 23:43:58 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.24 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.25 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -89,6 +89,7 @@ function Unregistered_Client(id,socket) {
 ////////// Command Parsers //////////
 
 function Unregistered_Commands() {
+	var clockticks = system.clock_ticks;
 	var cmdline;
 	var cmd;
 	var command;
@@ -126,6 +127,8 @@ function Unregistered_Commands() {
 	// we ignore all numerics from unregistered clients.
 	if (command.match(/^[0-9]+/))
 		return 0;
+
+	var legal_command = true; /* For tracking STATS M */
 	
 	switch(command) {
 		case "PING":
@@ -259,6 +262,7 @@ function Unregistered_Commands() {
 			break; // drop silently
 		default:
 			this.numeric451();
+			legal_command = false;
 			break;
 	}
 	if (!this.criteria_met && this.uprefix && (this.nick != "*") ) {
@@ -279,6 +283,14 @@ function Unregistered_Commands() {
 		if (this.hostname && !this.pending_resolve_time)
 			this.welcome();
 	}
+
+	if (legal_command) {
+		if (!Profile[command])
+			Profile[command] = new StatsM;
+		Profile[command].executions++;
+		Profile[command].ticks += system.clock_ticks - clockticks;
+	}
+
 }
 
 ////////// Functions //////////

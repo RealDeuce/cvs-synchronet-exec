@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.33 2006/06/19 16:36:08 cyan Exp $
+// $Id: ircd_server.js,v 1.34 2006/07/08 23:43:58 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.33 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.34 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -88,6 +88,7 @@ function IRC_Server() {
 ////////// Command Parser //////////
 
 function Server_Work() {
+	var clockticks = system.clock_ticks;
 	var command;
 	var cmdline;
 	var origin;
@@ -151,6 +152,8 @@ function Server_Work() {
 		destination.rawout(":" + ThisOrigin.nick + " " + cmdline);
 		return 1;
 	}
+
+	var legal_command = true; /* For tracking STATS M */
 
 	switch(command) {
 		// PING at the top thanks to RFC1459
@@ -1051,7 +1054,15 @@ function Server_Work() {
 			break; // Silently ignore for now.
 		default:
 			umode_notice(USERMODE_OPER,"Notice","Server " + ThisOrigin.nick + " sent unrecognized command: " + cmdline);
+			legal_command = false;
 			break;
+	}
+
+	if (legal_command) {
+		if (!Profile[command])
+			Profile[command] = new StatsM;
+		Profile[command].executions++;
+		Profile.ticks += system.clock_ticks - clockticks;
 	}
 }
 
