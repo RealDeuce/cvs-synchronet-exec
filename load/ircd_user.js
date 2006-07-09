@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.21 2006/07/08 23:43:58 cyan Exp $
+// $Id: ircd_user.js,v 1.22 2006/07/09 04:09:23 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.21 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.22 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -246,7 +246,7 @@ function IRC_User(id) {
 
 ////////// Command Parser //////////
 function User_Work() {
-	var clockticks = system.clock_ticks;
+	var clockticks = system.timer;
 	var cmdline;
 	var cmd;
 	var command;
@@ -1461,7 +1461,7 @@ function User_Work() {
 		if (!Profile[command])
 			Profile[command] = new StatsM;
 		Profile[command].executions++;
-		Profile[command].ticks += system.clock_ticks - clockticks;
+		Profile[command].ticks += system.timer - clockticks;
 	}
 
 }

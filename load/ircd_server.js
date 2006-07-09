@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.34 2006/07/08 23:43:58 cyan Exp $
+// $Id: ircd_server.js,v 1.35 2006/07/09 04:09:23 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.34 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.35 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -88,7 +88,7 @@ function IRC_Server() {
 ////////// Command Parser //////////
 
 function Server_Work() {
-	var clockticks = system.clock_ticks;
+	var clockticks = system.timer;
 	var command;
 	var cmdline;
 	var origin;
@@ -1062,7 +1062,7 @@ function Server_Work() {
 		if (!Profile[command])
 			Profile[command] = new StatsM;
 		Profile[command].executions++;
-		Profile.ticks += system.clock_ticks - clockticks;
+		Profile.ticks += system.timer - clockticks;
 	}
 }
 

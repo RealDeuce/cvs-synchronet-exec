@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.25 2006/07/08 23:43:58 cyan Exp $
+// $Id: ircd_unreg.js,v 1.26 2006/07/09 04:09:23 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.25 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.26 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -89,7 +89,7 @@ function Unregistered_Client(id,socket) {
 ////////// Command Parsers //////////
 
 function Unregistered_Commands() {
-	var clockticks = system.clock_ticks;
+	var clockticks = system.timer;
 	var cmdline;
 	var cmd;
 	var command;
@@ -288,7 +288,7 @@ function Unregistered_Commands() {
 		if (!Profile[command])
 			Profile[command] = new StatsM;
 		Profile[command].executions++;
-		Profile[command].ticks += system.clock_ticks - clockticks;
+		Profile[command].ticks += system.timer - clockticks;
 	}
 
 }
