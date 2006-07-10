@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.11 2006/07/09 06:50:40 cyan Exp $
+// $Id: ircd_channel.js,v 1.12 2006/07/10 00:06:20 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.11 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.12 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -153,8 +153,7 @@ function ChanMode_affect_mode_list(list_bit) {
 				this.delmodeargs += " " + tmp_nick.nick;
 				delete this.chan.modelist[list_bit][tmp_nick.id];
 			} else if (!tmp_nick && this.local) {
-				this.user.numeric401(this.tmplist[list_bit]
-					[add][z]);
+				this.user.numeric401(this.tmplist[list_bit][add][z]);
 			}
 		}
 	}
@@ -650,15 +649,15 @@ function IRCClient_do_part(chan_name) {
 		this.numeric403(chan_name);
 		return 0;
 	}
-	chan = chan_name.toUpperCase();
-	if (Channels[chan] != undefined) {
-		if (this.channels[chan]) {
-			str = "PART " + Channels[chan].nam;
+	chan = Channels[chan_name.toUpperCase()];
+	if (chan) {
+		if (this.channels[chan.nam.toUpperCase()]) {
+			str = "PART " + chan.nam;
 			if (this.parent)
-				this.bcast_to_channel(Channels[chan], str, false);
+				this.bcast_to_channel(chan, str, false);
 			else
-				this.bcast_to_channel(Channels[chan], str, true);
-			this.rmchan(Channels[chan]);
+				this.bcast_to_channel(chan, str, true);
+			this.rmchan(chan);
 			if (chan_name[0] != "&")
 				this.bcast_to_servers(str);
 		} else if (this.local) {
