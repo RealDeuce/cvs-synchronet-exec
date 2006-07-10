@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.13 2006/06/19 16:07:00 cyan Exp $
+// $Id: irclib.js,v 1.14 2006/07/10 00:07:23 cyan Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003-2006 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.13 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.14 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -260,8 +260,34 @@ function IRC_check_host(host,wilds,uh,nick) {
 // RETURNS: An array containing nick in [0], user in [1], and host in [2].
 function IRC_split_nuh(str) {
 	var tmp = new Array;
+
+	if (str[0] == ":")
+		str = str.slice(1);
+
 	tmp[0] = str.split("!")[0];
 	tmp[1] = str.split("!")[1].split("@")[0];
 	tmp[2] = str.split("@")[1];
 	return tmp;
 }
+
+/* A handy object for keeping track of nicks and their properties */
+function IRC_User(nick) {
+	this.nick = nick;
+	this.realname = "Unknown";
+	this.hostname = "unknown@unknown";
+	this.server = false; /* IRC_Server Object */
+}
+
+/* A handy object for keeping track of channels and their properties */
+function IRC_Channel(name) {
+	this.name = name;
+	this.topic = "No topic is set.";
+	this.users = new Array;
+}
+
+/* A handy object for keeping track of servers and their properties */
+function IRC_Server(name) {
+	this.name = name;
+	this.info = "Unknown Server";
+}
+
