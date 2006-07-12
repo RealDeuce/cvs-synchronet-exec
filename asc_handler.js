@@ -1,4 +1,4 @@
-/* $Id: asc_handler.js,v 1.1 2006/07/11 01:13:07 rswindell Exp $ */
+/* $Id: asc_handler.js,v 1.2 2006/07/12 05:50:54 rswindell Exp $ */
 
 var file = new File(http_request.real_path);
 if(!file.open("r")) {
@@ -7,4 +7,19 @@ if(!file.open("r")) {
 }
 var text = file.readAll();
 file.close();
-write(html_encode(text.join("\n")));
+writeln('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">');
+writeln("<html>");
+writeln("<head>");
+writeln("<meta http-equiv='Content-Type' content='text/html; charset=IBM437'>");
+writeln("</head>");
+writeln("<body bgcolor=black>");
+writeln("<pre>");
+writeln("<font face='monospace'>");
+write(html_encode(text.join("\r\n")
+	,/* es-ASCII: */true
+	,/* white-sp: */false
+	,/* ANSI:     */true
+	,/* Ctrl-A:   */true));
+writeln("</pre>");
+writeln("</body>");
+writeln("</html>");
