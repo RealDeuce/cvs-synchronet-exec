@@ -1,6 +1,10 @@
-/* $Id: asc_handler.js,v 1.3 2006/07/16 05:44:43 rswindell Exp $ */
+/* $Id: asc_handler.js,v 1.4 2006/07/16 05:46:41 rswindell Exp $ */
 
-// This module convert ANSI, Ex-ASCII, and Ctrl-A encoded files to HTML
+// This module converts ANSI, Ex-ASCII, and Ctrl-A encoded files to HTML
+
+// The filename to encode may be passed on the command-line (e.g. running
+// this module using jsexec) or as an http-requested document (e.g. running
+// this module as a "web handler").
 
 // This module can be used as a "web handler" (automatically converting
 // *.asc and *.ans files on the fly), by adding the following lines to
