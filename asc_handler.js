@@ -1,4 +1,4 @@
-/* $Id: asc_handler.js,v 1.5 2006/07/20 20:33:11 deuce Exp $ */
+/* $Id: asc_handler.js,v 1.6 2006/07/21 04:27:36 deuce Exp $ */
 
 // This module converts ANSI, Ex-ASCII, and Ctrl-A encoded files to HTML
 
@@ -20,15 +20,11 @@ else
 	filename = argv[0];
 
 var file = new File(filename);
-if(!file.open("r",true,4096)) {
+if(!file.open("r",true,8192)) {
 	writeln("!ERROR " + file.error + " opening " + filename);
 	exit();
 }
-//var text = file.readAll(4096);
-var text=new Array;
-while(!file.eof) {
-	text.push(file.readln(4096));
-}
+var text = file.readAll(8192);
 file.close();
 writeln('<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">');
 writeln("<html>");
