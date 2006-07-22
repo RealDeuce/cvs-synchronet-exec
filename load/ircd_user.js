@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.23 2006/07/22 05:46:17 cyan Exp $
+// $Id: ircd_user.js,v 1.24 2006/07/22 07:20:38 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.23 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.24 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -949,7 +949,7 @@ function User_Work() {
 				this.numeric(353,"* * :"+tmp);
 			this.numeric(366, "* :End of /NAMES list.");
 		} else {
-			chans = cmd[1].split(',');
+			var chans = cmd[1].split(',');
 			for (nc in chans) {
 				if ((chans[nc][0] == "#") ||
 				    (chans[nc][0] == "&")) {
