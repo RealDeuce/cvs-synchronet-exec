@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.12 2006/07/10 00:06:20 cyan Exp $
+// $Id: ircd_channel.js,v 1.13 2006/07/22 06:15:50 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.12 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -546,9 +546,7 @@ function IRCClient_do_join(chan_name,join_key) {
 		return 0;
 	}
 	for (theChar in chan_name) {
-		var theChar_code = chan_name[theChar].charCodeAt(0);
-		if ((theChar_code <= 32) || (theChar_code == 44) ||
-		    (chan_name[theChar].charCodeAt(0) == 160)) {
+		if(chan_name.search(/[\x00-\x20\x2c\xa0]/)!=-1) {
 			if (this.local)
 				this.numeric(479, chan_name
 					+ " :Channel name contains illegal characters.");
