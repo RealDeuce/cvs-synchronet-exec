@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.27 2006/07/23 04:09:46 cyan Exp $
+// $Id: ircd_user.js,v 1.28 2006/07/23 07:11:20 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.27 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.28 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -1362,7 +1362,7 @@ function User_Work() {
 		}
 		for (aWhoWas=whowas_buffer;aWhoWas>=whowas_pointer;aWhoWas--) {
 			var wwh = WhoWasHistory[aWhoWas];
-			if (wwh && (wwh.nick.toUpperCase() == ww_nick_uc))
+			if (wwh && (wwh.nick.toUpperCase() == ww_nick_uc)) {
 				this.numeric(314,wwh.nick + " " + wwh.uprefix + " " + wwh.host
 					+ " * :" + wwh.realname);
 				this.numeric(312,wwh.nick + " " + wwh.server + " :"
