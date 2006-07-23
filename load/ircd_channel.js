@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.18 2006/07/23 07:52:27 cyan Exp $
+// $Id: ircd_channel.js,v 1.19 2006/07/23 23:21:32 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.18 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.19 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -221,13 +221,13 @@ function Channel_occupants() {
 // Yay, version 3.0 of this.set_chanmode(), eradicates any global variables.
 function ChanMode(chan,user) {
 	this.tmplist = new Object;
-	this.tmplist[CHANMODE_OP] = new Array;
+	this.tmplist[CHANMODE_OP] = new Object;
 	this.tmplist[CHANMODE_OP][false] = new Array; //deop
 	this.tmplist[CHANMODE_OP][true] = new Array; //op
-	this.tmplist[CHANMODE_VOICE] = new Array;
+	this.tmplist[CHANMODE_VOICE] = new Object;
 	this.tmplist[CHANMODE_VOICE][false] = new Array; //devoice
 	this.tmplist[CHANMODE_VOICE][true] = new Array; //voice
-	this.tmplist[CHANMODE_BAN] = new Array;
+	this.tmplist[CHANMODE_BAN] = new Object;
 	this.tmplist[CHANMODE_BAN][false] = new Array; //unban
 	this.tmplist[CHANMODE_BAN][true] = new Array; //ban
 	this.state_arg = new Object;

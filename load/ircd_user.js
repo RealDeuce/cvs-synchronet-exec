@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.29 2006/07/23 07:11:56 cyan Exp $
+// $Id: ircd_user.js,v 1.30 2006/07/23 23:21:32 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.29 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.30 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
