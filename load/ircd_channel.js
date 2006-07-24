@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.19 2006/07/23 23:21:32 cyan Exp $
+// $Id: ircd_channel.js,v 1.20 2006/07/24 05:36:18 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.19 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.20 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -356,21 +356,18 @@ function IRCClient_set_chanmode(chan,modeline,bounce_modes) {
 	// side of the network sync.
 	if (bounce_modes) {
 		for (cm in MODE) {
-			if (MODE[cm].state && (chan.mode&cm) && 
-			    !(cmode.addbits&cm)) {
+			if (MODE[cm].state && (chan.mode&cm) && !(cmode.addbits&cm)) {
 				cmode.delbits |= cm;
 			} else if (MODE[cm].list && MODE[cm].isnick) {
 				for (member in chan.modelist[cm]) {
 					cmode.delmodes += MODE[cm].modechar;
-					cmode.delmodeargs += " " +
-						chan.modelist[cm][member].nick;
+					cmode.delmodeargs += " " + chan.modelist[cm][member].nick;
 					delete chan.modelist[cm][member];
 				}
 			} else if (MODE[cm].list && !MODE[cm].isnick) {
 				for (ban in chan.modelist[cm]) {
 					cmode.delmodes += MODE[cm].modechar;
-					cmode.delmodeargs += " " +
-						chan.modelist[cm][ban];
+					cmode.delmodeargs += " " + chan.modelist[cm][ban];
 					delete chan.modelist[cm][ban];
 					delete chan.bantime[ban];
 					delete chan.bancreator[ban];

@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.37 2006/07/23 23:21:32 cyan Exp $
+// $Id: ircd_server.js,v 1.38 2006/07/24 05:36:18 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.37 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.38 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -822,12 +822,6 @@ function Server_Work() {
 			chan = Channels[cn_tuc];
 			chan.nam = cmd[2];
 			chan.created = parseInt(cmd[1]);
-			chan.topic = "";
-			chan.users = new Object;
-			chan.modelist[CHANMODE_BAN] = new Object;
-			chan.modelist[CHANMODE_VOICE] = new Object;
-			chan.modelist[CHANMODE_OP] = new Object;
-			chan.mode = CHANMODE_NONE;
 		}
 
 		if (cmd[3]) {
