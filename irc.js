@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.27 2005/12/22 20:57:58 deuce Exp $
+// $Id: irc.js,v 1.28 2006/08/02 20:43:51 deuce Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.27 $".split(' ')[1];
+const REVISION = "$Revision: 1.28 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -344,6 +344,7 @@ function handle_command(prefix,command,message)  {
 		// <word1> <word2> <word3> <word4> :Message
 		case "311":		// WHOIS reply
 		case "314":		// WHOWAS reply
+		case "317":		// WHOISIDLE Reply
 		case "200":		// Trace Link
 		case "243":		// Stats OLINE
 		case "244":		// Stats HLINE
@@ -377,7 +378,6 @@ function handle_command(prefix,command,message)  {
 
 		// <word1> <word2> :Message
 		case "312":		// WHOISSERVER Reply
-		case "317":		// WHOISIDLE Reply
 		case "322":		// LIST data
 		case "341":		// Invite being sent
 		case "351":		// (server) VERSION reply
