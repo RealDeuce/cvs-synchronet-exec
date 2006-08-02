@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.30 2006/08/02 20:47:43 deuce Exp $
+// $Id: irc.js,v 1.31 2006/08/02 20:52:57 deuce Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.30 $".split(' ')[1];
+const REVISION = "$Revision: 1.31 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -894,7 +894,7 @@ function Channels_nick_quit(nick)  {
 	var i=0;
 	var j=0;
 
-	for(i=0;i<this.length;i++)  {
+	for(i=0;i<this.channel.length;i++)  {
 		for(j=0;j<this.channel[i].nick.length;j++)  {
 			if(this.channel[i].nick[j].toUpperCase()==nick.toUpperCase())  {
 				this.channel[i].nick.splice(j,1);
@@ -907,7 +907,7 @@ function Channels_nick_part(nick,cname)  {
 	var i=0;
 	var j=0;
 
-	for(i=0;i<this.length;i++)  {
+	for(i=0;i<this.channel.length;i++)  {
 		if(cname.toUpperCase()==this.channel[i].name)  {
 			for(j=0;j<this.channel[i].nick.length;j++)  {
 				if(this.channel[i].nick[j].toUpperCase()==nick.toUpperCase())  {
@@ -922,7 +922,7 @@ function Channels_nick_add(nick,cname)  {
 	var i=0;
 	var j=0;
 
-	for(i=0;i<this.length;i++)  {
+	for(i=0;i<this.channel.length;i++)  {
 		if(cname.toUpperCase()==this.channel[i].name)  {
 			this.channel[i].nick.push(nick);
 		}
@@ -934,8 +934,8 @@ function Channels_join(cname)  {
 }
 
 function Channels_joined(cname)  {
-	this.channel[this.length]=new Channel(cname);
-	this.index=this.length;
+	this.channel[this.channel.length]=new Channel(cname);
+	this.index=this.channel.length;
 	this.length++;
 }
 
@@ -946,14 +946,14 @@ function Channels_part(cname,message)  {
 		return;
 	}
 	cname=this.current.name;
-	for(i=0;i<this.length;i++)  {
+	for(i=0;i<this.channel.length;i++)  {
 		if(cname.toUpperCase()==this.channel[i].name)  {
 			this.channel[i].part(message);
 			this.channel.splice(i,1);
 			this.length -= 1;
 		}
 	}
-	if(this.index>=(this.length-1))  {
+	if(this.index>=(this.channels.length-1))  {
 		this.index=0;
 	}
 }
