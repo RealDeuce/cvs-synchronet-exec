@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.29 2006/08/02 20:45:10 deuce Exp $
+// $Id: irc.js,v 1.30 2006/08/02 20:47:43 deuce Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.29 $".split(' ')[1];
+const REVISION = "$Revision: 1.30 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -881,7 +881,7 @@ function Channels_nick_change(from,to)  {
 	var i=0;
 	var j=0;
 	
-	for(i=0;i<this.length;i++)  {
+	for(i=0;i<this.channel.length;i++)  {
 		for(j=0;j<this.channel[i].nick.length;j++)  {
 			if(this.channel[i].nick[j].toUpperCase()==from.toUpperCase())  {
 				this.channel[i].nick[j]=to;
