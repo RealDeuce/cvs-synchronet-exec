@@ -1,6 +1,6 @@
 /* Example Dynamic-HTML Content Parser */
 
-/* $Id: xjs_handler.js,v 1.3 2006/08/09 18:17:34 deuce Exp $ */
+/* $Id: xjs_handler.js,v 1.4 2006/08/09 18:19:47 deuce Exp $ */
 
 var filename;
 
@@ -45,12 +45,13 @@ if(!file_exists(ssjs_filename)) {
 					}
 					else {
 						str=str.replace(/^(.*?)<\?(xjs)?\s+/,
-						function (str, p1, p2, offset, s) {
-							script += "write("+escape_quotes(p1)+");\r\n";
-							in_xjs=true;
-							return '';
-						}
-					);
+							function (str, p1, p2, offset, s) {
+								script += "write("+escape_quotes(p1)+");\r\n";
+								in_xjs=true;
+								return '';
+							}
+						);
+					}
 				}
 			}
 			else {
