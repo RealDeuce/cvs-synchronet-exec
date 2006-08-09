@@ -1,6 +1,6 @@
 /* Example Dynamic-HTML Content Parser */
 
-/* $Id: xjs_handler.js,v 1.5 2006/08/09 18:24:59 deuce Exp $ */
+/* $Id: xjs_handler.js,v 1.6 2006/08/09 18:29:00 deuce Exp $ */
 
 var filename;
 
@@ -46,7 +46,8 @@ if(!file_exists(ssjs_filename)) {
 					else {
 						str=str.replace(/^(.*?)<\?(xjs)?\s+/,
 							function (str, p1, p2, offset, s) {
-								script += "write("+escape_quotes(p1)+");";
+								if(p1 != '')
+									script += "write("+escape_quotes(p1)+");";
 								in_xjs=true;
 								return '';
 							}
