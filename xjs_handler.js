@@ -1,6 +1,6 @@
 /* Example Dynamic-HTML Content Parser */
 
-/* $Id: xjs_handler.js,v 1.2 2006/08/09 06:39:52 deuce Exp $ */
+/* $Id: xjs_handler.js,v 1.3 2006/08/09 18:17:34 deuce Exp $ */
 
 var filename;
 
@@ -19,51 +19,56 @@ if(file_exists(ssjs_filename)) {
 }
 
 if(!file_exists(ssjs_filename)) {
-   var file = new File(filename);
-   if(!file.open("r",true,8192)) {
-	   writeln("!ERROR " + file.error + " opening " + filename);
-	   exit();
-   }
-   var text = file.readAll(8192);
-   file.close();
+	var file = new File(filename);
+	if(!file.open("r",true,8192)) {
+		writeln("!ERROR " + file.error + " opening " + filename);
+		exit();
+	}
+	var text = file.readAll(8192);
+	file.close();
 
-   var script="";
+	var script="";
 
-   var in_xjs=false;
-   for (line in text) {
-	   var str=text[line];
-	   while(str != '') {
-		   if(!in_xjs) {
-			   if(str.search(/<\?xjs\s+/)==-1) {
-				   script += "writeln("+escape_quotes(str)+");\r\n";
-				   str='';
-			   }
-			   else {
-				   str=str.replace(/^(.*?)<\?xjs\s+/,
-					   function (str, p1, offset, s) {
-						   script += "write("+escape_quotes(p1)+");\r\n";
-						   in_xjs=true;
-						   return '';
-					   }
-				   );
-			   }
-		   }
-		   else {
-			   if(str.search(/\?>/)==-1) {
-				   script += str;
-				   str='';
-			   }
-			   else {
-				   str=str.replace(/^(.*?)\?>/,
-					   function (str, p1, offset, s) {
-						   script += p1+";\r\n";
-						   in_xjs=false;
-						   return '';
-					   }
-				   );
-			   }
-		   }
-	   }
+	var in_xjs=false;
+	for (line in text) {
+		var str=text[line];
+		while(str != '') {
+			if(!in_xjs) {
+				if(str=='<?xjs' || str=='<?') {
+					in_xjs=true;
+					str='';
+				}
+				else {
+					if(str.search(/<\?(xjs)?\s+/)==-1) {
+						script += "writeln("+escape_quotes(str)+");\r\n";
+						str='';
+					}
+					else {
+						str=str.replace(/^(.*?)<\?(xjs)?\s+/,
+						function (str, p1, p2, offset, s) {
+							script += "write("+escape_quotes(p1)+");\r\n";
+							in_xjs=true;
+							return '';
+						}
+					);
+				}
+			}
+			else {
+				if(str.search(/\?>/)==-1) {
+					script += str;
+					str='';
+				}
+				else {
+					str=str.replace(/^(.*?)\?>/,
+						function (str, p1, offset, s) {
+							script += p1+";\r\n";
+							in_xjs=false;
+							return '';
+						}
+					);
+				}
+			}
+		}
 	}
 
 	var f=new File(ssjs_filename);
