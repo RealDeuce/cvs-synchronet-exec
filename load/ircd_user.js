@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.31 2006/08/10 04:14:27 cyan Exp $
+// $Id: ircd_user.js,v 1.32 2006/08/10 04:24:16 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.31 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.32 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -1468,6 +1468,8 @@ function User_Work() {
 function User_Quit(str,suppress_bcast,is_netsplit,origin) {
 	if (!str)
 		str = this.nick;
+
+	var ww_serverdesc;
 
 	var tmp = "QUIT :" + str;
 	this.bcast_to_uchans_unique(tmp);
