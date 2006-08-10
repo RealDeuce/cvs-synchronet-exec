@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.140 2006/07/23 23:21:32 cyan Exp $
+// $Id: ircd.js,v 1.141 2006/08/10 04:16:13 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.140 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.141 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2929,6 +2929,7 @@ function WhoWas(nick,uprefix,host,realname,server,serverdesc) {
 	this.realname = realname;
 	this.server = server;
 	this.serverdesc = serverdesc;
+	this.ucnick = nick.toUpperCase();
 }
 
 function NickBuf(oldnick,newnick) {
