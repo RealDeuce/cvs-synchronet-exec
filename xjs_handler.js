@@ -1,6 +1,6 @@
 /* Example Dynamic-HTML Content Parser */
 
-/* $Id: xjs_handler.js,v 1.9 2006/08/11 21:32:58 deuce Exp $ */
+/* $Id: xjs_handler.js,v 1.10 2006/08/11 21:46:41 deuce Exp $ */
 
 var xjs_filename;
 
@@ -95,8 +95,9 @@ function xjs_load(filename) {
 
 	load(ssjs_filename);
 	cwd=old_cwd;
+
+	function escape_quotes(arg) {
+		return("'"+arg.replace(/'/g,"'+"+'"'+"'"+'"+'+"'")+"'");
+	}
 }
 
-function escape_quotes(arg) {
-	return("'"+arg.replace(/'/g,"'+"+'"'+"'"+'"+'+"'")+"'");
-}
