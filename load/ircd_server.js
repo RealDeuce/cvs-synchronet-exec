@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.38 2006/07/24 05:36:18 cyan Exp $
+// $Id: ircd_server.js,v 1.39 2006/08/11 07:10:14 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.38 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.39 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -886,6 +886,7 @@ function Server_Work() {
 			if (chan.created > parseInt(cmd[1]))
 				chan.created = parseInt(cmd[1]);
 
+			/* XXX FIXME for dreamforge XXX */
 			this.bcast_to_servers_raw(":" + ThisOrigin.nick + " SJOIN " + chan.created + " " + chan.nam + " "
 				+ chan.chanmode(true) + " :" + new_chan_members)
 		} else {
