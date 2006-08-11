@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.41 2006/08/11 19:18:59 cyan Exp $
+// $Id: ircd_server.js,v 1.42 2006/08/11 19:19:46 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.41 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.42 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -843,7 +843,6 @@ function Server_Work() {
 				var member_obj = cm_array[member].nick;
 				var is_voice = cm_array[member].isvoice;
 				var is_op = cm_array[member].isop;
-				log("***XXX*** ISOP?? " + cm_array[member].isop + " ***XXX***");
 
 				if (member_obj.channels[chan.nam.toUpperCase()])
 					continue;
