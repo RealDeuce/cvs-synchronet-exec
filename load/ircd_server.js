@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.39 2006/08/11 07:10:14 cyan Exp $
+// $Id: ircd_server.js,v 1.40 2006/08/11 18:36:53 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.39 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.40 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -519,7 +519,7 @@ function Server_Work() {
 				+ NewNick.hostname + " "
 				+ NewNick.servername + " "
 				+ "0 "
-				+ cmd[9]
+				+ NewNick.ip
 				+ " :" + NewNick.realname,BAHAMUT);
 			this.bcast_to_servers_raw("NICK "
 				+ NewNick.nick + " "

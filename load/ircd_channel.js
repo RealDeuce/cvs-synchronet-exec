@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.21 2006/08/11 07:10:14 cyan Exp $
+// $Id: ircd_channel.js,v 1.22 2006/08/11 18:36:53 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.21 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.22 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -602,7 +602,7 @@ function IRCClient_do_join(chan_name,join_key) {
 		chan.users[this.id] = this;
 		chan.modelist[CHANMODE_OP][this.id] = this;
 		var str="JOIN :" + chan.nam;
-		var create_op;
+		var create_op = "";
 		if (this.local) {
 			this.originatorout(str,this);
 			create_op = "@";
