@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.33 2006/08/10 05:56:06 cyan Exp $
+// $Id: ircd_user.js,v 1.34 2006/08/11 22:33:50 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.33 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.34 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -1487,6 +1487,8 @@ function User_Quit(str,suppress_bcast,is_netsplit,origin) {
 
 	if (!suppress_bcast)
 		this.bcast_to_servers(tmp);
+	else if (is_netsplit)
+		this.bcast_to_servers(tmp,DREAMFORGE); /* DF doesn't have NOQUIT */
 
 	if (this.local) {
 		if(server.client_remove!=undefined)

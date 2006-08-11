@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.42 2006/08/11 19:19:46 cyan Exp $
+// $Id: ircd_server.js,v 1.43 2006/08/11 22:33:50 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.42 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.43 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -1137,21 +1137,21 @@ function IRCClient_bcast_to_servers_raw(str,type) {
 }
 
 function Server_Quit(str,suppress_bcast,is_netsplit,origin) {
-	var tmp;
-
 	if (!str)
 		str = this.nick;
 
 	if (is_netsplit) {
 		this.netsplit(str);
+		/* Fix for DreamForge's lack of NOQUIT */
+		this.bcast_to_servers_raw("SQUIT " + this.nick + " :" + str,DREAMFORGE);
 	} else if (this.local) {
+		this.netsplit(servername + " " + this.nick);
 		if (!suppress_bcast)
 			this.bcast_to_servers_raw("SQUIT " + this.nick + " :" + str);
-		this.netsplit(servername + " " + this.nick);
 	} else if (origin) {
+		this.netsplit(origin.nick + " " + this.nick);
 		if (!suppress_bcast)
 			this.bcast_to_servers_raw(":" + origin.nick + " SQUIT " + this.nick + " :" + str);
-		this.netsplit(origin.nick + " " + this.nick);
 	} else {
 		umode_notice(USERMODE_OPER,"Notice",
 			"Netspliting a server which isn't local and doesn't " +
