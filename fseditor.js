@@ -1,5 +1,5 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.40 2006/08/16 21:18:25 deuce Exp $ */
+/* $Id: fseditor.js,v 1.41 2006/08/16 21:42:30 deuce Exp $ */
 
 load("sbbsdefs.js");
 
@@ -1223,6 +1223,8 @@ function quote_mode()
 					if(quote_line[i].selected) {
 						line.splice(ypos,0,quote_line[i]);
 						ypos++;
+						if(ypos-topline > lines_on_screen)
+							topline++;
 					}
 				}
 				quote_window_displayed=0;
