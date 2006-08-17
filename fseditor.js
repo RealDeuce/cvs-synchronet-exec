@@ -1,5 +1,5 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.42 2006/08/16 21:45:07 deuce Exp $ */
+/* $Id: fseditor.js,v 1.43 2006/08/17 02:16:17 deuce Exp $ */
 
 load("sbbsdefs.js");
 
@@ -1038,7 +1038,7 @@ function draw_quote_line(l)
 	/* Does this line even exist? */
 	if(quote_line[l]==undefined) {
 		console.attributes=7;
-		console.gotoxy(x+1,yp);
+		console.gotoxy(1,yp);
 		console.cleartoeol();
 	}
 	else {
