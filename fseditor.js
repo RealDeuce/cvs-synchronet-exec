@@ -1,5 +1,5 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.46 2006/08/17 03:51:41 deuce Exp $ */
+/* $Id: fseditor.js,v 1.47 2006/08/17 07:05:27 deuce Exp $ */
 
 load("sbbsdefs.js");
 
@@ -1744,7 +1744,7 @@ var old_status=bbs.sys_status;
 bbs.sys_status&=~SS_PAUSEON;
 bbs.sys_status|=SS_PAUSEOFF;
 var oldpass=console.ctrlkey_passthru;
-console.ctrlkey_passthru="+ACGKLOQRUVWXYZ";
+console.ctrlkey_passthru="+ACGKLOPQRUVWXYZ_";
 /* Enable delete line in SyncTERM (Disabling ANSI Music in the process) */
 console.write("\033[=1M");
 console.clear();
