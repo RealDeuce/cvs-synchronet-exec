@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.25 2006/08/18 20:09:08 deuce Exp $
+// $Id: str_cmds.js,v 1.26 2006/08/18 20:39:26 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -766,6 +766,8 @@ function str_cmds(str)
 			}
 			if(console.yesno("Edit/Create .plan")) {
 				console.editfile(plan);
+				if(!file_exists(plan))
+					plan=format("%suser/%04d.pla",system.data_dir,user.number);
 				console.printfile(plan);
 			}
 		}
