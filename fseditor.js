@@ -1,5 +1,5 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.49 2006/08/18 20:23:59 deuce Exp $ */
+/* $Id: fseditor.js,v 1.50 2006/08/21 19:42:47 deuce Exp $ */
 
 load("sbbsdefs.js");
 
@@ -844,6 +844,7 @@ function make_lines(str, attr, nl_is_hardcr)
 						nl[nl.length-1].text+=' ';
 						nl[nl.length-1].attr+=ascii(thisattr);
 					}
+					spos++;
 					break;
 				default:		/* Printable char... may need to wrap */
 					if(nl[nl.length-1].text.length>79) {	/* Need to have wrapped */
