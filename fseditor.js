@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.51 2006/08/22 17:02:37 deuce Exp $ */
+/* $Id: fseditor.js,v 1.52 2006/08/22 17:06:52 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.51 $".split(' ')[1];
+const REVISION = "$Revision: 1.52 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -692,6 +692,7 @@ function draw_colour_box()
 /* *should* redraw at any prompt. */
 function redraw_screen()
 {
+	var last_tab='|';
 	status_line();
 	console.gotoxy(1,1);
 	printf(hdr_fmt, "Subj", subj);
@@ -705,12 +706,23 @@ function redraw_screen()
 			if((i%(8*2))==0) {
 				console.attributes=CYAN|HIGH;
 				console.print('|');
-			} else
+				last_tab='|';
+			} else {
 				console.print(ascii(254));
+				last_tab=ascii(254);
+			}
 		} else {
 			console.attributes=YELLOW|HIGH;
 			console.print(ascii(250));
 		}
+	}
+	if(last_tab=='|') {
+		console.attributes=YELLOW|HIGH;
+		console.print(ascii(254));
+	}
+	else {
+		console.attributes=CYAN|HIGH;
+		console.print('|');
 	}
 	if(colour_box_displayed)
 		draw_colour_box();
