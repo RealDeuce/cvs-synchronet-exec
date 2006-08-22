@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.52 2006/08/22 17:06:52 deuce Exp $ */
+/* $Id: fseditor.js,v 1.53 2006/08/22 17:25:04 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.52 $".split(' ')[1];
+const REVISION = "$Revision: 1.53 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -694,12 +694,18 @@ function redraw_screen()
 {
 	var last_tab='|';
 	status_line();
-	console.gotoxy(1,1);
-	printf(hdr_fmt, "Subj", subj);
-	console.gotoxy(1,2);
-	printf(hdr_fmt, "To",	to);
-	console.gotoxy(1,3);
-	printf(hdr_fmt, "From", from);
+	if(edit_top == 5) {
+		console.gotoxy(1,1);
+		printf(hdr_fmt, "Subj", subj);
+		console.gotoxy(1,2);
+		printf(hdr_fmt, "To",	to);
+		console.gotoxy(1,3);
+		printf(hdr_fmt, "From", from);
+	}
+	else {
+		console.gotoxy(1,1);
+		printf(hdr_fmt, "File", subj);
+	}
 	/* Display tab line */
 	for(i=0;i<(console.screen_columns-1);i++) {
 		if(i && (i%8)==0) {
@@ -1805,6 +1811,15 @@ if(drop_file.exists && drop_file.open("r")) {
 	subj=info[0];
 	to=info[1];
 	from=info[3];
+}
+else {
+	subj='';
+}
+if(subj=='') {
+	edit_top=3;
+	lines_on_screen=edit_bottom-edit_top+1;
+	subj=input_filename;
+	subj=subj.replace(/^.*[\\\/]/,'');
 }
 edit(use_quotes);
 console.ctrlkey_passthru=oldpass;
