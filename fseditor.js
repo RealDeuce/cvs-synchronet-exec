@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.58 2006/08/23 23:09:49 deuce Exp $ */
+/* $Id: fseditor.js,v 1.59 2006/08/23 23:15:24 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.58 $".split(' ')[1];
+const REVISION = "$Revision: 1.59 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -1849,3 +1849,4 @@ if(edit_top==5 && info[0]!=subj) {
 }
 console.ctrlkey_passthru=oldpass;
 bbs.sys_status=old_status;
+console.clear();
