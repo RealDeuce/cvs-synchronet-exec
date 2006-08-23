@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.57 2006/08/22 23:04:19 deuce Exp $ */
+/* $Id: fseditor.js,v 1.58 2006/08/23 23:09:49 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.57 $".split(' ')[1];
+const REVISION = "$Revision: 1.58 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -32,7 +32,7 @@ var info;
 
 // Message header display format
 var hdr_fmt	= "\1b\1h%-4s\1n\1b: \1h\1c%.60s\1>\r\n";
-var stat_fmt	= "\1h\1w\0014 FSEditor v" + REVISION + " - Type \1yCTRK-K\1w for help           %s\1>\1n";
+var stat_fmt	= "\1h\1w\0014 FSEditor v" + REVISION + " - Type \1yCTRL-K\1w for help           %s\1>\1n";
 var subj,to,from;
 
 function Line()
@@ -1739,7 +1739,7 @@ function edit(quote_first)
 				for(i=ypos; i<topline+lines_on_screen; i++)
 					draw_line(i);
 				*/
-				break;
+				status_line();
 				break;
 			case '\x1a':	/* CTRL-Z (EOF) (PgUp in SyncEdit)  */
 				var f=new File((argc==0?system.temp_dir+"INPUT.MSG":argv[0]));
@@ -1823,11 +1823,12 @@ if(drop_file.exists && drop_file.open("r")) {
 }
 else {
 	subj='';
+	to=input_filename;
 }
 if(subj=='') {
 	edit_top=3;
 	lines_on_screen=edit_bottom-edit_top+1;
-	subj=input_filename;
+	subj=to;
 	subj=subj.replace(/^.*[\\\/]/,'');
 }
 edit(use_quotes);
