@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.59 2006/08/23 23:15:24 deuce Exp $ */
+/* $Id: fseditor.js,v 1.60 2006/08/24 17:52:46 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.59 $".split(' ')[1];
+const REVISION = "$Revision: 1.60 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -1366,8 +1366,10 @@ function edit(quote_first)
 
 	redraw_screen();
 	if(quote_first) {
-		if(quote_mode())
+		if(quote_mode()) {
+			console.gotoxy(1,1);
 			return;
+		}
 	}
 	while(1) {
 		set_cursor();
@@ -1646,6 +1648,7 @@ function edit(quote_first)
 					xpos=line[ypos].text.length;
 				break;
 			case '\x11':	/* CTRL-Q (XOff) (Quick Abort in SyncEdit) */
+				console.gotoxy(1,1);
 				return;
 			case '\x12':	/* CTRL-R (Quick Redraw in SyncEdit) */
 				redraw_screen();
@@ -1663,8 +1666,10 @@ function edit(quote_first)
 				break;
 			case '\x15':	/* CTRL-U (Quick Quote in SyncEdit) */
 				if(quote_line.length>0) {
-					if(quote_mode())
+					if(quote_mode()) {
+						console.gotoxy(1,1);
 						return;
+					}
 				}
 				else
 					console.beep();
@@ -1747,6 +1752,7 @@ function edit(quote_first)
 				var s=make_strings(true,true);
 				f.write(s[0]);
 				f.close();
+				console.gotoxy(1,1);
 				return;
 			case '\x1b':	/* ESC (This should parse extra ANSI sequences) */
 				break;
@@ -1766,6 +1772,7 @@ function edit(quote_first)
 				try_prev_line();
 				break;
 			case '\x1f':	/* CTRL-_ Safe quick-abort*/
+				console.gotoxy(1,1);
 				return;
 			case '\x7f':	/* DELETE */
 				last_xpos=-1;
