@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.29 2006/08/23 23:31:27 rswindell Exp $
+// $Id: str_cmds.js,v 1.30 2006/09/22 21:20:48 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -297,14 +297,14 @@ function str_cmds(str)
 		}
 
 		if(str=="HELP") {
-			writeln("UEDIT [#]");
-			writeln("\tEdits user # or starts at user 0");
+			writeln("UEDIT [Number or Name]");
+			writeln("\tEdits specified user or starts at user #1");
 		}
 		if(word=="UEDIT") {
 			// Prompts for syspass
 			str=str.substr(5);
-			if(parseInt(str))
-				bbs.edit_user(str);
+			if(str.length)
+				bbs.edit_user(bbs.finduser(get_arg(str)));
 			else
 				bbs.edit_user();
 			return;
