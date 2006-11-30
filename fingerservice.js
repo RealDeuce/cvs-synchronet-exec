@@ -2,15 +2,18 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.37 2006/08/23 22:51:39 deuce Exp $
+// $Id: fingerservice.js,v 1.38 2006/11/30 00:20:36 rswindell Exp $
 
-// Example configuration (in ctrl/services.cfg):
+// Example configuration (in ctrl/services.ini)
+// [Finger]
+// Port=79
+// MaxClients=10
+// Options=NO_HOST_LOOKUP
+// Command=fingerservice.js
 
-// Finger		79	0-unlimited	0		fingerservice.js [options]
+// Command-line options:
 
-// Options:
-
-// -n	to the configuration line to eliminate user age and gender
+// -n	add to the Command line to eliminate user age and gender
 //		information from the query results.
 // -a	report aliases only (no real names)
 // -ff	enable the findfile feature (requires a "guest" account)
@@ -24,7 +27,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.37 $".split(' ')[1];
+const REVISION = "$Revision: 1.38 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
