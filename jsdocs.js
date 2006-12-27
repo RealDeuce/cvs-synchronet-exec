@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.26 2006/12/27 10:02:13 rswindell Exp $
+// $Id: jsdocs.js,v 1.27 2006/12/27 18:50:29 rswindell Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -12,7 +12,7 @@ const li_tag =	"<li onclick = 'this.className = (this.className == \"showList\")
 				">";
 
 min_ver=0;
-max_ver=9999;
+max_ver=999999;
 total_methods=0;
 total_properties=0;
 table_depth=0;
@@ -46,7 +46,10 @@ function table_close()
 
 function verstr(ver)
 {
-	return(format("%u.%u",ver/100,ver%100));
+	var str=format("%u.%u",ver/10000,(ver%10000)/100);
+	if(ver%100)
+		str+=format('%c',ascii('a')+(ver%100));
+	return str;
 }
 
 function document_methods(name,obj)
@@ -177,7 +180,11 @@ function document_properties(name, obj)
 
 		prop_name=name + "." + prop;
 
-		if(typeof(obj[prop])=="object" && prop!="socket") {
+		if(typeof(obj[prop])=="object" 
+			&& prop!="socket" 
+			&& prop!="global"
+			&& prop!="dir"
+			&& prop!="sub") {
 			if(obj[prop].length!=undefined) {
 				if(typeof(obj[prop][0])=="object") {	// array ?
 					document_object(prop_name /*+ "[]"*/,obj[prop][0], "array");
