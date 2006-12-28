@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.39 2006/05/03 01:52:19 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.40 2006/12/28 19:54:52 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -107,6 +107,7 @@ var   SS_SPLITP		=(1<<24)	/* Split-screen private chat				*/
 var   SS_NEWDAY		=(1<<25)	/* Date changed while online				*/
 var   SS_RLOGIN		=(1<<26)	/* Current login via BSD RLogin				*/
 var   SS_FILEXFER	=(1<<27)	/* File transfer in progress, halt spy		*/
+var   SS_SSH		=(1<<28)	/* Current login via Secure Shell (SSH)			*/
 					    		/********************************************/
 
 						    	/********************************************/
