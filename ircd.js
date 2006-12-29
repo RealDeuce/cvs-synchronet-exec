@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.143 2006/08/11 07:10:14 cyan Exp $
+// $Id: ircd.js,v 1.144 2006/12/29 09:11:31 cyan Exp $
 //
 // ircd.js
 //
@@ -30,13 +30,13 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.143 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.144 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
 // This is so everyone knows your revision base, AND type of hack used.
-const VERSION = "SynchronetIRCd-1.1b(" + MAIN_REVISION + ")";
+const VERSION = "SynchronetIRCd-1.2(" + MAIN_REVISION + ")";
 const VERSION_STR = "Synchronet " 
 	+ system.version + system.revision + "-" + system.platform 
 	+ system.beta_version + " (IRCd by Randy Sommerfeld)";
