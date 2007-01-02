@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.84 2006/06/04 19:22:13 deuce Exp $
+// $Id: lbshell.js,v 1.85 2007/01/02 20:52:58 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -119,7 +119,7 @@ function get_message()
 
 	/* Time left warning? */
 	if((bbs.timeleft/60)/(5-console.timeleft_warning) && (!user.compare_ars("SYSOP")))
-		rows+=MessageWindow.putmsg(1,MessageWindow.height,format(bbs.text(OnlyXminutesLeft),bbs.timeleft/60,(timeleft/60)?"s":""),MessageWindow_Attr,true);
+		rows+=MessageWindow.putmsg(1,MessageWindow.height,format(bbs.text(OnlyXminutesLeft),bbs.timeleft/60,(bbs.timeleft/60)?"s":""),MessageWindow_Attr,true);
 
 	/* New day? */
 //	if(!(system.status & SS_NEWDAY))
