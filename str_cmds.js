@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.31 2006/10/25 21:57:39 rswindell Exp $
+// $Id: str_cmds.js,v 1.32 2007/01/02 07:31:25 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -335,7 +335,7 @@ function str_cmds(str)
 		}
 		if(str=="DOS") {	// DOS/Windows shell
 			if(bbs.check_syspass()) {
-				bbs.exec("command.com",EX_OUTR|EX_INR|EX_NATIVE);
+				bbs.exec("command.com",EX_OUTR|EX_INR);
 			}
 			return;
 		}
