@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.145 2006/12/29 09:32:34 cyan Exp $
+// $Id: ircd.js,v 1.146 2007/01/11 17:37:45 cyan Exp $
 //
 // ircd.js
 //
@@ -30,13 +30,13 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.145 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.146 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
 // version number alone, and add a token in the form of +hack (i.e. 1.0+cyan)
 // This is so everyone knows your revision base, AND type of hack used.
-const VERSION = "SynchronetIRCd-1.2(" + MAIN_REVISION + ")";
+const VERSION = "SynchronetIRCd-1.3a(" + MAIN_REVISION + ")";
 const VERSION_STR = "Synchronet " 
 	+ system.version + system.revision + "-" + system.platform 
 	+ system.beta_version + " (IRCd by Randy Sommerfeld)";
@@ -1550,6 +1550,8 @@ function IRCClient_do_msg(target,type_str,send_str) {
 			if (target_server && 
 			    (target_server.id == target_socket.parent) )
 				target = real_target;
+			if (target_socket.issilenced(this.nuh))
+				return 0;	/* On SILENCE list.  Silently ignore. */
 			var str = type_str + " " + target + " :" + send_str;
 			target_socket.originatorout(str,this);
 			if (target_socket.away && (type_str == "PRIVMSG") &&
@@ -1583,7 +1585,7 @@ function IRCClient_do_info() {
 	umode_notice(USERMODE_SPY,"Spy","INFO requested by " + this.nick +
 		" (" + this.uprefix + "@" + this.hostname + ") [" +
 		this.servername + "]");
-	this.numeric(371, ":--=-=-=-=-=-=-=-=-=*[ The Synchronet IRCd v1.2 ]*=-=-=-=-=-=-=-=-=--");
+	this.numeric(371, ":--=-=-=-=-=-=-=-=-=*[ The Synchronet IRCd v1.3a ]*=-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":  IRCd Copyright 2003-2007 by Randolph E. Sommerfeld <cyan@rrx.ca>");
 	this.numeric(371, ":" + system.version_notice + " " + system.copyright + ".");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-( A big thanks to the following )-=-=-=-=-=-=-=-=--");
