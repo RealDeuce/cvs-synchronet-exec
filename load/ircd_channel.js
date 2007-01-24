@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.23 2006/12/29 09:32:34 cyan Exp $
+// $Id: ircd_channel.js,v 1.24 2007/01/24 20:23:09 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.23 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.24 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -570,7 +570,7 @@ function IRCClient_do_join(chan_name,join_key) {
 				return 0;
 			}
 			if (chan.isbanned(this.nuh) && (uc_chan_name != this.invited) ) {
-				this.numeric("474", Channels[chan].nam
+				this.numeric("474", chan.nam
 					+ " :Cannot join channel (+b: you're banned!)");
 				return 0;
 			}
