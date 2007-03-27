@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.87 2007/03/27 22:39:57 rswindell Exp $
+// $Id: lbshell.js,v 1.88 2007/03/27 22:41:27 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1734,7 +1734,6 @@ function show_messagemenu()
  								if(msg_area.grp_list[bbs.curgrp].sub_list[i].scan_cfg&SCAN_CFG_NEW
 									&& !bbs.scan_posts(msg_area.grp_list[bbs.curgrp].sub_list[i].number, SCAN_NEW))
 									break;
- 							}
 							draw_main(true);
 							messagemenu.draw();
 							break;
