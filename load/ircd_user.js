@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.36 2007/01/11 17:37:45 cyan Exp $
+// $Id: ircd_user.js,v 1.37 2007/03/31 06:01:08 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.36 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.37 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -144,6 +144,7 @@ function IRC_User(id) {
 	this.talkidle = time();
 	this.uprefix = "";
 	this.id = id;
+	this.throttle_count = 0;
 	// Variables (consts, really) that point to various state information
 	this.socket = "";
 	////////// FUNCTIONS
@@ -247,7 +248,7 @@ function IRC_User(id) {
 }
 
 ////////// Command Parser //////////
-function User_Work() {
+function User_Work(from_recvq) {
 	var clockticks = system.timer;
 	var cmdline;
 	var cmd;
@@ -258,7 +259,23 @@ function User_Work() {
 		return 0;
 	}
 
-	cmdline=this.socket.recvline(4096,0)
+	var cmdline;
+	if (from_recvq) {
+		cmdline = this.recvq.del();
+	} else {
+		var incoming_cmd = this.socket.recvline(4096,0);
+		if (this.recvq.bytes || (this.throttle_count > 4)) {
+			this.recvq.add(incoming_cmd);
+			this.throttle_count = 0;
+			return 0;
+		} else {
+			cmdline = incoming_cmd;
+		}
+		if ( (time() - this.idletime) < 2)
+			this.throttle_count++;
+		else
+			this.throttle_count = 0;
+	}
 
 	if (!cmdline)
 		return 0;
