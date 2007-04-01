@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.147 2007/03/31 06:01:08 cyan Exp $
+// $Id: ircd.js,v 1.148 2007/04/01 17:40:08 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.147 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.148 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -230,17 +230,7 @@ while (!server.terminated) {
 	for(this_sock in Selectable_Sockets) {
 		if (Selectable_Sockets_Map[this_sock]) {
 			Selectable_Sockets_Map[this_sock].check_timeout();
-			Selectable_Sockets_Map[this_sock].check_sendq();
-		}
-	}
-
-	/* Clear out the recvq, but only every 2 seconds */
-	if ( (time() - last_recvq_check) > 2) {
-		for(this_sock in Selectable_Sockets) {
-			if (Selectable_Sockets_Map[this_sock] &&
-				Selectable_Sockets_Map[this_sock].recvq.bytes) {
-				Selectable_Sockets_Map[this_sock].work(true);
-			}
+			Selectable_Sockets_Map[this_sock].check_queues();
 		}
 	}
 
@@ -267,8 +257,22 @@ while (!server.terminated) {
 		var readme = socket_select(Selectable_Sockets, 1 /*secs*/);
 		try {
 			for(thisPolled in readme) {
-				if (Selectable_Sockets_Map[readme[thisPolled]])
-						Selectable_Sockets_Map[readme[thisPolled]].work();
+				if (Selectable_Sockets_Map[readme[thisPolled]]) {
+					var conn = Selectable_Sockets_Map[readme[thisPolled]];
+					if (!conn.socket.is_connected) {
+						conn.quit("Connection reset by peer.");
+						continue;
+					}
+					var incoming_cmd = conn.socket.recvline(4096,0);
+					if (incoming_cmd) {
+						if (conn.recvq.bytes) {
+							conn.recvq.add(incoming_cmd);
+						} else {
+							Global_CommandLine = incoming_cmd;
+							conn.work(incoming_cmd);
+						}
+					}
+				}
 			}
 		} catch(e) {
 			gnotice("FATAL ERROR: " + e + " CMDLINE: " + Global_CommandLine);
@@ -2854,10 +2858,15 @@ function IRCClient_check_timeout() {
 	return 0; // no ping timeout
 }
 
-function IRCClient_check_sendq() {
+function IRCClient_check_queues() {
 	if (this.sendq.bytes && this.socket.send(this.sendq.queue[0] + "\r\n")) {
 		this.sendq.bytes -= this.sendq.queue[0].length;
 		this.sendq.queue.shift();
+	}
+	if (this.recvq.bytes && ((time() - this.idletime) >= 2) ) {
+		var cmd = this.recvq.del();
+		Global_CommandLine = cmd;
+		this.work(cmd);
 	}
 }
 

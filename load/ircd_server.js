@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.45 2006/12/29 09:32:34 cyan Exp $
+// $Id: ircd_server.js,v 1.46 2007/04/01 17:40:08 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.45 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.46 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -79,7 +79,7 @@ function IRC_Server() {
 	this.finalize_server_connect=IRCClient_finalize_server_connect;
 	// Global Functions
 	this.check_timeout=IRCClient_check_timeout;
-	this.check_sendq=IRCClient_check_sendq;
+	this.check_queues=IRCClient_check_queues;
 	this.set_chanmode=IRCClient_set_chanmode;
 	this.check_nickname=IRCClient_check_nickname;
 	// Output helper functions (shared)
@@ -87,23 +87,10 @@ function IRC_Server() {
 
 ////////// Command Parser //////////
 
-function Server_Work() {
+function Server_Work(cmdline) {
 	var clockticks = system.timer;
-	var cmdline;
 	var cmd;
 	var command;
-
-	if (!this.socket.is_connected) {
-		this.quit("Connection reset by peer");
-		return 0;
-	}
-
-	cmdline=this.socket.recvline(4096,0)
-
-	if(cmdline==null)
-		return 0;
-
-	Global_CommandLine = cmdline;
 
 	if (debug)
 		log(format("[%s<-%s]: %s",servername,this.nick,cmdline));

@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.27 2006/12/29 09:32:34 cyan Exp $
+// $Id: ircd_unreg.js,v 1.28 2007/04/01 17:40:08 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.27 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.28 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -50,7 +50,7 @@ function Unregistered_Client(id,socket) {
 	this.work = Unregistered_Commands;
 	this.quit = Unregistered_Quit;
 	this.check_timeout = IRCClient_check_timeout;
-	this.check_sendq = IRCClient_check_sendq;
+	this.check_queues = IRCClient_check_queues;
 	this.resolve_check = Unregistered_Resolve_Check;
 	this.welcome = Unregistered_Welcome;
 	// Output helper functions (shared)
@@ -88,22 +88,11 @@ function Unregistered_Client(id,socket) {
 
 ////////// Command Parsers //////////
 
-function Unregistered_Commands() {
+function Unregistered_Commands(cmdline) {
 	var clockticks = system.timer;
-	var cmdline;
 	var cmd;
 	var command;
 
-	if (!this.socket.is_connected) {
-		this.quit();
-		return 0;
-	}
-	cmdline=this.socket.recvline(4096,0);
-
-	Global_CommandLine = cmdline;
-
-	if (!cmdline)
-		return 0;
 	// Only accept up to 512 bytes from unregistered clients.
 	cmdline = cmdline.slice(0,512);
 	// Kludge for broken clients.
