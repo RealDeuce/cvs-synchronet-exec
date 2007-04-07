@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.61 2006/08/24 19:12:31 deuce Exp $ */
+/* $Id: fseditor.js,v 1.62 2007/04/07 05:01:48 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.61 $".split(' ')[1];
+const REVISION = "$Revision: 1.62 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -1026,7 +1026,6 @@ function make_strings(soft,embed_colour)
 function draw_quote_selection(l)
 {
 	var yp;
-	var x;
 
 	if(l==undefined || isNaN(l))
 		return;
@@ -1034,7 +1033,7 @@ function draw_quote_selection(l)
 	/* Does this line even exist? */
 	if(quote_line[l]==undefined) {
 		console.attributes=7;
-		console.gotoxy(x+1,yp);
+		console.gotoxy(1,yp);
 		console.cleartoeol();
 	}
 	else {
