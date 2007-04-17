@@ -3,7 +3,7 @@
 // Script to create the Guest/Anonymous user account
 // This is normally executed from logon.js (rev 1.7+)
 
-// $Id: makeguest.js,v 1.6 2007/01/01 22:08:15 rswindell Exp $
+// $Id: makeguest.js,v 1.7 2007/04/17 00:38:32 rswindell Exp $
 
 // Don't create guest account if sysop account hasn't been created yet
 if(!system.stats.total_users)	{
@@ -28,8 +28,8 @@ guest.comment="This is the auto-generated Guest/Anonymous user account.";
 // Setup intelligent security parameters
 guest.security.restrictions|=UFLAG_G;	// can't edit defaults (main 'Guest' indicator)
 guest.security.restrictions|=UFLAG_K;	// can't read sent mail
-guest.security.restrictions|=UFLAG_P;	// can't post
-guest.security.restrictions|=UFLAG_M;	// can't post on networked subs (redundant)
+guest.security.restrictions|=UFLAG_P;	// can't post messages
+guest.security.restrictions|=UFLAG_M;	// can't send network mail
 guest.security.restrictions|=UFLAG_W;	// can't write to the auto-message
 guest.security.restrictions|=UFLAG_R;	// can't remove files
 guest.security.restrictions|=UFLAG_C;	// can't chat
