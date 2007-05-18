@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.148 2007/04/01 17:40:08 cyan Exp $
+// $Id: ircd.js,v 1.149 2007/05/18 02:24:33 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.148 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.149 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -696,6 +696,7 @@ function search_nickbuf(bufnick) {
 }
 
 function read_config_file() {
+	/* All of these variables are global. */
 	Admin1 = "";
 	Admin2 = "";
 	Admin3 = "";
@@ -712,6 +713,7 @@ function read_config_file() {
 	restartpass = "";
 	YLines = new Array;
 	ZLines = new Array;
+	/* End of global variables */
 	var fname="";
 	if (config_filename && config_filename.length) {
 		if(config_filename.indexOf('/')>=0 || config_filename.indexOf('\\')>=0)
@@ -726,6 +728,21 @@ function read_config_file() {
 			fname=system.ctrl_dir + "ircd.conf";
 	}
 	log(LOG_INFO,"Reading Config: " + fname);
+	if (fname.substr(fname.length-3,3) == "ini")
+		read_ini_config(fname);
+	else
+		read_conf_config(fname);
+}
+
+function read_ini_config(fname) {
+	var conf = new File(fname);
+	if (conf.open("r")) {
+		/* Global Variables */
+	}
+	conf.close();
+}
+
+function read_conf_config(fname) {
 	var conf = new File(fname);
 	if (conf.open("r")) {
 		while (!conf.eof) {
@@ -1617,8 +1634,8 @@ function IRCClient_do_info() {
 	this.numeric(371, ":   Originally converted the IRCd to be object-oriented, various small");
 	this.numeric(371, ":   hacks, and lots of guidance.");
 	this.numeric(371, ":Thanks to the DALnet Bahamut team for their help from time to time.");
-	this.numeric(371, ":Greets to: Arrak, Elayne, ElvishMerchant, Foobar, Grimp, KFC, Kufat,");
-	this.numeric(371, ":   Nex, Psyko, Samael, Shaun, Torke, and all the #square oldbies.");
+	this.numeric(371, ":Greets to: Arrak, Elayne, ElvishMerchant, Foobar, Grimp, Kufat,");
+	this.numeric(371, ":   Psyko, Samael, Shaun, Torke, and all the #square oldbies.");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":Synchronet " + system.full_version);
 	this.numeric(371, ":Compiled with " + system.compiled_with + " at " + system.compiled_when);

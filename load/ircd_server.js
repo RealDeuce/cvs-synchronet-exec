@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.46 2007/04/01 17:40:08 cyan Exp $
+// $Id: ircd_server.js,v 1.47 2007/05/18 02:24:33 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.46 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.47 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -468,6 +468,8 @@ function Server_Work(cmdline) {
 					break;
 				}
 			}
+			if (cmd[uprefixptr+1][0] == ".")	/* CR "hidden mask" fix. */
+				cmd[uprefixptr+1] = cmd[uprefixptr+1].slice(1);
 			var new_id = "id" + next_client_id;
 			next_client_id++;
 			Users[cmd[1].toUpperCase()] = new IRC_User(new_id);
@@ -555,6 +557,8 @@ function Server_Work(cmdline) {
 		// FIXME: servers should be able to send notices.
 		if (!cmd[1] || ThisOrigin.server)
 			break;
+		if (this.nick != ThisOrigin.parent)
+			break;  /* Fix for CR bouncing back msgs. */
 		var my_ircstr = IRC_string(cmdline,2);
 		if (!cmd[2] || !my_ircstr)
 			break;
@@ -661,6 +665,8 @@ function Server_Work(cmdline) {
 	case "PRIVMSG":
 		if (!cmd[1] || ThisOrigin.server)
 			break;
+		if (this.nick != ThisOrigin.parent)
+			break;	/* Fix for CR bouncing back msgs. */
 		var my_ircstr = IRC_string(cmdline,2);
 		if (!cmd[2] || !my_ircstr)
 			break;
