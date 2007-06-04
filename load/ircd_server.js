@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.47 2007/05/18 02:24:33 cyan Exp $
+// $Id: ircd_server.js,v 1.48 2007/06/04 06:24:08 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.47 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.48 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -476,8 +476,14 @@ function Server_Work(cmdline) {
 			var NewNick = Users[cmd[1].toUpperCase()];
 			NewNick.local = false; // not local. duh.
 			NewNick.nick = cmd[1];
-			NewNick.hops = cmd[2];
-			NewNick.created = cmd[3];
+			/* What the hell.  CR reverses these at random. */
+			if (parseInt(cmd[2]) > 100) {
+				NewNick.created = cmd[2];
+				NewNick.hops = cmd[3];
+			} else {
+				NewNick.hops = cmd[2];
+				NewNick.created = cmd[3];
+			}
 			NewNick.uprefix = cmd[uprefixptr];
 			NewNick.hostname = cmd[uprefixptr+1];
 			NewNick.servername = cmd[uprefixptr+2];
