@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.149 2007/05/18 02:24:33 cyan Exp $
+// $Id: ircd.js,v 1.150 2007/06/05 01:27:31 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.149 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.150 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -131,7 +131,7 @@ next_client_id = 0;
 Local_Users = new Object;
 Local_Servers = new Object;
 
-rebuild_socksel_array = false;
+rebuild_socksel_array = true;
 
 network_debug = false;
 
