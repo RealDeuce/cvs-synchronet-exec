@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.150 2007/06/05 01:27:31 cyan Exp $
+// $Id: ircd.js,v 1.151 2007/06/12 00:58:58 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.150 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.151 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -253,7 +253,7 @@ while (!server.terminated) {
 	}
 
 	// do some work.
-	if (this.socket_select!=undefined) {
+	if (Selectable_Sockets.length) {
 		var readme = socket_select(Selectable_Sockets, 1 /*secs*/);
 		try {
 			for(thisPolled in readme) {
@@ -280,6 +280,8 @@ while (!server.terminated) {
 				+ Global_CommandLine);
 			terminate_everything("A fatal error occured!", /* ERROR? */true);
 		}
+	} else {
+		mswait(1000);
 	}
 
 	// Scan C:Lines for servers to connect to automatically.
