@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.35 2007/07/05 02:23:56 deuce Exp $
+// $Id: irc.js,v 1.36 2007/07/25 08:17:49 rswindell Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.35 $".split(' ')[1];
+const REVISION = "$Revision: 1.36 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -129,6 +129,13 @@ while(!quit)  {
 		quit=1;
 		sock.close();
 		bbs.hangup();
+		clean_exit();
+	}
+
+	if(bbs.get_time_left && !bbs.get_time_left()) {
+		sock.send("QUIT :Out of time.\r\n");
+		quit=1;
+		sock.close();
 		clean_exit();
 	}
 
