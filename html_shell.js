@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: html_shell.js,v 1.2 2007/07/27 02:55:37 deuce Exp $
+// $Id: html_shell.js,v 1.3 2007/07/27 04:34:44 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -40,6 +40,7 @@ if(!user.settings&USER_HTML) {
 main:
 while(1) {
 	// Display TEXT\MENU\MAIN.* if not in expert mode
+	console.attributes=7;
 	console.clear();
 	bbs.menu("main");
 
@@ -385,6 +386,7 @@ function email()
 	var key;
 	var i;
 	while(1) {
+		console.attributes=7;
 		console.clear();
 		bbs.menu("e-mail");
 
@@ -463,6 +465,7 @@ function main_info()
 	var key;
 
 	while(1) {
+		console.attributes=7;
 		console.clear();
 		bbs.menu("maininfo");
 
@@ -502,6 +505,7 @@ function main_cfg()
 	var sub;
 
 	while(1) {
+		console.attributes=7;
 		console.clear();
 		bbs.menu("maincfg");
 
@@ -549,6 +553,7 @@ function file_transfers()
 
 file_transfers:
 	while(1) {
+		console.attributes=7;
 		console.clear();
 		bbs.menu("transfer");
 
@@ -993,6 +998,7 @@ file_transfers:
 			case '&':
 xfercfg:
 				while(1) {
+					console.attributes=7;
 					console.clear();
 					bbs.menu("xfercfg");
 					// async
@@ -1036,20 +1042,15 @@ function file_info()
 	var key;
 
 	while(1) {
-		if(!(user.settings & USER_EXPERT))
-			bbs.menu("xferinfo");
+		console.attributes=7;
+		console.clear();
+		bbs.menu("xferinfo");
 
 		// async
-		console.putmsg("\r\nyhInfo: n");
-		key=get_next_keys("?TYDUQ\r");
+		key=console.getkey();
 		bbs.log_key(key);
 
 		switch(key) {
-			case '?':
-				if(user.settings & USER_EXPERT)
-					bbs.menu("xferinfo");
-				break;
-
 			case 'T':
 				bbs.xfer_policy();
 				break;
