@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: html_shell.js,v 1.1 2007/07/27 02:48:04 deuce Exp $
+// $Id: html_shell.js,v 1.2 2007/07/27 02:55:37 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -33,7 +33,7 @@ var key;
 
 if(!user.settings&USER_HTML) {
 	load("classic_shell.js");
-	return;
+	exit;
 }
 
 // Set return point for main menu commands (via end_cmd)
