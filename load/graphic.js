@@ -1,9 +1,11 @@
-// $Id: graphic.js,v 1.15 2007/07/28 07:22:01 deuce Exp $
+// $Id: graphic.js,v 1.16 2007/07/28 12:49:54 deuce Exp $
 
 /*
  * "Graphic" object
  * Allows a graphic to be stored in memory and portions of it redrawn on command
  */
+
+load("sbbsdefs.js");
 
 function Graphic(w,h,attr,ch)
 {
@@ -147,7 +149,7 @@ function Graphic_scroll(lines)
 
 /* Returns the number of times scrolled unless returnonscroll is true */
 /* If returnonscroll is true, returns the text AFTER the scroll */
-function Graphic_putmsg(xpos, ypos, txt, attr, scroll, returnonscroll)
+function Graphic_putmsg(xpos, ypos, txt, attr, scroll, returnonscroll, mode)
 {
 	var curattr=attr;
 	var ch;
@@ -156,6 +158,8 @@ function Graphic_putmsg(xpos, ypos, txt, attr, scroll, returnonscroll)
 	var p=0;
 	var scrolls=0;
 
+	if(mode==undefined)
+		mode=P_NONE;
 	if(curattr==undefined)
 		curattr=this.attribute;
 	/* Expand @-codes */
@@ -164,15 +168,17 @@ function Graphic_putmsg(xpos, ypos, txt, attr, scroll, returnonscroll)
 			return('');
 		return(0);
 	}
-	txt=txt.toString().replace(/@(.*?)@/g,
-		function (str, code, offset, s) {
-			console.line_counter=0;
-			var ret=bbs.atcode(code);
-			if(ret==null)
-				return("@"+code+"@");
-			return(ret);
-		}
-	);
+	if(!(mode & P_NOATCODES)) {
+		txt=txt.toString().replace(/@(.*?)@/g,
+			function (str, code, offset, s) {
+				console.line_counter=0;
+				var ret=bbs.atcode(code);
+				if(ret==null)
+					return("@"+code+"@");
+				return(ret);
+			}
+		);
+	}
 	if(returnonscroll == undefined)
 		returnonscroll=false;
 	if(returnonscroll)
