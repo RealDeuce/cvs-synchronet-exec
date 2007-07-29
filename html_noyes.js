@@ -1,4 +1,4 @@
-// $Id: html_noyes.js,v 1.4 2007/07/29 03:04:55 deuce Exp $
+// $Id: html_noyes.js,v 1.5 2007/07/29 04:53:35 deuce Exp $
 
 load("sbbsdefs.js");
 load("text.js");
@@ -23,4 +23,4 @@ if(user.settings & USER_HTML) {
 	bbs.sys_status=os;
 }
 else
-	console.print("@EXEC:noyesbar@");
+	console.putmsg("@EXEC:noyesbar@");
