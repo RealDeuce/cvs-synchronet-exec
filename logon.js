@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.9 2007/07/28 12:51:26 deuce Exp $
+// $Id: logon.js,v 1.10 2007/07/29 01:04:35 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -83,13 +83,6 @@ for(i=0;;i++) {
 var random_list = directory(system.text_dir + "menu/random*.*");
 if(random_list.length)
 	bbs.menu(file_getname(random_list[random(random_list.length)]).slice(0,-4));
-
-// If using the HTML shell and has HTML terminal,
-// replace YesNo text.
-if(user.command_shell.search(/HTML/i)!=-1 && user.settings&USER_HTML) {
-	bbs.replace_text(bbs.text(YesNoQuestion),"@EXEC:html_yesno@");
-	bbs.replace_text(bbs.text(NoYesQuestion),"@EXEC:html_yesno@");
-}
 
 console.clear();
 bbs.user_event(EVENT_LOGON);
