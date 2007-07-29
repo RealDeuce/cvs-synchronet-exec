@@ -1,4 +1,4 @@
-// $Id: html_yesno.js,v 1.2 2007/07/28 09:53:33 deuce Exp $
+// $Id: html_yesno.js,v 1.3 2007/07/29 03:02:58 deuce Exp $
 
 load("sbbsdefs.js");
 load("text.js");
@@ -23,4 +23,4 @@ if(user.settings & USER_HTML) {
 	bbs.sys_status=os;
 }
 else
-	console.print(bbs.text[YesNoQuestion]);
+	console.print("@EXEC:yesnobar@");
