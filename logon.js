@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.11 2007/07/29 02:58:40 deuce Exp $
+// $Id: logon.js,v 1.12 2007/07/30 08:47:18 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -173,7 +173,7 @@ else {
 		printf("\1n\1g\1hYou are the first caller of the day!\r\n");
 	else {
 		printf("\1n\1g\1hLast few callers:\1n\r\n");
-		console.printtail(logonlst,P_NOATCODES,4);
+		console.printtail(logonlst,4,P_NOATCODES);      // args: filename, lines, mode
 	}
 	console.crlf();
 
