@@ -2,11 +2,11 @@
 
 /* Send a message (from stdin or the command-line) to an IRC channel */
 
-/* $Id: ircmsg.js,v 1.28 2005/10/12 08:49:36 rswindell Exp $ */
+/* $Id: ircmsg.js,v 1.29 2007/08/01 00:39:26 rswindell Exp $ */
 
 load("irclib.js");	// Thanks Cyan!
 
-const REVISION = "$Revision: 1.28 $".split(' ')[1];
+const REVISION = "$Revision: 1.29 $".split(' ')[1];
 
 var server="irc.synchro.net";
 var channel="#channel";
@@ -106,6 +106,8 @@ function send(msg)
 	log("Sending: " + msg);
 	if(!my_server.send("PRIVMSG "+channel+" :"+expand_tabs(msg)+"\r\n"))
 		alert("send failure");
+	else
+		mswait(2000);	// Cyan: IRCd throttles clients that send text to the server too quickly
 }
 
 function expand_tabs(msg)
