@@ -5,7 +5,7 @@
  * Per RFC 790, September 1981, taken from the BSD file netinet/in.h.
  */
 
-/* $Id: sockdefs.js,v 1.4 2003/05/08 22:53:00 rswindell Exp $ */
+/* $Id: sockdefs.js,v 1.5 2007/08/13 02:34:14 rswindell Exp $ */
 
 /*
  * Protocols
@@ -31,6 +31,7 @@ var IPPORT_DISCARD          =9
 var IPPORT_SYSTAT           =11
 var IPPORT_DAYTIME          =13
 var IPPORT_NETSTAT          =15
+var IPPORT_MSP				=18				/* Message Send Protocol */
 var IPPORT_FTP              =21
 var IPPORT_TELNET           =23
 var IPPORT_SMTP             =25
