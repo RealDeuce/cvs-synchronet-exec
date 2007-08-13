@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.151 2007/06/12 00:58:58 cyan Exp $
+// $Id: ircd.js,v 1.152 2007/08/13 02:27:05 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.151 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.152 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -332,26 +332,6 @@ function true_array_len(my_array) {
 		counter++;
 	}
 	return counter;
-}
-
-function ip_to_int(ip) {
-	if (!ip)
-		return 0;
-	var quads = ip.split(".");
-	var addr = (quads[0]&0xff)<<24;
-	addr|=(quads[1]&0xff)<<16;
-	addr|=(quads[2]&0xff)<<8;
-	addr|=(quads[3]&0xff);
-	return addr;
-}
-
-function int_to_ip(ip) {
-	return(format("%u.%u.%u.%u"
-		,(ip>>24)&0xff
-		,(ip>>16)&0xff
-		,(ip>>8)&0xff
-		,ip&0xff
-		));
 }
 
 function terminate_everything(terminate_reason, error) {
