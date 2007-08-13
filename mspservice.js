@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Message Send Protocol 2 (RFC 1312/1159)
 
-// $Id: mspservice.js,v 1.6 2007/08/13 02:11:51 deuce Exp $
+// $Id: mspservice.js,v 1.7 2007/08/13 21:27:49 deuce Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -143,7 +143,7 @@ telegram_buf += message;
 /* TODO cache cookies and prevent dupes */
 if(recipient != "") {
 	if(to_node) {
-		if(system.node_list[to_node].useron==usernum) {
+		if(system.node_list[to_node-1].useron==usernum) {
 			send_response=system.put_node_message(to_node, telegram_buf);
 			log("Attempt to send node message: "+(send_response?"Success":"Failure"));
 		}
