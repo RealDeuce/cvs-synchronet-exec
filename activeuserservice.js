@@ -2,13 +2,23 @@
 
 // Synchronet Service for the Active User protocol (RFC 866)
 
-// $Id: activeuserservice.js,v 1.1 2007/08/12 20:33:00 deuce Exp $
+// $Id: activeuserservice.js,v 1.2 2007/08/13 02:10:46 rswindell Exp $
 
-// Example configuration (in ctrl/services.cfg):
+// Example configurations (in ctrl/services.ini):
 
-// ActiveUser		11	0-unlimited	0		activeuserservice.js [options]
+// [ActiveUser]
+// Port=11
+// MaxClients=10
+// Options=NO_HOST_LOOKUP
+// Command=activeuserservice.js
 
-// Options:
+// [ActiveUser-UDP]
+// Port=11
+// MaxClients=10
+// Options=UDP | NO_HOST_LOOKUP
+// Command=activeuserservice.js
+
+// Command-line options:
 
 // -n	to the configuration line to eliminate user age and gender
 //		information from the query results.
@@ -23,7 +33,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.1 $".split(' ')[1];
+const REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;

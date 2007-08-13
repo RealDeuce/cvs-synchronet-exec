@@ -2,11 +2,20 @@
 
 // Synchronet Service for the Message Send Protocol 2 (RFC 1312/1159)
 
-// $Id: mspservice.js,v 1.4 2007/08/13 02:01:55 deuce Exp $
+// $Id: mspservice.js,v 1.5 2007/08/13 02:10:46 rswindell Exp $
 
-// Example configuration (in ctrl/services.cfg):
+// Example configuration (in ctrl/services.ini):
 
-// MSP		18	0-unlimited	0		mspservice.js [options]
+// [MSP]
+// Port=18
+// MaxClients=10
+// Command=mspservice.js
+
+// [MSP-UDP]
+// Port=18
+// MaxClients=10
+// Options=UDP
+// Command=mspservice.js
 
 load("sockdefs.js");
 load("nodedefs.js");
