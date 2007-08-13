@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Message Send Protocol 2 (RFC 1312/1159)
 
-// $Id: mspservice.js,v 1.3 2007/08/13 00:13:14 deuce Exp $
+// $Id: mspservice.js,v 1.4 2007/08/13 02:01:55 deuce Exp $
 
 // Example configuration (in ctrl/services.cfg):
 
@@ -56,58 +56,6 @@ function read_str(msg)
 		}
 		str+=ascii(b);
 	}
-}
-
-function putsmsg(usernumber, message)
-{
-	var str;
-	var file;
-	var i;
-
-	if(message==undefined && message=='')
-		return(false);
-
-	str=format("%smsgs/%4.4u.msg",system.data_dir,usernumber);
-	file=new File(str);
-	if(!file.open("a")) {
-		log("Cannot open "+str+" for append");
-		return(false);
-	}
-	file.writeln(message);
-	file.close();
-
-	for(i in system.node_list) {     /* flag node if user on that msg waiting */
-		if(system.node_list[i].useron==usernumber 
-				&& (system.node_list[i].status == NODE_INUSE || system.node_list[i].status == NODE_QUIET)
-				&& !(system.node_list[i].misc & NODE_MSGW)) {
-			system.node_list[i].misc |= NODE_MSGW;
-		}
-	}
-	return(true);
-}
-
-function putnmsg(nodenumber, message)
-{
-	var str;
-	var file;
-
-	if(message==undefined && message=='')
-		return(false);
-
-	str=format("%smsgs/n%3.3u.msg",system.data_dir,nodenumber);
-	file=new File(str);
-	if(!file.open("a")) {
-		log("Cannot open "+str+" for append");
-		return(false);
-	}
-	file.writeln(message);
-	file.close();
-
-	if((system.node_list[i].status == NODE_INUSE || system.node_list[i].status == NODE_QUIET)
-			&& !(system.node_list[i].misc & NODE_NMSG)) {
-		system.node_list[i].misc |= NODE_NMSG;
-	}
-	return(true);
 }
 
 var b;
@@ -187,19 +135,19 @@ if(recipient != "") {
 	log("Recipient specified: "+recipient);
 	if(to_node) {
 		if(system.node_list[to_node].useron==usernum) {
-			success=putnmsg(to_node, telegram_buf);
+			success=system.put_node_message(to_node, telegram_buf);
 			log("Attempt to send node message: "+(success?"Success":"Failure"));
 		}
 		else
 			log("Cannot send to user "+recipient+" on node "+to_node);
 	}
 	else {
-		success=putsmsg(usernum, telegram_buf);
+		success=system.put_telegram(usernum, telegram_buf);
 		log("Attempt to send telegram: "+(success?"Success":"Failure"));
 	}
 }
 else if(to_node) {
-	success=putnmsg(to_node, telegram_buf);
+	success=system.put_node_message(to_node, telegram_buf);
 	log("Attempt to send node message: "+(success?"Success":"Failure"));
 }
 else {
