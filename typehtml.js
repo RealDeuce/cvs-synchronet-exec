@@ -4,7 +4,9 @@
 
 // Planned replacement for exec/typehtml.src (Baja version)
 
-// $Id: typehtml.js,v 1.6 2007/07/28 02:23:41 deuce Exp $
+// $Id: typehtml.js,v 1.7 2007/08/16 05:59:07 rswindell Exp $
+
+load("sbbsdefs.js");	// USER_HTML
 
 var NORMAL			="\1N\1H"
 var HEADING1		="\1H\1Y"
