@@ -2,7 +2,7 @@
 
 // Convert plain-text with (optional) Synchronet attribute (Ctrl-A) codes to HTML
 
-// $Id: typeasc.js,v 1.4 2007/07/28 12:50:40 deuce Exp $
+// $Id: typeasc.js,v 1.5 2007/08/16 05:58:21 rswindell Exp $
 
 load("sbbsdefs.js");
 load("asc2htmlterm.js");
@@ -56,7 +56,7 @@ if(this.f==undefined) {
 if(title=='')
 	title=filename;
 
-if(1 || (user.settings & USER_HTML)) {
+if(user.settings & USER_HTML) {
 
 	if(!f.open("rb",true,f.length)) {
 		alert("Error " + errno + " opening " + f.name);
