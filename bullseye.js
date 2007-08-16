@@ -3,7 +3,7 @@
 // Bulletins written in Baja by Rob Swindell
 // Translated to JS by Stehen Hurd
 
-// $Id: bullseye.js,v 1.2 2007/07/28 07:38:02 deuce Exp $
+// $Id: bullseye.js,v 1.3 2007/08/16 05:56:48 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -72,9 +72,9 @@ while(1) {
 			fname=str;
 			bbs.replace_text(563,"\001n\001h\001b{\001wContinue? Yes/No\001b} ");
 			if(str.search(/\.htm/)!=-1)
-				bbs.exec("?typehtml -color "+str);
+				load("typehtml.js", "-color", str);
 			else
-				bbs.exec("?typeasc "+str+" BullsEye Bulletin #"+b);
+				load("typeasc.js", str, "BullsEye Bulletin #"+b);
 			log("Node "+bbs.node_num+" "+user.alias+" viewed bulletin #"+i+": "+fname);
 			bbs.revert_text(563);
 			console.aborted=false;
