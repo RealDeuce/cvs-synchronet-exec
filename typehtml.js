@@ -4,7 +4,7 @@
 
 // Planned replacement for exec/typehtml.src (Baja version)
 
-// $Id: typehtml.js,v 1.7 2007/08/16 05:59:07 rswindell Exp $
+// $Id: typehtml.js,v 1.8 2007/08/16 19:21:56 rswindell Exp $
 
 load("sbbsdefs.js");	// USER_HTML
 
@@ -23,6 +23,7 @@ var LIST_ITEM 		="\1N\r\n    \1H\1Wo \1G"
 
 var f;
 var mono=true;
+var i;
 
 for(i in argv) {
 	switch(argv[i].toLowerCase()) {
