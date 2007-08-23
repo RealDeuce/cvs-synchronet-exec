@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.94 2007/07/25 23:50:52 deuce Exp $
+// $Id: lbshell.js,v 1.95 2007/08/23 07:36:42 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -123,7 +123,7 @@ function get_message()
 	}
 
 	if(bbs.time_left==0) {
-		/* Call get_time_left() to handle the hangup and such 8/
+		/* Call get_time_left() to handle the hangup and such */
 		clear_screen();
 		bbs.get_time_left();
 		bbs.hangup();
