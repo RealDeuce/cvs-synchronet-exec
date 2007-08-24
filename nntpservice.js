@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.103 2007/08/16 06:01:53 rswindell Exp $
+// $Id: nntpservice.js,v 1.104 2007/08/24 02:39:14 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.103 $".split(' ')[1];
+const REVISION = "$Revision: 1.104 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -374,10 +374,10 @@ while(client.socket.is_connected && !quit) {
 			}
 
 			if(cmd[0].toUpperCase()=="GROUP")
-				writeln(format("211 %u %u %u %s group selected"
+				writeln(format("211 %u %u %d %s group selected"
 					,msgbase.total_msgs	// articles in group
 					,msgbase.first_msg
-					,msgbase.last_msg
+					,(msgbase.total_msgs==0) ? (msgbase.first_msg-1):msgbase.last_msg
 					,selected.newsgroup
 					));
 			else {	// LISTGROUP
