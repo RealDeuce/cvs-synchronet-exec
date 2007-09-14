@@ -2,7 +2,7 @@
 
 # DOS shell for Synchronet version 2 systems
 
-# $Id: sdos.src,v 1.8 2006/04/05 10:00:22 rswindell Exp $
+# $Id: sdos.src,v 1.9 2007/09/14 19:35:11 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -85,7 +85,7 @@ if_true
 compare_word ";"
 if_true
 	shift_str 1
-	exec "?str_cmds %s"
+	exec_bin "str_cmds %s"
 	return
 	end_if
 

@@ -1,6 +1,6 @@
 # renegade.src
 
-# $Id: renegade.src,v 1.9 2006/04/05 10:00:22 rswindell Exp $
+# $Id: renegade.src,v 1.10 2007/09/14 19:35:11 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -829,7 +829,7 @@ cmdstr "Q"
         return
         end_cmd
 
-exec "?str_cmds %s"
+exec_bin "str_cmds %s"
 
 end_cmd
 
