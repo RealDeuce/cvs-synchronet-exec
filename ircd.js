@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.152 2007/08/13 02:27:05 cyan Exp $
+// $Id: ircd.js,v 1.153 2007/09/21 02:07:51 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.152 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.153 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2839,7 +2839,7 @@ function IRCClient_setusermode(modestr) {
 	if (this.local && !this.server) {
 		this.originatorout("MODE "+this.nick+" "+final_modestr,this);
 		if (bcast_addmodes || bcast_delmodes)
-			this.bcast_to_servers("MODE "+this.nick+" "+bcast_modestr,this);
+			this.bcast_to_servers("MODE "+this.nick+" "+bcast_modestr);
 	}
 	return bcast_modestr;
 }
