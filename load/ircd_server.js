@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.49 2007/09/21 03:12:36 cyan Exp $
+// $Id: ircd_server.js,v 1.50 2007/09/21 03:33:22 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.49 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.50 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -374,16 +374,17 @@ function Server_Work(cmdline) {
 			if (cmd2_int == cmd[2]) {
 				if (cmd2_int > chan.created) {
 					break;
-				} else if (cmd2_int < chan.created) {
+				} else if ((cmd2_int < chan.created) && ThisOrigin.server) {
 					bounce_modes = true;
 					chan.created = cmd2_int;
 				}
 				cmd.shift();
-			} else if (cmdend_int == cmd[cmdend]) {
+			} else if ( (cmdend_int == cmd[cmdend])
+					&& (this.type == DREAMFORGE) ) {
 				/* DreamForge style TS */
 				if (cmdend_int > chan.created) {
 					break;
-				} else if (cmdend_int < chan.created) {
+				} else if ((cmdend_int < chan.created) && ThisOrigin.server) {
 					bounce_modes = true;
 					chan.created = cmdend_int;
 				}
