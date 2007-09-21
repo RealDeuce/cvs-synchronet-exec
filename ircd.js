@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.153 2007/09/21 02:07:51 cyan Exp $
+// $Id: ircd.js,v 1.154 2007/09/21 05:06:25 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.153 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.154 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -457,7 +457,10 @@ function parse_oline_flags(flags) {
 				break;
 			case "u":
 				oline_flags |= OLINE_CAN_UMODEC;
+				break;
 			case "A":
+				oline_flags |= OLINE_IS_ADMIN;
+				break;
 			case "a":
 			case "f":
 			case "F":
@@ -2796,6 +2799,11 @@ function IRCClient_setusermode(modestr) {
 				if ((this.mode&USERMODE_OPER) &&
 				    (this.flags&OLINE_CAN_UMODEC))
 					umode.tweak_mode(USERMODE_CLIENT,add);
+				break;
+			case "A":
+				if ( ((this.mode&USERMODE_OPER) && (this.flags&OLINE_IS_ADMIN))
+					|| (this.parent && Servers[this.parent.toLowerCase()].hub) )
+					umode.tweak_mode(USERMODE_ADMIN,add);
 				break;
 			default:
 				if (!unknown_mode && !this.parent) {
