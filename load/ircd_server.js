@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.48 2007/06/04 06:24:08 cyan Exp $
+// $Id: ircd_server.js,v 1.49 2007/09/21 03:12:36 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.48 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.49 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -368,22 +368,31 @@ function Server_Work(cmdline) {
 			var cmdend = cmd.length - 1;
 			var cmd2_int = parseInt(cmd[2]);
 			var cmdend_int = parseInt(cmd[cmdend]);
+			var bounce_modes = false;
 			// Detect if this is a TSMODE.  If so, handle.
 			/* TODO: Sync IRCd should support TSMODE! */
 			if (cmd2_int == cmd[2]) {
-				if (cmd2_int > chan.created)
+				if (cmd2_int > chan.created) {
 					break;
+				} else if (cmd2_int < chan.created) {
+					bounce_modes = true;
+					chan.created = cmd2_int;
+				}
 				cmd.shift();
 			} else if (cmdend_int == cmd[cmdend]) {
 				/* DreamForge style TS */
-				if (cmdend_int > chan.created)
+				if (cmdend_int > chan.created) {
 					break;
+				} else if (cmdend_int < chan.created) {
+					bounce_modes = true;
+					chan.created = cmdend_int;
+				}
 				cmd.pop(); /* Strip the TS. */
 			}
 			cmd.shift();
 			cmd.shift();
 			var modeline = cmd.join(" ");
-			ThisOrigin.set_chanmode(chan,modeline,false);
+			ThisOrigin.set_chanmode(chan,modeline,bounce_modes);
 		} else { // assume it's for a user
 			var my_modes = ThisOrigin.setusermode(IRC_string(cmd[2],0));
 			if (my_modes) {
