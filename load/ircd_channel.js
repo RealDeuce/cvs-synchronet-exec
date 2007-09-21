@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.25 2007/09/21 03:33:22 cyan Exp $
+// $Id: ircd_channel.js,v 1.26 2007/09/21 03:38:55 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.25 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.26 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -294,13 +294,13 @@ function IRCClient_set_chanmode(chan,modeline,bounce_modes) {
 				break;
 			case "l":
 				if (add && (cm_args.length > mode_args_counter)) {
-					cmode.tweaktmpmode(CHANMODE_LIMIT,true);
 					var regexp = "^[0-9]{1,5}$";
+					mode_args_counter++;
 					if(cm_args[mode_args_counter].match(regexp))
 						cmode.state_arg[CHANMODE_LIMIT]=cm_args[mode_args_counter];
 					else
-						cmode.state_arg[CHANMODE_LIMIT]=99999;
-					mode_args_counter++;
+						break;
+					cmode.tweaktmpmode(CHANMODE_LIMIT,true);
 				} else if (!add) {
 					cmode.tweaktmpmode(CHANMODE_LIMIT,false);
 					if (cm_args.length > mode_args_counter)
