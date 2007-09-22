@@ -1,6 +1,4 @@
-// $Id: dnshelper.js,v 1.5 2007/09/21 02:22:54 cyan Exp $
+// $Id: dnshelper.js,v 1.6 2007/09/22 06:51:20 cyan Exp $
 
-var host;
-host=resolve_host(argv[0]);
-host;
+resolve_host(argv[0]);
 
