@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.154 2007/09/21 05:06:25 cyan Exp $
+// $Id: ircd.js,v 1.155 2007/09/22 16:24:51 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.154 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.155 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -84,6 +84,7 @@ const max_bans = 25;		// Maximum bans (+b) per channel
 const max_topiclen = 307;	// Maximum length of topic per channel
 const max_kicklen = 307;	// Maximum length of kick reasons
 const max_who = 100;		// Maximum replies to WHO for non-oper users
+const max_silence = 10;		// Maximum entries on a user's SILENCE list
 
 /* Server types */
 const BAHAMUT = 1;

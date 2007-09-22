@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.40 2007/09/21 05:06:25 cyan Exp $
+// $Id: ircd_user.js,v 1.41 2007/09/22 16:24:51 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.40 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.41 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -915,7 +915,7 @@ function User_Work(cmdline) {
 			if (!del_sil) { /* Adding an entry */
 				if (this.issilenced(sil_mask))
 					break;	/* Exit silently if already on SILENCE list */
-				if (this.silence.length >= 10) {
+				if (this.silence.length >= max_silence) {
 					/* We only allow 10 entries in the user's SILENCE list. */
 					this.numeric(511, this.nick + " " + target + " :"
 						+ "Your SILENCE list is full.");
