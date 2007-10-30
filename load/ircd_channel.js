@@ -1,4 +1,4 @@
-// $Id: ircd_channel.js,v 1.29 2007/09/22 06:42:54 cyan Exp $
+// $Id: ircd_channel.js,v 1.30 2007/10/30 22:25:40 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const CHANNEL_REVISION = "$Revision: 1.29 $".split(' ')[1];
+const CHANNEL_REVISION = "$Revision: 1.30 $".split(' ')[1];
 
 const CHANMODE_NONE		=(1<<0); // NONE
 const CHANMODE_BAN		=(1<<1); // b
@@ -88,7 +88,7 @@ function Channel(nam) {
 
 function ChanMode_tweaktmpmode(tmp_bit,add) {
 	if (!this.chan.modelist[CHANMODE_OP][this.user.id] && 
-	    !this.user.server && !this.user.uline && !this.mode&USERMODE_ADMIN) {
+	    !this.user.server && !this.user.uline && !(this.mode&USERMODE_ADMIN)) {
 		this.user.numeric482(this.chan.nam);
 		return 0;
 	}
@@ -103,7 +103,7 @@ function ChanMode_tweaktmpmode(tmp_bit,add) {
 
 function ChanMode_tweaktmpmodelist(tmp_bit,add,arg) {
 	if (!this.chan.modelist[CHANMODE_OP][this.user.id] &&
-	    !this.user.server && !this.user.uline && !this.mode&USERMODE_ADMIN) {
+	    !this.user.server && !this.user.uline && !(this.mode&USERMODE_ADMIN)) {
 		this.user.numeric482(this.chan.nam);
 		return 0;
 	}
