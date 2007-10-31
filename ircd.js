@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.155 2007/09/22 16:24:51 cyan Exp $
+// $Id: ircd.js,v 1.156 2007/10/31 21:34:05 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.155 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.156 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -2874,6 +2874,7 @@ function IRCClient_check_queues() {
 	if (this.recvq.bytes && ((time() - this.idletime) >= 2) ) {
 		var cmd = this.recvq.del();
 		Global_CommandLine = cmd;
+		this.throttle_count = 0;
 		this.work(cmd);
 	}
 }
