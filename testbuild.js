@@ -2,7 +2,7 @@
 
 /* JSexec script for periodic Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.19 2007/11/28 08:12:29 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.20 2007/12/01 18:32:44 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
@@ -57,7 +57,8 @@ var builds
 /* Platform-specific (or non-ported) projects */
 if(platform=="win32") {
 	/* Requires C++Builder */
-	builds.push(["src/sbbs3/ctrl"		,"makelibs.bat"			,"> " + build_output]);
+	builds.push(["src/sbbs3/ctrl"		,"makelibs.bat ../msvc.win32.dll.release"
+																,"> " + build_output]);
 	builds.push(["src/sbbs3/ctrl"		,"bpr2mak sbbsctrl.bpr & make -f sbbsctrl.mak"
 																,"> " + build_output]);
 	builds.push(["src/sbbs3/chat"		,"bpr2mak chat.bpr     & make -f chat.mak"
