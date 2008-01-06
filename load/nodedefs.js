@@ -2,7 +2,7 @@
 
 /* Synchronet NODE.DAB var  ants definitions - (mostly bit-fields) */
 
-/* $Id: nodedefs.js,v 1.4 2008/01/05 23:12:32 deuce Exp $ */
+/* $Id: nodedefs.js,v 1.5 2008/01/06 21:47:43 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -142,6 +142,5 @@ var   NODE_RPCHT  	=(1<<10)    /* Reset private chat						*/
 var   NODE_NMSG   	=(1<<11)    /* Node message waiting (new way)			*/
 var   NODE_EXT    	=(1<<12)    /* Extended info on node action				*/
 var   NODE_LCHAT	=(1<<13)    /* Being pulled into local chat				*/
-var   NODE_MOFF		=(1<<14)	/* Disable node messages					*/
 								/********************************************/
 

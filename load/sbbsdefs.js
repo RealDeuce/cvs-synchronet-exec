@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.42 2007/07/30 08:41:06 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.43 2008/01/06 21:47:43 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -109,6 +109,8 @@ var   SS_NEWDAY		=(1<<25)	/* Date changed while online				*/
 var   SS_RLOGIN		=(1<<26)	/* Current login via BSD RLogin				*/
 var   SS_FILEXFER	=(1<<27)	/* File transfer in progress, halt spy		*/
 var   SS_SSH		=(1<<28)	/* Current login via Secure Shell (SSH)                 */
+var   SS_MOFF		=(1<<29)	/* Disable node/time messages				*/
+
 					    		/********************************************/
 
 						    	/********************************************/
