@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.23 2006/02/13 18:52:55 deuce Exp $
+ * $Id: lightbar.js,v 1.24 2008/01/09 22:23:11 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -150,9 +150,6 @@ function Lightbar_getval(current)
 	if(current!=undefined)
 		this.current=current;
 	if(!(user.settings & USER_ANSI)) {
-		return(this.failsafe_getval());
-	}
-	if(!(user.settings & USER_COLOR)) {
 		return(this.failsafe_getval());
 	}
 
@@ -470,9 +467,6 @@ function Lightbar_draw(current)
 	if(current!=undefined)
 		this.current=current;
 	if(!(user.settings & USER_ANSI)) {
-		return;
-	}
-	if(!(user.settings & USER_COLOR)) {
 		return;
 	}
 
