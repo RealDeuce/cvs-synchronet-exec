@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.29 2007/05/11 05:22:30 rswindell Exp $
+// $Id: listserver.js,v 1.30 2008/01/11 22:34:59 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.29 $".split(' ')[1];
+const REVISION = "$Revision: 1.30 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -82,7 +82,7 @@ if(this.recipient_list_filename!=undefined) {
 		log(LOG_WARNING,"ListServer: No reverse path");
 		exit();
 	}
-	if(reverse_path=='<' + listserver_addrses + '>') {
+	if(reverse_path=='<' + listserver_address + '>') {
 		log(LOG_WARNING,"ListServer: Invalid reverse path (loop?)");
 		exit();
 	}
