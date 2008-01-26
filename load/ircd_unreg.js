@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.30 2008/01/26 03:43:02 cyan Exp $
+// $Id: ircd_unreg.js,v 1.31 2008/01/26 03:55:53 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.30 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.31 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -262,10 +262,11 @@ function Unregistered_Commands(cmdline) {
 				usernum = system.matchuser(this.nick);
 			if (usernum) {
 				var bbsuser = new User(usernum);
-				if (this.password.toUpperCase() == bbsuser.security.password)
+				if (this.password.toUpperCase() == bbsuser.security.password) {
 					this.uprefix = parse_username(bbsuser.handle).toLowerCase().slice(0,10);
 					bbsuser.connection = "IRC";
 					bbsuser.logontime = time();
+				}
 			}
 		}
 		if (!usernum)
