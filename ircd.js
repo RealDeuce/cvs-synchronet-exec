@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.156 2007/10/31 21:34:05 cyan Exp $
+// $Id: ircd.js,v 1.157 2008/01/26 03:43:01 cyan Exp $
 //
 // ircd.js
 //
@@ -15,7 +15,7 @@
 //
 // Synchronet IRC Daemon as per RFC 1459, link compatible with Bahamut 1.4
 //
-// Copyright 2003-2007 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2008 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
 load("sbbsdefs.js");
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.156 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.157 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1610,7 +1610,7 @@ function IRCClient_do_info() {
 		" (" + this.uprefix + "@" + this.hostname + ") [" +
 		this.servername + "]");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-=*[ The Synchronet IRCd v1.3a ]*=-=-=-=-=-=-=-=-=--");
-	this.numeric(371, ":  IRCd Copyright 2003-2007 by Randolph E. Sommerfeld <cyan@rrx.ca>");
+	this.numeric(371, ":  IRCd Copyright 2003-2008 by Randolph E. Sommerfeld <cyan@rrx.ca>");
 	this.numeric(371, ":" + system.version_notice + " " + system.copyright + ".");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-( A big thanks to the following )-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":DigitalMan (Rob Swindell): Resident coder god, various hacking all");
@@ -1620,7 +1620,7 @@ function IRCClient_do_info() {
 	this.numeric(371, ":   Originally converted the IRCd to be object-oriented, various small");
 	this.numeric(371, ":   hacks, and lots of guidance.");
 	this.numeric(371, ":Thanks to the DALnet Bahamut team for their help from time to time.");
-	this.numeric(371, ":Greets to: Arrak, Elayne, ElvishMerchant, Foobar, Grimp, Kufat,");
+	this.numeric(371, ":Greets to: Arrak, ElvishMerchant, Foobar, Grimp, Kufat,");
 	this.numeric(371, ":   Psyko, Samael, Shaun, Torke, and all the #square oldbies.");
 	this.numeric(371, ":--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--");
 	this.numeric(371, ":Synchronet " + system.full_version);
