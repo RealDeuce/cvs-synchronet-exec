@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.86 2008/02/14 06:56:36 rswindell Exp $
+// $Id: newslink.js,v 1.87 2008/02/14 07:05:09 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.86 $".split(' ')[1];
+const REVISION = "$Revision: 1.87 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -108,6 +108,8 @@ function writeln(str)
 
 function readln(len)
 {
+	if(!len)
+		len=512;	// RFC977 and RFC3977 specify a maximum of 512-octets per response line
 	rsp = socket.recvline(len);
 	if(debug)
 		printf("rsp: %s\r\n",rsp);
