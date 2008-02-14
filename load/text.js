@@ -2,13 +2,13 @@
 
 /* Synchronet static text string constants */
 
-/* $Id: text.js,v 1.2 2005/09/15 01:38:42 deuce Exp $ */
+/* $Id: text.js,v 1.3 2008/02/14 08:19:52 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
  * @format.use-tabs true	(see http://www.synchro.net/ptsc_hdr.html)		*
  *																			*
- * Copyright 2004 Rob Swindell - http://www.synchro.net/copyright.html		*
+ * Copyright 2008 Rob Swindell - http://www.synchro.net/copyright.html		*
  *																			*
  * This program is free software; you can redistribute it and/or			*
  * modify it under the terms of the GNU General Public License				*
@@ -198,7 +198,7 @@ var ChUserPwPrompt=155;
 var Unused156=156;
 var ErrorLogHdr=157;
 var DeleteErrorLogQ=158;
-var NoErrorLogExists=159;
+var DirectoryDoesNotExist=159;
 var ClearErrCounter=160;
 var InvalidNode=161;
 var SendingTelegramToUser=162;
@@ -282,7 +282,7 @@ var MovedFile=239;
 var CloseFileRecordQ=240;
 var SysopRemoveFilePrompt=241;
 var UserRemoveFilePrompt=242;
-var FileNotThere=243;
+var FileDoesNotExist=243;
 var CouldntRemoveFile=244;
 var DeleteFileQ=245;
 var AddToOfflineDirQ=246;
