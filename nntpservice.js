@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.104 2007/08/24 02:39:14 rswindell Exp $
+// $Id: nntpservice.js,v 1.105 2008/02/16 09:31:23 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.104 $".split(' ')[1];
+const REVISION = "$Revision: 1.105 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -135,7 +135,7 @@ if(!no_anonymous)
 while(client.socket.is_connected && !quit) {
 
 	// Get Request
-	cmdline = client.socket.recvline(512 /*maxlen*/, 300 /*timeout*/);
+	cmdline = client.socket.recvline(1024 /*maxlen*/, 300 /*timeout*/);
 
 	if(cmdline==null) {
 		log(LOG_WARNING,"!TIMEOUT waiting for request");
@@ -685,7 +685,7 @@ while(client.socket.is_connected && !quit) {
 			var lines=0;
 			while(client.socket.is_connected) {
 
-				line = client.socket.recvline(512 /*maxlen*/, 300 /*timeout*/);
+				line = client.socket.recvline(4096 /*maxlen*/, 300 /*timeout*/);
 
 				if(line==null) {
 					log(LOG_NOTICE,"!TIMEOUT waiting for text line");
