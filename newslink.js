@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.87 2008/02/14 07:05:09 rswindell Exp $
+// $Id: newslink.js,v 1.88 2008/02/16 09:20:18 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.87 $".split(' ')[1];
+const REVISION = "$Revision: 1.88 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -106,11 +106,12 @@ function writeln(str)
 	write(str + "\r\n");
 }
 
-function readln(len)
+// RFC977 and RFC3977 clearly state 512-bytes per response line,
+// but "Timelord" reported a problem with some news server sending
+// > 512-byte response lines for the XOVER command
+function readln()
 {
-	if(!len)
-		len=512;	// RFC977 and RFC3977 specify a maximum of 512-octets per response line
-	rsp = socket.recvline(len);
+	rsp = socket.recvline(4096);
 	if(debug)
 		printf("rsp: %s\r\n",rsp);
 	return(rsp);
@@ -545,10 +546,7 @@ for(i in area) {
 		if(parseInt(readln())==224) {
 			printf("Getting headers for articles %u through %u\r\n", ptr, last_msg);
 			article_list = new Array();
-			// RFC977 and RFC3977 clearly state 512-bytes per response line,
-			// but "Timelord" reported a problem with some news server sending
-			// > 512-byte response lines for the XOVER command
-			while((rsp=readln(1024))!='.' && socket.is_connected && !js.terminated) {
+			while((rsp=readln())!='.' && socket.is_connected && !js.terminated) {
 				if(rsp)
 					article_list.push(parseInt(rsp));
 				maybe_yield();
