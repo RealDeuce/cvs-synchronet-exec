@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.10 2006/11/21 18:44:01 deuce Exp $
+// $Id: classic_shell.js,v 1.11 2008/02/21 03:20:24 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1126,7 +1126,7 @@ file_transfers:
 					continue file_transfers;
 				}
 				console.crlf();
-				console.putmsg(format(bbs.text(DirLstHdr),file_area.lib_list[bbs.curlib].descirption),P_SAVEATR);
+				console.putmsg(format(bbs.text(DirLstHdr),file_area.lib_list[bbs.curlib].description),P_SAVEATR);
 				for(i=0;i<file_area.lib_list[bbs.curlib].dir_list.length;i++) {
 					if(i==bbs.curdir)
 						console.putmsg('*');
