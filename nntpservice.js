@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.105 2008/02/16 09:31:23 rswindell Exp $
+// $Id: nntpservice.js,v 1.106 2008/02/23 20:25:56 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.105 $".split(' ')[1];
+const REVISION = "$Revision: 1.106 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -400,6 +400,10 @@ while(client.socket.is_connected && !quit) {
 				writeln("412 no newsgroup selected");
 				break;
 			}
+			if(!selected.can_read) {
+				writeln("412 read permission to newsgroup denied");
+				break;
+			}
 			var first, last;
 			if(cmd[1]==undefined || cmd[1].length==0)
 				first=last=current_article;
@@ -439,6 +443,10 @@ while(client.socket.is_connected && !quit) {
 			}
 			if(!selected) {
 				writeln("412 no newsgroup selected");
+				break;
+			}
+			if(!selected.can_read) {
+				writeln("412 read permission to newsgroup denied");
 				break;
 			}
 			writeln("221 Header follows");
@@ -516,6 +524,10 @@ while(client.socket.is_connected && !quit) {
 			if(!selected) {
 				writeln("412 no newsgroup selected");
 				bogus_cmd_counter++;
+				break;
+			}
+			if(!selected.can_read) {
+				writeln("412 read permission to newsgroup denied");
 				break;
 			}
 			if(cmd[1]==undefined || cmd[1].length==0) {
