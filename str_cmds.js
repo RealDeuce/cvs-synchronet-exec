@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.33 2008/02/14 08:19:52 rswindell Exp $
+// $Id: str_cmds.js,v 1.34 2008/02/24 01:43:37 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -66,7 +66,7 @@ function str_cmds(str)
 		}
 		if(str=="ERR") {
 			var errlog=system.logs_dir+"error.log";
-			if(file_exists()) {
+			if(file_exists(errlog)) {
 				write(bbs.text(ErrorLogHdr));
 				console.printfile(errlog);
 				if(!console.noyes(bbs.text(DeleteErrorLogQ)))
