@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.106 2008/02/23 20:25:56 rswindell Exp $
+// $Id: nntpservice.js,v 1.107 2008/02/24 17:13:31 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.106 $".split(' ')[1];
+const REVISION = "$Revision: 1.107 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -610,7 +610,7 @@ while(client.socket.is_connected && !quit) {
 
 			if(cmd[0].toUpperCase()!="BODY") {
 
-				if(!hdr.from_net_type)	/* local message */
+				if(!hdr.from_net_type || !hdr.from_net_addr)	/* local message */
 					writeln(format("From: \"%s\" <%s@%s>"
 						,hdr.from
 						,hdr.from.replace(/ /g,".").toLowerCase()
