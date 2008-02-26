@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.67 2008/02/26 21:20:45 deuce Exp $ */
+/* $Id: fseditor.js,v 1.68 2008/02/26 21:32:31 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.67 $".split(' ')[1];
+const REVISION = "$Revision: 1.68 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -1827,20 +1827,24 @@ if(f.open("r",false)) {
 }
 if(line.length==0)
 	line.push(new Line());
-var drop_file_name = file_getcase(system.node_dir + "editor.inf");
-drop_file = new File(drop_file_name);
-if(drop_file.exists && drop_file.open("r")) {
-	info = drop_file.readAll();
-	drop_file.close();
-	while(drop_file_name = file_getcase(system.node_dir + "editor.inf") != undefined)
-		file_remove(drop_file_name);
-	subj=info[0];
-	to=info[1];
-	from=info[3];
-}
-else {
-	subj='';
-	to=input_filename;
+
+subj='';
+to=input_filename;
+var drop_file_name;
+var drop_file_time=-Infinity;
+while((drop_file_name = file_getcase(system.node_dir + "editor.inf"))!=undefined) {
+	if(file_date(drop_file_name)>=drop_file_time) {
+		drop_file = new File(drop_file_name);
+		if(drop_file.exists && drop_file.open("r")) {
+			drop_file_time=drop_file.date;
+			info = drop_file.readAll();
+			drop_file.close();
+			subj=info[0];
+			to=info[1];
+			from=info[3];
+		}
+	}
+	file_remove(drop_file_name);
 }
 if(subj=='') {
 	edit_top=3;
