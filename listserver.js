@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.30 2008/01/11 22:34:59 rswindell Exp $
+// $Id: listserver.js,v 1.31 2008/02/26 05:49:07 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.30 $".split(' ')[1];
+const REVISION = "$Revision: 1.31 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -137,14 +137,14 @@ if(this.recipient_list_filename!=undefined) {
 			for(var p in list)
 				log("list_array["+l+"]."+p+" = "+list[p]);
 **/
-			if(rcpt_list[r].Recipient.toLowerCase()==list.address.toLowerCase()
+			if(rcpt_list[r].To.toLowerCase()==list.address.toLowerCase()
 				&& !list.disabled
 				&& !list.readonly)
 				break;
 		}
 		if(l<list_array.length) {	/* match found */
 			log(LOG_INFO,format("ListServer: Contribution message from %s to %s: %s"
-				,header.from, rcpt_list[r].Recipient, header.subject));
+				,header.from, rcpt_list[r].To, header.subject));
 			handled=true;
 			if(!process_contribution(header, body, list))
 				break;
