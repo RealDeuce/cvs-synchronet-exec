@@ -1,6 +1,6 @@
 # qnet-ftp.src
 
-# $Id: qnet-ftp.src,v 1.7 2007/02/15 00:37:08 rswindell Exp $
+# $Id: qnet-ftp.src,v 1.8 2008/07/08 20:55:09 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -178,6 +178,7 @@ if_true
 	lprintf "QNET-FTP: Downloaded %s successfully" str
 else
 	lprintf "QNET-FTP: %s NOT downloaded socket_error=%d (no new messages?)" str _socket_error
+    remove_file qwk
 	end_if
 
 #################
