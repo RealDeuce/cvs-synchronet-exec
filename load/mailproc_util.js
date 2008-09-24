@@ -2,10 +2,12 @@
 
 // Utility functions for Synchronet external mail processors
 
-// $Id: mailproc_util.js,v 1.7 2008/09/23 20:05:00 rswindell Exp $
+// $Id: mailproc_util.js,v 1.8 2008/09/24 19:17:23 rswindell Exp $
 
 load("sbbsdefs.js");
 load("mailutil.js");	// mail_get_name() and mail_get_address()
+
+const RFC822HEADER = 0xb0;	// from smbdefs.h
 
 // Parses raw RFC822-formatted messages for use with SMTP Mail Processors
 // Returns an array of header fields parsed from the msgtxt
