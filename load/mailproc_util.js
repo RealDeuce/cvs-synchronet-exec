@@ -2,7 +2,7 @@
 
 // Utility functions for Synchronet external mail processors
 
-// $Id: mailproc_util.js,v 1.8 2008/09/24 19:17:23 rswindell Exp $
+// $Id: mailproc_util.js,v 1.9 2008/09/25 00:18:06 rswindell Exp $
 
 load("sbbsdefs.js");
 load("mailutil.js");	// mail_get_name() and mail_get_address()
@@ -31,10 +31,12 @@ function parse_msg_header(msgtxt)
 }
 
 // Convert a parsed RFC822 message header field array into a Synchronet-compatible header object
-function convert_msg_header(hdr)
+function convert_msg_header(hdr_array)
 {
-	for(f in hdr) {
-		var data = hdr[f];
+	var hdr = new Object;
+
+	for(f in hdr_array) {
+		var data = hdr_array[f];
 		switch(f) {
 			case "to":
 			case "apparently-to":
@@ -101,10 +103,9 @@ function convert_msg_header(hdr)
 					hdr.field_list=new Array();
 				hdr.field_list.push(
 					{	type: RFC822HEADER, 
-						data: line + ": " + data 
+						data: f + ": " + data 
 					}
 				);
-				hdr[line.toLowerCase()]=data;
 				break;
 		}
 	}
