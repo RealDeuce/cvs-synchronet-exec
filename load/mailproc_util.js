@@ -2,7 +2,7 @@
 
 // Utility functions for Synchronet external mail processors
 
-// $Id: mailproc_util.js,v 1.9 2008/09/25 00:18:06 rswindell Exp $
+// $Id: mailproc_util.js,v 1.10 2008/10/04 22:35:29 rswindell Exp $
 
 load("sbbsdefs.js");
 load("mailutil.js");	// mail_get_name() and mail_get_address()
@@ -20,7 +20,7 @@ function parse_msg_header(msgtxt)
 	for(i in msgtxt) {
 		if(msgtxt[i].length==0)	// Header terminator
 			break;
-		var match = msgtxt[i].match(/(\S+)\s*:\s*(.*)/);
+		var match = msgtxt[i].match(/^(\S+)\s*:\s*(.*)/);
 		if(match)
 			hdr[last_field=match[1].toLowerCase()]=match[2];
 		else if(last_field)		// Folded header field
