@@ -1,9 +1,22 @@
 // mailproc_example.js
 
+// $Id: mailproc_example.js,v 1.4 2008/10/04 22:11:43 rswindell Exp $
+
 // Example SMTP "Mail Processor" module
 // Requires Synchronet Mail Server 1.298 or later
 
-// $Id: mailproc_example.js,v 1.3 2003/10/22 01:01:41 rswindell Exp $
+// This script modifies the body text of an incoming message.
+// It adds all the recipient properties and RFC822 headers to the body text.
+
+// Configure in your ctrl/mailproc.ini file like so:
+
+// [mailproc_example.js]
+//  to = sysop, 1
+//	passthru = true
+
+// And then the body text of all messages received for "sysop" or user #1 will be modified
+
+// See ctrl/mailproc.ini for more details.
 
 load("mailproc_util.js");
 
