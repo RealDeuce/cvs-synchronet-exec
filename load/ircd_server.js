@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.51 2008/01/26 03:43:02 cyan Exp $
+// $Id: ircd_server.js,v 1.52 2008/10/23 17:34:22 cyan Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.51 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.52 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -369,8 +369,7 @@ function Server_Work(cmdline) {
 			var cmd2_int = parseInt(cmd[2]);
 			var cmdend_int = parseInt(cmd[cmdend]);
 			var bounce_modes = false;
-			// Detect if this is a TSMODE.  If so, handle.
-			/* TODO: Sync IRCd should support TSMODE! */
+			/* Detect if this is a TSMODE.  If so, handle. */
 			if (cmd2_int == cmd[2]) {
 				if (cmd2_int > chan.created) {
 					break;
@@ -1095,6 +1094,8 @@ function Server_Work(cmdline) {
 			dest_server.rawout(":" + ThisOrigin.nick + " WHOIS "
 				+ dest_server.nick + " :" + IRC_string(cmd[2],0));
 		}
+		break;
+	case "SAMODE":
 		break;
 	case "CAPAB":
 	case "BURST":
