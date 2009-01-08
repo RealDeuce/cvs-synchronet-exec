@@ -3,11 +3,11 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages with spamd
 
-// $Id: spamc.js,v 1.1 2009/01/08 23:24:19 rswindell Exp $
+// $Id: spamc.js,v 1.2 2009/01/08 23:34:35 rswindell Exp $
 
 load('sockdefs.js');
 
-var spamd_address = '192.168.1.1';
+var spamd_address = '127.0.0.1';
 var spamd_tcp_port = 783;
 
 var sock = new Socket(SOCK_STREAM, 'spamd');
@@ -19,6 +19,14 @@ function writeln(str)
 
 function main()
 {
+	// Process arguments:
+	for(i in argv) {
+		if(argv[i]=='-d' || argv[i]=='--dest')
+			spamd_address = argv[++i];
+		else if(argv[i]=='-p' || argv[i]=='--port')
+			spamd_tcp_port = Number(argv[++i]);
+	}
+
 	if(!sock.connect(spamd_address, spamd_tcp_port)) {
 		log('Socket error ' + sock.error + ' connecting to ' + spamd_address);
 		return;
