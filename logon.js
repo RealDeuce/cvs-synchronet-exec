@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.12 2007/07/30 08:47:18 deuce Exp $
+// $Id: logon.js,v 1.13 2009/01/08 23:43:26 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -21,6 +21,17 @@ if(user.security.restrictions&UFLAG_G) {
 			continue;
 		bbs.log_str("Guest: " + name);
 		user.name = name;
+		break;
+	}
+
+	while(bbs.online) {
+		printf("\1y\1hPlease enter your e-mail address: \1w");
+		email=console.getstr(50);
+		if(!email || !email.length)
+			continue;
+		bbs.log_str("  " + email);
+		user.netmail=email;
+		user.settings|=USER_NETMAIL;
 		break;
 	}
 	
@@ -44,6 +55,10 @@ if(user.security.restrictions&UFLAG_G) {
 		bbs.log_str(ref + "\r\n");
 		break;
 	}
+
+//	print("name: " + user.name);
+//	print("email: " + user.netmail);
+//	print("location: " + user.location);
 }
 
 
