@@ -3,7 +3,7 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages with spamd
 
-// $Id: spamc.js,v 1.3 2009/01/08 23:44:22 deuce Exp $
+// $Id: spamc.js,v 1.4 2009/01/08 23:47:16 deuce Exp $
 
 load('sockdefs.js');
 load('salib.js');
@@ -24,7 +24,7 @@ function main()
 	var msg=new SPAMC_Message(message_text_filename, spamd_address, spamd_tcp_port);
 	if(msg === false)
 		return;
-	var ret=msg.check;
+	var ret=msg.check();
 	if(ret === false)
 		return;
 	if(!ret.isSpam)
