@@ -2,7 +2,7 @@
 
 /* JSexec script for periodic Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.21 2007/12/03 00:47:35 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.22 2009/01/08 23:41:06 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
@@ -80,7 +80,10 @@ var win32_dist
 		"src/sbbs3/scfg/msvc.win32.exe.release/*.exe",
 		"src/sbbs3/scfg/msvc.win32.exe.release/scfghelp.*",
 		"src/sbbs3/chat/chat.exe",
-		"src/sbbs3/ctrl/sbbsctrl.exe"
+		"src/sbbs3/ctrl/sbbsctrl.exe",
+		"lib/mozilla/js/win32.release/js32.dll",
+		"lib/mozilla/nspr/win32.release/nspr4.dll",
+		"lib/cryptlib/win32.release/cl32.dll"
 	];
 
 chdir(temp_dir);
