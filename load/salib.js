@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.11 2009/01/09 02:59:04 deuce Exp $
+ * $Id: salib.js,v 1.12 2009/01/09 03:11:32 rswindell Exp $
  */
 
 load("sockdefs.js")
@@ -64,7 +64,7 @@ function Message_DoCommand(command)
 	}
 
 	if(rcvd.length < 1) {
-		ret.error='No lines read from spamd');
+		ret.error='No lines read from spamd';
 		return(ret)
 	}
 
