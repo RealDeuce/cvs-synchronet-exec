@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.15 2009/01/09 04:05:23 rswindell Exp $
+ * $Id: salib.js,v 1.16 2009/01/09 04:12:53 deuce Exp $
  */
 
 load("sockdefs.js")
@@ -140,6 +140,7 @@ function Message_DoCommand(command)
 							ret.threshold=parseFloat(nv[1]);
 						break;
 					case 'tests':
+						ret.symbols.push(nv[1].split(/,/));
 						break;
 				}
 			}
