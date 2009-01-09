@@ -7,7 +7,7 @@
 
 // [spamc.js -c]
 
-// $Id: spamc.js,v 1.8 2009/01/09 03:31:40 deuce Exp $
+// $Id: spamc.js,v 1.9 2009/01/09 03:39:52 deuce Exp $
 
 load('sockdefs.js');
 load('salib.js');
@@ -48,23 +48,23 @@ function main()
 	msg.debug=true;
 	log(LOG_INFO, "spamc: Executing command: " + cmd);
 	var ret=msg.DoCommand(cmd);
+	if(ret.warning != undefined)
+		log(LOG_WARNING, "spamc: WARNING "+ret.warning);
 	if(ret.error != undefined) {
 		log(LOG_ERR,"spamc: !ERROR "+ret.error);
 		return;
 	}
-	if(ret.warning != undefined)
-		log(LOG_WARNING, "spamc: WARNING "+ret.warning);
 
 	if(!isNaN(ret.score)) {
 		log(LOG_INFO, "spamc: Score: " + ret.score + ' / ' + ret.threshold);
 		if(threshold && ret.score < threshold) {
 			var ret=msg.DoCommand(cmd='PROCESS');
+			if(ret.warning != undefined)
+				log(LOG_WARNING, "spamc: WARNING "+ret.warning);
 			if(ret.error != undefined) {
 				log(LOG_ERR,"spamc: !ERROR "+ret.error);
 				return;
 			}
-			if(ret.warning != undefined)
-				log(LOG_WARNING, "spamc: WARNING "+ret.warning);
 		}
 	}
 	if(cmd == 'PROCESS') {
