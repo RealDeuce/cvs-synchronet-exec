@@ -7,7 +7,7 @@
 
 // [spamc.js -c]
 
-// $Id: spamc.js,v 1.6 2009/01/09 02:59:04 deuce Exp $
+// $Id: spamc.js,v 1.7 2009/01/09 03:05:08 rswindell Exp $
 
 load('sockdefs.js');
 load('salib.js');
@@ -76,8 +76,10 @@ function main()
 			,error_file.error, processing_error_filename));
 		return;
 	}
-	error_file.writeln("SpamAssassin rejected your mail: " + ret.score + ' / ' + ret.threshold
-		+ ' ' + ret.symbols);
+	var rejection = ret.score + ' / ' + ret.threshold;
+	if(ret.symbols && ret.symbols.length)
+		rejection += ' ' + ret.symbols;
+	error_file.writeln("SpamAssassin rejected your mail: " + rejection);
 	error_file.close();
 }
 
