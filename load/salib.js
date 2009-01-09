@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.14 2009/01/09 04:02:02 deuce Exp $
+ * $Id: salib.js,v 1.15 2009/01/09 04:05:23 rswindell Exp $
  */
 
 load("sockdefs.js")
@@ -85,7 +85,7 @@ function Message_DoCommand(command)
 		tmp=rcvd[line].split(/\s+/);
 		switch(tmp[0].toUpperCase()) {
 			case 'SPAM:':
-				if(tmp[1].toLowerCase() == 'true')
+				if(tmp[1].toLowerCase() == 'true' || tmp[1].toLowerCase() == 'yes')
 					ret.isSpam=true;
 				else
 					ret.isSpam=false;
