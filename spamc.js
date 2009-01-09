@@ -11,7 +11,7 @@
 // ;Check for and reject SPAM messages over specified score threshold
 // [spamc.js reject 8.0]
 
-// $Id: spamc.js,v 1.12 2009/01/09 05:23:52 rswindell Exp $
+// $Id: spamc.js,v 1.13 2009/01/09 05:27:34 rswindell Exp $
 
 load('sockdefs.js');
 load('salib.js');
@@ -59,7 +59,7 @@ function main()
 
 	log(LOG_INFO, "spamc: score: " + ret.score + ' / ' + ret.threshold);
 
-	if(!reject_threshold || ret.score < reject_threshold)) {
+	if(!reject_threshold || ret.score < reject_threshold) {
 		var msg_file = new File(message_text_filename);
 		if(!msg_file.open("w")) {
 			log(LOG_ERR,format("spamc: !ERROR %d opening message text file: %s"
