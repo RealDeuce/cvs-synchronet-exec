@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.8 2009/01/09 00:54:55 rswindell Exp $
+ * $Id: salib.js,v 1.9 2009/01/09 01:16:16 rswindell Exp $
  */
 
 load("sockdefs.js")
@@ -46,6 +46,8 @@ function Message_DoCommand(command)
 	sock.is_writeable=false;
 	while(1) {
 		tmp=sock.recvline();
+		if(this.debug)
+			log(LOG_DEBUG,"RX SPAMD header: " + tmp);
 		if(tmp==undefined || tmp=='')
 			break;
 		rcvd.push(tmp);
@@ -84,9 +86,9 @@ function Message_DoCommand(command)
 			else
 				ret.isSpam=false;
 			if(tmp[2] == ';') {
-				ret.score=parseInt(tmp[3]);
+				ret.score=parseFloat(tmp[3]);
 				if(tmp[4] == '/')
-					ret.threshold=parseInt(tmp[5]);
+					ret.threshold=parseFloat(tmp[5]);
 			}
 		}
 	}
