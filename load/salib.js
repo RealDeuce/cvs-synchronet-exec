@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.13 2009/01/09 03:29:22 deuce Exp $
+ * $Id: salib.js,v 1.14 2009/01/09 04:02:02 deuce Exp $
  */
 
 load("sockdefs.js")
@@ -110,6 +110,40 @@ function Message_DoCommand(command)
 		ret.message=ret.message.replace(/[\r\n]/g,'');
 		ret.symbols=ret.message.split(/,/);
 		ret.message='';
+	}
+	if(command == 'PROCESS') {
+		var headers=ret.message.replace(/^([\x00-\xff]*?\r\n)\r\n[\x00-\xff]*$/,"$1");
+		var m=headers.match(/X-Spam-Status:\s*([\x00-\xff]*?)\r\n[^\s]/);
+		if(m!=null) {
+			var hdr=m[1].replace(/\s+/g,' ');
+			var tokens=hdr.split(/\s+/);
+			switch(tokens[0]) {
+				case 'No,':
+					ret.isSpam=false;
+					break;
+				case 'Yes,':
+					ret.isSpam=true;
+					break;
+				default:
+					ret.warning="Unknown initial X-Spam-Status token: '"+tokens[0]+"'";
+					break;
+			}
+			for(var i=1; i<tokens.length; i++) {
+				var nv=tokens[i].split(/=/);
+				switch(nv[0]) {
+					case 'score':
+						if(!isNaN(nv[1]))
+							ret.score=parseFloat(nv[1]);
+						break;
+					case 'required':
+						if(!isNaN(nv[1]))
+							ret.threshold=parseFloat(nv[1]);
+						break;
+					case 'tests':
+						break;
+				}
+			}
+		}
 	}
 
 	return(ret);
