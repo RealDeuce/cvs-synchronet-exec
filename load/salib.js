@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.17 2009/01/09 05:44:11 deuce Exp $
+ * $Id: salib.js,v 1.18 2009/01/09 05:45:13 deuce Exp $
  */
 
 load("sockdefs.js")
@@ -115,8 +115,8 @@ function Message_DoCommand(command)
 		var headers=ret.message.replace(/^([\x00-\xff]*?\r\n)\r\n[\x00-\xff]*$/,"$1");
 		var m=headers.match(/X-Spam-Status:\s*([\x00-\xff]*?)\r\n[^\s]/);
 		if(m!=null) {
-			var hdr=m[1].replace(/\s+/g,' ');
-			hdr=hdr.replace(/,\r\n\s+/g,'');
+			var hdr=m[1].replace(/,\r\n\s+/g,',');
+			hdr=hdr.replace(/\s+/g,' ');
 			var tokens=hdr.split(/\s+/);
 			switch(tokens[0]) {
 				case 'No,':
