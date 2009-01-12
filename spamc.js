@@ -3,7 +3,7 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages against a running/listening spamd
 
-// $Id: spamc.js,v 1.16 2009/01/10 08:23:31 rswindell Exp $
+// $Id: spamc.js,v 1.17 2009/01/12 09:44:30 rswindell Exp $
 
 // ---------------------------------------------------------------------------
 // Example mailproc.ini entries:
@@ -26,10 +26,11 @@
 
 
 // Options:
-// dest [ip_address]
-// port [tcp_port]
-// username [user]
-// max-size [bytes]
+// dest <ip_address>
+// port <tcp_port>
+// username <user>
+// max-size <bytes>
+// reject [threshold]
 // spamonly
 // debug
 
@@ -86,7 +87,10 @@ function main()
 	}
 
 	log(LOG_INFO, "SPAMC: processing message with SPAMD at " + address + " port " + tcp_port);
-	msg.debug=debug;
+	msg.debug = debug;
+	msg.reverse_path = reverse_path;
+//	if(this.hello_name)
+//		msg.hello_name = this.hello_name;
 	var ret=msg.process();
 	if(ret.warning != undefined)
 		log(LOG_WARNING, "SPAMC: WARNING "+ret.warning);
