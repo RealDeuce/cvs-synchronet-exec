@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.19 2009/01/12 09:44:30 rswindell Exp $
+ * $Id: salib.js,v 1.20 2009/01/14 09:47:26 rswindell Exp $
  */
 
 load("sockdefs.js")
@@ -54,7 +54,7 @@ function Message_DoCommand(command)
 						,strftime("%a, %d %b %Y %H:%M:%S"),system.zonestr()
 						);
 	}
-	log("SPAMD: inserted headers = " + inserted_header_fields);
+	log(LOG_DEBUG, "inserted headers = " + inserted_header_fields);
 	content_length += inserted_header_fields.length;
 
 	sock.write(command.toUpperCase()+" SPAMC/1.2\r\n");
