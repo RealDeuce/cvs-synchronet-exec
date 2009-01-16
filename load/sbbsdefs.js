@@ -2,13 +2,13 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.43 2008/01/06 21:47:43 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.44 2009/01/16 07:05:46 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
  * @format.use-tabs true	(see http://www.synchro.net/ptsc_hdr.html)		*
  *																			*
- * Copyright 2006 Rob Swindell - http://www.synchro.net/copyright.html		*
+ * Copyright 2009 Rob Swindell - http://www.synchro.net/copyright.html		*
  *																			*
  * This program is free software; you can redistribute it and/or			*
  * modify it under the terms of the GNU General Public License				*
@@ -322,6 +322,7 @@ var   K_TAB			=(1<<18)	/* Treat TAB key as CR						*/
 var	  K_LEFTEXIT	=(1<<19)	/* Allow exit from getstr() with backspace	*/
 var   K_USEOFFSET	=(1<<20)	/* Use console.getstr_offset with getstr()	*/
 var   K_NOSPIN      =(1<<21)	/* Do not honor user's spinning cursor		*/
+var   K_ANSI_CPR	=(1<<22)	/* ANSI Cursor Position Report expected		*/
 					    		/********************************************/
 
 						    	/********************************************/

@@ -2,7 +2,7 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.3 2006/05/03 01:51:53 rswindell Exp $
+// $Id: login.js,v 1.4 2009/01/16 07:05:46 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -31,7 +31,7 @@ for(var c=0; c<10; c++) {
 
 	// Get login string
 	var str=console.getstr(/* maximum user name length: */ 25
-						 , /* getkey/str mode flags: */ K_UPRLWR | K_TAB);
+						 , /* getkey/str mode flags: */ K_UPRLWR | K_TAB | K_ANSI_CPR);
 	truncsp(str);
 	if(!str.length) // blank
 		continue;
