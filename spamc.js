@@ -3,7 +3,7 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages against a running/listening spamd
 
-// $Id: spamc.js,v 1.18 2009/01/14 09:47:26 rswindell Exp $
+// $Id: spamc.js,v 1.19 2009/01/16 06:43:45 rswindell Exp $
 
 // ---------------------------------------------------------------------------
 // Example mailproc.ini entries:
@@ -49,7 +49,7 @@ function main()
 	var	max_size = 500000;	/* bytes */
 
 	// Process arguments:
-	for(i in argv) {
+	for(i=0; i<argc; i++) {
 
 		// Strip any pre-pended slashes
 		while(argv[i].charAt(0)=='-')
@@ -104,7 +104,6 @@ function main()
 		details += ', tests: ' + ret.symbols;
 
 	log(LOG_INFO, details);
-
 	if(!ret.isSpam || ret.score < reject_threshold)
 		reject = false;
 
