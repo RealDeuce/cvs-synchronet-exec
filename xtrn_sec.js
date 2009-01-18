@@ -3,18 +3,12 @@
 // Synchronet External Program Section
 // Menus displayed to users via Telnet/RLogin
 
-// $Id: xtrn_sec.js,v 1.8 2008/05/16 08:10:12 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.9 2009/01/18 01:38:33 deuce Exp $
 
 load("sbbsdefs.js");
 
 /* text.dat entries */
-const R_ExternalPrograms	=123
-const NoXtrnPrograms		=379
-const XtrnProgLstHdr		=380
-const XtrnProgLstTitles		=381
-const XtrnProgLstUnderline	=382
-const XtrnProgLstFmt		=383
-const WhichXtrnProg			=384
+load("text.js");
 
 var multicolumn = true;
 var sort = false;
