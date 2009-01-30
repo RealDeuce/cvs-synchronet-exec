@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.33 2009/01/23 22:27:46 rswindell Exp $
+// $Id: listserver.js,v 1.34 2009/01/30 22:55:49 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.33 $".split(' ')[1];
+const REVISION = "$Revision: 1.34 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -75,7 +75,7 @@ if(mailbase.open()==false) {
 }
 
 /* Inbound message from SMTP Server? */
-if(this.recipient_list_filename!=undefined) {	
+if(js.global.recipient_list_filename!=undefined) {	
 
 	log("reverse_path = " + reverse_path);
 	if(reverse_path=='' || reverse_path=='<>') {
