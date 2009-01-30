@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.45 2009/01/30 06:34:45 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.46 2009/01/30 22:29:22 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -616,7 +616,7 @@ var FI_USERXFER  	=6;			/* User Xfer Download                       */
 var FI_CLOSE 	  	=7;			/* Close any open records					*/
 					    		/********************************************/
 
-if(this.LOG_EMERG==undefined) {	/* temporary backward compatibility kludge	*/
+if(this.LOG_EMERG===undefined) {	/* temporary backward compatibility kludge	*/
 	                            /********************************************/   
                                 /* Log "levels" supported by log() function */   
                                 /********************************************/   
