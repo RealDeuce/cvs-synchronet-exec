@@ -3,7 +3,7 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages against a running/listening spamd
 
-// $Id: spamc.js,v 1.19 2009/01/16 06:43:45 rswindell Exp $
+// $Id: spamc.js,v 1.20 2009/01/30 22:53:29 rswindell Exp $
 
 // ---------------------------------------------------------------------------
 // Example mailproc.ini entries:
@@ -117,6 +117,11 @@ function main()
 		}
 		error_file.writeln("SpamAssassin rejected your mail: " + details);
 		error_file.close();
+		system.spamlog("SMTP","REJECTED"
+			,"SpamAssassin " + details
+			,client.host_name, client.ip_address
+			,recipient_address
+			,reverse_path);
 		return;
 	}
 
