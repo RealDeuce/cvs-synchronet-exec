@@ -3,12 +3,12 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.37 2009/02/05 06:31:22 deuce Exp $
+// $Id: irc.js,v 1.38 2009/02/05 07:46:32 rswindell Exp $
 
 // disable auto-termination.
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.37 $".split(' ')[1];
+const REVISION = "$Revision: 1.38 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -91,7 +91,8 @@ nick=nick.replace(/\s+/g,"_");
 sock.send("NICK "+nick+"\r\n");
 username=user.alias;
 username=username.replace(/\s+/g,"_");
-sock.send("USER "+username+" 0 * :"+(real_names?user.name:user.alias)+"\r\n");
+sock.send("USER "+username+" 0 * :"+(real_names?user.name:user.alias)
+	+" ("+client.ip_address+")\r\n");
 
 channels=new Channels();
 
@@ -524,7 +525,7 @@ function handle_command(prefix,command,message)  {
 					channels.channel[i].nick=message;
 				}
 			}
-			screen.print_line("\x01N\x01BPeople in "+tmp_str+" right now: "+message.join(" "));
+			screen.print_line("\x01N\x01B\1hPeople in "+tmp_str+" right now: "+message.join(" "));
 			break;
 			
 		case "366":		// End of Names
