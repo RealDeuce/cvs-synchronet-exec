@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.31 2008/01/26 03:55:53 cyan Exp $
+// $Id: ircd_unreg.js,v 1.32 2009/02/05 03:15:36 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -15,12 +15,12 @@
 //
 // Synchronet IRC Daemon as per RFC 1459, link compatible with Bahamut 1.4
 //
-// Copyright 2003-2008 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2009 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.31 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.32 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -198,7 +198,7 @@ function Unregistered_Commands(cmdline) {
 				return 0;
 			}
 			// Take care of registration right now.
-			Servers[cmd[1].toLowerCase()] = new IRC_Server;
+			Servers[cmd[1].toLowerCase()] = new IRC_Server();
 			var new_server = Servers[cmd[1].toLowerCase()];
 			Local_Servers[this.id] = new_server;
 			Local_Sockets_Map[this.id] = new_server;
@@ -251,9 +251,11 @@ function Unregistered_Commands(cmdline) {
 			break; // drop silently
 		default:
 			this.numeric451();
-			legal_command = false;
-			break;
+			return 0;
 	}
+
+	/* This part only executed if the command was legal. */
+
 	if (!this.criteria_met && this.uprefix && (this.nick != "*") ) {
 		var usernum;
 		if (this.password) {
@@ -276,12 +278,10 @@ function Unregistered_Commands(cmdline) {
 			this.welcome();
 	}
 
-	if (legal_command) {
-		if (!Profile[command])
-			Profile[command] = new StatsM;
-		Profile[command].executions++;
-		Profile[command].ticks += system.timer - clockticks;
-	}
+	if (!Profile[command])
+		Profile[command] = new StatsM;
+	Profile[command].executions++;
+	Profile[command].ticks += system.timer - clockticks;
 
 }
 

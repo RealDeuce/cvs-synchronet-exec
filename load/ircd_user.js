@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.42 2008/01/26 03:43:02 cyan Exp $
+// $Id: ircd_user.js,v 1.43 2009/02/05 03:15:36 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -15,13 +15,13 @@
 //
 // Synchronet IRC Daemon as per RFC 1459, link compatible with Bahamut 1.4
 //
-// Copyright 2003-2008 Randolph Erwin Sommerfeld <sysop@rrx.ca>
+// Copyright 2003-2009 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 // ** Handle registered clients.
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.42 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.43 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -1490,16 +1490,15 @@ function User_Work(cmdline) {
 		break;
 	default:
 		this.numeric("421", command + " :Unknown command.");
-		legal_command = false;
-		break;
+		return 0;
 	}
 
-	if (legal_command) {
-		if (!Profile[command])
-			Profile[command] = new StatsM;
-		Profile[command].executions++;
-		Profile[command].ticks += system.timer - clockticks;
-	}
+	/* This part only executed if the command was legal. */
+
+	if (!Profile[command])
+		Profile[command] = new StatsM;
+	Profile[command].executions++;
+	Profile[command].ticks += system.timer - clockticks;
 
 }
 
