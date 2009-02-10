@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.12 2009/02/10 23:39:23 rswindell Exp $
+// $Id: classic_shell.js,v 1.13 2009/02/10 23:55:03 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -51,7 +51,7 @@ while(1) {
 		console.putmsg("@TUSED@",P_SAVEATR);
 	else
 		console.putmsg("@TLEFT@",P_SAVEATR);
-	console.print(" nc[h@GN@nc] @GRP@ [h@SN@nc] @SUB@: n");
+	console.putmsg(" nc[h@GN@nc] @GRP@ [h@SN@nc] @SUB@: n",P_SAVEATR);
 
 	// Get key (with / extended commands allowed)
 	str=get_next_key();
@@ -668,7 +668,7 @@ file_transfers:
 			console.putmsg("@TUSED@",P_SAVEATR);
 		else
 			console.putmsg("@TLEFT@",P_SAVEATR);
-		console.print(" nc(h@LN@nc) @LIB@ (h@DN@nc) @DIR@: n");
+		console.putmsg(" nc(h@LN@nc) @LIB@ (h@DN@nc) @DIR@: n",P_SAVEATR);
 
 		// Get key (with / extended commands allowed)
 		str=get_next_key();
