@@ -2,7 +2,7 @@
 
 // Convert plain-text with (optional) Synchronet attribute (Ctrl-A) codes to HTML
 
-// $Id: typeasc.js,v 1.6 2007/08/16 19:21:56 rswindell Exp $
+// $Id: typeasc.js,v 1.7 2009/02/10 09:53:06 deuce Exp $
 
 load("sbbsdefs.js");
 load("asc2htmlterm.js");
@@ -36,9 +36,8 @@ for(i in argv) {
 				break;
 			default:
 				if(this.f==undefined) {
-					f = new File(file_getcase(argv[i]));
-					filename=file_getcase(argv[i]);
-					filename=filename.replace(/^.*[\\\/]/,'');
+					this.f = new File(file_getcase(argv[i]));
+					filename=this.f.name.replace(/^.*[\\\/]/,'');
 				}
 		}
 	}
