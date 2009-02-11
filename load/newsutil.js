@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.17 2009/02/11 06:50:31 rswindell Exp $
+// $Id: newsutil.js,v 1.18 2009/02/11 07:54:16 rswindell Exp $
 
 load("mailutil.js");
 
@@ -212,7 +212,7 @@ function decode_news_body(hdr, body)
 		case 'base64':
 			/* Remove non-base64 bytes */
 			body=body.replace(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=]/g,'');
-			body=b64_decode(body);
+			body=base64_decode(body);
 			hdr["content-transfer-encoding"].hdr_data='8bit';
 			break;
 	}
