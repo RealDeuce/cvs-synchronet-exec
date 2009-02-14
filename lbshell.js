@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.102 2009/02/14 01:41:59 deuce Exp $
+// $Id: lbshell.js,v 1.103 2009/02/14 01:44:45 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -872,6 +872,7 @@ function draw_main(topline)
 	 */
 	/* Disable CTRL keys that we "know" how to handle. */
 	console.ctrlkey_passthru="+KOPTU";
+	console.aborted=false;
 	if(topline) {
 		console.line_counter=0;
 		console.clear();
