@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.103 2009/02/14 01:44:45 deuce Exp $
+// $Id: lbshell.js,v 1.104 2009/02/14 02:09:59 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -836,9 +836,12 @@ while(bbs.online) {
 			menus_displayed.pop();
 			cleararea(infomenu.xpos,infomenu.ypos,infomenu.items[0].text.length,infomenu.items.length,true);
 			break;
-		case 'G':
-			if(!extra_select)
+		case 'G':       // Goodbye
+			if(!extra_select) {
+                                console.clear(LIGHTGRAY);
+                                bbs.logoff(/* prompt? */false);
 				exit(1);
+                        }
 	}
 }
 
