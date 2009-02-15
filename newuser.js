@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.14 2006/06/04 05:00:17 rswindell Exp $
+// $Id: newuser.js,v 1.15 2009/02/15 11:18:33 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -134,6 +134,7 @@ function send_newuser_welcome_msg(fname)
 		to_ext: String(user.number), 
 		from: system.operator, 
 		from_ext: "1",
+		attr: MSG_KILLREAD,
 		subject: "Welcome to " + system.name + "!" 
 	};
 
