@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.106 2009/02/14 21:42:53 rswindell Exp $
+// $Id: lbshell.js,v 1.107 2009/02/16 06:53:19 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -583,7 +583,6 @@ var mainbar=new Mainbar;
 
 draw_main(true);
 var next_key='';
-console.abortable=false;
 while(bbs.online) {
 	var done=0;
 	var key=next_key;
