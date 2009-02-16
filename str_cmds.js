@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.34 2008/02/24 01:43:37 rswindell Exp $
+// $Id: str_cmds.js,v 1.35 2009/02/16 08:48:16 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -50,7 +50,7 @@ function str_cmds(str)
 		}
 	);
 
-	log(str);
+	bbs.log(str);
 	if(str=="HELP")
 		write("\r\nAvailable STR commands (prefix with a semi-colon)\r\n\r\n");
 
