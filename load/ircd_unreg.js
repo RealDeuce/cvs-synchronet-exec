@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.32 2009/02/05 03:15:36 cyan Exp $
+// $Id: ircd_unreg.js,v 1.33 2009/03/13 08:16:45 rswindell Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.32 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.33 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -374,7 +374,7 @@ function Unregistered_Welcome() {
 	hcc_counter++;
 	this.numeric("001", ":Welcome to the Synchronet IRC Service, " + new_user.nuh);
 	this.numeric("002", ":Your host is " + servername + ", running version " + VERSION);
-	this.numeric("003", ":This server was created " + strftime("%a %b %e %Y at %H:%M:%S %Z",server_uptime));
+	this.numeric("003", ":This server was created " + strftime("%a %b %d %Y at %H:%M:%S %Z",server_uptime));
 	this.numeric("004", servername + " " + VERSION + " oiwbgscrkfydnhF biklmnopstv");
 	this.numeric("005", "NETWORK=Synchronet MAXBANS=" + max_bans + " "
 		+ "MAXCHANNELS=" + max_user_chans + " CHANNELLEN=" + max_chanlen + " "

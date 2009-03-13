@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.159 2008/02/27 05:14:56 cyan Exp $
+// $Id: ircd.js,v 1.160 2009/03/13 08:16:45 rswindell Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.159 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.160 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1219,7 +1219,7 @@ function IRCClient_lusers() {
 	this.numeric(250, ":Highest connection count: " + hcc_total + " ("
 		+ hcc_users + " clients.)");
 	this.server_notice(hcc_counter + " clients have connected since "
-		+ strftime("%a %b %e %H:%M:%S %Y %Z",server_uptime));
+		+ strftime("%a %b %d %H:%M:%S %Y %Z",server_uptime));
 }
 
 function num_noninvis_users() {
