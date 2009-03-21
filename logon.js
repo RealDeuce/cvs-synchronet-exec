@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.14 2009/03/20 19:21:59 rswindell Exp $
+// $Id: logon.js,v 1.15 2009/03/21 02:46:22 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -214,9 +214,6 @@ if(user.security.level==99				/* Sysop logging on */
 		user.security.flags4&=~UFLAG_G;	/* Turn off flag 4G to not ask again */
 	console.crlf();
 }
-
-// Force reload of user record (for Guest logons)
-bbs.user_sync();
 
 // Change to "true" if you want your RLogin server to act as a door game server only
 if(false	
