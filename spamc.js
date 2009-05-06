@@ -3,7 +3,7 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages against a running/listening spamd
 
-// $Id: spamc.js,v 1.20 2009/01/30 22:53:29 rswindell Exp $
+// $Id: spamc.js,v 1.21 2009/05/06 02:26:06 rswindell Exp $
 
 // ---------------------------------------------------------------------------
 // Example mailproc.ini entries:
@@ -130,7 +130,7 @@ function main()
 		return;
 	log(LOG_INFO, "re-writing message");
 	var msg_file = new File(message_text_filename);
-	if(!msg_file.open("w")) {
+	if(!msg_file.open("wb")) {
 		log(LOG_ERR,format("!ERROR %d opening message text file: %s"
 			,msg_file.error, message_text_filename));
 		return;
