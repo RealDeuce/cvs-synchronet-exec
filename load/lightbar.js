@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.25 2008/01/30 09:01:08 deuce Exp $
+ * $Id: lightbar.js,v 1.26 2009/05/12 20:37:13 mcmlxxix Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -52,6 +52,7 @@ if(this.SYS_CLOSED==undefined)
  */
 function Lightbar(items)
 {
+	this.width=10;
 	this.fg=7;
 	this.bg=1;
 	this.xpos=1;
