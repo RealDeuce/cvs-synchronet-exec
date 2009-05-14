@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.46 2009/01/30 22:29:22 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.47 2009/05/14 02:19:51 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -576,7 +576,7 @@ var	SCAN_UNREAD		=(1<<5);	/* Find un-read messages to you 			*/
 								/********************************************/
 								/* Bits in msg_area.sub[].scan_cfg			*/
 								/********************************************/
-var SCAN_CFG_NEW	=(1<<0);	/* Auto-scan for new messages				*/
+var SCAN_CFG_NEW	=5;	        /* Auto-scan for new messages				*/
 var SCAN_CFG_TOYOU	=(1<<1);	/* Auto-scan for unread messages to you		*/
 var SCAN_CFG_YONLY	=(1<<8);	/* Auto-scan for new messages to you only	*/
 								/********************************************/
