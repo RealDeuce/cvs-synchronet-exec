@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.20 2009/01/14 09:47:26 rswindell Exp $
+ * $Id: salib.js,v 1.21 2009/07/11 09:06:08 rswindell Exp $
  */
 
 load("sockdefs.js")
@@ -89,13 +89,14 @@ function Message_DoCommand(command)
 		return(ret)
 	}
 
-	tmp=rcvd[0].split(/\s+/,3);
+	tmp=rcvd[0].split(/\s+/);	/* was ,3 */
 	if(tmp.length < 3) {
 		ret.error="Unable to parse line '"+rcvd[0];
 		return(ret)
 	}
 	if(tmp[1] != '0') {
-		ret.error="spamd returned error "+tmp[2]+" ("+tmp[1]+")";
+		tmp.shift();
+		ret.error="spamd returned error: " + tmp.join(" ");
 		return(ret)
 	}
 
