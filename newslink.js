@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.90 2009/07/11 07:56:44 rswindell Exp $
+// $Id: newslink.js,v 1.91 2009/07/11 09:08:13 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -24,7 +24,7 @@
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.90 $".split(' ')[1];
+const REVISION = "$Revision: 1.91 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -877,6 +877,8 @@ for(i in area) {
 		ini_file.iniSetValue("NewsLink", "export_ptr", export_ptr);
 		ini_file.iniSetValue("NewsLink", "import_ptr", import_ptr);
 		ini_file.close();
+		if(file_exists(ptr_fname))
+			file_remove(ptr_fname);
 	}
 	delete ini_file;
 	msgbase.close();
