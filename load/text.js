@@ -2,13 +2,13 @@
 
 /* Synchronet static text string constants */
 
-/* $Id: text.js,v 1.5 2009/01/23 08:05:05 deuce Exp $ */
+/* $Id: text.js,v 1.6 2009/07/17 05:06:56 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
  * @format.use-tabs true	(see http://www.synchro.net/ptsc_hdr.html)		*
  *																			*
- * Copyright 2008 Rob Swindell - http://www.synchro.net/copyright.html		*
+ * Copyright 2009 Rob Swindell - http://www.synchro.net/copyright.html		*
  *																			*
  * This program is free software; you can redistribute it and/or			*
  * modify it under the terms of the GNU General Public License				*
@@ -768,3 +768,4 @@ var UseExternalEditorQ=725;
 var ExternalEditorHeading=726;
 var CommandShellHeading=727;
 var ArchiveTypeHeading=728;
+var ValidatePostQ=729;
