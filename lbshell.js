@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.107 2009/02/16 06:53:19 rswindell Exp $
+// $Id: lbshell.js,v 1.108 2009/08/05 22:29:38 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -710,7 +710,7 @@ while(bbs.online) {
 						}
 						catch(e) {
     						console.writeln("DOORSCAN ERROR: "+e);
-    						log("Error running "+xtrn_area.sec_list[xsec].prog_list[i].code+" "+e);
+    						log("Error running "+xtrn_area.sec_list[curr_xtrnsec].prog_list[parseInt(x_prog)].code+" "+e);
 						}
 					}
 					else {
