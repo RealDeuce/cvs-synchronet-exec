@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.13 2009/02/10 23:55:03 rswindell Exp $
+// $Id: classic_shell.js,v 1.14 2009/09/09 16:42:22 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -1177,7 +1177,7 @@ xfercfg:
 							break;
 
 						case 'P':
-							bbs.get_newscantime(bbs.new_file_time);
+							bbs.new_file_time=bbs.get_newscantime(bbs.new_file_time);
 							break;
 
 						case 'B':
