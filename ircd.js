@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.161 2009/08/05 20:18:50 cyan Exp $
+// $Id: ircd.js,v 1.162 2009/10/01 16:22:41 cyan Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.161 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.162 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -286,7 +286,7 @@ while (!server.terminated) {
 			terminate_everything("A fatal error occured!", /* ERROR? */true);
 		}
 	} else {
-		mswait(1000);
+		mswait(100);
 	}
 
 	// Scan C:Lines for servers to connect to automatically.
@@ -932,7 +932,8 @@ function rawout(str) {
 		return 0;
 	}
 
-	this.sendq.add(str);
+	if (this.sendq.bytes || !sendsock.send(str + "\r\n"))
+		this.sendq.add(str);
 }
 
 function originatorout(str,origin) {
@@ -958,7 +959,8 @@ function originatorout(str,origin) {
 		return 0;
 	}
 
-	this.sendq.add(send_data);
+	if (this.sendq.bytes || !sendsock.send(send_data + "\r\n"))
+		this.sendq.add(send_data);
 }
 
 function ircout(str) {
@@ -978,7 +980,8 @@ function ircout(str) {
 	}
 
 	send_data = ":" + servername + " " + str;
-	this.sendq.add(send_data);
+	if (this.sendq.bytes || !sendsock.send(send_data + "\r\n"))
+		this.sendq.add(send_data);
 }
 
 function Queue_Add(str) {
