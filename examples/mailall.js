@@ -5,7 +5,7 @@
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.1 $".split(' ')[1];
+const REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 print("Synchronet MailAll " + REVISION);
 
@@ -36,10 +36,7 @@ if(msgbase.open()==false) {
 
 var u;	// user object
 
-if(system.lastuser!=undefined)
-	lastuser=system.lastuser;				// v3.11
-else
-    lastuser=system.stats.total_users;		// v3.10
+lastuser=system.lastuser;
 
 var sent=0;
 
@@ -58,7 +55,7 @@ for(i=1; i<=lastuser; i++)
 	/*checking for netmail forward */
 	if(u.settings&USER_NETMAIL && u.netmail.length) {
 		hdr.to_net_addr = u.netmail; 
-		hdr.to_net_type = NET_INTERNET;
+		hdr.to_net_type = netaddr_type(u.netmail);
 	} else
 		hdr.to_ext = String(u.number);
 	
