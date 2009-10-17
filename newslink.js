@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.91 2009/07/11 09:08:13 rswindell Exp $
+// $Id: newslink.js,v 1.92 2009/10/17 23:24:17 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -20,11 +20,12 @@
 // t		do not add tearline to imported messages
 // a		convert extended-ASCII chars to ASCII on imported messages
 // r		remove "Newsgroups:" header field from imported messages
+// o		over-write "Newsgroups:" header field for exported messages
 // b        decode binary attachments
 // i		import all (not just new articles)
 // s		no subject filtering
 
-const REVISION = "$Revision: 1.91 $".split(' ')[1];
+const REVISION = "$Revision: 1.92 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -480,7 +481,7 @@ for(i in area) {
 				,hdr.from.replace(/ /g,".").toLowerCase()
 				,system.inetaddr,antispam));
 
-		if(hdr.newsgroups==undefined)
+		if(hdr.newsgroups==undefined || flags.indexOf('o')>=0)
 			hdr.newsgroups=newsgroup;
 
 		if(hdr.from_org==undefined && !hdr.from_net_type)
