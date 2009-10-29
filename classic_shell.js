@@ -2,7 +2,7 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.14 2009/09/09 16:42:22 rswindell Exp $
+// $Id: classic_shell.js,v 1.15 2009/10/29 22:50:50 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -162,7 +162,7 @@ while(1) {
 	}
 
 	// Sysop Menu
-	if(user.compare_ars("SYSOP or EXEMPT Q or I or N")) {
+	if(user.compare_ars("SYSOP or EXEMPT Q or I or N") || (bbs.sys_status&SS_TMPSYSOP)) {
 		switch(str) {
 			case '!':
 				bbs.menu("sysmain");
@@ -780,7 +780,7 @@ file_transfers:
 				continue file_transfers;
 		}
 
-		if(user.compare_ars("SYSOP")) {
+		if(user.compare_ars("SYSOP") || (bbs.sys_status&SS_TMPSYSOP)) {
 			switch(str) {
 				case '!':
 					bbs.menu("sysxfer");
