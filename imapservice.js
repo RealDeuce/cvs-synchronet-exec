@@ -5,28 +5,11 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.1 2009/10/31 06:56:20 deuce Exp $
+ * $Id: imapservice.js,v 1.2 2009/10/31 06:59:41 deuce Exp $
  */
 
 var sepchar="|";
 var debug=true;
-
-// State handling functions
-function not_authenticated()
-{
-}
-
-function authenticated()
-{
-}
-
-function selected()
-{
-}
-
-function logout()
-{
-}
 
 function debug_log(line)
 {
