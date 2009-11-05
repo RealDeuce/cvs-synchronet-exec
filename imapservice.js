@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.5 2009/11/05 04:27:21 deuce Exp $
+ * $Id: imapservice.js,v 1.6 2009/11/05 04:36:12 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -131,7 +131,6 @@ function send_fetch_response(msgnum, format, uid)
 				continue;
 			switch(objtype) {
 				case 'BODY[HEADER.FIELDS':
-				case 'BODY.PEEK[HEADER.FIELDS':
 					tmp='';
 					get_rfc822_header();
 					resp += objtype+" (";
@@ -187,7 +186,7 @@ function send_fetch_response(msgnum, format, uid)
 				// fall-through
 			case 'BODY.PEEK[]':
 				get_rfc822();
-				resp += format[i].toUpperCase()+" {"+(rfc822.header.length+rfc822.text.length)+"}\r\n"+rfc822.header+rfc822.text+" ";
+				resp += format[i].replace(/\.PEEK/,"").toUpperCase()+" {"+(rfc822.header.length+rfc822.text.length)+"}\r\n"+rfc822.header+rfc822.text+" ";
 				break;
 			case 'BODY[HEADER.FIELDS':
 			case 'BODY.PEEK[HEADER.FIELDS':
