@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.11 2009/11/06 04:06:33 deuce Exp $
+ * $Id: imapservice.js,v 1.12 2009/11/10 00:50:25 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -910,11 +910,12 @@ function sublist(group, match, subscribed)
 		return([""]);
 
 	wmatch=group+match;
-	wmatch=wmatch.replace(/([\\\^\$\+\?\.\(\)\|\{\}])/,"\\$1");
-	wmatch=wmatch.replace(/\*/, ".\*");
-	wmatch=wmatch.replace(/\%/, "[^"+sepchar+"]\*");
+	wmatch=wmatch.replace(/([\\\^\$\+\?\.\(\)\|\{\}])/g,"\\$1");
+	wmatch=wmatch.replace(/\*/g, ".\*");
+	wmatch=wmatch.replace(/\%/g, "[^"+sepchar+"]\*");
 	wmatch="^"+wmatch+"$";
 	re=new RegExp(wmatch);
+log("WMATCH="+wmatch);
 
 	if(re.test("INBOX"))
 		ret.push("INBOX");
