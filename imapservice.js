@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.25 2009/11/14 09:40:25 deuce Exp $
+ * $Id: imapservice.js,v 1.26 2009/11/17 04:50:34 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -56,6 +56,7 @@ MsgBase.HeaderPrototype.get_envelope=function (force)
 			return("NIL");
 
 		header=header.pop().replace(new RegExp("^"+abnf.field_name+abnf.WSP+"*:","i"),"");
+		header=header.replace(/\r\n$/,'');
 		header=strip_CFWS(header);
 
 		/* : Use mime.js ABNF to parse this correctly */
@@ -758,8 +759,8 @@ any_state_command_handlers = {
 			client.socket.send("+ Ooo, Idling... my favorite.\r\n");
 			while(1) {
 				line=client.socket.recvline(10240, 5);
-				if(line != null) {
-					debug_log("DONE IDLE: "+line, true);
+				if(line != undefined && line != '') {
+					debug_log("DONE IDLE: '"+line+"'", true);
 					tagged(tag, "OK", "That was fun.");
 					return;
 				}
