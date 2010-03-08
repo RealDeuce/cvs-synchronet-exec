@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.109 2009/10/29 22:50:50 rswindell Exp $
+// $Id: lbshell.js,v 1.110 2010/03/08 23:53:03 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -2419,6 +2419,8 @@ function cleararea(xpos,ypos,width,height,eol_allowed)
 			bgh=BackGround.height-bgyo;
 		if(ypos+bgh > mtop)
 			bgh=mtop-ypos;
+		if(bgxo+bgw>BackGround.width)	/* Too wide? */
+			bgw=BackGround.width-bgxo;
 		if(bgw>0 && bgh>0) {	/* Anything to draw? */
 			BackGround.draw(bgx,bgy,bgw,bgh,bgxo,bgyo);
 			/* Decrement height, increment ypos to account for drawn area */
