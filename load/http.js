@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.2 2010/03/12 17:01:05 rswindell Exp $ */
+/* $Id: http.js,v 1.3 2010/03/12 19:51:10 deuce Exp $ */
 
 load('sockdefs.js');
 load("URL.js");
@@ -36,7 +36,7 @@ function HTTPRequest()
 			throw("Unknown scheme! '"+this.url.scheme+"'");
 		if(this.url.path=='')
 			this.url.path='/';
-		this.request="GET "+url.path+" HTTP/1.0";
+		this.request="GET "+this.url.path+" HTTP/1.0";
 		this.request_headers=[];
 		this.AddDefaultHeaders();
 	};
