@@ -1,3 +1,5 @@
+/* $Id: http.js,v 1.2 2010/03/12 17:01:05 rswindell Exp $ */
+
 load('sockdefs.js');
 load("URL.js");
 

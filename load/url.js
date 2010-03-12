@@ -1,3 +1,5 @@
+/* $Id: url.js,v 1.4 2010/03/12 17:01:05 rswindell Exp $ */
+
 function URL(url, base)
 {
 	var loop,m,tmp;
