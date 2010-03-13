@@ -1,7 +1,7 @@
-/* $Id: http.js,v 1.4 2010/03/12 22:01:44 deuce Exp $ */
+/* $Id: http.js,v 1.5 2010/03/13 09:06:32 rswindell Exp $ */
 
 load('sockdefs.js');
-load("URL.js");
+load("url.js");
 
 /*
  * TODO Stuff:
