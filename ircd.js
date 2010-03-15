@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.163 2009/10/08 14:16:35 cyan Exp $
+// $Id: ircd.js,v 1.164 2010/03/15 22:04:04 rswindell Exp $
 //
 // ircd.js
 //
@@ -30,7 +30,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.163 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.164 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -192,12 +192,7 @@ js.branch_limit=0; // we're not an infinite loop.
 js.auto_terminate=false; // we handle our own termination requests
 
 ///// Main Loop /////
-while (!server.terminated) {
-
-	if(server.terminated)
-		break;
-	if(js.terminated)
-		break;
+while (!js.terminated) {
 
 	// Setup a new socket if a connection is accepted.
 	for (pl in open_plines) {
