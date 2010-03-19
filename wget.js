@@ -1,9 +1,9 @@
-/* $Id: */
+/* $Id: wget.js,v 1.2 2010/03/19 01:15:25 rswindell Exp $ */
 
 load("http.js");
 
 var url = argv[0];
-var filename=file_getname(url);
+var filename=js.startup_dir + '/' + file_getname(url);
 
 var file = new File(filename);
 
