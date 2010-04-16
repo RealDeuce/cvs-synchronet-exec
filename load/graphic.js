@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.20 2010/04/16 18:33:21 mcmlxxix Exp $
+// $Id: graphic.js,v 1.21 2010/04/16 18:54:53 mcmlxxix Exp $
 
 /*
  * "Graphic" object
@@ -245,6 +245,7 @@ function Graphic_end()
 			this.data[x].push(this.future[x].shift());
 		}
 	}
+	this.index=this.length;
 }
 function Graphic_pgup()
 {
@@ -276,6 +277,7 @@ function Graphic_home()
 			this.data[x].unshift(this.past[x].pop());
 		}
 	}
+	this.index=1;
 }
 function Graphic_scroll(dir,loop)
 {
