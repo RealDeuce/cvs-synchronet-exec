@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.21 2010/04/16 18:54:53 mcmlxxix Exp $
+// $Id: graphic.js,v 1.22 2010/04/20 15:11:34 mcmlxxix Exp $
 
 /*
  * "Graphic" object
@@ -336,6 +336,8 @@ function Graphic_scroll(dir,loop)
 /* Converts a text string to binary format and appends it to a file */
 function Graphic_save(file,txt)
 {
+	//currently stores the file without attributes
+	//TODO: store attributes properly
 	var binFile=new File(file);
 	binFile.open('ab');
 	
