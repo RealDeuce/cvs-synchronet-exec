@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.2 2010/05/10 20:09:54 cyan Exp $
+// $Id: ircbot_commands.js,v 1.3 2010/05/12 02:38:57 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -624,3 +624,20 @@ Bot_Commands["SAY"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	return;
 }
 
+Bot_Commands["LASTSPOKE"] = new Bot_Command(0,false,false);
+Bot_Commands["LASTSPOKE"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	if (!cmd[1]) {
+		srv.o(target,"You spoke just now, chief.");
+		return;
+	}
+	var usr = new User(system.matchuser(cmd[1]));
+	var srv_usr=srv.users[cmd[1].toUpperCase()];
+	if (usr.number > 0 && srv_usr && srv_usr.last_spoke>0) {
+		var last_date=strftime("%m/%d/%Y",srv_usr.last_spoke);
+		var last_time=strftime("%H:%M",srv_usr.last_spoke);
+		srv.o(target,usr.alias + " last spoke on " + last_date + " at " + last_time + ".");
+	} else {
+		srv.o(target,"I have no such user in my database.");
+	}
+	return;
+}
