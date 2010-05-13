@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.5 2010/05/13 15:27:54 mcmlxxix Exp $
+// $Id: ircbot_functions.js,v 1.6 2010/05/13 15:30:21 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -197,7 +197,6 @@ function save_everything() {
 
 	config.iniSetValue(null, "command_prefix", command_prefix);
 	config.iniSetValue(null, "real_name", real_name);
-	config.iniSetValue(null, "help_filename", help_filename);
 	config.iniSetValue(null, "config_write_delay", config_write_delay);
 	config.iniSetValue(null, "squelch_list", squelch_list.join(","));
 
