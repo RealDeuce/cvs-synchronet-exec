@@ -1,4 +1,4 @@
-// $Id: admin_functions.js,v 1.1 2010/05/13 17:12:23 mcmlxxix Exp $
+// $Id: admin_functions.js,v 1.2 2010/05/14 15:36:59 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -27,8 +27,3 @@ this.Server_command=function(srv,cmdline,onick,ouh) {
 	}
 }
 
-//////////////////// Non-object Functions ////////////////////
-function login_user(usr) {
-	usr.connection = "IRC";
-	usr.logontime = time();
-}
