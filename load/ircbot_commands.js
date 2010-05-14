@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.9 2010/05/14 16:58:36 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.10 2010/05/14 20:52:55 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -29,9 +29,10 @@ Bot_Commands["RELOAD"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	load("load/ircbot_commands.js");
 	load("load/ircbot_functions.js");
 	for(var m in Modules) {
+		/* Don't reload libraries??
 		for(var l in Modules[m].lib) {
 			if(Modules[m].lib[l]) load(Modules[m],Modules[m].lib[l]);
-		}
+		} */
 		for(var l in Modules[m].load) {
 			if(Modules[m].load[l]) load(Modules[m],Modules[m].load[l]);
 		}
