@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.6 2010/05/14 16:59:30 mcmlxxix Exp $
+// $Id: ircbot.js,v 1.7 2010/05/14 20:52:10 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -69,7 +69,7 @@ if (config.open("r")) {
 		var lib_list=config.iniGetValue(mysec,"lib");
 		if(lib_list) {
 			lib_list=lib_list.split(",");
-			for(var l in lib_list) Modules[mysec].lib.push(remove_spaces(lib_list[l]));
+			for(var l in lib_list) Modules[mysec].lib.push(removeSpaces(lib_list[l]));
 		}
 	}
 	
