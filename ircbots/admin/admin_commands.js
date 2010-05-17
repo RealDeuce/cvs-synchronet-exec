@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.1 2010/05/14 17:01:40 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.2 2010/05/17 20:52:28 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -562,4 +562,19 @@ this.Bot_Commands["LASTSPOKE"].command = function (target,onick,ouh,srv,lvl,cmd)
 		srv.o(target,"I have no such user in my database.");
 	}
 	return;
+}
+
+this.Bot_Commands["FORCE"] = new Bot_Command(90,true,true)
+this.Bot_Commands["FORCE"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	cmd.shift();
+	if(!cmd[0] || !cmd[1]) {
+		srv.o(target,"Invalid arguments.");
+		return;
+	}
+	onick=cmd.shift();
+	if(!srv.users[onick.toUpperCase()]) {
+		srv.o(target,"No such user.");
+		return;
+	}
+	srv.check_bot_command(target,onick,srv.users[onick.toUpperCase()].uh,cmd.join(" "));
 }
