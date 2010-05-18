@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.9 2010/05/18 14:40:02 cyan Exp $
+// $Id: ircbot_functions.js,v 1.10 2010/05/18 16:31:48 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -284,12 +284,16 @@ function Server_writeout(str) {
 	this.sock.write(str.slice(0, 512) + "\r\n");
 }
 
-function Server_target_out(target,str) {
+function Server_target_out(target,str,msgtype) {
 	for (c in squelch_list) {
 		if (target.toUpperCase() == squelch_list[c].toUpperCase())
 			return;
 	}
-	var outstr = "PRIVMSG " + target + " :" + str;
+
+	if (!msgtype)
+		msgtype = "PRIVMSG";
+
+	var outstr = msgtype + " " + target + " :" + str;
 	log("--> " + this.host + ": " + outstr);
 	this.sock.write(outstr.slice(0, 512) + "\r\n");
 }
