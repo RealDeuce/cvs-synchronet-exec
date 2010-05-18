@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.8 2010/05/18 14:30:26 cyan Exp $
+// $Id: ircbot_functions.js,v 1.9 2010/05/18 14:40:02 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -206,7 +206,11 @@ function Server_check_bot_command(srv,bot_cmds,target,onick,ouh,cmdline) {
 			return 0;
 		}
 		/* If we made it this far, we're good. */
-		botcmd.command(target,onick,ouh,srv,access_level,cmd);
+		try {
+			botcmd.command(target,onick,ouh,srv,access_level,cmd);
+		} catch (err) {
+			srv.o(target,"ERROR: " + err)
+		}
 		return 1;
 	}
 	return 0; /* No such command */
