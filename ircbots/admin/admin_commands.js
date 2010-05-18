@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.3 2010/05/18 15:11:43 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.4 2010/05/18 15:17:53 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -579,7 +579,7 @@ this.Bot_Commands["FORCE"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	srv.check_bot_command(target,onick,srv.users[onick.toUpperCase()].uh,cmd.join(" "));
 }
 
-this.Bot_Commands["DEBUG"] = new Bot_Command(90,true,true);
+this.Bot_Commands["DEBUG"] = new Bot_Command(99,true,true);
 this.Bot_Commands["DEBUG"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	cmd.shift();
 	var data=eval(cmd.join(" "));
