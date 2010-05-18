@@ -1,4 +1,4 @@
-// $Id: cardlib.js,v 1.1 2010/05/12 15:45:21 cyan Exp $
+// $Id: cardlib.js,v 1.2 2010/05/18 17:02:21 mcmlxxix Exp $
 /*
 	A library for dealing with a traditional deck of cards in various ways.
 	Licensed under the GPLv2 by Randolph E. Sommerfeld <cyan@rrx.ca>
@@ -63,7 +63,11 @@ const RANKS = new Array("high card", "pair", "two pair", "three of a kind",
 function Card(value, suit) {
 	this.value = value;
 	this.suit = suit;
+	this.color = "";
 	this.char = VALUE_CHAR[value] + SUIT_CHAR[suit];
+	
+	if(suit==HEARTS || suit==DIAMONDS)	this.color=String.fromCharCode(3)+"5";
+	else if(suit==SPADES || suit==CLUBS)	this.color=String.fromCharCode(3)+"1";
 }
 
 function Deck() {
