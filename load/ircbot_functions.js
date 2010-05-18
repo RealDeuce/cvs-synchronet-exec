@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.7 2010/05/14 15:41:46 mcmlxxix Exp $
+// $Id: ircbot_functions.js,v 1.8 2010/05/18 14:30:26 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -250,7 +250,7 @@ function save_everything() {
 
 function get_cmd_prefix() {
 	if(command_prefix) {
-		if(command_prefix.length==1) return command_prefix.toUpperCase()+"";
+		if(command_prefix.length<=1) return command_prefix.toUpperCase()+"";
 		return command_prefix.toUpperCase()+" ";
 	}
 	return "";
@@ -259,7 +259,7 @@ function get_cmd_prefix() {
 // return the access level of this user.
 function Server_Bot_Access(nick,uh) {
 	var ucnick = nick.toUpperCase();
-	if (this.users[ucnick].ident) {
+	if (this.users[ucnick] && this.users[ucnick].ident) {
 		var usrnum = this.users[ucnick].ident;
 		var thisuser = new User(usrnum);
 		return thisuser.security.level;
