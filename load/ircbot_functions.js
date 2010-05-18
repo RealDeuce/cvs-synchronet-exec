@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.10 2010/05/18 16:31:48 cyan Exp $
+// $Id: ircbot_functions.js,v 1.11 2010/05/18 19:18:22 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -138,10 +138,6 @@ function Server_CTCP(onick,ouh,cmd) {
 	switch (cmd[0]) {
 		case "DCC":
 			if (cmd[4]) {
-				log("cmd1:" + cmd[1] + ":");
-				log("cmd2:" + cmd[2] + ":");
-				log("cmd3:" + cmd[3] + ":");
-				log("cmd4:" + cmd[4] + ":");
 				if ((cmd[1].toUpperCase() == "CHAT")
 					&& (cmd[2].toUpperCase() == "CHAT")
 					&& (parseInt(cmd[3]) == cmd[3])
@@ -150,6 +146,7 @@ function Server_CTCP(onick,ouh,cmd) {
 						var port = parseInt(cmd[4]);
 						var sock = new Socket();
 						sock.connect(ip, port, 3 /* Timeout */);
+						log("*** DCC Socket Status: " + sock.is_connected);
 						if (sock.is_connected) {
 							sock.write("Enter your password.\r\n");
 							dcc_chats.push(new DCC_Chat(sock,onick));
