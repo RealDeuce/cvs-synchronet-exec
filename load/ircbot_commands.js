@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.10 2010/05/14 20:52:55 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.11 2010/05/18 15:18:22 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -98,7 +98,7 @@ Bot_Commands["RESTART"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	return;
 }
 
-Bot_Commands["HELP"] = new Bot_Command(50,false,false);
+Bot_Commands["HELP"] = new Bot_Command(0,false,false);
 Bot_Commands["HELP"].usage =
 	get_cmd_prefix() + "HELP <command>";
 Bot_Commands["HELP"].help =
