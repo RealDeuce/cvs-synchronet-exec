@@ -1,4 +1,4 @@
-// $Id: admin_functions.js,v 1.1 2010/05/14 17:01:40 mcmlxxix Exp $
+// $Id: admin_functions.js,v 1.2 2010/05/18 19:27:38 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -17,7 +17,7 @@
 */
 
 /********** Command Processors. **********/
-this.Server_command=function(srv,cmdline,onick,ouh) {
+function Server_command(srv,cmdline,onick,ouh) {
 	var cmd=IRC_parsecommand(cmdline);
 	switch (cmd[0]) {
 		case "PRIVMSG":
