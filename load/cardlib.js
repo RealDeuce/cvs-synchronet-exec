@@ -1,4 +1,4 @@
-// $Id: cardlib.js,v 1.6 2010/06/09 03:27:46 mcmlxxix Exp $
+// $Id: cardlib.js,v 1.7 2010/06/09 17:47:31 mcmlxxix Exp $
 /*
 	A library for dealing with a traditional deck of cards in various ways.
 	Licensed under the GPLv2 by Randolph E. Sommerfeld <cyan@rrx.ca>
@@ -118,7 +118,7 @@ function Hunt_Straight(cards,depth) {
 /* This function accepts any number of cards in as a true array */
 function Rank(cards) {
 	var hand=new Object();
-	hand.group = new Array();
+	hand.group = [[],[],[],[],[]];
 	hand.rank = 0;
 	hand.str = "";
 
@@ -231,8 +231,6 @@ function Rank(cards) {
 		the array index. unshift() will leave
 		the cards sorted from high to low. */
 	for(c in count) { 
-		if(!hand.group[count[c]]) 
-			hand.group[count[c]]=new Array();  
 		hand.group[count[c]].unshift(c); 
 	}
 	return hand;
