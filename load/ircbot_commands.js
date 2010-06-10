@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.13 2010/06/10 17:30:10 cyan Exp $
+// $Id: ircbot_commands.js,v 1.14 2010/06/10 17:59:05 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -202,3 +202,46 @@ Bot_Commands["PREFIX"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	return;
 }
 
+Bot_Commands["ENABLE"] = new Bot_Command(80,true,false);
+Bot_Commands["ENABLE"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	cmd.shift();
+	var mod=Modules[cmd[0].toUpperCase()];
+	if (mod) {
+		if(!mod.enabled) {
+			mod.enabled=true;
+			srv.o(target,cmd[0].toUpperCase() + " module enabled.");
+		} else {
+			srv.o(target,cmd[0].toUpperCase() + " module is already enabled.");
+		}
+	} else {
+		srv.o(target,"No such module.");
+	}
+	return;
+}
+
+Bot_Commands["DISABLE"] = new Bot_Command(80,true,false);
+Bot_Commands["DISABLE"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	cmd.shift();
+	var mod=Modules[cmd[0].toUpperCase()];
+	if (mod) {
+		if(mod.enabled) {
+			mod.enabled=false;
+			srv.o(target,cmd[0].toUpperCase() + " module disabled.");
+		} else {
+			srv.o(target,cmd[0].toUpperCase() + " module is already disabled.");
+		}
+	} else {
+		srv.o(target,"No such module.");
+	}
+	return;
+}
+
+Bot_Commands["MODULES"] = new Bot_Command(0,false,false);
+Bot_Commands["MODULES"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	var str="Modules: ";
+	for(m in Modules) {
+		str+=m+"("+(Modules[m].enabled?"ENABLED":"DISABLED")+") ";
+	}
+	srv.o(target,str);
+	return;
+}
