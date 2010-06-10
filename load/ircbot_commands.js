@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.12 2010/05/18 19:31:28 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.13 2010/06/10 17:30:10 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -82,8 +82,8 @@ Bot_Commands["DIE"].usage =
 Bot_Commands["DIE"].help =
 	"Causes me to die. You don't want that, do you?";
 Bot_Commands["DIE"].command = function (target,onick,ouh,srv,lvl,cmd) {
-	for (s in bot_servers) {
-		bot_servers[s].writeout("QUIT :" + onick + " told me to die. :(");
+	for (s in Bot_Servers) {
+		Bot_Servers[s].writeout("QUIT :" + onick + " told me to die. :(");
 	}
 	js.terminated=true;
 	return;
@@ -91,8 +91,8 @@ Bot_Commands["DIE"].command = function (target,onick,ouh,srv,lvl,cmd) {
 
 Bot_Commands["RESTART"] = new Bot_Command(90,false,false);
 Bot_Commands["RESTART"].command = function (target,onick,ouh,srv,lvl,cmd) {
-	for (s in bot_servers) {
-		bot_servers[s].writeout("QUIT :Restarting as per " + onick);
+	for (s in Bot_Servers) {
+		Bot_Servers[s].writeout("QUIT :Restarting as per " + onick);
 	}
 	exit();
 	return;
