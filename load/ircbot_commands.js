@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.14 2010/06/10 17:59:05 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.15 2010/06/15 18:32:44 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -216,6 +216,13 @@ Bot_Commands["ENABLE"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	} else {
 		srv.o(target,"No such module.");
 	}
+	return;
+}
+
+Bot_Commands["ABORT"] = new Bot_Command(80,false,false);
+Bot_Commands["ABORT"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	srv.buffers=[];
+	srv.o(target,"Server output aborted.");
 	return;
 }
 
