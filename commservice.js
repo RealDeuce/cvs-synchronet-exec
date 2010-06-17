@@ -1,4 +1,4 @@
-//$Id: commservice.js,v 1.10 2010/06/17 14:48:24 mcmlxxix Exp $
+//$Id: commservice.js,v 1.11 2010/06/17 16:27:04 mcmlxxix Exp $
 /*
 	Inter-BBS/Inter-Node socket service
 	for Synchronet v3.15+ 
@@ -31,7 +31,7 @@
 load("funclib.js");
 load("synchronet-json.js");
 
-const VERSION=				"$Revision: 1.10 $";
+const VERSION=				"$Revision: 1.11 $";
 const REMOTE=				"*";
 const LOCAL=				"&";
 const FILESYNC=			"@";
@@ -216,7 +216,7 @@ function queue(sock,data)
 			}
 			break;
 	}
-	if(modules[data.id] && modules[data.id].handler) {
+	if(!server_map[data.id] && modules[data.id] && modules[data.id].handler) {
 		modules[data.id].handler(data);
 	}
 }
@@ -535,6 +535,9 @@ function Server(addr,port)
 				default:
 					queue(this.sock,data);
 					break;
+			}
+			if(modules[data.id] && modules[data.id].handler) {
+				modules[data.id].handler(data);
 			}
 		}
 	}
