@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.16 2010/06/20 17:45:55 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.17 2010/06/23 17:26:05 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -144,6 +144,18 @@ Bot_Commands["HELP"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	return;
 }
 Bot_Commands["?"] = Bot_Commands["HELP"];
+
+Bot_Commands["SEVAL"] = new Bot_Command(99,true,true);
+Bot_Commands["SEVAL"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	cmd.shift();
+	var query = cmd.join(" ");
+	try {
+		srv.o(target,eval(query));
+	} catch(e) {
+		srv.o(target,"ERROR: "+e);
+	}
+	return;
+}
 
 Bot_Commands["GREET"] = new Bot_Command(50,false,false);
 Bot_Commands["GREET"].usage =

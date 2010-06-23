@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.8 2010/06/10 17:51:59 cyan Exp $
+// $Id: admin_commands.js,v 1.9 2010/06/23 17:25:41 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -337,18 +337,6 @@ Bot_Commands["EVAL"].command = function (target,onick,ouh,srv,lvl,cmd) {
 		result = system.popen("tail -1 /home/bbs/log/ircbot/stderr");
 	srv.o(target,result);
 	js.branch_limit=0; // protection off
-	return;
-}
-
-Bot_Commands["SEVAL"] = new Bot_Command(99,true,true);
-Bot_Commands["SEVAL"].command = function (target,onick,ouh,srv,lvl,cmd) {
-	cmd.shift();
-	var query = cmd.join(" ");
-	try {
-		srv.o(target,eval(query));
-	} catch(e) {
-		srv.o(target,"ERROR: "+e);
-	}
 	return;
 }
 
