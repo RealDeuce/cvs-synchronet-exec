@@ -1,4 +1,4 @@
-/* $Id: url.js,v 1.4 2010/03/12 17:01:05 rswindell Exp $ */
+/* $Id: url.js,v 1.5 2010/07/06 19:56:13 deuce Exp $ */
 
 function URL(url, base)
 {
@@ -95,5 +95,6 @@ function URL(url, base)
 			ret += '?'+this.query;
 		if(this.fragment != undefined)
 			ret += '#'+this.fragment;
+		return ret;
 	};
 }
