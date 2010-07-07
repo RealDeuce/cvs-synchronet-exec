@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.14 2010/06/20 17:46:48 mcmlxxix Exp $
+// $Id: ircbot.js,v 1.15 2010/07/07 20:27:44 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -22,6 +22,9 @@ load("sockdefs.js");
 load("sbbsdefs.js");
 load("irclib.js");
 load("funclib.js");
+load("http.js");
+
+load("synchronet-json.js");
 
 js.branch_limit=0; /* we're not an infinite loop. */
 
