@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.15 2010/07/07 20:27:44 cyan Exp $
+// $Id: ircbot.js,v 1.16 2010/07/08 02:31:43 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -308,6 +308,7 @@ function Bot_IRC_Channel(name) {
 function Server_User(uh,nick) {
 	this.uh = uh;
 	this.nick = nick;
+	this.servername = undefined;
 	this.ident = false;
 	this.last_spoke = false;
 	this.channels=[];
