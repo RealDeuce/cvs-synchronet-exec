@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.9 2010/06/23 17:25:41 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.10 2010/07/08 03:07:02 cyan Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -183,6 +183,7 @@ Bot_Commands["ADDUSER"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	login_user(newuser);
 	newuser.settings |= USER_INACTIVE;
 	newuser.security.level = level;
+	newuser.handle = cmd[1];
 	return;
 }
 
