@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.16 2010/07/08 02:31:43 cyan Exp $
+// $Id: ircbot.js,v 1.17 2010/07/09 22:36:49 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -67,7 +67,7 @@ if (config.open("r")) {
 		Modules[module_name]=new Object();
 		Modules[module_name].Bot_Commands=new Object();
 		Modules[module_name].enabled=true;
-		Modules[module_name].dir=config.iniGetValue(mysec,"dir");
+		Modules[module_name].dir=backslash(config.iniGetValue(mysec,"dir"));
 		Modules[module_name].load=directory(Modules[module_name].dir+"*.js");
 		Modules[module_name].lib=[];
 		var lib_list=config.iniGetValue(mysec,"lib");
