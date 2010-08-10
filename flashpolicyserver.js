@@ -1,4 +1,4 @@
-// $Id: flashpolicyserver.js,v 1.1 2010/05/06 23:14:04 rswindell Exp $
+// $Id: flashpolicyserver.js,v 1.2 2010/08/10 13:24:53 cyan Exp $
 
 /***
 
@@ -44,7 +44,9 @@ function read_policy()
 	if(!f.open("r")) 
 		return;
 	var txt = f.readAll().toString();
-	txt = txt.replace(/(\r|\n|\t|,)/g, '');
+	// txt.replace(/(\r|\n|\t|,)/g, ''); // Need commas to state multiple nonconsecutive to-ports. -echicken
+	txt = txt.replace(/(\r|\n|\t)/g, ''); // <-- echicken's modified version of above.
+	txt = txt.replace(/>,/g, '>'); // Commas between XML tags can be removed, though. -echicken
 	f.close();
 	return(txt);
 }
@@ -58,7 +60,8 @@ while(client.socket.is_connected && !terminator)
 {
 	inByte = client.socket.recvBin(1);
 	inChar = String.fromCharCode(inByte);
-	if((inByte == 0) || (inChar == " "))
+	// if((inByte == 0) || (inChar == " ") // Doesn't trap the null byte as sent by all flash clients (lightIRC in particular)
+	if((inByte == 0) || (inChar == " ") || inChar == String.fromCharCode(000)) // <-- echicken's modified version of above.
 	{
 		terminator = true;
 	}
@@ -81,5 +84,7 @@ if(request == "<policy-file-request/>")
 {
 	policy = read_policy();
 	write(policy);
+	exit();
+} else {
 	exit();
 }
