@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.27 2009/11/17 05:26:43 deuce Exp $
+ * $Id: imapservice.js,v 1.28 2010/08/25 23:42:45 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -1443,7 +1443,10 @@ authenticated_command_handlers = {
 						break;
 					case 'UIDNEXT':
 						response.push("UIDNEXT");
-						response.push(index.idx[index.offsets[index.offsets.length-1]].number+1);
+						if(index.offsets.length==0)
+							response.push(1);
+						else
+							response.push(index.idx[index.offsets[index.offsets.length-1]].number+1);
 						break;
 					case 'UIDVALIDITY':
 						response.push("UIDVALIDITY");
