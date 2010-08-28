@@ -1,4 +1,4 @@
-//$Id: commservice.js,v 1.12 2010/07/14 20:54:01 mcmlxxix Exp $
+//$Id: commservice.js,v 1.13 2010/08/28 18:12:53 mcmlxxix Exp $
 /*
 	Inter-BBS/Inter-Node socket service
 	for Synchronet v3.15+ 
@@ -30,7 +30,7 @@
 load("funclib.js");
 load("synchronet-json.js");
 
-const VERSION=				"$Revision: 1.12 $";
+const VERSION=				"$Revision: 1.13 $";
 const REMOTE=				"*";
 const LOCAL=				"&";
 const FILESYNC=			"@";
@@ -54,7 +54,10 @@ server.socket.nonblocking = true;
 function load_modules()
 {
 	var mfile=new File(system.ctrl_dir + "filesync.ini");
-	mfile.open('r');
+	if(!mfile.open('r')) {
+		log("Error opening module file");
+		exit();
+	}
 	var list=mfile.iniGetSections();
 	for(l=0;l<list.length;l++) {
 		var module_name=list[l];
