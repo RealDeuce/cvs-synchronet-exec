@@ -1,4 +1,4 @@
-//$Id: commservice.js,v 1.14 2010/08/31 18:51:48 mcmlxxix Exp $
+//$Id: commservice.js,v 1.15 2010/09/01 20:58:13 mcmlxxix Exp $
 /*
 	Inter-BBS/Inter-Node socket service
 	for Synchronet v3.15+ 
@@ -30,7 +30,7 @@
 load("funclib.js");
 load("synchronet-json.js");
 
-const VERSION=				"$Revision: 1.14 $".split(' ')[1];
+const VERSION=				"$Revision: 1.15 $".split(' ')[1];
 const CONNECTION_TIMEOUT=	1;//SECONDS
 const CONNECTION_INTERVAL=	60;
 const CONNECTION_ATTEMPTS=	10;
@@ -541,7 +541,7 @@ function sock_cycle()
 function sock_enqueue(data)
 {
 	if(data.descriptor==this.descriptor) return false;
-	debug("enqueueing data: " + JSON.stringify(data));
+	//debug("enqueueing data: " + JSON.stringify(data));
 	this.queue+=JSON.stringify(data)+"\r\n";
 }
 
@@ -616,7 +616,7 @@ function Server(addr,port,auth)
 		data.context="SERVER";
 		data.version=VERSION;
 		data.system=system.name;
-		debug("SENDING: " + JSON.stringify(data));
+//		debug("SENDING: " + JSON.stringify(data));
 		this.sock.enqueue(data);
 	}
 	this.cycle=function()
