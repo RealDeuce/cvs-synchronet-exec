@@ -1,4 +1,4 @@
-//$Id: commservice.js,v 1.17 2010/09/13 21:01:55 mcmlxxix Exp $
+//$Id: commservice.js,v 1.18 2010/09/13 22:00:07 mcmlxxix Exp $
 /*
 	Inter-BBS/Inter-Node socket service
 	for Synchronet v3.15+ 
@@ -30,12 +30,12 @@
 load("funclib.js");
 load("synchronet-json.js");
 
-const VERSION=				"$Revision: 1.17 $".split(' ')[1];
+const VERSION=				"$Revision: 1.18 $".split(' ')[1];
 const CONNECTION_TIMEOUT=	1;//SECONDS
 const CONNECTION_INTERVAL=	60;
 const CONNECTION_ATTEMPTS=	10;
 const MAX_BUFFER=			512;
-const MAX_RECV=			10240;
+const MAX_RECV=				10240;
 
 var modules=[];
 var servers=[];
@@ -240,7 +240,7 @@ function process_local_data(sock,data)
 			}
 			module_server.enqueue(data);
 		} else {
-			send_receipt(sock,data);
+			if(data.blocking) send_receipt(sock,data);
 			send_updates(sock,data);
 		}
 		break;
@@ -254,7 +254,9 @@ function process_local_data(sock,data)
 }
 function send_receipt(sock,data)
 {
-	sock.enqueue(data);
+	var receipt=new Packet("FILESYNC");
+	receipt.filemask=data.filemask;
+	sock.enqueue(receipt);
 }
 function add_receipt_request(sock,query)
 {
@@ -532,7 +534,9 @@ function send_receipts(query)
 {
 	if(blocking[query.id] && blocking[query.id][query.filemask]) {
 		while(blocking[query.id][query.filemask].length) {
-			blocking[query.id][query.filemask].shift().enqueue(query);
+			var receipt=new Packet("FILESYNC");
+			receipt.filemask=query.filemask;
+			blocking[query.id][query.filemask].shift().enqueue(receipt);
 		}
 	}
 }
