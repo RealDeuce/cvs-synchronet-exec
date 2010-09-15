@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.23 2010/05/03 18:53:42 mcmlxxix Exp $
+// $Id: graphic.js,v 1.24 2010/09/15 17:45:54 mcmlxxix Exp $
 
 /*
  * "Graphic" object
@@ -218,6 +218,7 @@ function Graphic_load(filename)
 			this.data[x][y].attr=f.readBin(1);
 		}
 	}
+	f.close();
 	return(true);
 }
 function Graphic_write(xpos, ypos, txt, attr)
