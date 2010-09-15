@@ -1,4 +1,4 @@
-//$Id: commservice.js,v 1.18 2010/09/13 22:00:07 mcmlxxix Exp $
+//$Id: commservice.js,v 1.19 2010/09/15 17:04:10 mcmlxxix Exp $
 /*
 	Inter-BBS/Inter-Node socket service
 	for Synchronet v3.15+ 
@@ -30,7 +30,7 @@
 load("funclib.js");
 load("synchronet-json.js");
 
-const VERSION=				"$Revision: 1.18 $".split(' ')[1];
+const VERSION=				"$Revision: 1.19 $".split(' ')[1];
 const CONNECTION_TIMEOUT=	1;//SECONDS
 const CONNECTION_INTERVAL=	60;
 const CONNECTION_ATTEMPTS=	10;
@@ -466,7 +466,7 @@ function send_updates(socket,query)
 	for(r=0;r<remote_clients.length;r++) {
 		if(remote_clients[r].descriptor != socket.descriptor) {
 			log("sending server updates: " + query.filemask);
-			sync_remote(remote_clients[r],dir,query);
+			sync_remote(remote_clients[r],module.dir,query);
 		}
 	}
 }
