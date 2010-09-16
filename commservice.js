@@ -1,4 +1,4 @@
-//$Id: commservice.js,v 1.19 2010/09/15 17:04:10 mcmlxxix Exp $
+//$Id: commservice.js,v 1.20 2010/09/16 19:16:25 mcmlxxix Exp $
 /*
 	Inter-BBS/Inter-Node socket service
 	for Synchronet v3.15+ 
@@ -30,12 +30,12 @@
 load("funclib.js");
 load("synchronet-json.js");
 
-const VERSION=				"$Revision: 1.19 $".split(' ')[1];
+const VERSION=				"$Revision: 1.20 $".split(' ')[1];
 const CONNECTION_TIMEOUT=	1;//SECONDS
 const CONNECTION_INTERVAL=	60;
 const CONNECTION_ATTEMPTS=	10;
-const MAX_BUFFER=			512;
-const MAX_RECV=				10240;
+const MAX_BUFFER=			1024;
+const MAX_RECV=			10240;
 
 var modules=[];
 var servers=[];
@@ -505,20 +505,28 @@ function recv_file(socket,dir,query)
 {
 	var filename=dir+file_getname(query.filemask);
 	log("receiving file: " + filename);
+	
+	if(file_exists(filename)) {
+		log("backing up existing file");
+		if(file_exists(filename+".bck")) file_remove(filename+".bck");
+		file_rename(filename,filename+".bck");
+	}
+	
 	var file=new File(filename + ".tmp");
-	file.open('w',true);
-	file.base64=true;
+	file.open('wb',true);
 	if(!file.is_open) {
 		log(LOG_WARNING,"error opening file: " + file.name);
 		return false;
 	}
-	file.writeAll(query.file);
-	log("received: " + query.filesize + " bytes");
+	
+	while(query.file.length > 0) {
+		file.writeBin(query.file.shift(),1);
+	}
 	file.close();
-	if(file_exists(filename+".bck")) file_remove(filename+".bck");
-	file_rename(filename,filename+".bck");
+	
 	file_rename(file.name,filename);
 	file_utime(filename,time(),query.filedate);
+	log("sent: " + query.filesize + " bytes. received: " + (file_size(filename)) + " bytes.");
 	return true;
 }
 function compare_dates(local,remote)
@@ -544,17 +552,20 @@ function load_file(filename)
 {
 	var d=new Object();
 	var f=new File(filename);
-	f.open('r',true);
+	f.open('rb',true);
 	if(!f.is_open) {
 		log(LOG_WARNING,"error opening file: " + f.name);
 		return false;
 	}
-	f.base64=true;
-	d.file=f.readAll();
-	f.close();
 	d.filesize=file_size(filename);
 	d.filedate=file_date(filename);
 	d.filemask=file_getname(filename);
+	d.file=[];
+	while(1) { 
+		if(f.eof) break; 
+		d.file.push(f.readBin(1)); 
+	}
+	f.close();
 	return d;
 }
 
