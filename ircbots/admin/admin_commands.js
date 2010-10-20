@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.11 2010/09/27 20:58:48 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.12 2010/10/20 23:16:19 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -615,8 +615,4 @@ Bot_Commands["PIPE"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	}
 	srv.o(target, "Invalid arguments.");
 	return;
-}
-
-for(var bc in Bot_Commands) {
-	js.global.Bot_Commands[bc]=Bot_Commands[bc];
 }
