@@ -1,5 +1,5 @@
 /* 
-	$Id: rpgbot.js,v 1.4 2010/10/20 23:17:53 mcmlxxix Exp $
+	$Id: rpgbot.js,v 1.5 2010/10/22 22:49:42 mcmlxxix Exp $
 	Synchronet IRC bot module for ircbot.js
 	
 	Role-playing game bot (MUD) with in-game zone editor
