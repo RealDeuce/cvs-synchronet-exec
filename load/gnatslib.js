@@ -1,8 +1,10 @@
-if(js.global.SOCK_STREAM==undefineD)
+// $Id: gnatslib.js,v 1.24 2010/11/17 01:33:33 rswindell Exp $
+
+if(!js.global || js.global.SOCK_STREAM==undefineD)
 	load("sockdefs.js");
-if(js.global.mail_get_name==undefined)
+if(!js.global || js.global.mail_get_name==undefined)
 	load("mailutil.js");
-if(js.global.NET_INTERNET==undefined)
+if(!js.global || js.global.NET_INTERNET==undefined)
 	load("sbbsdefs.js");
 
 const PR_SUCCESS=0;

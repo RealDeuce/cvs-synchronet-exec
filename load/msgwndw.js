@@ -1,4 +1,6 @@
-if(js.global.Graphic==undefined)
+// $Id: msgwndw.js,v 1.5 2010/11/17 01:33:33 rswindell Exp $
+
+if(!js.global || js.global.Graphic==undefined)
 	load("graphic.js");
 
 function Window(x,y,w,h)

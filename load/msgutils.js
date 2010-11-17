@@ -1,4 +1,6 @@
-if(js.global.HIGH==undefined)
+// $Id: msgutils.js,v 1.4 2010/11/17 01:33:33 rswindell Exp $
+
+if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
 
 function attr_to_ansi(atr, curatr)

@@ -3,11 +3,13 @@
 	USING  FILE I/O FOR USER PRESENCE DETECTION & NAMED QUEUES FOR REAL-TIME MULTIPLAYER DATA
 */
 
-if(js.global.SYS_CLOSED==undefined)
+// $Id: qengine.js,v 1.13 2010/11/17 01:33:34 rswindell Exp $
+
+if(!js.global || js.global.SYS_CLOSED==undefined)
 	load("sbbsdefs.js");
-if(js.global.Logger==undefined)
+if(!js.global || js.global.Logger==undefined)
 	load("logging.js");
-if(js.global.getColor==undefined)
+if(!js.global || js.global.getColor==undefined)
 	load("funclib.js");
 
 var KillFile;

@@ -1,8 +1,8 @@
-/* $Id: http.js,v 1.7 2010/07/09 21:09:47 deuce Exp $ */
+/* $Id: http.js,v 1.8 2010/11/17 01:33:33 rswindell Exp $ */
 
-if(js.global.SOCK_STREAM==undefined)
+if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
-if(js.global.URL==undefined)
+if(!js.global || js.global.URL==undefined)
 	load("url.js");
 
 /*
