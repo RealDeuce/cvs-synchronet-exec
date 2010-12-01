@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.12 2010/10/20 23:16:19 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.13 2010/12/01 04:52:02 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -556,6 +556,20 @@ Bot_Commands["OBJKEYS"].command = function (target,onick,ouh,srv,lvl,cmd) {
 		for(var i in data) keystr+=", " + i;
 		var output=word_wrap(keystr.substr(2),512).split("\r\n");
 		while(output.length) srv.o(target,"KEYS: " + output.shift());
+	}
+	return;
+}
+
+Bot_Commands["TAIL"] = new Bot_Command(90,true,true);
+Bot_Commands["TAIL"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	cmd.shift();
+	if(tail_history[cmd[0].toUpperCase()]) {
+		delete tail_history[cmd[0].toUpperCase()];
+		srv.o(target,"stopped monitoring: " + cmd[0].toLowerCase());
+	}
+	else {
+		tail_history[cmd[0].toUpperCase()]=new History(cmd[0],target);
+		srv.o(target,"monitoring: " + cmd[0].toLowerCase());
 	}
 	return;
 }
