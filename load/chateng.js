@@ -1,4 +1,4 @@
-// $Id: chateng.js,v 2.20 2010/12/21 18:52:29 mcmlxxix Exp $
+// $Id: chateng.js,v 2.21 2010/12/21 18:54:05 mcmlxxix Exp $
 
 /*
 	Javascript Modular Chat Engine 
@@ -70,7 +70,7 @@ function ChatEngine(protocol,host,port)
 		/* load protocol information */
 		switch(protocol.toUpperCase()) {
 		case "IRC":
-			load("protocols/irc_protocol.js");
+			load("irc_protocol.js");
 			IRC_init.apply(this);
 			break;
 		case "AIM":
