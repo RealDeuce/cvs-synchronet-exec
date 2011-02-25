@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.32 2011/02/17 22:15:00 mcmlxxix Exp $
+// $Id: graphic.js,v 1.33 2011/02/25 16:57:41 mcmlxxix Exp $
 
 /*
  * "Graphic" object
@@ -305,13 +305,16 @@ function Graphic_scroll(dir)
 		this.index--;
 		break;
 	default:
+		var truncated=false;
 		for(var x=0; x<this.width; x++) {
 			this.data[x].push(new Graphic_sector(this.ch,this.attribute));
-			if(this.data[x].length > this.scrollback) 
+			if(this.data[x].length > this.scrollback) {
 				this.data[x].shift();
+				truncated=true;
+			}
 		}
 		this.index=this.data[0].length-this.height;
-		if(this.length < this.scrollback) this.length++;
+		if(truncated) this.length--;
 		break;
 	}
 	return true;
