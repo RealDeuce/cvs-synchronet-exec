@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.22 2010/12/01 04:51:18 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.23 2011/03/02 16:59:18 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -286,6 +286,16 @@ Bot_Commands["PREFIX"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	} else {
 		command_prefix = "";
 		srv.o(target,"Bot command prefix cleared","NOTICE");
+	}
+	return;
+}
+
+Bot_Commands["NICK"] = new Bot_Command(80,1,true);
+Bot_Commands["NICK"].command = function (target,onick,ouh,srv,lvl,cmd) {
+	cmd.shift();
+	if (cmd[0]) {
+		srv.writeout("NICK " + cmd[0]);
+		srv.curnick = cmd[0];
 	}
 	return;
 }
@@ -605,7 +615,10 @@ Server_Commands["KICK"] = function (srv,cmd,onick,ouh)	{
 }
 
 Server_Commands["PRIVMSG"] = function (srv,cmd,onick,ouh)	{ 
-	if(srv.users[onick.toUpperCase()]) srv.users[onick.toUpperCase()].last_spoke=time();
+	if(!srv.users[onick.toUpperCase()])	
+		srv.users[onick.toUpperCase()] = new Server_User(ouh,onick);
+	srv.users[onick.toUpperCase()].last_spoke=time();
+	
 	if (cmd[0][0] == "#" || cmd[0][0] == "&") {
 		var chan=srv.channel[cmd[0].toUpperCase()];
 		if(!chan) return;
