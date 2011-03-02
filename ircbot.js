@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.21 2010/10/22 22:42:35 mcmlxxix Exp $
+// $Id: ircbot.js,v 1.22 2011/03/02 16:57:16 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -320,7 +320,9 @@ function main() {
 			try {
 				DCC_Chats[c].bot_command(cmd);
 			} catch (err) {
-				DCC_Chats[c].o(null,"ERROR: " + err);
+				DCC_Chats[c].o(null,err);
+				DCC_Chats[c].o(null,"file: " + err.fileName);
+				DCC_Chats[c].o(null,"line: " + err.lineNumber);
 			}
 		}
 
