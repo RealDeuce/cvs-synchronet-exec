@@ -3,7 +3,7 @@
 // Synchronet External Program Section
 // Menus displayed to users via Telnet/RLogin
 
-// $Id: xtrn_sec.js,v 1.10 2009/01/31 00:32:56 deuce Exp $
+// $Id: xtrn_sec.js,v 1.11 2011/04/27 04:54:12 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -123,7 +123,7 @@ while(bbs.online) {
 		if((i=console.getnum(prog_list.length))<1)
 			break;
 		i--;
-		if(file_exists(system.text_dir + "menu/xtrn/" + prog_list[i].code)) {
+		if(file_exists(system.text_dir + "menu/xtrn/" + prog_list[i].code + ".*")) {
 			bbs.menu("xtrn/" + prog_list[i].code);
 			console.line_counter=0;
 		}
