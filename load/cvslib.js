@@ -4,7 +4,7 @@
 */
 
 CVS = new (function () {
-	this.VERSION = "$Revision: 1.8 $".split(' ')[1];
+	this.VERSION = "$Revision: 1.9 $".split(' ')[1];
 	this.socket = undefined;
 	
 ////////////////////////////////// SETTINGS
@@ -222,7 +222,18 @@ CVS = new (function () {
 		
 		function recv_file(socket) {
 			var length=parseInt(socket.recvline());
-			return socket.recv(length);
+			var ret='';
+
+			while(length) {
+				var str=socket.recv(length);
+				if(str) {
+					ret += str;
+					length -= str.length;
+				}
+				else
+					throw("Error on recv()");
+			}
+			return ret;
 		}
 
 		for(;;) {
