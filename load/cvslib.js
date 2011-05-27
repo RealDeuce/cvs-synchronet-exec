@@ -1,10 +1,11 @@
 /* 	
 	Javascript CVS client for Synchronet (2011)
 	-	code by mcmlxxix
+	-	awesome by Deuce
 */
 
 CVS = new (function () {
-	this.VERSION = "$Revision: 1.13 $".split(' ')[1];
+	this.VERSION = "$Revision: 1.14 $".split(' ')[1];
 	this.socket = undefined;
 	
 ////////////////////////////////// SETTINGS
