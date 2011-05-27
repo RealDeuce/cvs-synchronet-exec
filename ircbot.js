@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.23 2011/04/09 21:37:31 cyan Exp $
+// $Id: ircbot.js,v 1.24 2011/05/27 21:48:04 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -204,6 +204,11 @@ function main() {
 		for (my_srv in Bot_Servers) {
 			var cmdline;
 			var srv = Bot_Servers[my_srv];
+
+			if(srv.sock && (!srv.sock.is_connected)) {
+				srv.sock.close();
+				src.sock=0;
+			}
 			if (!srv.sock &&(srv.lastcon <time())) { //we're not connected.
 				var consock = IRC_client_connect(srv.host, srv.nick,
 					srv.nick, real_name, srv.port);
