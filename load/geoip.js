@@ -1,4 +1,4 @@
-// $Id: geoip.js,v 1.5 2011/06/02 01:40:20 deuce Exp $
+// $Id: geoip.js,v 1.6 2011/06/02 01:42:05 deuce Exp $
 
 if(!js.global || js.global.HTTPRequest==undefined)
 	load("http.js");
@@ -60,10 +60,10 @@ function get_geoip(host, countryonly)
 	}
 	for(i=0; i<10; i++) {
 		try {
-			do {
-				result='ret='+new HTTPRequest().Get(geoip_url);
-				GeoIP=js.eval(result);
-			} while(GeoIP==undefined);
+			result='ret='+new HTTPRequest().Get(geoip_url);
+			GeoIP=js.eval(result);
+			if(GeoIP==undefined)
+				continue;
 			if(GeoIP.Locations != undefined) {
 				if(isarray)
 					return GeoIP.Locations;
