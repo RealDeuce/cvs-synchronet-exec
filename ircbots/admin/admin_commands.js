@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.13 2010/12/01 04:52:02 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.14 2011/06/04 00:35:15 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -418,15 +418,19 @@ Bot_Commands["FINGER"].command = function (target,onick,ouh,srv,lvl,cmd) {
 					return;
 				}
 			 } else {
-				srv.o(target, strip_ctrl(f_sock.readline()));
-				f_line_count++;
-				if ((f_line_count > 10) &&
-				    (lvl < 75) &&
-				    ((target[0] == "#") ||
-				     (target[0] == "&")) ) {
-					srv.o(target,"*** Connection Terminated "
-						+"(output squelched after 10 lines)");
-					return;
+				var line=f_sock.readline();
+
+				if(line != null) {
+					srv.o(target, strip_ctrl(line));
+					f_line_count++;
+					if ((f_line_count > 10) &&
+					    (lvl < 75) &&
+					    ((target[0] == "#") ||
+					     (target[0] == "&")) ) {
+						srv.o(target,"*** Connection Terminated "
+							+"(output squelched after 10 lines)");
+						return;
+					}
 				}
 			}
 			if (time() >= timeout) {
