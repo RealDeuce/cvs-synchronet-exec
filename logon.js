@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.18 2011/07/02 20:42:54 rswindell Exp $
+// $Id: logon.js,v 1.19 2011/07/02 21:10:41 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -25,7 +25,7 @@ if ((options.rlogin_auto_xtrn) && (bbs.sys_status & SS_RLOGIN) && (console.termi
         alert(log(LOG_ERR,"!ERROR Unable to launch external: '" + external_code + "'"));
     }
     bbs.hangup();
-	return;
+	exit();
 }
 //Disable spinning cursor at pause prompts
 //bbs.node_settings|=NM_NOPAUSESPIN	
