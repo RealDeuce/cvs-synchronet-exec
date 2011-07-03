@@ -2,7 +2,7 @@
 
 /* Helper functions to get values from sbbs.ini/services.ini for fTelnet */
 
-/* $Id: ftelnethelper.js,v 1.1 2011/07/02 18:29:24 ree Exp $ */
+/* $Id: ftelnethelper.js,v 1.2 2011/07/03 00:33:54 ree Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -74,8 +74,8 @@ function GetServicesIniValues() {
 		try {
 			var f = new File(file_cfgname(system.ctrl_dir, "services.ini"));
 			if (f.open("r", true)) {
-				FFlashSocketPolicyServiceEnabled = f.iniGetValue("FlashSocketPolicyService", "Enabled", true);
-				FFlashSocketPolicyServicePort = f.iniGetValue("FlashSocketPolicyService", "Port", -1);
+				FFlashSocketPolicyServiceEnabled = f.iniGetValue("FlashPolicy", "Enabled", true);
+				FFlashSocketPolicyServicePort = f.iniGetValue("FlashPolicy", "Port", -1);
 				// Override the Enabled flag if we don't have a port
 				if (FFlashSocketPolicyServicePort === -1) FFlashSocketPolicyServiceEnabled = false;
 				f.close();
