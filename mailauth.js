@@ -1,4 +1,4 @@
-/* $Id: mailauth.js,v 1.2 2009/07/11 09:04:57 rswindell Exp $ */
+/* $Id: mailauth.js,v 1.3 2011/07/15 08:44:33 rswindell Exp $ */
 
 // This script is an external mail processor that verifies that mail received
 // from sender's claiming to be <anyone>@<yourdomains> are SMTP-authenticated
@@ -20,13 +20,15 @@ var sender_host = sender_address.slice(sender_address.indexOf('@')+1);
 if((sender_host == system.host_name
 	|| system.findstr(system.ctrl_dir + "domains.cfg", sender_host))
 	&& client.ip_address!="127.0.0.1"
-	&& client.ip_address!=server.interface_ip_address) {
+	&& client.ip_address!=server.interface_ip_address
+	&& client.ip_address!=resolve_ip(sender_host)) {
 	var error_file = new File(processing_error_filename);
 	if(!error_file.open("w")) {
 		log(LOG_ERR,format("!ERROR %d opening processing error file: %s"
 			,error_file.error, processing_error_filename));
 	} else {
 		error_file.writeln("Mail deliveries from " + sender_host + " must use SMTP-AUTH");
+		log("sender_address = " + sender_address);
 		error_file.close();
 	}
 }
