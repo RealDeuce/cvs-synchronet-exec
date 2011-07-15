@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Finger protocol (RFC 1288)
 
-// $Id: fingerservice.js,v 1.38 2006/11/30 00:20:36 rswindell Exp $
+// $Id: fingerservice.js,v 1.39 2011/07/15 08:31:26 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini)
 // [Finger]
@@ -27,7 +27,7 @@
 // and everyone, please comment-out (using /* and */) that portion
 // of the script.
 
-const REVISION = "$Revision: 1.38 $".split(' ')[1];
+const REVISION = "$Revision: 1.39 $".split(' ')[1];
 
 var include_age_gender=true;
 var include_real_name=true;
@@ -412,7 +412,7 @@ if(include_real_name)
 	write(format(" In real life: %s", u.name));
 write("\r\n");
 
-write(format("From: %s\r\n",u.location));
+write(format("From: %-36s Handle: %s\r\n",u.location,u.handle));
 if(include_age_gender) {
 	birth=format("Birth: %s (Age: %u years)"
 		  ,u.birthdate,u.age);
