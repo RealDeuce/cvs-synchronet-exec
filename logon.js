@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.20 2011/07/03 00:43:46 ree Exp $
+// $Id: logon.js,v 1.21 2011/07/16 07:50:22 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -12,7 +12,7 @@ load("asc2htmlterm.js");
 var options = load("modopts.js", "logon");
 
 // Check if we're being asked to auto-run an external (web interface external programs section uses this)
-if ((options.rlogin_auto_xtrn) && (bbs.sys_status & SS_RLOGIN) && (console.terminal.indexOf("xtrn=") === 0)) {
+if (options && (options.rlogin_auto_xtrn) && (bbs.sys_status & SS_RLOGIN) && (console.terminal.indexOf("xtrn=") === 0)) {
     var external_code = console.terminal.substring(5);
     if (!bbs.exec_xtrn(external_code)) {
         alert(log(LOG_ERR,"!ERROR Unable to launch external: '" + external_code + "'"));
@@ -227,7 +227,8 @@ if(user.security.level==99				/* Sysop logging on */
 
 // Set rlogin_xtrn_menu=true in [logon] section of ctrl/modopts.ini
 // if you want your RLogin server to act as a door game server only
-if(options.rlogin_xtrn_menu
+if(options
+	&& options.rlogin_xtrn_menu
 	&& bbs.sys_status&SS_RLOGIN) {
 	bbs.xtrn_sec();
 	bbs.hangup();
