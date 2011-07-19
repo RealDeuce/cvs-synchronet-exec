@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.76 2010/03/13 09:19:16 deuce Exp $ */
+/* $Id: fseditor.js,v 1.77 2011/07/19 00:23:32 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.76 $".split(' ')[1];
+const REVISION = "$Revision: 1.77 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -787,6 +787,7 @@ function make_lines(str, attr, nl_is_hardcr)
 	nl=new Array();
 	var spos=0;
 	var apos=0;
+	var last_was_whitespace=false;
 	thisattr=7;
 
 	while(spos < str.length) {
@@ -888,15 +889,24 @@ function make_lines(str, attr, nl_is_hardcr)
 							for(len=0; str.length>=len+spos && str.charAt(spos+len)!=' ' && str.charAt(spos+len,1)!='\t'; len++);
 							if(nl[nl.length-1].text.length+len < console.screen_columns)
 								nl[nl.length-1].hardcr=true;
+							else {
+								// Insert a space before soft CRs if there isn't one
+								if(!last_was_whitespace) {
+									nl[nl.length-1].text+=' ';
+									nl[nl.length-1].attr+=ascii(thisattr);
+								}
+							}
 						}
 					}
 					break;
 				case ' ':		/* Whitespace... never wrap here. */
+					last_was_whitespace=true;
 					nl[nl.length-1].text+=str.charAt(spos);
 					nl[nl.length-1].attr+=ascii(thisattr);
 					spos++;
 					break;
 				case '\t':		/* Whitespace... never wrap here. */
+					last_was_whitespace=true;
 					nl[nl.length-1].text+=' ';
 					nl[nl.length-1].attr+=ascii(thisattr);
 					while(nl[nl.length-1].text.length%tab_width) {
@@ -906,6 +916,7 @@ function make_lines(str, attr, nl_is_hardcr)
 					spos++;
 					break;
 				default:		/* Printable char... may need to wrap */
+					last_was_whitespace=false;
 					if(nl[nl.length-1].text.length>(console.screen_columns-1)) {	/* Need to have wrapped */
 						var offset;
 						for(offset=nl[nl.length-1].text.length-1; offset>=0; offset--) {
