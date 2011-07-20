@@ -1,4 +1,4 @@
-/* $Id: asc_handler.js,v 1.7 2011/07/20 03:59:01 deuce Exp $ */
+/* $Id: asc_handler.js,v 1.8 2011/07/20 04:30:03 deuce Exp $ */
 
 // This module converts ANSI, Ex-ASCII, and Ctrl-A encoded files to HTML
 
@@ -33,7 +33,7 @@ writeln("<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>");
 writeln("<title>"+file.name.replace(/^.*[\/\\]/,'')+"</title>");
 writeln("</head>");
 writeln('<body style="background-color: black;">');
-writeln("<pre>");
+writeln('<pre style="font-family: Courier New, monospace">');
 write(html_encode(text.join("\r\n")
 	,/* es-ASCII: */true
 	,/* white-sp: */false
