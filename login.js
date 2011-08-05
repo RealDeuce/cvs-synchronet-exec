@@ -2,11 +2,11 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.5 2011/02/28 20:33:04 mcmlxxix Exp $
+// $Id: login.js,v 1.6 2011/08/05 03:16:04 rswindell Exp $
 
 load("sbbsdefs.js");
 
-var email_passwords = true;
+options=load("modopts.js","login");
 
 // The following 2 lines are only required for "Re-login" capability
 bbs.logout();
@@ -49,7 +49,7 @@ for(var c=0; c<10; c++) {
 		bbs.logon();
 		exit();
 	}
-	if(email_passwords) {
+	if(options && options.email_passwords) {
 		var usernum = system.matchuser(str);
 		if(usernum) {
 			var u = new User(usernum);
