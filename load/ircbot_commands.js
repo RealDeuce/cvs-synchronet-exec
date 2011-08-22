@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.26 2011/08/22 16:07:11 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.27 2011/08/22 16:08:57 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -626,10 +626,11 @@ Server_Commands["PRIVMSG"] = function (srv,cmd,onick,ouh)	{
 		}
 		
 		/* check main bot commands */
-		try 
+		try {
 			srv.bot_command(srv,Bot_Commands,chan.name,onick,ouh,cmd.join(" "));
-		catch(e)
+		} catch(e) {
 			srv.o(chan.name,e);
+		}
 		
 		for(var m in Modules) {
 			var module=Modules[m];
