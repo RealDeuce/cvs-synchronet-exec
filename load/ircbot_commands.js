@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.25 2011/04/28 19:39:02 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.26 2011/08/22 16:07:11 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -620,35 +620,25 @@ Server_Commands["PRIVMSG"] = function (srv,cmd,onick,ouh)	{
 		cmd=parse_cmd_prefix(cmd);
 		if(!cmd) return false;
 		
+		if(cmd[0].length == 0) {
+			srv.o(chan.name,"Type '" + get_cmd_prefix() + "HELP' for a list of commands.");
+			return false;
+		}
+		
 		/* check main bot commands */
-		srv.bot_command(srv,Bot_Commands,chan.name,onick,ouh,cmd.join(" "));
+		try 
+			srv.bot_command(srv,Bot_Commands,chan.name,onick,ouh,cmd.join(" "));
+		catch(e)
+			srv.o(chan.name,e);
 		
 		for(var m in Modules) {
 			var module=Modules[m];
 			if(!module || !module.enabled) continue;
-			
-			if(!chan.modules[m]) {
-				/* check for modules matching the command string */
-				if(cmd[0].toUpperCase() == m) {
-					cmd.shift();
-					if(!cmd.length > 0) {
-						srv.o(chan.name,"You must specify a module command","NOTICE");
-						return;
-					}
-					try {
-						srv.bot_command(srv,module.Bot_Commands,chan.name,onick,ouh,cmd.join(" "));
-					} catch(e) {
-						srv.o(chan.name,m.toLowerCase() + " bot_command error: " + e,"NOTICE");
-						module.enabled=false;
-					}
-					return;
-				} 
-			/* check active modules */
-			} else {
+			if(chan.modules[m]) {
 				try {
 					srv.bot_command(srv,module.Bot_Commands,chan.name,onick,ouh,cmd.join(" "));
 				} catch(e) {
-					srv.o(chan.name,m.toLowerCase() + " bot_command error: " + e,"NOTICE");
+					srv.o(chan.name,m.toLowerCase() + " bot command error: " + e,"NOTICE");
 					module.enabled=false;
 				}
 			}
@@ -672,7 +662,7 @@ Server_Commands["PRIVMSG"] = function (srv,cmd,onick,ouh)	{
 			try {
 				srv.bot_command(srv,module.Bot_Commands,onick,onick,ouh,cmd.join(" "));
 			} catch(e) {
-				srv.o(onick,m.toLowerCase() + " bot_command error: " + e,"NOTICE");
+				srv.o(onick,m.toLowerCase() + " bot command error: " + e,"NOTICE");
 				module.enabled=false;
 			}
 		}
