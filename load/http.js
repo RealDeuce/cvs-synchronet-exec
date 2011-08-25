@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.11 2011/07/19 08:05:01 deuce Exp $ */
+/* $Id: http.js,v 1.12 2011/08/25 19:24:51 deuce Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -94,7 +94,7 @@ function HTTPRequest()
 		this.response_headers=[];
 
 		for(;;) {
-			header=this.sock.recvline(4096);
+			header=this.sock.recvline(4096, 120);
 			if(header==null)
 				throw("Unable to receive headers");
 			if(header=='')
