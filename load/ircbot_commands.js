@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.29 2011/08/25 19:45:17 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.30 2011/08/25 19:48:44 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -259,7 +259,7 @@ Bot_Commands["QUOTE"].command = function (target,onick,ouh,srv,lvl,cmd) {
 		srv.o(target,"Couldn't find a quote that matches your criteria.");
 		return;
 	}
-	srv.o(target, quotes[random(Quotes.length)]);
+	srv.o(target, Quotes[random(Quotes.length)]);
 	return;
 }
 
