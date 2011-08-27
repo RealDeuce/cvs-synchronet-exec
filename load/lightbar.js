@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.28 2010/11/29 20:33:13 mcmlxxix Exp $
+ * $Id: lightbar.js,v 1.29 2011/08/27 00:52:42 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -148,7 +148,7 @@ function Lightbar_getval(current,key)
 		this.draw();
 		
 	/* Main loop */
-	while(1) {
+	while(bbs.online) {
 	
 		last_cur=this.current;
 		/* Get input */
