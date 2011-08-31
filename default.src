@@ -2,7 +2,7 @@
 
 # Default Command Shell for Synchronet Version 2.00a+
 
-# $Id: default.src,v 1.13 2011/06/15 23:15:08 rswindell Exp $
+# $Id: default.src,v 1.14 2011/08/31 00:26:18 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -407,7 +407,14 @@ cmdkey F
 	end_cmd
 
 cmdkey N
-	no_yes "\r\nAttach a file"
+        int i
+        copy i _netmail_misc
+        or i _inetmail_misc
+        and i NMAIL_FILE
+        compare i 0
+        if_false
+		no_yes "\r\nAttach a file"
+		endi_if
 	if_true
 		mail_send_netmail
 	else	

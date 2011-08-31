@@ -1,6 +1,6 @@
 # renegade.src
 
-# $Id: renegade.src,v 1.10 2007/09/14 19:35:11 rswindell Exp $
+# $Id: renegade.src,v 1.11 2011/08/31 00:26:18 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -270,6 +270,23 @@ cmdkey R
 
 cmdkey V
 	mail_read_sent
+	end_cmd
+
+# Netmail
+cmdkey N
+        int i
+        copy i _netmail_misc
+        or i _inetmail_misc
+        and i NMAIL_FILE
+        compare i 0
+        if_false
+		no_yes "\r\nAttach a file"
+		endi_if
+	if_true
+		mail_send_netmail
+	else	
+		mail_send_netfile
+		end_if
 	end_cmd
 
 cmdkey Q
