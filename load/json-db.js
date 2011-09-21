@@ -34,7 +34,7 @@
 */
 
 function JSONdb (fileName) {
-	this.VERSION = "$Revision: 1.10 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.11 $".replace(/\$/g,'').split(' ')[1];
 	
     /* database storage file */
 	if(fileName) 
@@ -494,8 +494,10 @@ function JSONdb (fileName) {
     
 	/* release any locks or subscriptions held by a disconnected client */
 	this.release = function(client_id) {
-		if(this.subscriptions[client_id]) 
+		if(this.subscriptions[client_id]) {
 			free_prisoner(client_id,this.shadow);
+			delete this.subscriptions[client_id];
+		}
 		for(var c=0;c<this.queue.length;c++) {
 			if(this.queue[c].client.id == client_id)
 				this.queue.splice(c--,1);
