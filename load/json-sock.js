@@ -1,6 +1,6 @@
 load("synchronet-json.js");
 /* socket mod version */
-Socket.prototype.VERSION = "$Revision: 1.4 $".replace(/\$/g,'').split(' ')[1];
+Socket.prototype.VERSION = "$Revision: 1.5 $".replace(/\$/g,'').split(' ')[1];
 /* round trip packet time */
 Socket.prototype.latency = 0;
 /* one way (latency / 2) */
@@ -27,7 +27,7 @@ Socket.prototype.sendJSON = function(object) {
 Socket.prototype.recvJSON = function() { 
 	var packet=this.recvline(this.max_recv,this.recv_wait); 
 	if(packet != null) {
-		log(LOG_DEBUG,"<--" + this.descriptor + ": " + data);
+		log(LOG_DEBUG,"<--" + this.descriptor + ": " + packet);
 		try {
 			packet=JSON.parse(packet,this.reviver);
 		} 
