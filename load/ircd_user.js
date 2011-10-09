@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.43 2009/02/05 03:15:36 cyan Exp $
+// $Id: ircd_user.js,v 1.44 2011/10/09 07:10:30 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.43 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.44 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -245,9 +245,10 @@ function IRC_User(id) {
 	this.numeric481=IRCClient_numeric481;
 	this.numeric482=IRCClient_numeric482;
 	// Getters
-	this.nuh getter = function() {
+	this.__defineGetter__("nuh", function() {
 		return(this.nick + "!" + this.uprefix + "@" + this.hostname);
-	};
+	});
+
 }
 
 ////////// Command Parser //////////
