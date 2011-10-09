@@ -1,4 +1,4 @@
-// $Id: admin_commands.js,v 1.15 2011/08/25 19:44:13 mcmlxxix Exp $
+// $Id: admin_commands.js,v 1.16 2011/10/09 09:14:15 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -392,6 +392,7 @@ Bot_Commands["FINGER"].command = function (target,onick,ouh,srv,lvl,cmd) {
 		f_sock.nonblocking = true;
 	} else {
 		f_sock = new Socket();
+		f_sock.nonblocking = false;
 	}
 	if (!f_sock.connect(f_host,79)) {
 		srv.o(target,"Couldn't connect to "+ f_host +": " + f_sock.last_error);

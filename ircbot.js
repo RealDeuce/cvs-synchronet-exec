@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.25 2011/07/21 21:43:16 deuce Exp $
+// $Id: ircbot.js,v 1.26 2011/10/09 09:14:02 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
