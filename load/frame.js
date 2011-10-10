@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.6 2011/10/09 17:57:12 cyan Exp $ */
+/* $Id: frame.js,v 1.7 2011/10/10 18:58:18 mcmlxxix Exp $ */
 /**
  	Javascript Frame Library 					
  	for Synchronet v3.15a+ 
@@ -297,7 +297,8 @@ function Frame(x,y,width,height,attr,frame) {
 	}
 	var position = {
 		cursor:{x:0,y:0},
-		offset:{x:0,y:0}
+		offset:{x:0,y:0},
+		stored:{x:0,y:0}
 	}
 		
 	/* protected properties */
@@ -794,6 +795,14 @@ function Frame(x,y,width,height,attr,frame) {
 			y:position.cursor.y+1
 		}
 		return xy;
+	}
+	this.pushxy = function() {
+		position.stored.x = position.cursor.x;
+		position.stored.y = position.cursor.y;
+	}
+	this.popxy = function() {
+		position.cursor.x = position.stored.x;
+		position.cursor.y = position.stored.y;
 	}
 	
 	/* private functions */
