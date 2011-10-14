@@ -1,4 +1,4 @@
-/* $Id: dest6.js,v 1.9 2011/10/11 06:43:24 deuce Exp $ */
+/* $Id: dest6.js,v 1.10 2011/10/14 03:37:02 deuce Exp $ */
 
 /* A sophisticated suite of test cases.  CVS pollution at its finest. */
 
@@ -305,7 +305,7 @@ log(" IV: "+test39.write(true));
 log("  V: "+ test39.write("go-get me some Popeye's Chicken"));
 if (test39.readValue() != new Date("April 17, 1980 03:00:00")) {
 	log("Date on background script doesn't return date?");
-	log("Nope, Chuck Testa.");
+	log("Nope, it's just Chuck Testa with another realistic dead JavaScript object.");
 }
 if (test39.readValue() != 13.37) {
 	log("Double on background script doesn't return double?");
