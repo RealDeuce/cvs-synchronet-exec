@@ -3,14 +3,14 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.42 2011/10/14 18:43:25 deuce Exp $
+// $Id: irc.js,v 1.43 2011/10/14 18:45:15 deuce Exp $
 
 // disable auto-termination.
 var old_auto_terminate=js.auto_terminate;
 js.on_exit("js.auto_terminate=old_auto_terminate");
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.42 $".split(' ')[1];
+const REVISION = "$Revision: 1.43 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -1441,7 +1441,7 @@ function History()  {
 	this.addline=History_addline;
 	this.index=-1;
 	this.incomplete="";
-	this.__defineGetter("next", function()  {
+	this.__defineGetter__("next", function()  {
 		if(this.index==null)  {
 			this.index=this.line.length;
 		}
@@ -1454,7 +1454,7 @@ function History()  {
 			return this.line[this.index];
 		}
 	});
-	this.__defineGetter("previous", function()  {
+	this.__defineGetter__("previous", function()  {
 		if(this.index==null)  {
 			this.index=this.line.length;
 		}
