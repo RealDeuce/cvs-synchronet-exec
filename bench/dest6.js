@@ -1,10 +1,10 @@
-/* $Id: dest6.js,v 1.12 2011/10/15 00:49:07 deuce Exp $ */
+/* $Id: dest6.js,v 1.13 2011/10/15 01:26:52 deuce Exp $ */
 
 /* A sophisticated suite of test cases.  CVS pollution at its finest. */
 
 var test01 = log(LOG_ERROR, "one", "two", "three");
 if (test01 != "three") {
-	log(LOG_ERROR, "log() test failed!");
+	log(LOG_ERROR, "log() test failed ("+test01+")!");
 	exit();
 }
 
