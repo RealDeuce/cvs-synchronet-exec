@@ -1,4 +1,4 @@
-/* $Id: dest6.js,v 1.11 2011/10/15 00:47:34 deuce Exp $ */
+/* $Id: dest6.js,v 1.12 2011/10/15 00:49:07 deuce Exp $ */
 
 /* A sophisticated suite of test cases.  CVS pollution at its finest. */
 
@@ -147,7 +147,7 @@ if (test23 != "450491f4513e7e0c69ca80a9702a7196") {
 }
 
 var test24 = test16.md5_base64;
-if (test24 != "RQSR9FE+fgxpyoCpcCpxls==") {
+if (test24 != "RQSR9FE+fgxpyoCpcCpxln==") {
 	log(LOG_ERROR, "MD5 sum (base64) mismatch ("+test24+")!");
 //	exit();
 }
