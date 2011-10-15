@@ -1,4 +1,4 @@
-/* $Id: dest6.js,v 1.10 2011/10/14 03:37:02 deuce Exp $ */
+/* $Id: dest6.js,v 1.11 2011/10/15 00:47:34 deuce Exp $ */
 
 /* A sophisticated suite of test cases.  CVS pollution at its finest. */
 
@@ -192,11 +192,11 @@ if (test31 != 3) {
 }
 
 var test32 = load(true,"dnshelper.js","127.0.0.1");
-while (test32.read() == undefined) {
+while ((test32.ret=test32.read()) == undefined) {
 	log("Waiting for dnshelper.js to return a result...");
 	sleep(10);
-	log(test32.read());
 }
+log(test32.ret);
 
 var test33_file = new File(system.temp_dir + "test.ini");
 test33_file.open("w+");
