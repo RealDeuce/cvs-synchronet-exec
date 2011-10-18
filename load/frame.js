@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.16 2011/10/18 16:55:54 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.17 2011/10/18 17:07:24 mcmlxxix Exp $ */
 /**
  	Javascript Frame Library 					
  	for Synchronet v3.15a+ 
@@ -308,12 +308,6 @@ function Frame(x,y,width,height,attr,frame) {
 		this.width = width;
 		this.height = height;
 		log(LOG_DEBUG,format("new display initialized: %sx%s at %s,%s",this.width,this.height,this.x,this.y));
-	}
-	
-	/* coordinate reference */
-	function Coord(x,y) {
-		this.x = Number(x);
-		this.y = Number(y);
 	}
 	
 	/* character/attribute pair representing a screen position and its contents */
