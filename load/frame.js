@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.17 2011/10/18 17:07:24 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.18 2011/10/19 19:34:03 mcmlxxix Exp $ */
 /**
  	Javascript Frame Library 					
  	for Synchronet v3.15a+ 
@@ -728,7 +728,7 @@ function Frame(x,y,width,height,attr,frame) {
 		else {}
 	}
 	this.putmsg = function(str) {
-		str = str.split('');
+		str = str.toString().split('');
 		var control_a = false;
 		var curattr = this.attr;
 		var pos = position.cursor;
