@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.37 2009/10/29 22:51:11 rswindell Exp $
+// $Id: str_cmds.js,v 1.38 2011/10/26 17:34:04 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -361,8 +361,11 @@ function str_cmds(str)
 			if(bbs.check_syspass()) {
 				str=str.substr(3);
 				writeln("");
-				bbs.spy(parseInt(get_arg(str)));
-				write("\1n\r\nSpy session complete.\r\n");
+				try {	// May throw on parseInt()
+					bbs.spy(parseInt(get_arg(str)));
+					write("\1n\r\nSpy session complete.\r\n");
+				}
+				catch (e) {}
 			}
 			return;
 		}
