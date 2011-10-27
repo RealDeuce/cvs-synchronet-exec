@@ -1,4 +1,4 @@
-/* $Id: dest6.js,v 1.13 2011/10/15 01:26:52 deuce Exp $ */
+/* $Id: dest6.js,v 1.14 2011/10/27 21:13:52 deuce Exp $ */
 
 /* A sophisticated suite of test cases.  CVS pollution at its finest. */
 
@@ -45,10 +45,10 @@ if (test07 != undefined) {
 }
 
 /* The following currently segfaults - so many bug like Microsoft */
-//var test08_obj = {};
-//var test08 = js.get_parent(js.get_parent);
-//var test08 = js.get_parent(test08_obj);
-//log(test08.toSource());
+var test08_obj = {};
+var test08 = js.get_parent(js.get_parent);
+var test08 = js.get_parent(test08_obj);
+log(test08.toSource());
 
 var test09 = js.version;
 if (test09 != js.version) {
