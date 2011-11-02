@@ -1,6 +1,6 @@
-// $Id: gnatslib.js,v 1.24 2010/11/17 01:33:33 rswindell Exp $
+// $Id: gnatslib.js,v 1.25 2011/11/02 09:43:33 rswindell Exp $
 
-if(!js.global || js.global.SOCK_STREAM==undefineD)
+if(!js.global || js.global.SOCK_STREAM==undefined)
 	load("sockdefs.js");
 if(!js.global || js.global.mail_get_name==undefined)
 	load("mailutil.js");
