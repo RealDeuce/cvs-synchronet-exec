@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.111 2011/03/01 00:25:15 rswindell Exp $
+// $Id: nntpservice.js,v 1.112 2011/11/02 11:00:33 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.111 $".split(' ')[1];
+const REVISION = "$Revision: 1.112 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -768,12 +768,6 @@ while(client.socket.is_connected && !quit) {
 			if(!(user.security.restrictions&UFLAG_Q))	// Treat this as a local message
 				hdr.from_net_type=NET_NONE;
 
-			/* Security logging */
-			hdr.from_ip_addr	= client.ip_address;
-			hdr.from_host_name	= client.host_name;
-			hdr.from_protocol	= client.protocol;
-			hdr.from_port		= client.port;
-
 			if(system.trashcan("subject",hdr.subject)) {
 				log(format("!BLOCKED subject: %s",hdr.subject));
 				var reason = format("Blocked subject from %s (%s): %s"
@@ -839,7 +833,7 @@ while(client.socket.is_connected && !quit) {
 							else
 								hdr.attr&=~MSG_MODERATED;
 
-						    if(msgbase.save_msg(hdr,body)) {
+						    if(msgbase.save_msg(hdr,client,body)) {
 							    log(format("%s posted a message (%u chars, %u lines) on %s"
 									,user.alias, body.length, lines, newsgroups[n]));
 							    posted=true;
