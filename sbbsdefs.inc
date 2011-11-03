@@ -2,7 +2,7 @@
 
 # Baja include file defining various Synchronet related constants
 
-# $Id: sbbsdefs.inc,v 1.15 2009/01/16 07:05:46 rswindell Exp $
+# $Id: sbbsdefs.inc,v 1.16 2011/11/03 00:58:58 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -183,6 +183,7 @@
 !define P_NOPAUSE	.4	# Disable screen pause
 !define P_HTML		.5	# Message is HTML
 !define P_NOCRLF	.6	# Don't prepend a CRLF
+!define P_WORDWRAP	.7	# Word-wrap long lines for user's terminal
 
 				# Values for USER_EVENT function
 !define EVENT_NONE      0       # Only accessible by menu
