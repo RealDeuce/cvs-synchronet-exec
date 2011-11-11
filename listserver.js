@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.38 2011/10/18 01:41:05 rswindell Exp $
+// $Id: listserver.js,v 1.39 2011/11/11 07:40:16 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.38 $".split(' ')[1];
+const REVISION = "$Revision: 1.39 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -562,7 +562,8 @@ function process_contribution(header, body, list)
 
 	// verify author/sender is a list subscriber here
 
-	if(find_user(user_list, sender_address)==-1) {
+	if(sender_address!=list.submitter
+        && find_user(user_list, sender_address)==-1) {
 		error_file.writeln(log(LOG_WARNING,format("%s !ERROR %s is not a subscriber"
 			,list.name, sender_address)));
 //		error_file.writeln();
