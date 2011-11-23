@@ -6,7 +6,13 @@
 	methods:
 	
 	-	Timer.cycle()
-	-	Timer.addEvent()
+	-	Timer.addEvent(interval,repeat,action,arguments,context)
+		
+		- interval = time to wait before running event (in milliseconds)
+		- repeat = how many times to run the event (TRUE = run infinitely, FALSE = run once)
+		- action = the function to call when running the event
+		- arguments = the arguments to pass to the action 
+		- context = the context (scope) in which to run the event
 	
 	sample usage: 
 	
@@ -28,7 +34,7 @@
 		//script will end when the event runs its course
 */
 function Timer() {
-	this.VERSION = "$Revision: 1.3 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.4 $".replace(/\$/g,'').split(' ')[1];
 	this.events = [];
 	
 	/* called by parent script, generally in a loop, and generally with a pause or timeout to minimize cpu usage */
