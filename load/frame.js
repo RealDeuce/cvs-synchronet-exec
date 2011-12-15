@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.25 2011/12/15 20:54:27 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.26 2011/12/15 21:01:31 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -1266,12 +1266,6 @@ function Frame(x,y,width,height,attr,frame) {
 		this.setData(position.cursor.x,position.cursor.y,ch,attr,true);
 	}
 	function init(x,y,width,height,attr,frame) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.attr = attr;
-
 		if(frame instanceof Frame) {
 			properties.id = frame.child.length;
 			properties.display = frame.display;
@@ -1283,6 +1277,12 @@ function Frame(x,y,width,height,attr,frame) {
 			properties.display = new Display(x,y,width,height);
 		}
 		
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.attr = attr;
+
 		for(var h=0;h<this.height;h++) {
 			properties.data.push(new Array(this.width));
 			for(var w=0;w<this.width;w++) {
