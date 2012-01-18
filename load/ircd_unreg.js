@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.33 2009/03/13 08:16:45 rswindell Exp $
+// $Id: ircd_unreg.js,v 1.34 2012/01/18 21:13:56 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.33 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.34 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -202,6 +202,7 @@ function Unregistered_Commands(cmdline) {
 			var new_server = Servers[cmd[1].toLowerCase()];
 			Local_Servers[this.id] = new_server;
 			Local_Sockets_Map[this.id] = new_server;
+			delete Unregistered[this.id];
 			rebuild_socksel_array = true;
 			new_server.socket = this.socket;
 			new_server.hops = cmd[2];
