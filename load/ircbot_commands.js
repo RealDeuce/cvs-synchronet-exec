@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.30 2011/08/25 19:48:44 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.31 2012/02/06 16:44:03 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -155,7 +155,7 @@ Bot_Commands["HELP"].command = function (target,onick,ouh,srv,lvl,cmd) {
 			if(module.Bot_Commands.HELP) {
 				module.Bot_Commands.HELP.command(target,onick,ouh,srv,lvl,cmd);
 			} else {
-				help_out(module.Bot_Commands[help_cmd.toUpperCase()]);
+				help_out(module.Bot_Commands[hlp_cmd.toUpperCase()]);
 			}
 		/* if no command was specified, list module's commands */
 		} else {
