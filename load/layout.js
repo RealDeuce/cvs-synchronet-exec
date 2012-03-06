@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.14 2012/03/06 21:01:28 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.15 2012/03/06 22:10:25 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -82,8 +82,8 @@ function Layout(frame) {
 		title_fg:YELLOW,
 		tab_bg:BG_LIGHTGRAY,
 		tab_fg:BLACK,
-		view_bg:BG_GREEN,
-		view_fg:LIGHTGREEN,
+		view_bg:BG_BLACK,
+		view_fg:GREEN,
 		border_bg:BG_BLACK,
 		border_fg:LIGHTGRAY
 	};
@@ -261,6 +261,9 @@ function LayoutView(title,frame,parent) {
 		frames.main.draw();
 	}
 	this.cycle=function() {
+		for each(var t in properties.tabs)
+			if(typeof t.cycle == "function")
+				t.cycle();
 		return frames.main.cycle();
 	}
 	this.addTab=function(title) {
