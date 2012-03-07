@@ -66,7 +66,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.10 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.11 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -130,7 +130,7 @@ function JSONClient(serverAddr,serverPort) {
 	
 	/* unlock an object */ 
 	this.unlock = function(scope,location) {
-		this.lock(-1);
+		this.lock(scope, location, -1);
 	}
     
 	/* read object data (lock for reading or writing, blocking) */
