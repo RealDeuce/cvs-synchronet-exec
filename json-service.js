@@ -2,6 +2,15 @@ load("event-timer.js");
 load("json-sock.js");
 load("json-db.js");
 
+// Running from jsexec presumably...
+if(js.global.server==undefined) {
+        load("sockdefs.js");
+        server={};
+        server.socket=new Socket(SOCK_STREAM, 'JSONDB');
+        server.socket.bind(10088,'127.0.0.1');
+        server.socket.listen();
+}
+
 /**** SERVICE MODULES
  * 
  * 	main service (socket service)
@@ -63,7 +72,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.10 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.11 $".replace(/\$/g,'').split(' ')[1];
 	this.online = true;
 	this.sockets = [];
 	this.denyhosts = [];
