@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.13 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.14 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -314,8 +314,7 @@ function JSONClient(serverAddr,serverPort) {
             location:location,
 			timeout:this.settings.TIMEOUT
         });
-		if(this.settings.TIMEOUT >= 0)
-			return this.wait();
+		return this.wait();
 	}
 
 	/* retrieve the overall lock and subscription status of an object */
@@ -325,8 +324,7 @@ function JSONClient(serverAddr,serverPort) {
 			location:location,
 			timeout:this.settings.TIMEOUT
         });
-		if(this.settings.TIMEOUT >= 0)
-			return this.wait();
+		return this.wait();
 	}
 	
 	this.connect();
