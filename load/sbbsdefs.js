@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.54 2011/11/12 00:02:14 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.55 2012/03/19 23:32:44 echicken Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -552,6 +552,8 @@ var   TG_PASSTHRU	=(1<<5);	/* Pass-through telnet commands/responses	*/
 var   TG_RLOGIN		=(1<<6);	/* Use BSD RLogin protocol					*/
 var   TG_NOCHKTIME	=(1<<7);	/* Don't check time left online				*/
 var   TG_NOTERMTYPE =(1<<8);	/* Request client "DONT TERM_TYPE"			*/
+var   TG_SENDPASS = (1<<9);	/* Send password instead of real name (RLogin)	*/
+
 					    		/********************************************/
 
 					    		/********************************************/
