@@ -1,12 +1,12 @@
-load("synchronet-json.js");
+//load("synchronet-json.js");
 /* socket mod version */
-Socket.prototype.VERSION = "$Revision: 1.7 $".replace(/\$/g,'').split(' ')[1];
+Socket.prototype.VERSION = "$Revision: 1.8 $".replace(/\$/g,'').split(' ')[1];
 /* round trip packet time */
 Socket.prototype.latency = 0;
 /* one way (latency / 2) */
 Socket.prototype.time_offset = 0; 
 /* largest receivable packet */
-Socket.prototype.max_recv = 102400;
+Socket.prototype.max_recv = 131072;
 /* timeout for socket.recvline() */
 Socket.prototype.recv_wait = 1;
 /* last ping sent */
@@ -33,6 +33,7 @@ Socket.prototype.recvJSON = function() {
 		} 
 		catch(e) {
 			log(LOG_ERROR,e);
+			packet = null;
 		}
 	}
 	return packet;
