@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.17 2012/03/26 18:37:04 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.18 2012/03/26 22:50:05 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -452,6 +452,7 @@ function LayoutView(title,frame,parent) {
 				}
 			}
 			properties.chat = tab.chat;
+			tab.frame.lf_strict = false;
 			break;
 		case "GRAPHIC":
 			//ToDo
