@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.15 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.16 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -74,7 +74,7 @@ function JSONClient(serverAddr,serverPort) {
 		throw("no port specified");
 	
 	this.settings={
-		CONNECTION_TIMEOUT:		5,
+		CONNECTION_TIMEOUT:		10,
 		PING_INTERVAL:			60*1000,
 		PING_TIMEOUT:			10*1000,
 		SOCK_TIMEOUT:			10*1000,
@@ -151,6 +151,21 @@ function JSONClient(serverAddr,serverPort) {
 		});
 		return this.wait();
     }
+	
+	/* array slice method */
+	this.slice=function(scope,location,start,end,lock) {
+		this.send(scope,"QUERY",{
+            oper:"SLICE",
+            location:location,
+			data:{
+				start:start,
+				end:end
+			},
+			lock:lock,
+ 			timeout:this.settings.TIMEOUT
+		});
+		return this.wait();
+	}
 
 	/* read multiple object data (lock for reading or writing, blocking) */
 	/* readmulti([['tw2','sector.1',undefined,'sector'],['tw2','planets.1',undefined,'planet']]); */
