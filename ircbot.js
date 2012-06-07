@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.26 2011/10/09 09:14:02 deuce Exp $
+// $Id: ircbot.js,v 1.27 2012/06/07 00:10:50 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -53,7 +53,7 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 var config = new File(system.ctrl_dir + config_filename);
 
 function init() {
-	load("load/ircbot_functions.js");
+	load("ircbot_functions.js");
 
 	if (!config.open("r")) {
 		exit("Couldn't open config file!");
@@ -77,7 +77,7 @@ function init() {
 
 	config.close();
 	
-	load("load/ircbot_commands.js");
+	load("ircbot_commands.js");
 }
 
 function init_servers(config) {
