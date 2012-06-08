@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.31 2012/02/06 16:44:03 mcmlxxix Exp $
+// $Id: ircbot_commands.js,v 1.32 2012/06/08 14:43:46 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -567,7 +567,7 @@ Server_Commands["JOIN"]= function (srv,cmd,onick,ouh) {
 	if (lvl >= 50) {
 		var usr = new User(system.matchuser(onick));
 		if (lvl >= 60)
-			srv.writeout("MODE " + cmd[1] + " +o " + onick);
+			srv.writeout("MODE " + cmd[0] + " +o " + onick);
 		if (usr.number > 0) {
 			if (usr.comment)
 				srv.o(cmd[0],"[" + onick + "] " + usr.comment);
