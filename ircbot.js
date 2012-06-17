@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.27 2012/06/07 00:10:50 deuce Exp $
+// $Id: ircbot.js,v 1.28 2012/06/17 15:37:24 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -53,7 +53,7 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 var config = new File(system.ctrl_dir + config_filename);
 
 function init() {
-	load("ircbot_functions.js");
+	load("load/ircbot_functions.js");
 
 	if (!config.open("r")) {
 		exit("Couldn't open config file!");
@@ -77,7 +77,7 @@ function init() {
 
 	config.close();
 	
-	load("ircbot_commands.js");
+	load("load/ircbot_commands.js");
 }
 
 function init_servers(config) {
@@ -259,7 +259,7 @@ function main() {
 					var next_output=srv.buffers.shift();
 					if(!srv.sock.write(next_output.buffer.shift())) {
 						srv.sock.close();
-						src.sock=0;
+						srv.sock=0;
 						continue;
 					}
 					if(next_output.buffer.length) srv.buffers.push(next_output);
@@ -286,7 +286,7 @@ function main() {
 				var srv=Bot_Servers[socks[s].srv];
 				if(srv.sock && (!srv.sock.is_connected)) {
 					srv.sock.close();
-					src.sock=0;
+					srv.sock=0;
 				}
 				if (srv.sock && srv.sock.poll(0.1) &&
 						(cmdline=srv.sock.recvline(4096,0))) {
