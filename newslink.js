@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.97 2012/07/18 14:55:42 deuce Exp $
+// $Id: newslink.js,v 1.98 2012/07/18 14:58:35 deuce Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.97 $".split(' ')[1];
+const REVISION = "$Revision: 1.98 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -270,7 +270,10 @@ if(!socket.connect(host,port)) {
 	exit();
 }
 print("Connected");
-socket.ssl_session=tls;
+if(tls) {
+	print("Negotiating TLS");
+	socket.ssl_session=true;
+}
 readln();
 
 if(username!=undefined && username.length) {
