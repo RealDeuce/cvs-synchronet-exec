@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.32 2012/03/30 15:21:15 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.33 2012/08/02 18:00:20 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -35,6 +35,7 @@ METHODS:
 	frame.move(x,y)				//move frame n spaces in any direction
 	frame.moveTo(x,y)			//move frame to absolute position
 	frame.end()					//opposite of frame.home()
+	frame.screenShot(file,append)//capture the contents of a frame to file
 	frame.clearline(attr)		//see http://synchro.net/docs/jsobjs.html#console
 	frame.cleartoeol(attr)
 	frame.putmsg(str)
@@ -677,10 +678,12 @@ function Frame(x,y,width,height,attr,frame) {
 			position.cursor.y += 1;
 		else {}
 	}
-	this.putmsg = function(str) {
+	this.putmsg = function(str,attr) {
 		str = str.toString().split('');
 		var control_a = false;
-		var curattr = this.attr;
+		var curattr = attr;
+		if(!curattr)
+			curattr = this.attr;
 		var pos = position.cursor;
 
 		while(str.length > 0) {
