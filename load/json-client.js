@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.17 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.18 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -77,7 +77,7 @@ function JSONClient(serverAddr,serverPort) {
 		CONNECTION_TIMEOUT:		10,
 		PING_INTERVAL:			60*1000,
 		PING_TIMEOUT:			10*1000,
-		SOCK_TIMEOUT:			10*1000,
+		SOCK_TIMEOUT:			30*1000,
 		TIMEOUT:				-1
 	};
         
