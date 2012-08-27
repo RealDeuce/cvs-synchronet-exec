@@ -1,4 +1,4 @@
-/* $Id: mapgenerator.js,v 1.11 2012/08/27 12:48:50 mcmlxxix Exp $ */
+/* $Id: mapgenerator.js,v 1.12 2012/08/27 15:11:42 mcmlxxix Exp $ */
 
 /* JavaScript Random Terrain Generator
    by MCMLXXIX (2012)
@@ -299,7 +299,7 @@ function Map(width,height) {
 		if(base == undefined)
 			base = settings.base;
 		if(peak == undefined)
-			peak = settings.base;
+			peak = settings.peak;
 
 		/* iterate map again and adjust values to fit scale */
 		if(this.range == 0)
