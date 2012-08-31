@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.9 2012/08/31 16:57:20 echicken Exp $
+// $Id: msgutils.js,v 1.10 2012/08/31 17:00:30 echicken Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -369,7 +369,7 @@ function getMessageThreads(sub, max) {
 	msgBase.open();
 	if(!msgBase.is_open)
 		return false;
-	if(max === undefined || msgBase.last_msg - max < msgBase.first_msg)
+	if(max === undefined || max == 0 || msgBase.last_msg - max < msgBase.first_msg)
 		max = msgBase.first_msg;
 	else
 		max = msgBase.last_msg - max;
