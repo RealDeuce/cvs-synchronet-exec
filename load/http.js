@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.15 2012/09/04 16:41:11 echicken Exp $ */
+/* $Id: http.js,v 1.16 2012/09/11 19:23:05 mcmlxxix Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -86,9 +86,8 @@ function HTTPRequest(username,password)
 			if(!this.sock.send(this.request_headers[i]+"\n"))
 				throw("Unable to send headers");
 		}
-// This termination is apparently unnecessary - blank line already appears after headers.
-//		if(!this.sock.send("\n"))
-//			throw("Unable to terminate headers");
+		if(!this.sock.send("\n"))
+			throw("Unable to terminate headers");
 		if(this.body != undefined) {
 			if(!this.sock.send(this.body))
 				throw("Unable to send body");
