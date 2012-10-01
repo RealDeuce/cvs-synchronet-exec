@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.16 2012/09/11 19:23:05 mcmlxxix Exp $ */
+/* $Id: http.js,v 1.17 2012/10/01 20:29:27 echicken Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -30,7 +30,7 @@ function HTTPRequest(username,password)
 		this.request_headers.push("Connection: close");
 		if(js.global.client != undefined)
 			this.request_headers.push(
-				"Via: "+client.protocol.toLowerCase()+"/1.0 "+system.name);
+				"Via: "+client.protocol.toString().toLowerCase()+"/1.0 "+system.name);
 		// Request Headers
 		this.request_headers.push("Accept: text/*");
 		this.request_headers.push(
