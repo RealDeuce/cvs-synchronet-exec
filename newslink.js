@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.98 2012/07/18 14:58:35 deuce Exp $
+// $Id: newslink.js,v 1.99 2012/10/19 05:29:23 deuce Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.98 $".split(' ')[1];
+const REVISION = "$Revision: 1.99 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -894,7 +894,7 @@ for(i in area) {
 			body += tearline;
 		if(flags.indexOf('m')>=0)
 			hdr.attr |= MSG_MODERATED;
-		if(msgbase.save_msg(hdr,body)) {
+		if(msgbase.save_msg(hdr.body)) {
 			imported++;
 			subimported++;
 			printf("Message %lu imported into %s (%lu of %lu total) %lu lines\r\n"
