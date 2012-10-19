@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.100 2012/10/19 05:34:30 deuce Exp $
+// $Id: newslink.js,v 1.101 2012/10/19 07:07:13 deuce Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.100 $".split(' ')[1];
+const REVISION = "$Revision: 1.101 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -774,10 +774,10 @@ for(i in area) {
 		for(h in hfields)
 			parse_news_header(hdr,hfields[h]);	// from newsutil.js
 
-		if(hdr["nntp-posting-host"]!=undefined 
-			&& (system.trashcan("ip", hdr["nntp-posting-host"]) 
-				|| system.trashcan("ip-silent", hdr["nntp-posting-host"]))) {
-			print("!Filtered IP address in NNTP-Posting-Host header field: " + hdr["nntp-posting-host"]);
+		if(hdr.extra_headers["nntp-posting-host"]!=undefined 
+			&& (system.trashcan("ip", hdr.extra_headers["nntp-posting-host"]) 
+				|| system.trashcan("ip-silent", hdr.extra_headers["nntp-posting-host"]))) {
+			print("!Filtered IP address in NNTP-Posting-Host header field: " + hdr.extra_headers["nntp-posting-host"]);
 			subpending--;
 			continue;
 		}
