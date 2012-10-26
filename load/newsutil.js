@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.23 2012/10/19 07:07:32 deuce Exp $
+// $Id: newsutil.js,v 1.24 2012/10/26 20:49:22 deuce Exp $
 
 if(!js.global || js.global.mail_get_name==undefined)
 	load("mailutil.js");
@@ -165,7 +165,9 @@ function parse_news_header(hdr, line)
 
 		default:
 			if(hdr.field_list==undefined)
-				hdr.field_list=new Array();
+				hdr.field_list=[];
+			if(hdr.extra_headers==undefined)
+				hdr.extra_headers=[];
 			hdr.extra_headers[line.toLowerCase()]=
 				{	type: RFC822HEADER, 
 					get data() { return(this.hdr_name+': '+this.hdr_data); },
