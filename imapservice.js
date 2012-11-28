@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.28 2010/08/25 23:42:45 deuce Exp $
+ * $Id: imapservice.js,v 1.29 2012/11/28 22:54:01 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -1535,7 +1535,7 @@ function parse_date(date)
 	if(match==null)
 		return(0);
 	d=parseInt(match[1],10);
-	m={Jan:1,Feb:2,Mar:3,Apr:4,May:5,Jun:6,Jul:7,Aug:8,Sep:9,Oct:10,Nov:11,Dec:12}[match[2]];
+	m={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11}[match[2]];
 	y=parseInt(match[3],10);
 	if(m==undefined)
 		return(0);
