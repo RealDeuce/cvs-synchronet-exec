@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.34 2012/12/01 20:03:53 deuce Exp $
+ * $Id: imapservice.js,v 1.35 2012/12/01 20:08:47 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -2009,7 +2009,7 @@ function read_cfg(sub)
 			if(secs[sec].search(/\.seen$/)!=-1) {
 				if(saved_config[secs[sec]]==undefined)
 					saved_config[secs[sec]]={};
-				saved_config[secs[sec]].Seen=cfg.iniGetObject(secs[sec]+'.seen');
+				saved_config[secs[sec]].Seen=cfg.iniGetObject(secs[sec]);
 				if(saved_config[secs[sec]].Seen==null)
 					saved_config[secs[sec]].Seen={};
 				continue;
