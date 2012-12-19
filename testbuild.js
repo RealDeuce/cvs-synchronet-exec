@@ -2,7 +2,7 @@
 
 /* JSexec script for nightly Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.28 2011/11/11 07:38:31 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.29 2012/12/19 11:17:52 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
@@ -184,7 +184,7 @@ for(i in builds) {
 body += "-----\n";
 body += elapsed_time(time()-start) + " - total\n";
 
-send_email(system.platform + " builds successful", lfexpand(body));
+send_email(system.platform + " builds successful in " + elapsed_time(time() - start), lfexpand(body));
 
 chdir(temp_dir);
 
