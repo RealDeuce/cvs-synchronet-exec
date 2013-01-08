@@ -1,6 +1,6 @@
 // webInit.ssjs, by echicken -at- bbs.electronicchicken.com
 
-// $Id: webInit.ssjs,v 1.12 2012/12/23 12:22:47 rswindell Exp $
+// $Id: webInit.ssjs,v 1.13 2013/01/08 05:35:06 echicken Exp $
 
 // Some bootstrapping stuff for the web interface, kept in exec/load/ so that
 // other scripts can find it.  Could/should be moved to /sbbs/web/lib.
@@ -29,7 +29,7 @@ var webIni=(function() {
 		login(u.alias, u.security.password);
 	}
 	
-	var webIni = get_mod_options("ecWeb");
+	var webIni = get_mod_options("ecweb");
 	
 	var f = new File(file_cfgname(system.ctrl_dir,'sbbs.ini'));
 	f.open("r");
