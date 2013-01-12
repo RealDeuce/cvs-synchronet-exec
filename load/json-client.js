@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.18 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.19 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -90,6 +90,9 @@ function JSONClient(serverAddr,serverPort) {
 	
 	/* create new socket connection to server */
     this.connect = function() {
+		if(this.socket && this.socket.is_connected)
+			this.socket.close();
+			
         this.socket=new Socket();
 		this.socket.connect(this.serverAddr,this.serverPort,this.settings.CONNECTION_TIMEOUT);
 		
@@ -198,7 +201,7 @@ function JSONClient(serverAddr,serverPort) {
 	}
 	
 	/* read object keys and key types (lock for reading or writing, blocking) */
-	this.keys=function(scope,location,lock) {
+	this.keyTypes=function(scope,location,lock) {
 		this.send(scope,"QUERY",{
             oper:"KEYTYPES",
             location:location,
