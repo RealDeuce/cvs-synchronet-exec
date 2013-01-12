@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.20 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.21 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -102,11 +102,7 @@ function JSONClient(serverAddr,serverPort) {
     }
     
     this.disconnect = function() {
-		if(this.socket && this.socket.is_connected) {
-			this.socket.close();
-			return true;
-		}
-		return false;
+	return this.socket.close();
     }
     
 	/* subscribe to object updates */
