@@ -77,7 +77,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.18 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.19 $".replace(/\$/g,'').split(' ')[1];
 	this.online = true;
 	this.sockets = [];
 	this.denyhosts = [];
@@ -437,7 +437,7 @@ engine = new (function() {
 		var handled = false;
 		
 		/* pass command to module method if it exists */
-		if(module.commands[packet.func.toUpperCase()])
+		if(module.commands && module.commands[packet.func.toUpperCase()])
 			handled = module.commands[packet.func.toUpperCase()](client,packet);
 	
 		if(handled)
