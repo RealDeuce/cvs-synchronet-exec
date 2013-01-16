@@ -77,7 +77,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.19 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.20 $".replace(/\$/g,'').split(' ')[1];
 	this.online = true;
 	this.sockets = [];
 	this.denyhosts = [];
@@ -542,6 +542,7 @@ engine = new (function() {
 		this.name = name;
 		this.dir = dir;
 		this.queue = undefined;
+		this.commands = {};
 		this.auth = auth;
 		this.db;
 		
@@ -558,7 +559,7 @@ engine = new (function() {
 			/* load module command file */
 			if(file_exists(this.dir + "commands.js")) {
 				try {
-					this.queue = load(this,this.dir + "commands.js",this.dir);
+					load(this.commands,this.dir + "commands.js",this.dir);
 				} catch(e) {
 					log(LOG_ERROR,"error loading module commands: " + this.name);
 				}
