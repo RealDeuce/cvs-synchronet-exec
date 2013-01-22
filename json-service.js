@@ -59,9 +59,12 @@ if(js.global.server==undefined) {
  * */
 
 /* service module initialization file */
-var serviceIniFile = system.ctrl_dir + argv[0];
-if(serviceIniFile == undefined)
+var serviceIniFile;
+if(file_exists(system.ctrl_dir + argv[0]))
+	serviceIniFile = system.ctrl_dir + argv[0];
+else
 	serviceIniFile = system.ctrl_dir + "json-service.ini";
+	
  
 /* error values */
 var errors = {
@@ -79,7 +82,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.21 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.22 $".replace(/\$/g,'').split(' ')[1];
 	this.online = true;
 	this.sockets = [];
 	this.denyhosts = [];
