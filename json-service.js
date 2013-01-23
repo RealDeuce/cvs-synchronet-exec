@@ -2,15 +2,6 @@ load("event-timer.js");
 load("json-sock.js");
 load("json-db.js");
 
-// Running from jsexec presumably...
-if(js.global.server==undefined) {
-	load("sockdefs.js");
-	server={};
-	server.socket=new Socket(SOCK_STREAM, 'JSONDB');
-	server.socket.bind(10088,'127.0.0.1');
-	server.socket.listen();
-}
-
 /**** SERVICE MODULES
  * 
  * 	main service (socket service)
@@ -58,14 +49,27 @@ if(js.global.server==undefined) {
  * 
  * */
 
+/* Running from jsexec presumably... */
+if(js.global.server==undefined) {
+	load("sockdefs.js");
+	server={};
+	server.socket=new Socket(SOCK_STREAM, 'JSONDB');
+	server.socket.bind(10088,'127.0.0.1');
+	server.socket.listen();
+}
+
 /* service module initialization file */
 var serviceIniFile;
-if(file_exists(system.ctrl_dir + argv[0]))
-	serviceIniFile = system.ctrl_dir + argv[0];
-else
+if(argv[0] != undefined) {
+	if(file_exists(system.ctrl_dir + argv[0]))
+		serviceIniFile = system.ctrl_dir + argv[0];
+	else 
+		throw("service initialization file missing: " + system.ctrl_dir + argv[0]);
+}
+else {
 	serviceIniFile = system.ctrl_dir + "json-service.ini";
+}
 	
- 
 /* error values */
 var errors = {
 	UNKNOWN_MODULE:"Unknown module: %s",
@@ -82,7 +86,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.22 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.23 $".replace(/\$/g,'').split(' ')[1];
 	this.online = true;
 	this.sockets = [];
 	this.denyhosts = [];
