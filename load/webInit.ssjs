@@ -1,6 +1,6 @@
 // webInit.ssjs, by echicken -at- bbs.electronicchicken.com
 
-// $Id: webInit.ssjs,v 1.13 2013/01/08 05:35:06 echicken Exp $
+// $Id: webInit.ssjs,v 1.14 2013/01/24 21:29:39 echicken Exp $
 
 // Some bootstrapping stuff for the web interface, kept in exec/load/ so that
 // other scripts can find it.  Could/should be moved to /sbbs/web/lib.
@@ -25,7 +25,7 @@ var webIni=(function() {
 
 	function setLoginCookie(u, sessionKey)
 	{
-		set_cookie('synchronet', u.number.toString() + ',' + sessionKey, time() + webIni.sessionTimeout, http_request.host, "/");
+		set_cookie('synchronet', u.number.toString() + ',' + sessionKey, time() + webIni.sessionTimeout, http_request.host.replace(/\:d*/g, ""), "/");
 		login(u.alias, u.security.password);
 	}
 	
