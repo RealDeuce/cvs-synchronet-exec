@@ -1,6 +1,6 @@
 //load("synchronet-json.js");
 /* socket mod version */
-Socket.prototype.VERSION = "$Revision: 1.14 $".replace(/\$/g,'').split(' ')[1];
+Socket.prototype.VERSION = "$Revision: 1.15 $".replace(/\$/g,'').split(' ')[1];
 /* round trip packet time */
 Socket.prototype.latency = 0;
 /* one way (latency / 2) */
@@ -20,10 +20,12 @@ Socket.prototype.sendJSON = function(object) {
 		var oldnb = this.nonblocking;
 		var data=JSON.stringify(object,this.replacer,this.space)+"\r\n";
 		this.nonblocking = false;
-		if(!this.send(data))
+		if(!this.send(data)) {
 			log(LOG_ERROR,"send failed ("+this.error+"): " + data);
-		if(this.debug_logging)
+		}
+		else if(this.debug_logging) {
 			log(LOG_DEBUG,"-->" + this.descriptor + ": " + data);
+		}
 		this.nonblocking=oldnb;
 	} catch(e) {
 		log(LOG_ERROR,e);
