@@ -1,6 +1,6 @@
 //load("synchronet-json.js");
 /* socket mod version */
-Socket.prototype.VERSION = "$Revision: 1.13 $".replace(/\$/g,'').split(' ')[1];
+Socket.prototype.VERSION = "$Revision: 1.14 $".replace(/\$/g,'').split(' ')[1];
 /* round trip packet time */
 Socket.prototype.latency = 0;
 /* one way (latency / 2) */
@@ -11,6 +11,8 @@ Socket.prototype.max_recv = 131072;
 Socket.prototype.recv_wait = 30;
 /* last ping sent */
 Socket.prototype.ping_sent = 0;
+/* debug logging */
+Socket.prototype.debug_logging = false;
 
 /* socket prototype to automatically encode JSON data */
 Socket.prototype.sendJSON = function(object) {
@@ -20,7 +22,8 @@ Socket.prototype.sendJSON = function(object) {
 		this.nonblocking = false;
 		if(!this.send(data))
 			log(LOG_ERROR,"send failed ("+this.error+"): " + data);
-		log(LOG_DEBUG,"-->" + this.descriptor + ": " + data);
+		if(this.debug_logging)
+			log(LOG_DEBUG,"-->" + this.descriptor + ": " + data);
 		this.nonblocking=oldnb;
 	} catch(e) {
 		log(LOG_ERROR,e);
@@ -31,7 +34,8 @@ Socket.prototype.sendJSON = function(object) {
 Socket.prototype.recvJSON = function() { 
 	var packet=this.recvline(this.max_recv,this.recv_wait); 
 	if(packet != null) {
-		log(LOG_DEBUG,"<--" + this.descriptor + ": " + packet);
+		if(this.debug_logging)
+			log(LOG_DEBUG,"<--" + this.descriptor + ": " + packet);
 		try {
 			packet=JSON.parse(packet,this.reviver);
 		} 
