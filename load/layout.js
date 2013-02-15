@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.23 2013/02/15 22:00:00 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.24 2013/02/15 22:11:33 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -669,7 +669,7 @@ function LayoutView(title,frame,parent) {
 		}
 		tab_str+=format("%-*s",max_width-console.strlen(tab_str),"");
 		f.home();
-		f.putmsg(left_arrow + tab_str + right_arrow);
+		f.putmsg(left_arrow + "\1n" + tab_str + "\1n" + right_arrow);
 	}
 	function setTitle() {
 		frames.title.clear();
