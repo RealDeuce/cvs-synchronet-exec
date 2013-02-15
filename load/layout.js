@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.22 2013/02/01 15:16:09 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.23 2013/02/15 22:00:00 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -533,6 +533,7 @@ function LayoutView(title,frame,parent) {
 			}
 			properties.chat = tab.chat;
 			tab.frame.lf_strict = false;
+			tab.frame.word_wrap = true;
 			tab.hotkeys = false;
 			break;
 		case "FRAME":
@@ -692,7 +693,7 @@ function LayoutView(title,frame,parent) {
 /* view tab object, meant to inhabit a layout view.
  * will generally occupy the same space as other view tabs
  * within a given view, cannot be effectively instantiated
- * on its own, but rather through ViewFrame.addTab() */
+ * on its own, but rather through LayoutView.addTab() */
 function ViewTab(title,frame,parent) {
 	/* private properties */
 	var properties={
