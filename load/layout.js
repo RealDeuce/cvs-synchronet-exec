@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.25 2013/02/18 17:18:34 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.26 2013/02/19 13:59:28 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -170,6 +170,29 @@ function Layout(frame) {
 		var v = new LayoutView(title,f,this);
 		properties.views.push(v);
 		return v;
+	}
+	this.delView=function(title_or_index) {
+		var view = false;
+		if(isNaN(title_or_index)) {
+			for(var v=0;v<properties.views.length;v++) {
+				if(properties.views[v].title.toUpperCase() == title_or_index.toUpperCase()) {
+					view = properties.views[v];
+					properties.views.splice(v,1);
+				}
+			}
+		}
+		else if(properties.views[title_or_index]) {
+			tab = properties.views[title_or_index];
+			properties.views.splice(title_or_index,1);
+		}
+		if(view) {
+			view.frame.delete();
+			while(!properties.views[properties.index] && properties.index > 0)
+				properties.index--;
+			if(this.current)
+				this.current.active=true;
+		}
+		return view;
 	}
 	this.draw=function() {
 		for each(var view in properties.views)
@@ -370,8 +393,9 @@ function LayoutView(title,frame,parent) {
 			if(typeof t.open == "function")
 				t.open();
 		}
-		this.current=0;
 		setViewFrames();
+		this.current=0;
+		this.frame.open();
 		if(typeof this.onOpen == "function") 
 			this.onOpen();
 	}
@@ -426,7 +450,7 @@ function LayoutView(title,frame,parent) {
 		var tab = false;
 		if(isNaN(title_or_index)) {
 			for(var t=0;t<properties.tabs.length;t++) {
-				if(properties.tabs[t].title.toUpperCase() == title.toUpperCase()) {
+				if(properties.tabs[t].title.toUpperCase() == title_or_index.toUpperCase()) {
 					tab = properties.tabs[t];
 					properties.tabs.splice(t,1);
 				}
