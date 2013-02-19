@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.43 2013/02/15 22:00:00 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.44 2013/02/19 13:53:51 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -376,10 +376,13 @@ function Frame(x,y,width,height,attr,parent) {
 		}
 	}
 	this.open = function() {
-		properties.display.open(this);
-		properties.open = true;
-		for each(var c in relations.child) 
+		if(!properties.open) {
+			properties.display.open(this);
+			properties.open = true;
+		}
+		for each(var c in relations.child) {
 			c.open();
+		}
 	}
 	this.refresh = function() {
 		if(properties.open) {
@@ -391,8 +394,10 @@ function Frame(x,y,width,height,attr,parent) {
 	this.close = function() {
 		for each(var c in relations.child) 
 			c.close();
-		properties.display.close(this);
-		properties.open = false;
+		if(properties.open) {
+			properties.display.close(this);
+			properties.open = false;
+		}
 	}
 	this.delete = function(id) {
 		if(id == undefined) {
