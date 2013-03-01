@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.30 2013/03/01 00:17:16 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.31 2013/03/01 19:47:05 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -196,6 +196,8 @@ function Layout(frame) {
 	}
 	this.delView=function(title_or_index) {
 		var view = false;
+		if(title_or_index instanceof LayoutView)
+			title_or_index = title_or_index.title;
 		if(isNaN(title_or_index)) {
 			for(var v=0;v<properties.views.length;v++) {
 				if(properties.views[v].title.toUpperCase() == title_or_index.toUpperCase()) {
@@ -490,6 +492,8 @@ function LayoutView(title,frame,parent) {
 	}
 	this.delTab=function(title_or_index) {
 		var tab = false;
+		if(title_or_index instanceof ViewTab)
+			title_or_index = title_or_index.title;
 		if(isNaN(title_or_index)) {
 			for(var t=0;t<properties.tabs.length;t++) {
 				if(properties.tabs[t].title.toUpperCase() == title_or_index.toUpperCase()) {
