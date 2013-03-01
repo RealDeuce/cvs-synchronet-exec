@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.48 2013/03/01 20:52:39 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.49 2013/03/01 21:15:18 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -884,6 +884,8 @@ function Frame(x,y,width,height,attr,parent) {
 		
 		if(attr)
 			properties.curr_attr = attr;
+		else
+			properties.curr_attr = this.attr;
 		var pos = position.cursor;
 
 		while(str.length > 0) {
