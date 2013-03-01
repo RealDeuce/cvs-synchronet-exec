@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.49 2013/03/01 21:15:18 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.50 2013/03/01 21:27:45 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -874,6 +874,24 @@ function Frame(x,y,width,height,attr,parent) {
 		if(position.cursor.y < this.height-1) 
 			position.cursor.y += 1;
 		else {}
+	}
+	this.write = function(str) {
+		if(str == undefined)
+			return;
+		if(settings.word_wrap) 
+			str = word_wrap(str,this.width);
+		str = str.toString().split('');
+		
+		if(attr)
+			properties.curr_attr = attr;
+		else
+			properties.curr_attr = this.attr;
+		var pos = position.cursor;
+		while(str.length > 0) {
+			var ch = str.shift();
+			putChar.call(this,ch,properties.curr_attr);
+			pos.x++;
+		}
 	}
 	this.putmsg = function(str,attr) {
 		if(str == undefined)
