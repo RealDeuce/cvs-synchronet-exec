@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.45 2013/02/27 20:07:12 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.46 2013/03/01 16:36:39 echicken Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -783,6 +783,8 @@ function Frame(x,y,width,height,attr,parent) {
 				properties.data[y][x] = new Char();
 			}
 			this.refresh();
+		} else {
+			properties.data[y] = [];
 		}
 		return l;
 	}
