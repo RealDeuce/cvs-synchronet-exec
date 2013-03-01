@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.29 2013/02/28 22:12:00 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.30 2013/03/01 00:17:16 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -233,10 +233,20 @@ function Layout(frame) {
 	}
 	
 	/* default command handler for views */
+	this.handleKeyEvent = function(cmd) {
+		if(this.current) {
+			if(this.current.handleKeyEvent(cmd))
+				return true;
+		}
+		if(this.onKeyPress[cmd]) {
+			return this.onKeyPress[cmd]();
+		}
+		return false;
+	}
 	this.getcmd=function(cmd) {
 		if(!cmd) 
 			return false;
-		if(this.onKeyPress[cmd] && this.onKeyPress[cmd]())
+		if(this.handleKeyEvent(cmd))
 			return true;
 		switch(cmd) {
 		case '\x09': 
@@ -502,10 +512,20 @@ function LayoutView(title,frame,parent) {
 		}
 		return tab;
 	}
+	this.handleKeyEvent = function(cmd) {
+		if(this.current) {
+			if(this.current.handleKeyEvent(cmd))
+				return true;
+		}
+		if(this.onKeyPress[cmd]) {
+			return this.onKeyPress[cmd]();
+		}
+		return false;
+	}
 	this.getcmd=function(cmd) {
 		if(!cmd) 
 			return false;
-		if(this.onKeyPress[cmd] && this.onKeyPress[cmd]())
+		if(this.handleKeyEvent(cmd))
 			return true;
 		switch(cmd) {
 		case KEY_LEFT:
@@ -840,6 +860,12 @@ function ViewTab(title,frame,parent) {
 
 	/* default command handler 
 	 * (can be overridden for specialized tabs) */
+	this.handleKeyEvent = function(cmd) {
+		if(this.onKeyPress[cmd]) {
+			return this.onKeyPress[cmd]();
+		}
+		return false;
+	}
 	this.getcmd = function(cmd) {
 		if(!cmd)
 			return false;
