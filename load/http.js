@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.19 2013/03/16 08:17:00 deuce Exp $ */
+/* $Id: http.js,v 1.20 2013/03/16 08:52:19 deuce Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -131,7 +131,7 @@ function HTTPRequest(username,password)
 			len -= ch.length;
 			if(len < 1)
 				len=1024;
-			js.gc();
+			flatten(this.body);
 		}
 	};
 
