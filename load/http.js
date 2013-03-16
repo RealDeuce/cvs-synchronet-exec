@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.18 2012/10/19 08:52:01 deuce Exp $ */
+/* $Id: http.js,v 1.19 2013/03/16 08:17:00 deuce Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -112,18 +112,26 @@ function HTTPRequest(username,password)
 			if(header=='')
 				return;
 			this.response_headers.push(header);
-			m=header.match(/^Content-length:\s+([0-9]+)$/);
+			m=header.match(/^Content-length:\s+([0-9]+)$/i);
 			if(m!=null)
-				this.contentlength=parseInt(m[0]);
+				this.contentlength=parseInt(m[1]);
 		}
 	};
 
 	this.ReadBody=function() {
 		var ch;
+		var lastlen=0;
+		var len=this.contentlength;
+		if(len==undefined)
+			len=1024;
 
 		this.body='';
-		while((ch=this.sock.recv(1))!=null && ch != '') {
-			this.body += ch;
+		while((ch=this.sock.recv(len))!=null && ch != '') {
+			this.body += ch.toString();
+			len -= ch.length;
+			if(len < 1)
+				len=1024;
+			js.gc();
 		}
 	};
 
