@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.52 2013/03/05 18:52:54 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.53 2013/04/17 13:20:40 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -849,8 +849,10 @@ function Frame(x,y,width,height,attr,parent) {
 		if(!properties.data[position.cursor.y])
 			return false;
 		for(var x=0;x<properties.data[position.cursor.y].length;x++) {
-			properties.data[position.cursor.y][x].ch = undefined;
-			properties.data[position.cursor.y][x].attr = attr;
+			if(properties.data[position.cursor.y][x]) {
+				properties.data[position.cursor.y][x].ch = undefined;
+				properties.data[position.cursor.y][x].attr = attr;
+			}
 		}
 		for(var x=0;x<this.width;x++) {
 			properties.display.updateChar(this,x,position.cursor.y);
@@ -863,8 +865,10 @@ function Frame(x,y,width,height,attr,parent) {
 		if(!properties.data[position.cursor.y])
 			return false;
 		for(var x=position.cursor.x;x<properties.data[position.cursor.y].length;x++) {
-			properties.data[position.cursor.y][x].ch = undefined;
-			properties.data[position.cursor.y][x].attr = attr;
+			if(properties.data[position.cursor.y][x]) {
+				properties.data[position.cursor.y][x].ch = undefined;
+				properties.data[position.cursor.y][x].attr = attr;
+			}
 		}
 		for(var x=position.cursor.x;x<this.width;x++) {
 			properties.display.updateChar(this,x,position.cursor.y);
