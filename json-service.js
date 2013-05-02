@@ -113,7 +113,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.25 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.26 $".replace(/\$/g,'').split(' ')[1];
 	this.fileDate = file_date(serviceIniFile);
 	this.online = true;
 	this.sockets = [];
@@ -458,7 +458,7 @@ engine = new (function() {
 		var modules=this.file.iniGetAllObjects();
 		this.file.close();
 		for each(var m in modules) {
-			this.modules[m.name.toUpperCase()]=new Module(m.name,m.dir,m.auth);
+			this.modules[m.name.toUpperCase()]=new Module(m.name,m.dir,m.read,m.write);
 			log(LOG_DEBUG,"loaded module: " + m.name);
 		}
 	}
@@ -573,6 +573,7 @@ engine = new (function() {
 			}
 			break;
 		}
+		log("packet operation: " + packet.oper + " module r/w: " + module.read + "/" + module.write);
 		return true;
 	}
 
@@ -584,13 +585,14 @@ engine = new (function() {
 	}
 
 	/* module data */
-	function Module(name, dir, auth) {
+	function Module(name, dir, read, write) {
 		this.online = true;
 		this.name = name;
 		this.dir = dir;
 		this.queue = undefined;
 		this.commands = {};
-		this.auth = auth;
+		this.read = read;
+		this.write = write;
 		this.db;
 		
 		this.init = function() {
