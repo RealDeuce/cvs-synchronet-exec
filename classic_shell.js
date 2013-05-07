@@ -2,14 +2,15 @@
 
 // Default Command Shell for Synchronet Version 4.00a+
 
-// $Id: classic_shell.js,v 1.15 2009/10/29 22:50:50 rswindell Exp $
+// $Id: classic_shell.js,v 1.16 2013/05/07 03:50:41 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
 //###############################################################################
 //# This shell is an imitation of the Version 1c command set/structure	    	#
 //#									      			           				    #
-//# It also serves as an example of a complex command shell using JavaScript    #
+//# It also serves as an example of how to not write a complex command shell	#
+//# using JavaScript.  Seriously.  Don't look at this.                          #
 //#									      									    #
 //###############################################################################
 
