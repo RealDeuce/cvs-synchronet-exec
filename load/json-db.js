@@ -34,7 +34,7 @@
 */
 
 function JSONdb (fileName, scope) {
-	this.VERSION = "$Revision: 1.36 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.37 $".replace(/\$/g,'').split(' ')[1];
 	
     /* database storage file */
 	if(fileName) 
@@ -498,9 +498,12 @@ function JSONdb (fileName, scope) {
     /* remove a record from the database (requires WRITE_LOCK) */
     this.remove = function(request,record) {
 		var client = request.client;
+		
 		/* if the requested data does not exist, do nothing */
-		if(record.data === undefined) 
+		if(record.data === undefined || !record.data.hasOwnProperty(record.property)) {
 			return true;
+		}
+		
 		/* if this client has this record locked */
 		else if(record.shadow[record.property]._lock[client.id] && 
 			record.shadow[record.property]._lock[client.id].type == locks.WRITE) {

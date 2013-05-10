@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.23 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.24 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -296,7 +296,7 @@ function JSONClient(serverAddr,serverPort) {
         this.send({
 			scope:scope,
 			func:"QUERY",
-			oper:"WRITE",
+			oper:"DELETE",
             location:location,
 			data:undefined,
 			lock:lock,
