@@ -64,7 +64,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.22 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.23 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -185,6 +185,24 @@ function JSONClient(serverAddr,serverPort) {
 		return this.wait();
 	}
 
+	/* array splice method */
+	this.splice=function(scope,location,start,num,data,lock) {
+		this.send({
+			scope:scope,
+			func:"QUERY",
+            oper:"SPLICE",
+            location:location,
+			data:{
+				start:start,
+				num:num,
+				data:data
+			},
+			lock:lock,
+ 			timeout:this.settings.TIMEOUT
+		});
+		return this.wait();
+	}
+	
 	/* read multiple object data (lock for reading or writing, blocking) */
 	/* readmulti([['tw2','sector.1',undefined,'sector'],['tw2','planets.1',undefined,'planet']]); */
 	this.readmulti=function(objects) {
