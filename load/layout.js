@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.31 2013/03/01 19:47:05 mcmlxxix Exp $ */
+/* $Id: layout.js,v 1.32 2013/05/29 15:27:33 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -625,10 +625,10 @@ function LayoutView(title,frame,parent) {
 					var msg = chan.messages.shift();
 					var str = "";
 					if(msg.nick)
-						var str = getColor(this.chat.settings.NICK_COLOR) + msg.nick.name + "\1n: " + 
-						getColor(this.chat.settings.TEXT_COLOR) + msg.str;
+						var str = getColor(this.chat.colors.NICK_COLOR) + msg.nick.name + "\1n: " + 
+						getColor(this.chat.colors.TEXT_COLOR) + msg.str;
 					else
-						var str = getColor(this.chat.settings.NOTICE_COLOR) + msg.str;
+						var str = getColor(this.chat.colors.NOTICE_COLOR) + msg.str;
 					this.frame.putmsg(str + "\r\n");
 				}
 			}
