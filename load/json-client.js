@@ -66,7 +66,7 @@ load("json-sock.js");
 */
 
 function JSONClient(serverAddr,serverPort) {
-	this.VERSION = "$Revision: 1.25 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.26 $".replace(/\$/g,'').split(' ')[1];
 	this.serverAddr=serverAddr;
     if(this.serverAddr==undefined) 
 		throw("no host specified");
@@ -86,6 +86,11 @@ function JSONClient(serverAddr,serverPort) {
     this.socket=undefined; 
 	this.callback;
 	this.updates=[];
+	
+	/* connection state */
+	this.__defineGetter__("connected",function() {
+		return this.socket.is_connected;
+	});
 	
 	/* convert null values to undefined when parsing */
 	Socket.prototype.reviver = function(k,v) { if(v === null) return undefined; return v; };
