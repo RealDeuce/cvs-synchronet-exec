@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.21 2011/03/02 16:59:18 mcmlxxix Exp $
+// $Id: ircbot_functions.js,v 1.22 2013/09/09 02:32:06 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -259,7 +259,8 @@ function get_command_channel(srv,cmd) {
 }
 
 function parse_cmd_prefix(cmd) {
-	cmd[1] = cmd[1].substr(1).toUpperCase();
+	var pre=get_cmd_prefix();
+	cmd[1] = cmd[1].substr(pre.length).toUpperCase();
 	if ((cmd[1] == truncsp(get_cmd_prefix())) 
 		 && cmd[2]) {
 		cmd.shift();
