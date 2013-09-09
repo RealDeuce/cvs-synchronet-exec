@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.33 2013/09/09 02:33:44 deuce Exp $
+// $Id: ircbot_commands.js,v 1.34 2013/09/09 02:37:14 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -644,7 +644,6 @@ Server_Commands["PRIVMSG"] = function (srv,cmd,onick,ouh)	{
 		srv.users[onick.toUpperCase()] = new Server_User(ouh,onick);
 	srv.users[onick.toUpperCase()].last_spoke=time();
 
-log("PARSING: ",cmd);
 	if (cmd[0][0] == "#" || cmd[0][0] == "&") {
 		var chan=srv.channel[cmd[0].toUpperCase()];
 		if(!chan) return;
@@ -656,7 +655,6 @@ log("PARSING: ",cmd);
 		}
 		
 		cmd=parse_cmd_prefix(cmd);
-print("CMD: ",cmd);
 		if(!cmd) return false;
 		
 		if(cmd[0].length == 0) {
