@@ -3,7 +3,7 @@
 // Synchronet External Program Section
 // Menus displayed to users via Telnet/RLogin
 
-// $Id: xtrn_sec.js,v 1.12 2011/08/05 03:16:04 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.13 2013/09/12 07:40:18 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -12,6 +12,9 @@ load("text.js");
 
 if((options=load("modopts.js","xtrn_sec")) == null)
 	options = {multicolumn: true, sort: false};	// default values
+
+if(options.multicolumn == undefined)
+	options.multicolumn = true;
 
 function sort_by_name(a, b)
 { 
@@ -127,6 +130,8 @@ while(bbs.online) {
 			bbs.menu("xtrn/" + prog_list[i].code);
 			console.line_counter=0;
 		}
+		if(options.clear_screen_on_exec)
+			console.clear();
 		bbs.exec_xtrn(prog_list[i].code); 
 
 		if(prog_list[i].settings&XTRN_PAUSE)
