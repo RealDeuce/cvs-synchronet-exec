@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.23 2013/09/13 23:32:18 deuce Exp $
+// $Id: ircbot_functions.js,v 1.24 2013/09/13 23:40:39 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -266,7 +266,7 @@ function parse_cmd_prefix(cmd) {
 		 && cmd[2]) {
 		cmd.shift();
 		cmd.shift();
-	} else if(cmd[1].search(new RegExp(pre+"\b")) == 0) {
+	} else if(cmd[1].search(new RegExp(pre+"\s")) == 0) {
 		cmd.shift();
 		cmd[0] = cmd[0].replace(new RegExp(pre+"\s*"));
 	} else if(pre=="") {
