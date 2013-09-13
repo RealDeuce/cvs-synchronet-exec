@@ -79,6 +79,7 @@ function init(fileName) {
 	serviceIniFileDate = file_date(serviceIniFile);
 	timer = new Timer();
 	timer.addEvent(5000,true,checkUpdate);
+	js.branch_limit=0;
 }
 
 /* main service loop */
@@ -113,7 +114,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.27 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.28 $".replace(/\$/g,'').split(' ')[1];
 	this.fileDate = file_date(serviceIniFile);
 	this.online = true;
 	this.sockets = [];
