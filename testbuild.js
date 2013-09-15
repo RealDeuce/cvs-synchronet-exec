@@ -2,7 +2,7 @@
 
 /* JSexec script for nightly Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.29 2012/12/19 11:17:52 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.30 2013/09/15 08:47:41 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
@@ -92,7 +92,7 @@ var win32_dist
 		"src/sbbs3/ctrl/sbbsctrl.exe",
 		"3rdp/win32.release/mozjs/bin/*.dll",
 		"3rdp/win32.release/nspr/bin/*.dll",
-		"3rdp/win32.release/cryptlib/*.dll"
+		"3rdp/win32.release/cryptlib/bin/*.dll"
 	];
 
 var nix_dist
@@ -294,7 +294,7 @@ function send_email(subject, body)
 
 	var rcpt_list = [
 		{to: "Rob Swindell", to_ext: 1},
-		{to: "Stephen Hurd", to_net_addr: "sysop@nix.synchro.net", to_net_type: NET_INTERNET }
+		{to: "Stephen Hurd", to_net_addr: "deuce@synchro.net", to_net_type: NET_INTERNET }
 		];
 
 	if(!msgbase.save_msg(hdr, body, rcpt_list))
