@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.13 2013/09/30 23:51:04 deuce Exp $
+// $Id: msgutils.js,v 1.14 2013/09/30 23:52:45 deuce Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -380,7 +380,7 @@ function getMessageThreads(sub, max) {
 		max = msgBase.first_msg;
 	else
 		max = msgBase.last_msg - max;
-	if(js.global.get_all_msg_headers !== undefined)
+	if(msgBase.get_all_msg_headers !== undefined)
 		all_headers=msgBase.get_all_msg_headers();
 	else {
 		for(m=max; m <= msgBase.last_msg; m++)
