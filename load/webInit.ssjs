@@ -1,6 +1,6 @@
 // webInit.ssjs, by echicken -at- bbs.electronicchicken.com
 
-// $Id: webInit.ssjs,v 1.16 2013/09/30 04:13:07 deuce Exp $
+// $Id: webInit.ssjs,v 1.17 2013/09/30 04:18:31 deuce Exp $
 
 // Some bootstrapping stuff for the web interface, kept in exec/load/ so that
 // other scripts can find it.  Could/should be moved to /sbbs/web/lib.
@@ -34,6 +34,18 @@ var webIni=(function() {
 	var webIni = get_mod_options("ecweb");
 	if(webIni==null)
 		webIni={};
+	if(webIni.RootDirectory==undefined)
+		webIni.RootDirectory='../web/root/ecwebv3';
+	if(webIni.WebGuest==undefined)
+		webIni.WebGuest='Guest';
+	if(webIni.appendURL==undefined)
+		webIni.appendURL='/ecwebv3/';
+	if(webIni.sessionTimeout==undefined)
+		webIni.sessionTimeout=43200;
+	if(webIni.captchaLength==undefined)
+		webIni.captchaLength=5;
+	if(webIni.maxMessages==undefined)
+		webIni.maxMessages=0;
 	
 	var f = new File(file_cfgname(system.ctrl_dir,'sbbs.ini'));
 	f.open("r");
