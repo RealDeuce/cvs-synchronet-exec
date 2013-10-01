@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.18 2013/10/01 00:39:18 deuce Exp $
+// $Id: msgutils.js,v 1.19 2013/10/01 00:40:38 deuce Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -441,6 +441,7 @@ function getMessageThreads(sub, max) {
 			threads.dates.push(header.when_written_time);
 			threads.thread[new_thread] = {
 				dateIndex : threads.dates.length - 1,
+				messages : [],
 			}
 			add_to_thread(header, threads.thread[new_thread]);
 		}
