@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.22 2013/10/01 01:00:54 deuce Exp $
+// $Id: msgutils.js,v 1.23 2013/10/01 01:52:55 deuce Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -369,7 +369,6 @@ function getMessageThreads(sub, max) {
 	var subject;
 	var msgBase = new MsgBase(sub);
 	var header_num={};
-	var all_headers=[];
 	var m;
 	var new_thread;
 
@@ -381,10 +380,12 @@ function getMessageThreads(sub, max) {
 	else
 		max = msgBase.last_msg - max;
 	if(msgBase.get_all_msg_headers !== undefined && max <= msgBase.first_msg)
-		all_headers=msgBase.get_all_msg_headers();
+		header_num=msgBase.get_all_msg_headers();
 	else {
-		for(m=max; m <= msgBase.last_msg; m++)
-			all_headers.push(msgBase.get_msg_header(m));
+		for(m=max; m <= msgBase.last_msg; m++) {
+			header=msgBase.get_msg_header(m);
+			header_num[header.num]=header;
+		}
 	}
 
 	function add_to_thread(header, thread)
@@ -394,8 +395,8 @@ function getMessageThreads(sub, max) {
 		thread.messages.push(header);
 	}
 
-	for(m in all_headers) {
-		header = all_headers[m];
+	for(m in header_num) {
+		header = header_num[m];
 		if(
 			header === null
 			||
