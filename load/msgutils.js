@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.16 2013/10/01 00:26:04 deuce Exp $
+// $Id: msgutils.js,v 1.17 2013/10/01 00:26:53 deuce Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -427,22 +427,6 @@ function getMessageThreads(sub, max) {
 						tbHeader.ec_thread.messages.push(header);
 						threadedMessages.push(header.number);
 						header.ec_thread=tbHeader.ec_thread;
-					}
-					else {
-						// Heh - yeah, this part still sucks
-						outer:
-						for(var t in threads.thread) {
-							for(var mm in threads.thread[t].messages) {
-								if(threads.thread[t].messages[mm].number != tbHeader.number)
-									continue;
-								header.ec_thread = threads.thread[t];
-								threads.thread[t].newest = header.when_written_time;
-								threads.dates[threads.thread[t].dateIndex] = header.when_written_time;
-								threads.thread[t].messages.push(header);
-								threadedMessages.push(header.number);
-								break outer;
-							}
-						}
 					}
 				}
 			}			
