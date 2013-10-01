@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.15 2013/09/30 23:53:46 deuce Exp $
+// $Id: msgutils.js,v 1.16 2013/10/01 00:26:04 deuce Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -476,11 +476,13 @@ function getMessageThreads(sub, max) {
 	
 	threads.dates.sort(function (a,b) {return b - a});
 	for(var d = 0; d < threads.dates.length; d++) {
-		for(var t in threads.thread) {
-			if(threads.thread[t].newest != threads.dates[d])
-				continue;
-			threads.order.push(t);
-			break;
+		if(threads.dates[d] !== threads.dates[d+1]) {
+			for(var t in threads.thread) {
+				if(threads.thread[t].newest != threads.dates[d])
+					continue;
+				threads.order.push(t);
+				break;
+			}
 		}
 	}
 	log(LOG_INFO, "Messages threaded in " + (system.timer - stime) + " seconds.");
