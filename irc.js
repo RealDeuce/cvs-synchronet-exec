@@ -3,14 +3,14 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.47 2013/09/08 07:24:44 deuce Exp $
+// $Id: irc.js,v 1.48 2013/10/02 22:12:58 deuce Exp $
 
 // disable auto-termination.
 var old_auto_terminate=js.auto_terminate;
 js.on_exit("js.auto_terminate=old_auto_terminate");
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.47 $".split(' ')[1];
+const REVISION = "$Revision: 1.48 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -807,8 +807,8 @@ function handle_ctcp(prefix,message)  {
 		case "TIME":
 			from_nick=get_highlighted_nick(prefix,message);
 			to_nick=get_nick(prefix);
-			sock.send("NOTICE "+to_nick+" :\x01TIME "+strftime("%A, %B %d, %I:%M:%S%p, %G %Z",time())+"\x01\r\n");
-			screen.print_line(">"+from_nick+"<"+" CTCP TIME Reply: "+strftime("%A, %B %d, %I:%M:%S%p, %G %Z",time() ));
+			sock.send("NOTICE "+to_nick+" :\x01TIME "+strftime("%A, %B %d, %I:%M:%S%p, %Y %Z",time())+"\x01\r\n");
+			screen.print_line(">"+from_nick+"<"+" CTCP TIME Reply: "+strftime("%A, %B %d, %I:%M:%S%p, %Y %Z",time() ));
 			break;
 	}
 }
