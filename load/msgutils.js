@@ -1,4 +1,4 @@
-// $Id: msgutils.js,v 1.23 2013/10/01 01:52:55 deuce Exp $
+// $Id: msgutils.js,v 1.24 2013/10/02 15:19:38 deuce Exp $
 
 if(!js.global || js.global.HIGH==undefined)
 	load("sbbsdefs.js");
@@ -81,9 +81,9 @@ function attr_to_ansi(atr, curatr)
 				break;
 		}
 	}
-	if(str.length==2)
+	if(str.length<=2)
 		return('');
-	str=str.substr(-1)+'m';
+	str=str.substr(0, -1)+'m';
 	return(str);
 }
 
