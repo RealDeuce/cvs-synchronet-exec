@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.21 2011/07/16 07:50:22 rswindell Exp $
+// $Id: logon.js,v 1.22 2013/10/15 13:16:04 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -91,8 +91,8 @@ if(file_exists(system.text_dir + "menu/logon" + user.security.level + ".*"))
 	bbs.menu("logon" + user.security.level);
 
 // Print successively numbered logon screens (logon, logon1, logon2, etc.)
-for(i=0;;i++) {
-	fname="logon";
+for(var i=0;;i++) {
+	var fname="logon";
 	if(i)
 		fname+=i;
 	if(!file_exists(system.text_dir + "menu/" + fname + ".*")) {
