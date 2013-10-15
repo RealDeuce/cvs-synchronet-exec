@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.110 2010/03/08 23:53:03 deuce Exp $
+// $Id: lbshell.js,v 1.111 2013/10/15 13:12:15 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -2389,7 +2389,7 @@ function cleararea(xpos,ypos,width,height,eol_allowed)
 		var bgx;
 		var bgy;
 		var bgw;
-		var bbh;
+		var bgh;
 		var bgxo;
 		var bgyo;
 		var between;
