@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.24 2012/10/26 20:49:22 deuce Exp $
+// $Id: newsutil.js,v 1.25 2013/10/23 07:53:05 rswindell Exp $
 
 if(!js.global || js.global.mail_get_name==undefined)
 	load("mailutil.js");
@@ -194,9 +194,9 @@ function parse_news_header(hdr, line)
  */
 function decode_news_body(hdr, body)
 {
-	if(hdr["content-transfer-encoding"]===undefined)
+	if(hdr.extra_headers==undefined || hdr.extra_headers["content-transfer-encoding"]===undefined)
 		return(body);
-	switch(hdr["content-transfer-encoding"].hdr_data.toLowerCase()) {
+	switch(hdr.extra_headers["content-transfer-encoding"].toLowerCase()) {
 		case '7bit':
 		case '8bit':
 		case 'binary':
@@ -210,13 +210,13 @@ function decode_news_body(hdr, body)
 
 			/* Collapse =XX encoded bytes */
 			body=body.replace(/=([0-9A-F][0-9A-F])/g,function(str, p1) { return(ascii(parseInt(p1,16))); });
-			hdr["content-transfer-encoding"].hdr_data='8bit';
+			hdr.extra_headers["content-transfer-encoding"].hdr_data='8bit';
 			break;
 		case 'base64':
 			/* Remove non-base64 bytes */
 			body=body.replace(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+\/=]/g,'');
 			body=base64_decode(body);
-			hdr["content-transfer-encoding"].hdr_data='8bit';
+			hdr.extra_headers["content-transfer-encoding"].hdr_data='8bit';
 			break;
 	}
 	return(body);
