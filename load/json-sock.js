@@ -1,6 +1,6 @@
 //load("synchronet-json.js");
 /* socket mod version */
-Socket.prototype.VERSION = "$Revision: 1.16 $".replace(/\$/g,'').split(' ')[1];
+Socket.prototype.VERSION = "$Revision: 1.17 $".replace(/\$/g,'').split(' ')[1];
 /* round trip packet time */
 Socket.prototype.latency = 0;
 /* one way (latency / 2) */
@@ -41,18 +41,24 @@ Socket.prototype.recvJSON = function() {
 		try {
 			packet=JSON.parse(packet,this.reviver);
 			if(packet.scope && packet.scope.toUpperCase() == "SOCKET") {
-				this.pingIn(packet);
-				this.pingOut("PONG");
-				packet = null;
+				this.process(packet);
 			}
 		} 
 		catch(e) {
 			log(LOG_ERROR,e);
-			packet = null;
 		}
 	}
 	return packet;
 };
+
+Socket.prototype.process = function(packet) {
+	if(packet.func && packet.func.toUpperCase() == "PONG") {
+		this.pingIn(packet);
+	}
+	else if(packet.func && packet.func.toUpperCase() == "PING") {
+		this.pingOut("PONG");
+	}
+}
 
 /* ping pong */		
 Socket.prototype.pingOut = function(func) {
