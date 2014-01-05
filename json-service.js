@@ -1,3 +1,5 @@
+/* $Id: json-service.js,v 1.29 2014/01/05 10:41:43 rswindell Exp $ */
+
 load("event-timer.js");
 load("json-sock.js");
 load("json-db.js");
@@ -114,7 +116,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.28 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.29 $".replace(/\$/g,'').split(' ')[1];
 	this.fileDate = file_date(serviceIniFile);
 	this.online = true;
 	this.sockets = [];
@@ -404,8 +406,6 @@ admin = new (function() {
 			return false;
 		}
 		var usr = new User(usernum);
-		var pass = md5_calc(usr.security.password,true);
-		
 		if(md5_calc(usr.security.password,true) != pw) {
 			error(client,errors.INVALID_PASSWORD);
 			return false;
