@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.41 2014/01/09 08:48:02 deuce Exp $
+ * $Id: imapservice.js,v 1.42 2014/01/09 10:28:08 deuce Exp $
  */
 
 const RFC822HEADER = 0xb0;  // from smbdefs.h
@@ -492,7 +492,7 @@ function send_fetch_response(msgnum, fmat, uid)
 					break;
 				case 'INTERNALDATE':
 					get_header();
-					resp += 'INTERNALDATE '+strftime('"%d-%b-%C%y %H:%M:%S ', hdr.when_imported_time)+format('%+05d" ', hdr.when_imported_zone_offset);
+					resp += 'INTERNALDATE '+strftime('"%d-%b-%Y %H:%M:%S ', hdr.when_imported_time)+format('%+05d" ', hdr.when_imported_zone_offset);
 					break;
 				case 'RFC822.SIZE':
 					get_rfc822_size();
@@ -1579,7 +1579,7 @@ function do_store(seq, uid, item, data)
 
 function datestr(date)
 {
-	return(strftime('%d-%b-%C%y', date));
+	return(strftime('%d-%b-%Y', date));
 }
 
 function parse_date(date)
