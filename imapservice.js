@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.40 2013/07/03 22:11:40 cyan Exp $
+ * $Id: imapservice.js,v 1.41 2014/01/09 08:48:02 deuce Exp $
  */
 
 const RFC822HEADER = 0xb0;  // from smbdefs.h
@@ -50,7 +50,7 @@ function encode_string(str)
 		return('""');
 
 	if(str.search(/[\r\n\x80-\xff]/)==-1) {
-		str=str.replace(/[\\\"]/, "\\$1");
+		str=str.replace(/([\\\"])/g, "\\$1");
 		return '"'+str+'"';
 	}
 
