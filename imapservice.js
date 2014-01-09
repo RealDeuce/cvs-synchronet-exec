@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.42 2014/01/09 10:28:08 deuce Exp $
+ * $Id: imapservice.js,v 1.43 2014/01/09 10:53:50 deuce Exp $
  */
 
 const RFC822HEADER = 0xb0;  // from smbdefs.h
@@ -1085,12 +1085,12 @@ function sublist(group, match, subscribed)
 
 	for(grp in msg_area.grp_list) {
 		if(re.test(msg_area.grp_list[grp].description))
-			ret.push(msg_area.grp_list[grp].description+sepchar);
+			ret.push((msg_area.grp_list[grp].description+sepchar).replace(/&/g,'&-'));
 
 		for(sub in msg_area.grp_list[grp].sub_list) {
 			if(re.test(msg_area.grp_list[grp].description+sepchar+msg_area.grp_list[grp].sub_list[sub].description)) {
 				if((!subscribed) || (msg_area.grp_list[grp].sub_list[sub].scan_cfg&SCAN_CFG_NEW && (!(msg_area.grp_list[grp].sub_list[sub].scan_cfg&SCAN_CFG_YONLY))))
-					ret.push(msg_area.grp_list[grp].description+sepchar+msg_area.grp_list[grp].sub_list[sub].description);
+					ret.push((msg_area.grp_list[grp].description+sepchar+msg_area.grp_list[grp].sub_list[sub].description).replace(/&/g,'&-');
 			}
 		}
 	}
@@ -1104,6 +1104,7 @@ function getsub(longname) {
 
 	if(longname=='INBOX')
 		return("mail");
+	longname = longname.replace(/&-/g,'&');
 	components=longname.split(sepchar);
 	for(grp in msg_area.grp_list) {
 		if(msg_area.grp_list[grp].description==components[0]) {
