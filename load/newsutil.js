@@ -3,11 +3,12 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.26 2013/10/26 17:40:05 deuce Exp $
+// $Id: newsutil.js,v 1.27 2014/01/10 06:38:41 rswindell Exp $
 
 if(!js.global || js.global.mail_get_name==undefined)
 	load("mailutil.js");
 
+FIDOCTRL     = 0xa0     // from smbdefs.h
 RFC822HEADER = 0xb0	// from smbdefs.h
 
 function write_news_header(hdr,writeln)
@@ -52,12 +53,14 @@ function write_news_header(hdr,writeln)
 	var content_type;
 
 	if(hdr.field_list!=undefined) {
-		for(i in hdr.field_list) 
+		for(i in hdr.field_list) {
 			if(hdr.field_list[i].type==RFC822HEADER) {
 				if(hdr.field_list[i].data.toLowerCase().indexOf("content-type:")==0)
 					content_type = hdr.field_list[i].data;
 				writeln(hdr.field_list[i].data);
-			}
+			} else if(hdr.field_list[i].type==FIDOCTRL)
+				writeln("X-FTN-Kludge: " + hdr.field_list[i].data);
+		}
 	}
 	if(content_type==undefined) {
 		/* No content-type specified, so assume IBM code-page 437 (full ex-ASCII) */
