@@ -1,4 +1,4 @@
-// $Id: ircbot.js,v 1.29 2012/06/19 08:24:08 deuce Exp $
+// $Id: ircbot.js,v 1.30 2014/01/10 01:00:07 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -190,7 +190,7 @@ function init_users() {
 			while (uid_str[0] == "0") {
 				uid_str = uid_str.slice(1);
 			}
-			printf("***Reading: " + us_file.name + "\r\n");
+			log("***Reading: " + us_file.name + "\r\n");
 			var read_Masks = us_file.iniGetValue(null, "masks");
 			if (read_Masks)
 				Masks[parseInt(uid_str)] = read_Masks.split(",");
