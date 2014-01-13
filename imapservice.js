@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.47 2014/01/12 00:15:11 deuce Exp $
+ * $Id: imapservice.js,v 1.48 2014/01/13 08:46:00 deuce Exp $
  */
 
 const RFC822HEADER = 0xb0;  // from smbdefs.h
@@ -187,13 +187,13 @@ function debug_log(line, rx)
 function tagged(tag, msg, desc)
 {
 	client.socket.send(tag+" "+msg+" "+desc+"\r\n");
-	debug_log("IMAP Send: "+tag+" "+msg+" "+desc, false);
+	debug_log("Send: "+tag+" "+msg+" "+desc, false);
 }
 
 function untagged(msg)
 {
 	client.socket.send("* "+msg+"\r\n");
-	debug_log("IMAP Send: * "+msg, false);
+	debug_log("Send: * "+msg, false);
 }
 
 
@@ -2059,7 +2059,7 @@ client.socket.send("* OK Give 'er\r\n");
 while(1) {
 	line=client.socket.recvline(10240, 1800);
 	if(line != null) {
-		debug_log("IMAP RECV: "+line, true);
+		debug_log("RECV: "+line, true);
 		parse_command(line);
 	}
 	else {
