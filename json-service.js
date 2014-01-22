@@ -1,4 +1,4 @@
-/* $Id: json-service.js,v 1.29 2014/01/05 10:41:43 rswindell Exp $ */
+/* $Id: json-service.js,v 1.30 2014/01/22 17:22:46 mcmlxxix Exp $ */
 
 load("event-timer.js");
 load("json-sock.js");
@@ -116,7 +116,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.29 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.30 $".replace(/\$/g,'').split(' ')[1];
 	this.fileDate = file_date(serviceIniFile);
 	this.online = true;
 	this.sockets = [];
@@ -257,7 +257,7 @@ service = new (function() {
 
 /* chat handler */
 chat = new (function() {
-	this.db = new JSONdb(system.data_dir+"chat.json");
+	this.db = new JSONdb(system.data_dir+"chat.json","CHAT");
 	this.authenticated = [];
 	this.deny_hosts = [];
 	
