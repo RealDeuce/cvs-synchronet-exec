@@ -1,4 +1,4 @@
-/* $Id: layout.js,v 1.33 2013/12/25 06:13:50 echicken Exp $ */
+/* $Id: layout.js,v 1.34 2014/02/02 19:50:08 mcmlxxix Exp $ */
 /* Window-style layout library for Synchronet 3.15+ 
  * 
  * NOTE: frame.js is required to use this library
@@ -255,6 +255,10 @@ function Layout(frame) {
 			if(properties.views.length > 1) 
 				nextView();
 			return true;
+		case '\x0f':
+			if(properties.views.length > 1)
+				previousView();
+			return true;
 		default:
 			if(properties.views.length > 0)
 				return properties.views[properties.index].getcmd(cmd);
@@ -280,6 +284,19 @@ function Layout(frame) {
 				break;
 			}
 			properties.index++;
+		}
+	}
+	function previousView() {
+		var start = properties.index--;
+		while(start !== properties.index) {
+			if(properties.index < 0)
+				properties.index = properties.views.length-1;
+			if(properties.views[properties.index].can_focus) {
+				properties.views[start].active = false;
+				properties.views[properties.index].active = true;
+				break;
+			}
+			properties.index--;
 		}
 	}
 	function init(frame) {
