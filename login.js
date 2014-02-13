@@ -2,7 +2,7 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.7 2011/08/05 05:30:51 rswindell Exp $
+// $Id: login.js,v 1.8 2014/02/13 01:29:07 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -52,6 +52,7 @@ for(var c=0; c<10; c++) {
 		bbs.logon();
 		exit();
 	}
+	console.clearkeybuffer();	// Clear pending input (e.g. mistyped system password)
 	if(options && options.email_passwords) {
 		var usernum = system.matchuser(str);
 		if(usernum) {
