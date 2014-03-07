@@ -2,7 +2,7 @@
 
 /* Helper functions to get values from sbbs.ini/services.ini for fTelnet */
 
-/* $Id: ftelnethelper.js,v 1.4 2012/08/31 13:32:30 ree Exp $ */
+/* $Id: ftelnethelper.js,v 1.5 2014/03/07 01:33:48 ree Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -151,6 +151,16 @@ function IsRLoginEnabled() {
 function IsSSHEnabled() {
 	GetSBBSIniValues();
 	return (FBBSOptions.indexOf("ALLOW_SSH") !== -1);
+}
+
+function StringToBytes(InLine) {
+	var Result = [];
+
+	for (var i = 0; i < InLine.length; i++) {
+		Result.push(InLine.charCodeAt(i));
+	}
+
+	return Result;
 }
 
 function UsingSecondRLoginName() {
