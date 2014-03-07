@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.18 2012/10/20 20:18:39 rswindell Exp $
+// $Id: newuser.js,v 1.19 2014/03/07 22:11:03 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -11,7 +11,7 @@ options=load("modopts.js","newuser");
 
 qnet=false;
 
-if(bbs.sys_status&SS_RLOGIN)
+if(options && (bbs.sys_status&SS_RLOGIN))
 	options.ask_qnet=false;
 
 console.clear();
