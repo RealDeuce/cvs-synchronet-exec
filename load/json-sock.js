@@ -1,6 +1,6 @@
 //load("synchronet-json.js");
 /* socket mod version */
-Socket.prototype.VERSION = "$Revision: 1.17 $".replace(/\$/g,'').split(' ')[1];
+Socket.prototype.VERSION = "$Revision: 1.18 $".replace(/\$/g,'').split(' ')[1];
 /* round trip packet time */
 Socket.prototype.latency = 0;
 /* one way (latency / 2) */
@@ -12,7 +12,7 @@ Socket.prototype.recv_wait = 30;
 /* last ping sent */
 Socket.prototype.ping_sent = 0;
 /* debug logging */
-Socket.prototype.debug_logging = true;
+Socket.prototype.debug_logging = false;
 
 /* socket prototype to automatically encode JSON data */
 Socket.prototype.sendJSON = function(object) {
