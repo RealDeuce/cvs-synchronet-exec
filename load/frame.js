@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.53 2013/04/17 13:20:40 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.54 2014/06/21 01:28:51 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -1228,7 +1228,7 @@ function Canvas(frame,display) {
 			return undefined;
 		if(xpos >= this.frame.width || ypos >= this.frame.height)
 			return undefined;
-		if(this.frame.transparent && this.frame.getData(xpos,ypos).ch == undefined)
+		if(this.frame.transparent && this.frame.getData(xpos,ypos,true).ch == undefined)
 			return undefined;
 		return true;
 	}
