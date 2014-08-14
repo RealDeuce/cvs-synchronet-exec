@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.36 2014/08/14 16:24:07 cyan Exp $
+// $Id: ircd_unreg.js,v 1.37 2014/08/14 16:42:21 cyan Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.36 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.37 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -48,7 +48,7 @@ function Unregistered_Client(id,socket) {
 	////////// FUNCTIONS
 	// Functions we use to control clients (specific)
 	this.work = Unregistered_Commands;
-	this.JSON_Unregistered_Commands = JSON_Unregistered_Commands;
+//	this.JSON_Unregistered_Commands = JSON_Unregistered_Commands;
 	this.IRC_Unregistered_Commands = IRC_Unregistered_Commands;
 	this.quit = Unregistered_Quit;
 	this.check_timeout = IRCClient_check_timeout;
