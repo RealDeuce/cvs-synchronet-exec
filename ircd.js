@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.165 2014/08/14 16:20:38 cyan Exp $
+// $Id: ircd.js,v 1.166 2014/08/14 16:22:07 cyan Exp $
 //
 // ircd.js
 //
@@ -18,7 +18,7 @@
 // Copyright 2003-2009 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-load("synchronet-json.js");
+//load("synchronet-json.js");
 
 load("sbbsdefs.js");
 load("sockdefs.js");
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.165 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.166 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -158,8 +158,6 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 }
 
 read_config_file();
-
-log("---got past read_config---");
 
 if(this.server==undefined) {		// Running from JSexec?
 	if (!jsexec_revision_detail)
