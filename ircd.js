@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.164 2010/03/15 22:04:04 rswindell Exp $
+// $Id: ircd.js,v 1.165 2014/08/14 16:20:38 cyan Exp $
 //
 // ircd.js
 //
@@ -18,6 +18,8 @@
 // Copyright 2003-2009 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
+load("synchronet-json.js");
+
 load("sbbsdefs.js");
 load("sockdefs.js");
 load("nodedefs.js");
@@ -30,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.164 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.165 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -156,6 +158,8 @@ for (cmdarg=0;cmdarg<argc;cmdarg++) {
 }
 
 read_config_file();
+
+log("---got past read_config---");
 
 if(this.server==undefined) {		// Running from JSexec?
 	if (!jsexec_revision_detail)
@@ -379,7 +383,7 @@ function searchbyserver(servnick) {
 // 9 characters for 'anonymous' users (i.e. not using PASS to authenticate.)
 // hostile characters like !,@,: etc would be bad here :)
 function parse_username(str) {
-	str.replace(/[^\w]/g,"");
+	str = str.replace(/[^\w]/g,"").toLowerCase();
 	if (!str)
 		str = "user"; // nothing? we'll give you something boring.
 	return str.slice(0,9);
