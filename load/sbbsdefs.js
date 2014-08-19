@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.55 2012/03/19 23:32:44 echicken Exp $ */
+/* $Id: sbbsdefs.js,v 1.56 2014/08/19 01:12:56 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -361,7 +361,8 @@ var   UQ_XEDIT		=(1<<15);	/* Ask for external editor					*/
 var   UQ_NODEF		=(1<<16);	/* Don't ask for default settings			*/
 var   UQ_NOCOMMAS	=(1<<17);	/* Do not require commas in location		*/
 var   UQ_NONETMAIL	=(1<<18);	/* Don't ask for e-mail/netmail address		*/
-var   UQ_NOUPRLWR	=(1<<19);	/* Don't force upper/lower case strings		*/
+var   UQ_NOUPRLWR   =(1<<19);   /* Don't force upper/lower case strings		*/
+var   UQ_COLORTERM  =(1<<20);   /* Ask if new user has color terminal	    */
 					    		/********************************************/
 
 							    /********************************************/
