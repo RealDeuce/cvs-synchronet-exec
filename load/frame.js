@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.60 2014/09/04 19:36:34 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.61 2014/09/04 19:56:59 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -911,8 +911,10 @@ function Frame(x,y,width,height,attr,parent) {
 			return;
 		if(settings.word_wrap) {
 			var remainingWidth = this.width - position.cursor.x;
-			str = word_wrap(str,remainingWidth).split('\n');
-			str = str.shift() + '\n' + word_wrap(str.join(''),this.width);
+			if(str.length > remainingWidth) {
+				str = word_wrap(str,remainingWidth).split('\n');
+				str = str.shift() + '\n' + word_wrap(str.join(''),this.width);
+			}
 		}
 		str = str.toString().split('');
 		
