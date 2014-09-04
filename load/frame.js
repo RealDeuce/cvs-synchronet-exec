@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.58 2014/09/04 18:57:49 echicken Exp $ */
+/* $Id: frame.js,v 1.59 2014/09/04 19:19:44 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -909,8 +909,12 @@ function Frame(x,y,width,height,attr,parent) {
 	this.putmsg = function(str,attr) {
 		if(str == undefined)
 			return;
-		if(settings.word_wrap) 
-			str = word_wrap(str,this.width);
+		if(settings.word_wrap) {
+			var breakPoint = this.width - position.cursor.x;
+			var firstChunk = str.substr(0,breakPoint) + "\n";
+			var secondChunk = word_wrap(str.substr(breakPoint),this.width);
+			str = firstChunk + secondChunk;
+		}
 		str = str.toString().split('');
 		
 		if(attr)
