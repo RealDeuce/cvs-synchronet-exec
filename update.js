@@ -1,8 +1,8 @@
-/* $Id: update.js,v 1.1 2010/06/02 02:04:45 rswindell Exp $ */
+/* $Id: update.js,v 1.2 2014/09/17 04:41:26 rswindell Exp $ */
 
 /* Synchronet v3.15 update script (to be executed with jsexec) */
 
-const REVISION = "$Revision: 1.1 $".split(' ')[1];
+const REVISION = "$Revision: 1.2 $".split(' ')[1];
 
 function update_exec_dir()
 {
@@ -22,8 +22,8 @@ function update_exec_dir()
 				printf("!Error %u removing %s\n", errno, f2);
 				return false;
 			}
-		} else if(!file_rename(f2, f2 + ".old")) {
-				printf("!Error %u renaming %s\n", errno, f2);
+		} else if(!file_backup(f2, /* levels: */100, /* rename: */true)) {
+				printf("!Error backing-up %s\n", f2);
 				return false;
 		}
 	}
