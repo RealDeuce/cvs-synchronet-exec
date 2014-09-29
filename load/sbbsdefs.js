@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.56 2014/08/19 01:12:56 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.57 2014/09/29 20:00:17 echicken Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -718,6 +718,9 @@ var WM_NOTOP		=(1<<5);	/* Don't add top because we need top line   */
 var WM_QUOTE		=(1<<6);	/* Quote file available 					*/
 var WM_QWKNET		=(1<<7);	/* Writing QWK NetMail (25 char title)		*/
 var WM_PRIVATE		=(1<<8);	/* Private (for creating MSGINF file)		*/
+var WM_SUBJ_RO		=(1<<9);	/* Subject/title is read-only				*/
+var WM_EDIT			=(1<<10);	/* Editing existing message					*/
+var WM_FORCEFWD		=(1<<11);	/* Force "yes" to ForwardMailQ for email	*/
 								/********************************************/
 
 								/* Values for MsgBase.status */
