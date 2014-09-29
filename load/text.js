@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.10 2013/09/24 09:23:20 rswindell Exp $ */
+/* $Id: text.js,v 1.11 2014/09/29 15:44:45 echicken Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -772,3 +772,4 @@ var CantPostMsg=760;
 var OperatorPrompt=761;
 var AddSubToNewScanQ=762;
 var UnvalidatedWarning=763;
+var StartingNewUserRegistration=764;
