@@ -2,7 +2,7 @@
 
 // Chat Section for any/all Synchronet command shells
 
-// $Id: chat_sec.js,v 1.6 2013/03/14 07:31:09 rswindell Exp $
+// $Id: chat_sec.js,v 1.7 2014/10/30 16:18:32 rswindell Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -36,8 +36,7 @@ while(1) {
 
 	// Update node status
 	bbs.node_action=NODE_CHAT;
-
-	// async
+	bbs.nodesync();
 	write("\r\n\001_\1y\001hChat: \001n");
 
 	switch(cmdkey=console.getkeys("ACDFIJPQRST?\r",K_UPPER)) {
