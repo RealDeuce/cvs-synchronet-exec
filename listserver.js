@@ -2,11 +2,11 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.41 2014/12/10 08:49:48 rswindell Exp $
+// $Id: listserver.js,v 1.42 2014/12/10 09:49:17 rswindell Exp $
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.41 $".split(' ')[1];
+const REVISION = "$Revision: 1.42 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -456,9 +456,9 @@ function process_control_msg(cmd_list)
 				response.body.push("Available commands:");
 				response.body.push("    lists");
                 response.body.push("                                Request a list of mailing lists");
-				response.body.push("    subscribe <list-name> [address]");
+				response.body.push("    subscribe <list-name>" + (use_sender_address ? "":" [address]"));
                 response.body.push("                                Subscribe to specified mailing list (or * for all)");
-				response.body.push("    unsubscribe <list-name> [address]");
+				response.body.push("    unsubscribe <list-name>" + (use_sender_address ? "":" [address]"));
                 response.body.push("                                Unsubscribe from specified mailing list (or * for all)");
 				response.body.push("    help");
                 response.body.push("                                This help message");
