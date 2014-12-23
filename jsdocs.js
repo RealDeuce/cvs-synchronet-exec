@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.29 2011/11/12 02:46:09 deuce Exp $
+// $Id: jsdocs.js,v 1.30 2014/12/23 01:09:35 deuce Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -310,6 +310,10 @@ if(js.global.COM != undefined) {
 		com=new COM('/dev/tty');
 	com.close();
 	if(com != undefined)		document_object("COM"	,com, "class");
+}
+if(js.global.CryptContext != undefined) {
+	cc = new CryptContext(CryptContext.ALGO.AES);
+	if(cc != undefined)			document_object("CryptContext",cc, "class");
 }
 
 f.writeln("</ol>");
