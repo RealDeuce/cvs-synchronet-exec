@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.166 2014/08/14 16:22:07 cyan Exp $
+// $Id: ircd.js,v 1.167 2014/12/23 01:27:54 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.166 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.167 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -654,6 +654,8 @@ function connect_to_server(this_cline,the_port) {
 		Unregistered[new_id].sendps = false; // Don't do P/S pair again
 		Unregistered[new_id].outgoing = true; /* Outgoing Connection */
 	}
+	else
+		connect_sock.close();
 	this_cline.lastconnect = time();
 }
 

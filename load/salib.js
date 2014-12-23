@@ -1,6 +1,6 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.23 2010/11/17 01:33:34 rswindell Exp $
+ * $Id: salib.js,v 1.24 2014/12/23 01:28:24 deuce Exp $
  */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
@@ -35,6 +35,7 @@ function Message_DoCommand(command)
 	var	inserted_header_fields="";
 
 	if(!sock.connect(this.addr, this.port)) {
+		sock.close();
 		ret.error='Failed to connect to spamd';
 		return(ret);
 	}

@@ -5,7 +5,7 @@
 */
 
 CVS = new (function () {
-	this.VERSION = "$Revision: 1.17 $".split(' ')[1];
+	this.VERSION = "$Revision: 1.18 $".split(' ')[1];
 	this.socket = undefined;
 	
 ////////////////////////////////// SETTINGS
@@ -80,8 +80,10 @@ CVS = new (function () {
 			this.CVSPASS = pw;
 	
 		this.socket=new Socket();
-		this.socket.connect(this.CVSSERV,2401);
-		this.authenticate();
+		if (this.socket.connect(this.CVSSERV,2401))
+			this.authenticate();
+		else
+			this.socket.close();
 		this.init();
 	}
 	

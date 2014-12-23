@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.22 2013/05/02 15:40:30 deuce Exp $ */
+/* $Id: http.js,v 1.23 2014/12/23 01:28:24 deuce Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -77,8 +77,10 @@ function HTTPRequest(username,password)
 	this.SendRequest=function() {
 		if((this.sock=new Socket(SOCK_STREAM))==null)
 			throw("Unable to create socket");
-		if(!this.sock.connect(this.url.host, this.url.port?this.url.port:(this.url.scheme=='http'?80:443)))
+		if(!this.sock.connect(this.url.host, this.url.port?this.url.port:(this.url.scheme=='http'?80:443))) {
+			this.sock.close();
 			throw("Unable to connect");
+		}
 		if(this.url.scheme=='https')
 			this.sock.ssl_session=true;
 		if(!this.sock.send(this.request+"\r\n"))

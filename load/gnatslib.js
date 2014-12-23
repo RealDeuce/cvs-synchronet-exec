@@ -1,4 +1,4 @@
-// $Id: gnatslib.js,v 1.25 2011/11/02 09:43:33 rswindell Exp $
+// $Id: gnatslib.js,v 1.26 2014/12/23 01:28:24 deuce Exp $
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load("sockdefs.js");
@@ -78,6 +78,7 @@ function GNATS_connect()
 {
 	this.socket.connect(this.host,1529);
 	if(!this.socket.is_connected) {
+		this.socket.close();
 		this.error="Cannot connect to GNATS database";
 		return(false);
 	}

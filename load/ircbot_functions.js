@@ -1,4 +1,4 @@
-// $Id: ircbot_functions.js,v 1.26 2014/10/14 23:58:45 deuce Exp $
+// $Id: ircbot_functions.js,v 1.27 2014/12/23 01:28:24 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -67,6 +67,8 @@ function Server_CTCP(onick,ouh,cmd) {
 							sock.write("Enter your password.\r\n");
 							dcc_chats.push(new DCC_Chat(sock,onick));
 						}
+						else
+							sock.close();
 				}
 			}
 			break;
