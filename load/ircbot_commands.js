@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.35 2014/11/23 22:12:28 deuce Exp $
+// $Id: ircbot_commands.js,v 1.36 2015/01/05 23:26:16 deuce Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -131,6 +131,8 @@ Bot_Commands["HELP"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	function list_out(bot_cmds,name) {
 		var cmdstr="";
 		for(var c in bot_cmds) {
+			if(bot_cmds[c].no_help)
+				continue;
 			if(lvl>=bot_cmds[c].min_security) cmdstr+=","+c;
 		}
 		srv.o(onick,"[" + name + "] " + cmdstr.substr(1).toLowerCase(),"NOTICE");
