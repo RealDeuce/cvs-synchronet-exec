@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.38 2011/10/26 17:34:04 deuce Exp $
+// $Id: str_cmds.js,v 1.39 2015/02/05 01:05:21 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -105,14 +105,6 @@ function str_cmds(str)
 		if(str=="CHUSER") {
 			// Prompts for syspass
 			bbs.change_user();
-			return;
-		}
-
-		if(str=="HELP")
-			writeln("ANSCAP\tToggle ANSI capture.");
-		if(str=="ANSCAP") {
-			bbs.sys_status^=SS_ANSCAP;
-			printf(bbs.text(ANSICaptureIsNow),bbs.sys_status&SS_ANSCAP?bbs.text(ON):bbs.text(OFF));
 			return;
 		}
 
