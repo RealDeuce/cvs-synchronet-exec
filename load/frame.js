@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.67 2015/01/28 17:37:29 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.68 2015/02/23 21:36:43 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -959,7 +959,7 @@ Frame.prototype.putmsg = function(str,attr) {
 				k = k.toUpperCase();
 			switch(k) {
 			case '\1':	/* A "real" ^A code */
-				this.__putChar__.call(this,ch,curattr);
+				this.__putChar__.call(this,ch,this.__properties__.curr_attr);
 				pos.x++;
 				break;
 			case 'K':	/* Black */
