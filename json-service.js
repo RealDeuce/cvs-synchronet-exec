@@ -1,4 +1,4 @@
-/* $Id: json-service.js,v 1.30 2014/01/22 17:22:46 mcmlxxix Exp $ */
+/* $Id: json-service.js,v 1.31 2015/03/04 15:25:04 mcmlxxix Exp $ */
 
 load("event-timer.js");
 load("json-sock.js");
@@ -116,7 +116,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.30 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.31 $".replace(/\$/g,'').split(' ')[1];
 	this.fileDate = file_date(serviceIniFile);
 	this.online = true;
 	this.sockets = [];
@@ -176,6 +176,7 @@ service = new (function() {
 			client.nonblocking = true;
 			client.id = client.descriptor;
 			service.sockets.push(client);
+			log(LOG_DEBUG,"JSON service clients: " + (service.sockets.length - 1));
 		}
 		
 		this.sockets.push(server.socket);
@@ -232,6 +233,7 @@ service = new (function() {
 		engine.release(client);
 		admin.release(client);
 		chat.release(client);
+		log(LOG_DEBUG,"JSON service clients: " + (this.sockets.length-1));
 	}
 	/* disconnect all clients and refuse new connections */
 	this.close = function(client) {
