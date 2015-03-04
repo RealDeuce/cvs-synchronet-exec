@@ -1,4 +1,4 @@
-// $Id: ircbot_commands.js,v 1.36 2015/01/05 23:26:16 deuce Exp $
+// $Id: ircbot_commands.js,v 1.37 2015/03/04 18:25:38 mcmlxxix Exp $
 /*
 
  This program is free software; you can redistribute it and/or modify
@@ -47,8 +47,9 @@ Bot_Commands["RELOAD"].command = function (target,onick,ouh,srv,lvl,cmd) {
 Bot_Commands["LOAD"] = new Bot_Command(90,false,true);
 Bot_Commands["LOAD"].command = function (target,onick,ouh,srv,lvl,cmd) {
 	cmd.shift();
-	load("" + cmd[0]);
-	srv.o(target,"loaded " + cmd[0],"NOTICE");
+	var fName = cmd.shift();
+	load("" + fName,cmd[0],cmd[1],cmd[2],cmd[3],cmd[4]);
+	srv.o(target,"loaded " + fName,"NOTICE");
 	return;
 }
 
