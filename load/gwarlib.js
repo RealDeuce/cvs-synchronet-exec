@@ -3,8 +3,8 @@
 		by mcmlxxix - March 4, 2015 
 		www.thebrokenbubble.com
 		
-		$Id: gwarlib.js,v 1.1 2015/03/04 22:40:42 mcmlxxix Exp $
-		$Revision: 1.1 $
+		$Id: gwarlib.js,v 1.2 2015/03/04 22:42:25 mcmlxxix Exp $
+		$Revision: 1.2 $
 */
 
 /********************** API usage example**************************
@@ -288,7 +288,7 @@ function GlobalWarPlayer(playerNumber, playerName, vote, lastTurn, cards) {
 }
 
 /* if we are running as an external program (logon event?) */
-else if(argv[0] !== undefined) {
+if(argv[0] !== undefined) {
 	if(!file_isdir(argv[0]))
 		throw("Global War path invalid: " + argv[0]);
 	var GWAR = new GlobalWar(argv[0]);
