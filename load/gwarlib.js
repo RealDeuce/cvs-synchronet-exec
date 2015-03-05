@@ -3,8 +3,8 @@
 		by mcmlxxix - March 4, 2015 
 		www.thebrokenbubble.com
 		
-		$Id: gwarlib.js,v 1.3 2015/03/05 20:00:47 mcmlxxix Exp $
-		$Revision: 1.3 $
+		$Id: gwarlib.js,v 1.4 2015/03/05 20:41:19 mcmlxxix Exp $
+		$Revision: 1.4 $
 */
 
 /********************** API usage example**************************
@@ -15,23 +15,12 @@ load("gwar.js");
 // create global war object instance
 var GWAR = new GlobalWar("/sbbs/xtrn/globalwar/");
 
-// retrieve an array containing a list of game numbers where it's the current user's turn
+// get a list of player turns
 var myturns = GWAR.getPlayerTurns(user.alias);
-	
-// if the player has any turns, send them a telegram
-if(myturns.length > 0) {
-	GWAR.notifyPlayer(user.alias,myturns);
+if(myturns.length > -1) {
+	var msg = "\1n\1gIt is your turn in Global War game(s)\1g\1h: " + myturns.join(",");
+	system.put_telegram(system.matchuser(user.alias),msg);
 }
-
-*/
-
-/********************** logon event usage *************************
-	
-	from SCFG, go to external programs -> fixed events -> logon event
-
-	+[¦][?]----------------------------------------------------------------+
-	¦ Logon Event: *gwarlib.js /sbbs/xtrn/globalwar/                       ¦
-	+----------------------------------------------------------------------+
 
 */
 
@@ -99,6 +88,7 @@ function GlobalWar(path) {
 	
 	/* constructor */
 	this.loadGames();
+	this.loadScores();
 }
 
 /* global war library methods */
@@ -319,16 +309,4 @@ function GlobalWarPlayer(playerNumber, playerName, vote, lastTurn, cards) {
 	this.lastTurn = lastTurn;
 	this.cards = cards;
 	this.system;
-}
-
-/* if we are running as an external program (logon event?) */
-if(argv[0] !== undefined) {
-	if(!file_isdir(argv[0]))
-		throw("Global War path invalid: " + argv[0]);
-	var GWAR = new GlobalWar(argv[0]);
-	var myturns = GWAR.getPlayerTurns(user.alias);
-	if(myturns.length > -1) {
-		var msg = "\1n\1gIt is your turn in Global War game(s)\1g\1h: " + myturns.join(",");
-		system.put_telegram(system.matchuser(user.alias),msg);
-	}
 }
