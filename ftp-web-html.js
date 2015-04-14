@@ -1,5 +1,5 @@
 // JavaScript HTML Index for Synchronet FTP Server
-// $Id: ftp-web-html.js,v 1.10 2015/01/27 22:34:36 deuce Exp $
+// $Id: ftp-web-html.js,v 1.11 2015/04/14 01:42:29 rswindell Exp $
 
 load("sbbsdefs.js");    // Synchronet constants
 
@@ -98,15 +98,17 @@ var prevdir;
 var hdr_font="<font color=silver>";
 var dat_font="<font color=#CCCCCC>";
 
-if(!(user.security.restrictions&UFLAG_G) && system.matchuser("Guest")) { /* !Guest or Anonymous */
-    /* Logout button */
-    writeln("<table align=right>");
-    writeln("<form>");
-    writeln("<input type=button value=Logout onclick='location=\"ftp://" 
-        + format("%s/%s%s",system.host_name + port,html_index_file,time_stamp_only)
-        + "\";'>");
-    writeln("</form>");
-    writeln("</table><br /><br />");
+if(!(user.security.restrictions&UFLAG_G)) { /* !Guest or Anonymous */
+    if(system.matchuser("Guest")) {
+        /* Logout button */
+        writeln("<table align=right>");
+        writeln("<form>");
+        writeln("<input type=button value=Logout onclick='location=\"ftp://" 
+            + format("%s/%s%s",system.host_name + port,html_index_file,time_stamp_only)
+            + "\";'>");
+        writeln("</form>");
+        writeln("</table><br /><br />");
+    }
 
 	writeln("<table nowrap class=\"ftp_stats\"><tr><td>");
 
