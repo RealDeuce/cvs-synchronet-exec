@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.50 2014/11/27 01:13:41 deuce Exp $
+ * $Id: imapservice.js,v 1.51 2015/05/01 04:26:25 deuce Exp $
  */
 
 const RFC822HEADER = 0xb0;  // from smbdefs.h
@@ -781,6 +781,10 @@ var any_state_command_handlers = {
 				line=client.socket.recvline(10240, 5);
 				if(line==null) {
 					elapsed += 5;
+					if (js.termianted) {
+						untagged("BYE server terminated.");
+						exit(0);
+					}
 					if(elapsed > 1800) {
 						untagged("BYE And I though *I* liked to idle!");
 						exit(0);
