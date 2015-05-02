@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.12 2014/10/05 00:55:59 rswindell Exp $ */
+/* $Id: text.js,v 1.13 2015/05/02 03:24:54 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -728,7 +728,7 @@ var NodeActionQWK=716;
 var NodeActionPrivateChat=717;
 var NodeActionPaging=718;
 var NodeActionRetrieving=719;
-var YN /* (Yes/No/Quit/Password chars) */=720;
+var YNQP /* (Yes/No/Quit/Password chars) */=720;
 var ViewSignatureQ=721;
 var DeleteSignatureQ=722;
 var CreateEditSignatureQ=723;
@@ -774,3 +774,5 @@ var AddSubToNewScanQ=762;
 var UnvalidatedWarning=763;
 var StartingNewUserRegistration=764;
 var GetStrMenu=765;
+var DisplayUnreadMessagesOnlyQ=766;
+var NoMessagesFound=767;
