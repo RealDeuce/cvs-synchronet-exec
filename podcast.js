@@ -22,7 +22,6 @@ var item_type;
 
 function encode_xml(str)
 {
-	str=str.replace(/&amp;/g, '&');
 	str=str.replace(/&/g, '&amp;');
 	str=str.replace(/</g, '&lt;');
 	str=str.replace(/>/g, '&gt;');
@@ -127,7 +126,7 @@ add_channel_opt_attribute('WebMaster');
 // TODO: pubDate
 out.write('\t\t<lastBuildDate>' + encode_xml((new Date()).toUTCString()) + '</lastBuildDate>\n');
 add_channel_opt_attribute('Category');
-out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.2 $".split(' ')[1])+'</generator>\n');
+out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.3 $".split(' ')[1])+'</generator>\n');
 add_channel_opt_attribute('Docs');
 // TODO: cloud (fancy!)
 if (opts.TTL != undefined)
