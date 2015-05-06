@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.24 2015/03/26 08:30:34 deuce Exp $ */
+/* $Id: http.js,v 1.25 2015/05/06 02:08:44 deuce Exp $ */
 
 if(!js.global || js.global.SOCK_STREAM==undefined)
 	load('sockdefs.js');
@@ -75,6 +75,8 @@ function HTTPRequest(username,password)
 	};
 
 	this.SendRequest=function() {
+		var i;
+
 		if((this.sock=new Socket(SOCK_STREAM))==null)
 			throw("Unable to create socket");
 		if(!this.sock.connect(this.url.host, this.url.port?this.url.port:(this.url.scheme=='http'?80:443))) {
@@ -169,5 +171,26 @@ function HTTPRequest(username,password)
 		this.SendRequest();
 		this.ReadResponse();
 		return(this.body);
+	};
+
+	this.Head=function(url, referer, base) {
+		var i;
+		var m;
+		var ret={};
+
+		this.SetupGet(url,referer,base);
+		this.request = this.request.replace(/^GET/, 'HEAD');
+		this.BasicAuth();
+		this.SendRequest();
+		this.ReadResponse();
+		for(i in this.response_headers) {
+			m = this.response_headers[i].match(/^(.*?):\s*(.*?)\s*$/);
+			if (m) {
+				if (ret[m[1]] == undefined)
+					ret[m[1]] = [];
+				ret[m[1]].push(m[2]);
+			}
+		}
+		return(ret);
 	};
 }
