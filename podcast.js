@@ -83,6 +83,11 @@ if (opts.To == undefined) {
 	exit(1);
 }
 
+if (opts.EpisodeLink == undefined) {
+	log("EpisodeLink undefined in modopts.ini.");
+	exit(1);
+}
+
 base = new MsgBase(opts.Sub);
 if (base == null) {
 	log('Unable to create "'+opts.Sub+'" MsgBase object.');
@@ -116,7 +121,7 @@ add_channel_opt_attribute('WebMaster');
 // TODO: pubDate
 out.write('\t\t<lastBuildDate>' + encode_xml((new Date()).toUTCString()) + '</lastBuildDate>\n');
 add_channel_opt_attribute('Category');
-out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.7 $".split(' ')[1])+'</generator>\n');
+out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.8 $".split(' ')[1])+'</generator>\n');
 add_channel_opt_attribute('Docs');
 // TODO: cloud (fancy!)
 if (opts.TTL != undefined)
@@ -155,12 +160,11 @@ for (i=hdrs.length - 1; i >= 0; i--) {
 	item_type = item_headers['Content-Type'][0].replace(/^\s*(.*?)\s*/, "$1");
 	item = '\t\t<item>\n';
 	item += '\t\t\t<title>'+encode_xml(item_info.title)+'</title>\n';
-	// TODO: HTML integration required here for link
-	item += '\t\t\t<link>'+encode_xml(opts.Link)+'</link>\n';
+	item += '\t\t\t<link>'+encode_xml(opts.EpisodeLink+parseInt(i+1))+'</link>\n';
 	item += '\t\t\t<description>'+encode_xml(item_info.description)+'</description>\n';
 	// TODO: author?
 	// TODO: category?
-	// TODO: HTML integration required here for <comments> tag.
+	item += '\t\t\t<comments>'+encode_xml(opts.EpisodeLink+parseInt(i+1))+'</comments>\n';
 	item += '\t\t\t<enclosure url="'+encode_xml(item_info.enclosure)+'" length="'+item_length+'" type="'+item_type+'" />\n';
 	item += '\t\t\t<guid isPermaLink="false">'+encode_xml(item_info.guid)+'</guid>\n';
 	item += '\t\t\t<pubDate>'+encode_xml(item_info.pubDate)+'</pubDate>\n';
