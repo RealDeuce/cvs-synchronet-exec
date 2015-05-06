@@ -115,6 +115,7 @@ for (i = base.first_msg; i <= base.last_msg; i++) {
 	hdrs.push(hdr);
 }
 
+// TODO: iTunes tags?
 out.write('<?xml version="1.0"?>\n<rss version="2.0">\n\t<channel>\n');
 out.write('\t\t<title>'+encode_xml(opts.Title)+'</title>\n');
 out.write('\t\t<description>'+encode_xml(opts.Description)+'</description>\n');
@@ -126,7 +127,7 @@ add_channel_opt_attribute('WebMaster');
 // TODO: pubDate
 out.write('\t\t<lastBuildDate>' + encode_xml((new Date()).toUTCString()) + '</lastBuildDate>\n');
 add_channel_opt_attribute('Category');
-out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.1 $".split(' ')[1])+'</generator>\n');
+out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.2 $".split(' ')[1])+'</generator>\n');
 add_channel_opt_attribute('Docs');
 // TODO: cloud (fancy!)
 if (opts.TTL != undefined)
