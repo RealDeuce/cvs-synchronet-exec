@@ -146,7 +146,7 @@ add_channel_opt_attribute('WebMaster');
 // TODO: pubDate
 out.write('\t\t<lastBuildDate>' + encode_xml((new Date()).toUTCString()) + '</lastBuildDate>\n');
 add_channel_opt_attribute('Category');
-out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.14 $".split(' ')[1])+'</generator>\n');
+out.write('\t\t<generator>Synchronet Podcast Script '+("$Revision: 1.15 $".split(' ')[1])+'</generator>\n');
 add_channel_opt_attribute('Docs');
 // TODO: cloud (fancy!)
 add_channel_opt_attribute_rename('TTL', 'ttl');
@@ -170,10 +170,10 @@ add_channel_opt_attribute('SkipDays');
 add_channel_itunes_attribute('Author');
 add_channel_itunes_attribute('Block');
 if (opts.ITImageURL != undefined) {
-	out.write('\t\t<itunes:image href="'+encode_xml(opts.ITImageURL)+'">\n');
+	out.write('\t\t<itunes:image href="'+encode_xml(opts.ITImageURL)+'" />\n');
 }
 else if(opts.ImageURL != undefined) {
-	out.write('\t\t<itunes:image href="'+encode_xml(opts.ImageURL)+'">\n');
+	out.write('\t\t<itunes:image href="'+encode_xml(opts.ImageURL)+'" />\n');
 }
 if (opts.ITCategory != undefined) {
 	if ((m = opts.ITCategory.match(/^\s*([^\/]+)\/(.+?)\s*$/)) != null) {
