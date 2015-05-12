@@ -2,7 +2,7 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.9 2014/03/08 04:46:00 rswindell Exp $
+// $Id: login.js,v 1.10 2015/05/12 07:16:51 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -14,8 +14,6 @@ bbs.logout();
 system.node_list[bbs.node_num-1].status = NODE_LOGON;
 
 var guest = system.matchuser("guest");
-
-//load("loadfont.js", "-P", system.data_dir + "VERT.FNT");
 
 for(var c=0; c<10; c++) {
 
