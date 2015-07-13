@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.39 2015/02/05 01:05:21 deuce Exp $
+// $Id: str_cmds.js,v 1.40 2015/07/13 22:20:11 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -112,7 +112,7 @@ function str_cmds(str)
 			writeln("LIST <filename>");
 			writeln("\tDisplays a file.");
 		}
-		if(str=="LIST") {
+		if(word=="LIST") {
 			if(bbs.check_syspass()) {
 				str=str.substr(4);
 				console.printfile(get_arg(str));
