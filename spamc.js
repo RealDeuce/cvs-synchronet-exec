@@ -3,7 +3,7 @@
 // SpamAssasin client for Synchronet
 // For use as mailproc.ini script to check messages against a running/listening spamd
 
-// $Id: spamc.js,v 1.21 2009/05/06 02:26:06 rswindell Exp $
+// $Id: spamc.js,v 1.22 2015/08/15 09:42:36 rswindell Exp $
 
 // ---------------------------------------------------------------------------
 // Example mailproc.ini entries:
@@ -78,6 +78,10 @@ function main()
 	}
 	if(max_size && file_size(message_text_filename) > max_size) {
 		log(LOG_INFO,"message size > max_size (" + max_size + ")");
+		return;
+	}
+	if(system.findstr(system.ctrl_dir + "dnsbl_exempt.cfg", reverse_path)) {
+		log("Sender exempt from SPAM checking: " + reverse_path);
 		return;
 	}
 	var msg=new SPAMC_Message(message_text_filename, address, tcp_port, user);
