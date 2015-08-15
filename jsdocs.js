@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.31 2015/04/25 08:25:37 deuce Exp $
+// $Id: jsdocs.js,v 1.32 2015/08/15 06:20:26 rswindell Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -251,6 +251,7 @@ if(1) {	/* Style sheet */
 	f.writeln("\tOL LI                { cursor: hand; }");
 	f.writeln("\tUL LI                { display: none;list-style: square; }");
 	f.writeln("\t.showList LI         { display: list-item; }");
+    f.writeln("\tcaption              { display: table-caption; text-align: left; caption-side: top; }");
 	f.writeln("</STYLE>");
 }
 
@@ -324,4 +325,4 @@ f.write(body);
 f.writeln("<p><small>");
 f.writeln("Totals: " + total_properties + " properties, " + total_methods + " methods");
 
-	f.close();
+f.close();
