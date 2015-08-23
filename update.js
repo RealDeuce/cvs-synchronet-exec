@@ -1,8 +1,8 @@
-/* $Id: update.js,v 1.2 2014/09/17 04:41:26 rswindell Exp $ */
+/* $Id: update.js,v 1.3 2015/08/23 21:41:07 deuce Exp $ */
 
 /* Synchronet v3.15 update script (to be executed with jsexec) */
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 
 function update_exec_dir()
 {
@@ -30,8 +30,27 @@ function update_exec_dir()
 	return true;
 }
 
+function move_laston_address()
+{
+	var i;
+	var u;
+	var updated = 0;
+
+	for (i=1; i<system.lastuser; i++) {
+		u = new User(i);
+//		print("User: "+i+" Note: "+u.note+" IP: "+u.ip_address);
+		if (u.ip_address.length == 0 && u.note.length > 0) {
+			print("\nMoving IP from note to ip_address for "+u.alias+" (#"+i+")");
+			u.ip_address = u.note;
+			updated++;
+		}
+	}
+	return updated;
+}
+
 
 printf("Synchronet update.js revision %u\n", REVISION);
 printf("Updating exec directory: ");
 printf("%s\n", update_exec_dir() ? "Success" : "FAILURE");
-
+printf("Updating ip_address field: ");
+printf("%d records updated\n", move_laston_address());
