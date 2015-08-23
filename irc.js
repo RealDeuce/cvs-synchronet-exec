@@ -3,14 +3,14 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.48 2013/10/02 22:12:58 deuce Exp $
+// $Id: irc.js,v 1.49 2015/08/23 21:50:27 deuce Exp $
 
 // disable auto-termination.
 var old_auto_terminate=js.auto_terminate;
 js.on_exit("js.auto_terminate=old_auto_terminate");
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.48 $".split(' ')[1];
+const REVISION = "$Revision: 1.49 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -70,13 +70,6 @@ default_channel=default_channel.replace(/\s+/g,"_");
 sock=new Socket();
 history=new History();
 screen=new Screen();
-
-if(!sock.bind(0,server.interface_ip_address)) {
-	log(format("!IRC ERROR %d binding socket to %s"
-		,sock.last_error,server.interface_ip_address));
-	alert("socket error");
-	clean_exit();
-}
 
 // Connect
 if(!sock.connect(irc_server,irc_port)) {
