@@ -1,4 +1,4 @@
-/* $Id: mailauth.js,v 1.4 2015/08/23 21:51:22 deuce Exp $ */
+/* $Id: mailauth.js,v 1.5 2015/08/26 05:14:43 deuce Exp $ */
 
 // This script is an external mail processor that verifies that mail received
 // from sender's claiming to be <anyone>@<yourdomains> are SMTP-authenticated
@@ -23,8 +23,8 @@ if((sender_host == system.host_name
 		&& client.ip_address!=resolve_ip(sender_host)) {
 	var i;
 	var matched = false;
-	for (i in server.interface_ip_address) {
-		if (client.ip_address == server.interface_ip_address[i])
+	for (i in server.interface_ip_addr_list) {
+		if (client.ip_address == server.interface_ip_addr_list[i])
 			matched = true;
 	}
 	if (!matched) {
