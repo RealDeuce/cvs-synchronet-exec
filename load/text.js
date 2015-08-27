@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.13 2015/05/02 03:24:54 rswindell Exp $ */
+/* $Id: text.js,v 1.14 2015/08/27 00:43:54 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -776,3 +776,4 @@ var StartingNewUserRegistration=764;
 var GetStrMenu=765;
 var DisplayUnreadMessagesOnlyQ=766;
 var NoMessagesFound=767;
+var UserIpAddr=768;
