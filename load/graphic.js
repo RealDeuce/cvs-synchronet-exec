@@ -1,9 +1,11 @@
-// $Id: graphic.js,v 1.38 2012/08/29 16:36:08 mcmlxxix Exp $
+// $Id: graphic.js,v 1.39 2015/08/31 20:21:07 rswindell Exp $
 
 /*
  * "Graphic" object
  * Allows a graphic to be stored in memory and portions of it redrawn on command
  */
+
+load("sbbsdefs.js");	// Needed for colors, e.g. BLACK
 
 function Graphic(w,h,attr,ch)
 {
@@ -410,6 +412,7 @@ function Graphic_parseANSI(lines)
 			/* parse a clear screen sequence */
 			var n = line.match(/^\x1b\[2J/);
 			if(n !== null) {
+				this.clear();
 				line = line.substr(n.shift().length);
 				continue;
 			}
