@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.42 2015/09/01 08:18:05 rswindell Exp $
+// $Id: graphic.js,v 1.43 2015/09/01 08:50:36 deuce Exp $
 
 /*
  * "Graphic" object
@@ -324,7 +324,7 @@ function Graphic_parseANSI(lines)
 				}
 				params.shift();
 			}
-			attr = bg + fg + i;
+			attr = bg + fg + hi + bnk;
 		},
 		'H':function(params) {
 			if (params[0] === undefined)
@@ -380,7 +380,7 @@ function Graphic_parseANSI(lines)
 			y = saved.y;
 		}
 	};
-	cmds.f = cmds.H;
+	std_cmds.f = std_cmds.H;
 	var line;
 	var m;
 	var paramstr;
@@ -404,7 +404,7 @@ function Graphic_parseANSI(lines)
 				paramstr = m[1];
 				cmd = m[2];
 				if (paramstr.search(/^[<=>?]/) != 0) {
-					params=params.split(/;/);
+					params=paramstr.split(/;/);
 
 					if (std_cmds[cmd] !== undefined)
 						std_cmds[cmd](params);
