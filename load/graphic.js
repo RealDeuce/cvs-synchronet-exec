@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.39 2015/08/31 20:21:07 rswindell Exp $
+// $Id: graphic.js,v 1.40 2015/09/01 03:16:16 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -56,6 +56,7 @@ function Graphic(w,h,attr,ch)
 	this.putmsg=Graphic_putmsg;
 	this.resize=Graphic_resize;
 	this.parseANSI=Graphic_parseANSI;
+    this.toANSI=Graphic_toANSI;
 }
 function Graphic_clear()
 {
@@ -237,7 +238,7 @@ function Graphic_load(filename)
 			this.putmsg(undefined,undefined,l,true);
 		break;
 	default:
-		throw("unsupported file type");
+		throw("unsupported file type:" + filename);
 		break;
 	}
 	return(true);
@@ -709,3 +710,25 @@ function Graphic_putmsg(xpos, ypos, txt, attr, scroll)
 	return(scrolls);
 }
 
+function Graphic_toANSI()
+{
+    var ansi=load(new Object,"ansiterm_lib.js");
+	var x;
+	var y;
+    var lines=[];
+    var curattr=7;
+
+	for(var y=0; y<this.height; y++) {
+        var row="";
+		for(var x=0; x<this.width-1; x++) {
+            row+=ansi.attr(this.data[x][y].attr, curattr);
+            curattr=this.data[x][y].attr;
+            var char = this.data[x][y].ch;
+            /* Don't put printable chars in the last column */
+            if(/* char == ' ' || */(x<this.width-1))
+                row += char;
+        }
+        lines.push(row);
+    }
+    return lines;
+}
