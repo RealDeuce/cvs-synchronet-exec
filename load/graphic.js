@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.43 2015/09/01 08:50:36 deuce Exp $
+// $Id: graphic.js,v 1.44 2015/09/01 08:52:41 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -271,7 +271,7 @@ function Graphic_parseANSI(lines)
 						bnk = 0;
 						break;
 					case 1:
-						i = HIGH;
+						hi = HIGH;
 						break;
 					case 40:
 						bg = BG_BLACK;
