@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.46 2015/09/01 09:01:38 deuce Exp $
+// $Id: graphic.js,v 1.47 2015/09/01 09:03:41 deuce Exp $
 
 /*
  * "Graphic" object
@@ -212,7 +212,7 @@ function Graphic_load(filename)
 		if(!(f.open("r",true,4096)))
 			return(false);
 		var lines=f.readAll();
-		this.parseAnsi(lines);
+		this.parseANSI(lines);
 		f.close();
 		break;
 	case "BIN":
