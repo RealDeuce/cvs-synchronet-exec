@@ -1,4 +1,4 @@
-// $Id: ansiterm_lib.js,v 1.1 2015/09/01 03:15:23 rswindell Exp $
+// $Id: ansiterm_lib.js,v 1.2 2015/09/01 08:20:44 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -93,9 +93,9 @@ function attr(atr, curatr, color)
 				break;
 		}
 	}
-	if(str.length == 2)	/* Convert <ESC>[ to blank */
+	if(str.length <= 2)	/* Convert <ESC>[ to blank */
 		return "";
-	return str + 'm';
+	return str.substring(0, str.length-1) + 'm';
 }
 
 /* Leave as last line for convenient load() usage: */
