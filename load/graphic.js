@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.44 2015/09/01 08:52:41 rswindell Exp $
+// $Id: graphic.js,v 1.45 2015/09/01 08:53:53 deuce Exp $
 
 /*
  * "Graphic" object
@@ -247,7 +247,7 @@ function Graphic_load(filename)
 }
 function Graphic_parseANSI(lines) 
 {
-	var attr = this.attrtribute;
+	var attr = this.attribute;
 	var saved = {};
 	
 	var x = 0;
