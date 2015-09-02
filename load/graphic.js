@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.56 2015/09/02 02:02:58 deuce Exp $
+// $Id: graphic.js,v 1.57 2015/09/02 05:58:40 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -218,6 +218,10 @@ Object.defineProperty(Graphic.prototype, "ANSI", {
 
 				y = parseInt(params[0], 10) - 1;
 				x = parseInt(params[1], 10) - 1;
+				if (y < 0)
+					y = 0;
+				if (x < 0)
+					x = 0;
 			},
 			'A':function(params) {
 				if (params[0] === undefined || params[0] === '')
@@ -311,14 +315,14 @@ Object.defineProperty(Graphic.prototype, "ANSI", {
                     x += 8-(x%8);
                     break;
                 case '\b':
-                    if(x)
+                    if(x > 0)
 						x--;
             		break;
-				default:
-					this.data[x][y]=new this.Cell(ch,attr);
-					x++;
-             }
-
+                default:
+			        this.data[x][y]=new this.Cell(ch,attr);
+			        x++;
+                    break;
+            }
 			/* validate position/scroll */
 			if(x>=this.width) {
 				x=0;
