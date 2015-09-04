@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.59 2015/09/03 05:24:37 rswindell Exp $
+// $Id: graphic.js,v 1.60 2015/09/04 19:19:52 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -108,6 +108,11 @@ Object.defineProperty(Graphic.prototype, "BIN", {
 
 /*
  * ANSI property is the string representation of the graphic as ANSI
+ * 
+ * NOTE: Reading the ANSI property generates ANSI sequences which can put
+ *       printable characters in the last column of the display (e.g. col 80)
+ *       potentially resulting in extra blank lines in some terminals.
+ *       To change this behavior, decrement the 'width' property first.
  */
 Object.defineProperty(Graphic.prototype, "ANSI", {
 	get: function() {
@@ -119,12 +124,12 @@ Object.defineProperty(Graphic.prototype, "ANSI", {
 		var char;
 
 		for(y=0; y<this.height; y++) {
-			for(x=0; x<this.width-1; x++) {
+			for(x=0; x<this.width; x++) {
 				ansi += this.ansi.attr(this.data[x][y].attr, curattr);
             	curattr = this.data[x][y].attr;
             	char = this.data[x][y].ch;
             	/* Don't put printable chars in the last column */
-            	if(char == ' ' || (x<this.width-1))
+//            	if(char == ' ' || (x<this.width-1))
                 	ansi += char;
         	}
 			ansi += '\r\n';
