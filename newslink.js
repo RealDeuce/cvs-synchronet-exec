@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.105 2015/08/26 05:14:43 deuce Exp $
+// $Id: newslink.js,v 1.106 2015/09/08 01:54:36 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.105 $".split(' ')[1];
+const REVISION = "$Revision: 1.106 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -159,6 +159,7 @@ var password;
 var interface_ip_address=0;
 var port_set=false;
 var tls=false;
+var no_path=false;
 area = new Array();
 
 if(this.server!=undefined)
@@ -222,6 +223,9 @@ while(!cfg_file.eof) {
 		case "no_xover":
 			use_xover=false;
 			break;
+        case "no_path":
+            no_path=true;
+            break;
 		case "slave":
 			slave=true;
 			break;
@@ -782,7 +786,7 @@ for(i in area) {
 			subpending--;
 			continue;
 		}
-			
+
         if(file!=undefined) {   
             if(file.is_open==true) { /* Incomplete attachment? */
 				print("!Incomplete attachment: " + file_getname(file.name));
@@ -855,6 +859,9 @@ for(i in area) {
 			subpending--;
 			continue;
 		}
+        if(no_path && hdr.path)
+            delete hdr.path;
+
 		if(hdr.gateway
 			&& hdr.gateway.indexOf(system.inetaddr)!=-1) {
 			subpending--;
