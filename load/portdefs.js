@@ -1,4 +1,4 @@
-// $Id: portdefs.js,v 1.3 2015/09/09 01:43:52 rswindell Exp $
+// $Id: portdefs.js,v 1.4 2015/09/10 07:59:02 rswindell Exp $
 
 // Standard Unix service TCP and UDP port numbers
 
@@ -23,6 +23,8 @@ standard_service_port = {
 	"finger":	79,
 	"http":		80,
 	"pop3":		110,
+    "auth":     113,
+    "ident":    113,
 	"nntp":		119,
 	"news":		119,
 	"imap":		143,
