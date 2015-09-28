@@ -2,11 +2,12 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.20 2014/11/06 06:06:55 rswindell Exp $
+// $Id: newuser.js,v 1.21 2015/09/28 05:44:04 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
 load("sbbsdefs.js");
+var options;
 options=load("modopts.js","newuser");
 
 qnet=false;

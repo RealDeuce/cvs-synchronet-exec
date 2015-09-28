@@ -2,10 +2,11 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.10 2015/05/12 07:16:51 rswindell Exp $
+// $Id: login.js,v 1.11 2015/09/28 05:44:04 rswindell Exp $
 
 load("sbbsdefs.js");
 
+var options;
 if((options=load("modopts.js","login")) == null)
 	options={email_passwords: true};
 

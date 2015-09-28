@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.14 2015/04/02 06:51:32 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.15 2015/09/28 05:44:04 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -25,6 +25,7 @@ var xsec=-1;
     }
 }
 
+var options;
 if((options=load("modopts.js","xtrn_sec")) == null)
 	options = {multicolumn: true, sort: false};	// default values
 
