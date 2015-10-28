@@ -1,4 +1,4 @@
-// $Id: termcapture_lib.js,v 1.3 2015/09/10 08:00:12 rswindell Exp $
+// $Id: termcapture_lib.js,v 1.4 2015/10/28 07:42:26 rswindell Exp $
 
 // Currently, only supports Telnet and RLogin
 
@@ -130,6 +130,8 @@ function capture()
         }
         lastbyte=byte;
     }
+	var ip_address = socket.remote_ip_address;
+	socket.close();
     if(curline.length)
         lines.push(curline);
     if(!hello.length)
@@ -142,7 +144,7 @@ function capture()
             i++;
     }
 
-    return { preview: lines, hello: hello, ip_address: socket.remote_ip_address, stopcause: stopcause };
+    return { preview: lines, hello: hello, ip_address: ip_address, stopcause: stopcause };
 }
 
 /* Leave as last line for convenient load() usage: */
