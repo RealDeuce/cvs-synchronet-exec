@@ -1,4 +1,4 @@
-/* $Id: json-service.js,v 1.32 2015/11/05 03:34:35 mcmlxxix Exp $ */
+/* $Id: json-service.js,v 1.33 2015/11/05 19:52:46 mcmlxxix Exp $ */
 
 load("event-timer.js");
 load("json-sock.js");
@@ -116,7 +116,7 @@ var errors = {
 /* server object */
 service = new (function() {
 
-	this.VERSION = "$Revision: 1.32 $".replace(/\$/g,'').split(' ')[1];
+	this.VERSION = "$Revision: 1.33 $".replace(/\$/g,'').split(' ')[1];
 	this.fileDate = file_date(serviceIniFile);
 	this.online = true;
 	this.sockets = [];
@@ -298,9 +298,9 @@ chat = new (function() {
 			return false;
 		}
 		var usr = new User(usernum);
-		var pass = md5_calc(usr.security.password,true);
+		var pass = md5_calc(usr.security.password.toUpperCase(),true);
 		
-		if(md5_calc(usr.security.password,true) != pw) {
+		if(md5_calc(usr.security.password.toUpperCase(),true) != pw) {
 			error(client,errors.INVALID_PASSWORD);
 			return false;
 		}
@@ -408,7 +408,7 @@ admin = new (function() {
 			return false;
 		}
 		var usr = new User(usernum);
-		if(md5_calc(usr.security.password,true) != pw) {
+		if(md5_calc(usr.security.password.toUpperCase(),true) != pw) {
 			error(client,errors.INVALID_PASSWORD);
 			return false;
 		}
