@@ -1,5 +1,5 @@
 /* 	CNF file reader/writer - mcmlxxix - 2013
-	$id: $
+	$Id: cnfdefs.js,v 1.3 2015/11/09 23:49:47 mcmlxxix Exp $
 */
 
 /* miscellaneous constants required for cnf parsing
