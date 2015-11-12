@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.3 2015/11/12 08:16:15 deuce Exp $
+// $Id: graphic.js,v 1.4 2015/11/12 08:35:23 deuce Exp $
 
 /*
  * "Graphic" object
@@ -471,9 +471,9 @@ Graphic.prototype.draw = function(xpos,ypos,width,height,xoff,yoff)
 	var ch;
 
 	if(xpos==undefined)
-		xpos=1;
+		xpos=0;
 	if(ypos==undefined)
-		ypos=1;
+		ypos=0;
 	if(width==undefined)
 		width=this.width;
 	if(height==undefined)
