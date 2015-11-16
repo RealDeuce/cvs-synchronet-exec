@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.5 2015/11/12 08:45:40 deuce Exp $
+// $Id: graphic.js,v 1.6 2015/11/16 21:03:30 deuce Exp $
 
 /*
  * "Graphic" object
@@ -16,7 +16,7 @@
  *
  */
 
-if (js.global.Attribute === undefined)
+if (typeof(Attribute) === 'undefined')
 	load("attribute.js");
 
 function Graphic(w,h,attr,ch)
