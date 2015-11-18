@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.106 2015/09/08 01:54:36 rswindell Exp $
+// $Id: newslink.js,v 1.107 2015/11/18 01:05:12 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.106 $".split(' ')[1];
+const REVISION = "$Revision: 1.107 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -177,10 +177,9 @@ if(!cfg_file.open("r")) {
 }
 
 while(!cfg_file.eof) {
-	line = cfg_file.readln();
+	line = truncsp(cfg_file.readln());
 	if(line==null || line[0] == ';' || !line.length || line==undefined)
 		continue;
-	line = truncsp(line);
 	str=line.split(/\s+/);
 	switch(str[0].toLowerCase()) {
 		case "disabled":
