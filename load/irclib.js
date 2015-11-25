@@ -1,4 +1,4 @@
-// $Id: irclib.js,v 1.19 2015/11/25 08:38:28 deuce Exp $
+// $Id: irclib.js,v 1.20 2015/11/25 08:41:59 deuce Exp $
 //
 // irclib.js
 //
@@ -22,7 +22,7 @@
 // Copyright 2003-2006 Randolph Erwin Sommerfeld <sysop@rrx.ca>
 //
 
-const IRCLIB_REVISION = "$Revision: 1.19 $".split(' ')[1];
+const IRCLIB_REVISION = "$Revision: 1.20 $".split(' ')[1];
 const IRCLIB_VERSION = "irclib.js-" + IRCLIB_REVISION;
 
 // Connect to a server as a client.
@@ -146,7 +146,7 @@ function IRC_quit(server,reason) {
 	/* wait up to 5 seconds for server to disconnect */
 	var start=time();
 	while(server.is_connected && time()-start<5)
-		mswait(500);
+		while(my_server.poll(500) && (response=my_server.recvline()))
 }
 
 // This will create a 'default mask' when given a complete user@host string.
