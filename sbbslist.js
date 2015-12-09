@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.6 2015/10/28 07:50:41 rswindell Exp $
+// $Id: sbbslist.js,v 1.7 2015/12/09 04:20:57 echicken Exp $
 
 // Synchronet BBS List
 
@@ -8,7 +8,7 @@
 // sbl2smb[.exe]    - Exports BBS entries to Synchronet Message Base (e.g. to SYNCDATA echo)
 // sbbslist[.exe]   - Exports BBS entries to HTML and various plain-text formats (e.g. sbbs.lst, sbbsimsg.lst, syncterm.lst)
 
-var REVISION = "$Revision: 1.6 $".split(' ')[1];
+var REVISION = "$Revision: 1.7 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -255,7 +255,7 @@ function import_entry(bbs, text)
 						bbs.service[number].protocol = uri[1];
 						bbs.service[number].address = uri[2];
 					}
-					bbs.service[number].port = standard_service_port(bbs.service[number].protocol.toLowerCase());
+					bbs.service[number].port = standard_service_port[bbs.service[number].protocol.toLowerCase()];
                 } else
                     bbs.service[number].minrate = minrate;
                 break;
