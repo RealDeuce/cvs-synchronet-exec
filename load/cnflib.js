@@ -1,5 +1,5 @@
 /* CNF data structure definitions (see scfglib2.c) 
-	$Id: cnflib.js,v 1.7 2015/11/09 23:49:47 mcmlxxix Exp $
+	$Id: cnflib.js,v 1.8 2015/12/20 06:28:43 echicken Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -101,7 +101,7 @@ var CNF = new (function() {
 			if(file.eof) 
 				break;
 			list[i] = {
-				name:etStr(file,struct.name.bytes),
+				name:getStr(file,struct.name.bytes),
 				misc:0
 			};
 		}
