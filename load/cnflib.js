@@ -1,5 +1,5 @@
 /* CNF data structure definitions (see scfglib2.c) 
-	$Id: cnflib.js,v 1.9 2015/12/28 07:46:05 echicken Exp $
+	$Id: cnflib.js,v 1.10 2015/12/28 18:31:47 mcmlxxix Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -14,7 +14,7 @@ var CNF = new (function() {
 
 	/* read a string from a cnf file (optional string length record) */
 	function getStr(file,bytes,length) {
-		if(length == true) {
+		if(typeof length !== 'undefined' && length) {
 			var i = file.readBin(length);
 			var s = file.read(bytes);
 			return s.substr(0,i);
