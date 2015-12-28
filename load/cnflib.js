@@ -1,5 +1,5 @@
 /* CNF data structure definitions (see scfglib2.c) 
-	$Id: cnflib.js,v 1.8 2015/12/20 06:28:43 echicken Exp $
+	$Id: cnflib.js,v 1.9 2015/12/28 07:46:05 echicken Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -31,8 +31,8 @@ var CNF = new (function() {
 	}
 
 	/* write a null-padded string to a cnf file (optional string length record) */
-	function setStr(file,bytes,length,str) {
-		if(length == true) {
+	function setStr(file,bytes,str,length) {
+		if(typeof length !== 'undefined' && length) {
 			setInt(file,length,str.length);
 		}
 		file.write(str,bytes);
@@ -135,7 +135,7 @@ var CNF = new (function() {
 					setInt(file,struct[p].bytes,record[p]);
 					break;
 				case "str":
-					setStr(file,struct[p].bytes,struct[p].length,record[p]);
+					setStr(file,struct[p].bytes,record[p],struct[p].length);
 					break;
 				case "obj":
 					writeRecord(file,struct[p].bytes,record[p]);
