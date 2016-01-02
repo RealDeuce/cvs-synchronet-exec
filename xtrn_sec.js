@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.15 2015/09/28 05:44:04 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.16 2016/01/02 22:06:42 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -26,7 +26,7 @@ var xsec=-1;
 }
 
 var options;
-if((options=load("modopts.js","xtrn_sec")) == null)
+if((options=load({}, "modopts.js","xtrn_sec")) == null)
 	options = {multicolumn: true, sort: false};	// default values
 
 if(options.multicolumn == undefined)
@@ -83,7 +83,7 @@ function external_program_menu(xsec)
 			else
 				n=prog_list.length;
 
-			for(i=0;i<n;i++) {
+			for(i=0;i<n && !console.aborted;i++) {
 				printf(bbs.text(XtrnProgLstFmt),i+1
 					,prog_list[i].name
 					,prog_list[i].cost);
