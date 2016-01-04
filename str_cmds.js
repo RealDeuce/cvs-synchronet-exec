@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.40 2015/07/13 22:20:11 rswindell Exp $
+// $Id: str_cmds.js,v 1.41 2016/01/04 07:25:32 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -186,7 +186,7 @@ function str_cmds(str)
 		}
 		if(word=="NEXEC") {
 			if(bbs.check_syspass()) {
-				str=str.substr(4);
+				str=str.substr(5);
 				bbs.exec(get_arg(str),EX_OUTR|EX_INR|EX_NATIVE);
 			}
 			return;
