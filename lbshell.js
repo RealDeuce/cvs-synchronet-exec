@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.115 2016/01/07 10:09:28 deuce Exp $
+// $Id: lbshell.js,v 1.116 2016/01/07 10:13:52 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -961,7 +961,7 @@ function show_filemenu()
 							bbs.menu("dirs"+(bbs.curlib+1));
 						else {
 							console.line_counter=0;
-							 console.erase();
+							 console.clear();
 							 console.putmsg(format(bbs.text(DirLstHdr), file_area.lib_list[j].description),P_SAVEATR);
 							 for(i=0; i<file_area.lib_list[j].dir_list.length; i++) {
 								if(i==bbs.curdir)
