@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.30 2016/01/07 05:00:29 deuce Exp $
+ * $Id: lightbar.js,v 1.31 2016/01/07 05:59:28 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -11,7 +11,7 @@ if(this.SYS_CLOSED==undefined)
  * Lightbar object
  * Properties:
  *  xpos: Horizontal position of lightbar menu (1-based)
- *  xpos: Vertical position of lightbar menu (1-based)
+ *  ypos: Vertical position of lightbar menu (1-based)
  *  items: an array of objects each having the following properties:
  *         text - The displayed text.  A | prefixes a hotkey
  *         retval - The value to return if this is selected
