@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.71 2015/08/21 21:32:40 echicken Exp $ */
+/* $Id: frame.js,v 1.72 2016/01/10 14:04:43 echicken Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -1074,8 +1074,9 @@ Frame.prototype.putmsg = function(str,attr) {
 			case 'I':	/* Blink */
 				this.__properties__.curr_attr|=BLINK;
 				break;
-			case 'N':	/* Normal (ToDo: Does this do ESC[0?) */
-				this.__properties__.curr_attr=this.attr;
+			case 'N': 	/* Normal */
+				this.__properties__.curr_attr&=~HIGH;
+				this.__properties__.curr_attr&=~BLINK;
 				break;
 			case '-':	/* Normal if High, Blink, or BG */
 				if(this.__properties__.curr_attr & 0xf8)
