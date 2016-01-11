@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.16 2016/01/11 06:29:28 deuce Exp $
+ * $Id: tickit.js,v 1.17 2016/01/11 06:58:32 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -149,6 +149,7 @@ function parse_addr(addr)
 	if (m !== null)
 		ret.domain = m[1];
 
+	return ret;
 }
 
 function get_zone(addr)
@@ -231,8 +232,8 @@ function forward_tic(tic)
 		outb = sbbsecho.outbound.replace(/[\\\/]+$/g, '');
 		if (addr.zone !== defzone)
 			outb += format(".%03x", addr.zone);
-		outb = file_getcase(outb);
-		backslash(outb);
+		outb = fullpath(outb);
+		outb = backslash(outb);
 
 		// Create TIC file first...
 		tf = new File(outb+tickit.get_next_tic_filename());
