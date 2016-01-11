@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.15 2016/01/11 05:37:57 deuce Exp $
+ * $Id: tickit.js,v 1.16 2016/01/11 06:29:28 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -248,7 +248,7 @@ function forward_tic(tic)
 		for (i=0; i<tic.path.length; i++)
 			tf.write('Path '+tic.path[i]+'\r\n');
 		for (i=0; i<tic.seenby.length; i++)
-			tf.write('Path '+tic.seenby[i]+'\r\n');
+			tf.write('Seenby '+tic.seenby[i]+'\r\n');
 		tf.close();
 
 		// Create bsy file...
