@@ -1,4 +1,4 @@
-// $Id: freqit.js,v 1.1 2016/01/11 09:50:52 deuce Exp $
+// $Id: freqit.js,v 1.2 2016/01/12 00:54:46 deuce Exp $
 /*
  * Intentionally simple FREQ processor.
  * Configure in binkd with the line:
@@ -6,8 +6,7 @@
  */
 
 load("filebase.js");
-var cfg = new FREQITCfg();
-
+load("fidocfg.js");
 function FREQITCfg()
 {
 	var f=new File(system.ctrl_dir+'freqit.ini');
@@ -57,6 +56,8 @@ function FREQITCfg()
 	});
 	f.close();
 }
+
+var cfg = new FREQITCfg();
 
 function parse_srif(fname)
 {

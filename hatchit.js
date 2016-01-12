@@ -1,6 +1,6 @@
 load("sbbsdefs.js");
 load("uifcdefs.js");
-load("tickit_objs.js");
+load("fidocfg.js");
 load("filebase.js");
 
 // Backward compatability hack.
@@ -254,7 +254,7 @@ function hatch_file(file, area, origin)
 				tf.write('Ldesc '+line+'\r\n');
 			});
 		}
-		tf.write('Created by TickIT '+"$Revision: 1.2 $".split(' ')[1]+'\r\n');
+		tf.write('Created by TickIT '+"$Revision: 1.3 $".split(' ')[1]+'\r\n');
 		tf.write('Crc '+file_crc(file.path)+'\r\n');
 		for (i=0; i<tic.path.length; i++)
 			tf.write('Path '+tic.path[i]+'\r\n');
