@@ -40,7 +40,7 @@ function BinkP(name_ver, inbound, rx_callback)
 	var addr;
 
 	if (name_ver === undefined)
-		name_ver = 'JSBinkP/'+("$Revision: 1.11 $".split(' ')[1]);
+		name_ver = 'JSBinkP/'+("$Revision: 1.12 $".split(' ')[1]);
 	this.name_ver = name_ver;
 
 	if (inbound === undefined)
@@ -288,6 +288,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 {
 	var challenge='';
 	var i;
+	var pkt;
 
 	if (sock === undefined || auth_cb === undefined)
 		return false;
@@ -328,7 +329,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 							this.authenticated = 'secure';
 						else
 							this.authenticated = 'non-secure';
-						this.sendCmd(this.command.M_OK, this.authenticated)
+						this.sendCmd(this.command.M_OK, this.authenticated);
 				}
 			}
 		}
