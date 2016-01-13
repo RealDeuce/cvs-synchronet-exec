@@ -1,4 +1,4 @@
-// $Id: freqit.js,v 1.3 2016/01/12 00:59:44 deuce Exp $
+// $Id: freqit.js,v 1.4 2016/01/13 02:47:18 deuce Exp $
 /*
  * Intentionally simple FREQ processor.
  * Configure in binkd with the line:
@@ -51,8 +51,6 @@ function handle_magic(magic, resp, protected, pw)
 	var file=undefined;
 
 	if (magic.secure && !protected)
-		return;
-	if (scan_magic(cfg.dirs))
 		return;
 	if (dircache[magic.dir] === undefined)
 		dircache[magic.dir] = FileBase(magic.dir);
