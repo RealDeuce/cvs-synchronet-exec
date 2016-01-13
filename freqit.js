@@ -1,4 +1,4 @@
-// $Id: freqit.js,v 1.4 2016/01/13 02:47:18 deuce Exp $
+// $Id: freqit.js,v 1.5 2016/01/13 02:51:13 deuce Exp $
 /*
  * Intentionally simple FREQ processor.
  * Configure in binkd with the line:
@@ -45,6 +45,12 @@ function add_file(filename, resp)
 	files++;
 	added[filename]='';
 }
+
+/*
+ * TODO: built-in magic names... FILES and NEW
+ * FILES lists all FREQable files and
+ * NEW lists ones newer than 10 days.
+ */
 
 function handle_magic(magic, resp, protected, pw)
 {
