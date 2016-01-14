@@ -46,7 +46,7 @@ function BinkP(name_ver, inbound, rx_callback)
 	var addr;
 
 	if (name_ver === undefined)
-		name_ver = 'JSBinkP/'+("$Revision: 1.17 $".split(' ')[1]);
+		name_ver = 'JSBinkP/'+("$Revision: 1.18 $".split(' ')[1]);
 	this.name_ver = name_ver;
 
 	if (inbound === undefined)
@@ -412,7 +412,7 @@ BinkP.prototype.session = function()
 									size = 0;
 								if (parseInt(args[3], 10) < 0) {
 									// Non-reliable mode...
-									if (this.nonreliable) {
+									if (this.nonreliable || this.ver1_1) {
 										this.sendCmd(this.command.M_GET, this.escapeFileName(args[0])+' '+args[1]+' '+args[2]+' '+size);
 									}
 									else {
