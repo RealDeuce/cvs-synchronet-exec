@@ -46,7 +46,7 @@ function BinkP(name_ver, inbound, rx_callback)
 	var addr;
 
 	if (name_ver === undefined)
-		name_ver = 'JSBinkP/'+("$Revision: 1.13 $".split(' ')[1]);
+		name_ver = 'JSBinkP/'+("$Revision: 1.14 $".split(' ')[1]);
 	this.name_ver = name_ver;
 
 	if (inbound === undefined)
@@ -398,7 +398,7 @@ BinkP.prototype.session = function()
 								this.sendCmd(this.command.M_SKIP, this.escapeFileName(args[0])+' '+args[1]+' '+args[2]);
 								break;
 							case this.file.REJECT:
-								this.m
+								this.sendCmd(this.command.M_GOT, this.escapeFileName(args[0])+' '+args[1]+' '+args[2]);
 								break;
 							case this.file.ACCEPT:
 								size = file_size(tmp.name);
@@ -521,7 +521,7 @@ BinkP.prototype.session = function()
 				}
 			}
 		}
-		if (this.sending === undefined && !this.senteob)) {
+		if (this.sending === undefined && !this.senteob) {
 			this.sending = this.tx_queue.shift();
 			if (this.sending === undefined) {
 				this.sendCmd(this.command.M_EOB);
@@ -772,5 +772,7 @@ BinkP.prototype.addFile = function(name)
 
 	if (!file.open("rb", true))
 		return false;
+	if (this.ver1_1)
+		this.senteob = false;
 	this.tx_queue.push(file);
 };
