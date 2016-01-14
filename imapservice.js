@@ -5,10 +5,8 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.51 2015/05/01 04:26:25 deuce Exp $
+ * $Id: imapservice.js,v 1.52 2016/01/14 03:55:23 deuce Exp $
  */
-
-const RFC822HEADER = 0xb0;  // from smbdefs.h
 
 load("sbbsdefs.js");
 load("822header.js");
