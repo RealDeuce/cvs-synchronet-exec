@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.20 2016/01/14 08:28:43 deuce Exp $
+ * $Id: tickit.js,v 1.21 2016/01/14 09:01:55 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -186,7 +186,7 @@ function forward_tic(tic)
 	}
 
 	// Add us to the path...
-	tic.path.push(system.system.fido_addr_list[0]);
+	tic.path.push(system.fido_addr_list[0]);
 
 	// Populate seenbys from TIC file
 	for (i=0; i<tic.seenby.length; i++)
