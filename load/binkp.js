@@ -193,7 +193,12 @@ BinkP.prototype.parseArgs = function(data)
 		ret[i] = this.unescapeFileName(ret[i]);
 	return ret;
 };
-BinkP.prototype.connect = function(addr, password, port)
+/*
+ * auth_cb(response) is called to add files the response parameter is the
+ * parameter string send with the M_OK message... hopefully either "secure"
+ * or "non-secure"
+ */
+BinkP.prototype.connect = function(addr, password, auth_cb, port)
 {
 	var pkt;
 
@@ -221,7 +226,7 @@ BinkP.prototype.connect = function(addr, password, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.21 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.22 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -247,6 +252,8 @@ BinkP.prototype.connect = function(addr, password, port)
 		if (pkt === undefined)
 			return false;
 	}
+
+	auth_cb(this.authenticated);
 
 	if (js.terminated) {
 		this.close();
