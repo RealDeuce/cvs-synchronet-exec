@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.19 2016/01/12 00:54:46 deuce Exp $
+ * $Id: tickit.js,v 1.20 2016/01/14 08:28:43 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -239,7 +239,7 @@ function forward_tic(tic)
 			outb = backslash(outb);
 		}
 		if (!mkpath(outb)) {
-			log(LOG_ERROR, "Unable to create outbound director '"+outb+"' for link "+link);
+			log(LOG_ERROR, "Unable to create outbound directory '"+outb+"' for link "+link);
 			continue;
 		}
 
