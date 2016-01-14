@@ -92,7 +92,7 @@ function callout(file, scfg)
 	 * in parse_addr()
 	 */
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1);
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.1 $".split(' ')[1]), undefined, callout_rx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.2 $".split(' ')[1]), undefined, callout_rx_callback);
 
 	// Force debug mode for now...
 	bp.debug = true;
@@ -126,8 +126,10 @@ function run_one_outbound_dir(dir, scfg)
 			// Find one we can create a .bsy and .csy file for...
 			if (file_getext(flow_files[i]).substr(0,2).search(/^\.[icdo]$/i) !== 0)
 				continue;
-			if ((lock_files = lock_flow(flow_files[i], true))!==undefined)
+			if ((lock_files = lock_flow(flow_files[i], true))!==undefined) {
+				// TODO: Check hold file.
 				break;
+			}
 		}
 		if (i<flow_files.length) {
 			log(LOG_DEBUG, "Attempting callout for file "+flow_files[i]);
