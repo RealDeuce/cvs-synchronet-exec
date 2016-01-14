@@ -46,7 +46,7 @@ function BinkP(name_ver, inbound, rx_callback)
 	var addr;
 
 	if (name_ver === undefined)
-		name_ver = 'JSBinkP/'+("$Revision: 1.14 $".split(' ')[1]);
+		name_ver = 'JSBinkP/'+("$Revision: 1.15 $".split(' ')[1]);
 	this.name_ver = name_ver;
 
 	if (inbound === undefined)
@@ -252,7 +252,7 @@ BinkP.prototype.connect = function(addr, password, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
