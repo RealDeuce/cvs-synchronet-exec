@@ -195,7 +195,7 @@ function callout_auth_cb(mode, bp)
 	 */
 	var addrs = [];
 
-	if (bp.cb_data.binkitpw === undefined)
+	if (bp.cb_data.binkitpw === undefined || bp.cb_data.binkitpw === '-')
 		addrs.push(bp.binkit_to_addr);
 	else {
 		bp.remote_addrs.forEach(function(addr) {
@@ -282,7 +282,7 @@ function callout_done(bp)
 function callout(addr, scfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.6 $".split(' ')[1]), undefined, callout_rx_callback, callout_tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.7 $".split(' ')[1]), undefined, callout_rx_callback, callout_tx_callback);
 	var port;
 	var f;
 
