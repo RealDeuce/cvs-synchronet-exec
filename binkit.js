@@ -94,6 +94,12 @@ function unlock_flow(locks)
 /*
  * Given a list of addresses to rescan, calls
  * bp.addFile() for any pending file transfers.
+ * 
+ * TODO: Call this after sending a M_EOB to rescan per FSP-1024?  We
+ * 		 hold the lock files, so nothing should be changing the flow
+ * 		 files (per FTS-5005) though.  This is mostly for REQ handling,
+ * 		 so if we do integrate freqit.js, we should be fine to ignore
+ * 		 the spec on this point.
  */
 function add_outbound_files(addrs, bp)
 {
@@ -276,7 +282,7 @@ function callout_done(bp)
 function callout(addr, scfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.5 $".split(' ')[1]), undefined, callout_rx_callback, callout_tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.6 $".split(' ')[1]), undefined, callout_rx_callback, callout_tx_callback);
 	var port;
 	var f;
 
