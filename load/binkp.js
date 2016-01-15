@@ -226,7 +226,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.25 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.26 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -463,7 +463,7 @@ BinkP.prototype.session = function()
 								i--;
 							}
 						}
-						if (file_getname(this.sending.sendas) === args[0]) {
+						if (this.sending.sendas === args[0]) {
 							this.sending.file.close();
 							this.failed_sent_files.push(this.sending.file.name);
 							this.sending = undefined;
