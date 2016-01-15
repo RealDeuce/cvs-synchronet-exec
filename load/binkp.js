@@ -209,7 +209,6 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 
 	if (password === undefined)
 		password = '-';
-
 	if (port === undefined)
 		port = 24554;
 
@@ -227,7 +226,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.28 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.29 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -254,7 +253,8 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 			return false;
 	}
 
-	auth_cb(this.authenticated, this);
+	if (auth_cb !== undefined)
+		auth_cb(this.authenticated, this);
 
 	if (js.terminated) {
 		this.close();
@@ -702,7 +702,11 @@ BinkP.prototype.recvFrame = function(timeout)
 					else {
 						this.remote_addrs = [];
 						ret.data.split(/ /).forEach(function(addr) {
-							this.remote_addrs.push(FIDO.parse_addr(addr, this.default_zone));
+							try {
+								this.remote_addrs.push(FIDO.parse_addr(addr, this.default_zone));
+							}
+							catch (e) {
+							}
 						}, this);
 					}
 					break;
