@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.37 2014/08/14 16:42:21 cyan Exp $
+// $Id: ircd_unreg.js,v 1.38 2016/01/15 09:49:43 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.37 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.38 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -393,7 +393,7 @@ function Unregistered_Welcome() {
 		+ "CHANTYPES=#& CHANLIMIT=#:" + max_user_chans + " PREFIX=(ov)@+ "
 		+ "STATUSMSG=@+ :are available on this server.");
 	this.numeric("005", "CASEMAPPING=ascii SILENCE=" + max_silence + " "
-		+ "ELIST=cmntu CHANMODES=b,k,l,imnpst "
+		+ "ELIST=cmnt CHANMODES=b,k,l,imnpst "
 		+ "MAXLIST=b:" + max_bans + " "
 		+ "TARGMAX=JOIN:,KICK:,KILL:,NOTICE:,PART:,PRIVMSG:,WHOIS:,WHOWAS: "
 		+ ":are available on this server.");
