@@ -227,7 +227,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.27 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.28 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -766,9 +766,13 @@ BinkP.prototype.addFile = function(path, sendas)
 
 	if (sendas === undefined)
 		sendas = file_getname(path);
-	if (!file.open("rb", true))
+	if (!file.open("rb", true)) {
+		log(LOG_WARNING, "Unable to open '"+file.name+"'.  Not sending.");
 		return false;
+	}
 	if (this.ver1_1)
 		this.senteob = false;
+	if (this.debug)
+		log(LOG_DEBUG, "Adding '"+path+"' as '"+sendas+"'");
 	this.tx_queue.push({file:file, sendas:sendas});
 };
