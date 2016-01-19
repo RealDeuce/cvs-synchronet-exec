@@ -245,7 +245,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.30 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.31 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -314,6 +314,13 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	for (i=0; i<128; i++)
 		challenge += random(16).toString(16);
 
+	// Avoid warning from syncjslint by putting this in a closure.
+	function hex2ascii(hex)
+	{
+		return ascii(parseInt(hex, 16));
+	}
+
+	this.cram = {algo:'MD5', challenge:challenge.replace(/[0-9a-fA-F]{2}/g, hex2ascii)};
 	this.authenticated = undefined;
 	this.sendCmd(this.command.M_NUL, "OPT CRAM-MD5-"+challenge);
 	this.sendCmd(this.command.M_NUL, "SYS "+this.system_name);
@@ -321,7 +328,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.30 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.31 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
