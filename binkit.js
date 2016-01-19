@@ -198,7 +198,7 @@ function add_outbound_files(addrs, bp)
 						fname += fnchars[random(fnchars.length)];
 					fname += '.pkt';
 					if (bp.addFile(file, fname))
-						bp.cb_data.binkit_file_actions[flo.name] = 'DELETE';
+						bp.cb_data.binkit_file_actions[file] = 'DELETE';
 					break;
 				case '.req':
 					fname = '';
@@ -206,7 +206,7 @@ function add_outbound_files(addrs, bp)
 						fname += fnchars[random(fnchars.length)];
 					fname += '.req';
 					if (bp.addFile(file, fname))
-						bp.cb_data.binkit_file_actions[flo.name] = 'DELETE';
+						bp.cb_data.binkit_file_actions[file] = 'DELETE';
 					break;
 				case '.bsy':
 				case '.csy':
@@ -428,7 +428,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.11 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.12 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -630,7 +630,7 @@ function run_outbound()
 			log(LOG_WARNING, "Unhandled outbound '"+dir+"'.");
 	});
 	outbound_dirs.forEach(function(dir) {
-		run_one_outbound_dir(dir, scfg);
+		run_one_outbound_dir(dir, scfg, semaphores);
 	});
 
 	semaphores.forEach(function(semname) {
@@ -674,7 +674,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.11 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.12 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
