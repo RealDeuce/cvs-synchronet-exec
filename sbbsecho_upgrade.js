@@ -1,4 +1,4 @@
-// $Id: sbbsecho_upgrade.js,v 1.4 2016/01/18 08:17:48 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.5 2016/01/19 08:47:29 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
@@ -141,7 +141,13 @@ file.writeln("notify_user = " + parseInt(value_opts["notify"])), delete value_op
 file.writeln("zone_blind = " + Boolean(value_opts["zone_blind"]));
 if(parseInt(value_opts["zone_blind"]))
 	file.writeln("zone_blind_threshold = " + parseInt(value_opts["zone_blind"])), delete value_opts["zone_blind"];
-file.writeln("log = 0x" + value_opts["log"]), delete value_opts["log"];
+if(value_opts["log"] && value_opts["log"].charAt(0) == '0')
+	file.writeln("log = 0x" + value_opts["log"]), delete value_opts["log"];
+if(!value_opts["inbound"] && value_opts["outbound"]) {
+	var inbound = value_opts["outbound"].replace("out","in");
+	alert("Setting inbound dir to best guess (no longer using SCFG setting): " + inbound);
+	file.writeln("inbound = " + inbound);
+}
 for(var i in value_opts)
 	if(i) file.writeln(i + " = " + value_opts[i]);
 
