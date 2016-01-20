@@ -436,7 +436,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.14 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.15 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -595,7 +595,7 @@ function run_one_outbound_dir(dir, scfg, semaphores)
 
 	// Now check for pending file reference
 	check_flavour('*.?lo', "file reference");
-	log(LOG_DEBUG, "Done checking file references in "+dir+", checking file references.");
+	log(LOG_DEBUG, "Done checking file references in "+dir+".");
 }
 
 function run_outbound()
@@ -682,7 +682,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.14 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.15 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
