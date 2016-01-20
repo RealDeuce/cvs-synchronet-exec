@@ -423,12 +423,20 @@ function callout_done(bp, semaphores)
 			});
 		}
 	});
+
+	// Remove flow files that have been completly processed.
+	Object.keys(bp.cb_data.binkit_flow_contents).forEach(function(flo) {
+		if (file_exists(flo)) {
+			if (bp.cb_data.binkit_flow_contents[flo].length == 0)
+				file_remove(flo);
+		}
+	});
 }
 
 function callout(addr, scfg, semaphores)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.13 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.14 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -674,7 +682,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.13 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.14 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
