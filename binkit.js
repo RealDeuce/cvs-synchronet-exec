@@ -348,6 +348,7 @@ function rename_or_move(src, dst)
 	}
 	df.close();
 	sf.close();
+	df.date = sf.date;
 	sf.remove();
 	return true;
 }
@@ -494,7 +495,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.20 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.21 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -777,7 +778,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.20 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.21 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
