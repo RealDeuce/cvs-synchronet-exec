@@ -335,12 +335,12 @@ function rx_callback(fname, bp)
 	}
 	else {
 		if (bp.authenticated === 'secure') {
-			log(LOG_DEBUG, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)+"'.");
+			log(LOG_INFO, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)+"'.");
 			if (!file_rename(fname, bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)))
 				return false;
 		}
 		else {
-			log(LOG_DEBUG, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.inbound+file_getname(fname)+"'.");
+			log(LOG_INFO, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.inbound+file_getname(fname)+"'.");
 			if (!file_rename(fname, bp.cb_data.binkit_scfg.inbound+file_getname(fname)))
 				return false;
 		}
@@ -456,7 +456,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.18 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.19 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -599,7 +599,7 @@ function run_one_outbound_dir(dir, scfg, semaphores)
 				}
 			}
 			if (i<flow_files.length) {
-				log(LOG_DEBUG, "Attempting callout for file "+flow_files[i]);
+				log(LOG_INFO, "Attempting callout for file "+flow_files[i]);
 				locks.push(lock_files);
 				// Use a try/catch to ensure we clean up the lock files.
 				callout(addr, scfg, semaphores, locks);
@@ -683,7 +683,7 @@ function inbound_auth_cb(pwd, bp)
 	var nocrypt;
 
 	function check_nocrypt(node) {
-		if (bp.cb_data.binkitcfg.node[addr].nocrypt) {
+		if (node) {
 			if (nocrypt === undefined)
 				nocrypt = true;
 		}
@@ -739,7 +739,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.18 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.19 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
