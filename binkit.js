@@ -428,7 +428,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.12 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.13 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -674,13 +674,13 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.12 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.13 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
 	var semaphores = [];
 
-	log(LOG_INFO, "Got inbound call from "+sock.remote_ip_addr+":"+sock.remote_port);
+	log(LOG_INFO, "Got inbound call from "+sock.remote_ip_address+":"+sock.remote_port);
 	bp.cb_data = {
 		binkitcfg:new BinkITCfg(),
 		binkit_scfg:new SBBSEchoCfg(),
@@ -718,7 +718,7 @@ try {
 catch(e) {}
 
 // If we're running as a service, call run_inbound().
-if (sock !== undefined)
+if (sock !== undefined && sock.descriptor !== -1)
 	run_inbound(sock);
 else
 	run_outbound();
