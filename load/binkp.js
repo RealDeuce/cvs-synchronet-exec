@@ -394,7 +394,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.41 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.42 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -507,7 +507,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.41 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.42 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
@@ -864,7 +864,7 @@ BinkP.prototype.recvFrame = function(timeout)
 		switch(this.sock.poll(timeout)) {
 			case 0:	// Timeout
 				if (timeout) {
-					log(LOG_ERROR, "Timed out receiving packet header!");
+					log(LOG_WARNING, "Timed out receiving packet header!");
 					this.sock.close();
 					this.sock = undefined;
 					return undefined;
@@ -882,7 +882,7 @@ BinkP.prototype.recvFrame = function(timeout)
 		switch(this.sock.poll(timeout)) {
 			case 0:	// Timeout
 				if (timeout) {
-					log(LOG_ERROR, "Timed out receiving second byte of packet header!");
+					log(LOG_WARNING, "Timed out receiving second byte of packet header!");
 					this.sock.close();
 					this.sock = undefined;
 					return undefined;
