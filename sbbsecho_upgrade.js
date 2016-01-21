@@ -1,9 +1,11 @@
-// $Id: sbbsecho_upgrade.js,v 1.5 2016/01/19 08:47:29 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.6 2016/01/21 11:00:54 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
 // Converts ctrl/sbbsecho.cfg (or other file if specified)
 // to ctrl/sbbsecho.ini
+
+const REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 var debug =  false;
 
@@ -130,6 +132,7 @@ if(!file.open("w")) {
 	exit();
 }
 
+file.writeln("; Converted from " + cfgfile + " using " + js.exec_file + " " + REVISION);
 file.writeln("check_path = " + !Boolean(bool_opts["nopathcheck"])), delete bool_opts["nopathcheck"];
 file.writeln("fwd_circular = " + !Boolean(bool_opts["nocircularfwd"])), delete bool_opts["nocircularfwd"];
 file.writeln("kill_empty_netmail = " + Boolean(bool_opts["kill_empty"])), delete bool_opts["kill_empty"];
@@ -143,6 +146,8 @@ if(parseInt(value_opts["zone_blind"]))
 	file.writeln("zone_blind_threshold = " + parseInt(value_opts["zone_blind"])), delete value_opts["zone_blind"];
 if(value_opts["log"] && value_opts["log"].charAt(0) == '0')
 	file.writeln("log = 0x" + value_opts["log"]), delete value_opts["log"];
+if(value_opts["log_level"])
+	file.writeln("LogLevel = " + value_opts["log_level"]), delete value_opts["log_level"];
 if(!value_opts["inbound"] && value_opts["outbound"]) {
 	var inbound = value_opts["outbound"].replace("out","in");
 	alert("Setting inbound dir to best guess (no longer using SCFG setting): " + inbound);
