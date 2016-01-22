@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.21 2015/09/28 05:44:04 rswindell Exp $
+// $Id: newuser.js,v 1.22 2016/01/22 11:52:18 deuce Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -26,7 +26,7 @@ if(options && options.ask_qnet) {
 	if(options.qnet_name==undefined)
 		options.qnet_name="DOVE-Net";
 	if(!console.noyes(format("\r\nIs this account to be used for QWK Networking (%s)\1b", options.qnet_name))
-		&& !console.noyes("\r\n\1bARE YOU \1wPOSITIVE\1n\1h\1b (If you're unsure, press '\1wN1b')"))
+		&& !console.noyes("\r\n\1bARE YOU \1wPOSITIVE\1n\1h\1b (If you're unsure, press '\1wN\1b')"))
 		qnet=true;
 }
 
