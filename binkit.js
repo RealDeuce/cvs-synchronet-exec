@@ -38,8 +38,8 @@ FREQIT.add_file = function(filename, bp, cfg)
 function lock_flow(file, csy)
 {
 	var ret = {
-		bsy:new File(file.replace(/\..*?$/, '.bsy')),
-		csy:new File(file.replace(/\..*?$/, '.csy'))
+		bsy:new File(file.replace(/\.[^\.]*?$/, '.bsy')),
+		csy:new File(file.replace(/\.[^\.]**?$/, '.csy'))
 	};
 
 	// Takes ownership of a lockfile if it's more than six hours old.
@@ -495,7 +495,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.21 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.22 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -778,7 +778,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.21 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.22 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
