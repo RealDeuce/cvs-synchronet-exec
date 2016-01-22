@@ -394,7 +394,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.42 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.43 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -507,7 +507,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.42 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.43 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
@@ -879,6 +879,12 @@ BinkP.prototype.recvFrame = function(timeout)
 				break;
 		}
 		buf = this.sock.recv(1);
+		if (buf.length !== 1) {
+			log(LOG_INFO, "Remote disconnected");
+			this.sock.close();
+			this.sock = undefined;
+			return undefined;
+		}
 		switch(this.sock.poll(timeout)) {
 			case 0:	// Timeout
 				if (timeout) {
@@ -897,13 +903,13 @@ BinkP.prototype.recvFrame = function(timeout)
 				break;
 		}
 		buf += this.sock.recv(1);
-		buf = this.recv_buf(buf);
 		if (buf.length !== 2) {
-			log(LOG_ERROR, "Timed out receiving second byte of packet header!");
+			log(LOG_ERROR, "Remote disconnected before sending second byte of packet header!");
 			this.sock.close();
 			this.sock = undefined;
 			return undefined;
 		}
+		buf = this.recv_buf(buf);
 		ret.length = (ascii(buf[0]) << 8) | ascii(buf[1]);
 		ret.is_cmd = (ret.length & 0x8000) ? true : false;
 		ret.length &= 0x7fff;
