@@ -356,6 +356,10 @@ function rename_or_move(src, dst)
 function rx_callback(fname, bp)
 {
 	var semname;
+	var secure_inbound = bp.cb_data.binkit_scfg.secure_inbound;
+	var inbound = bp.cb_data.binkit_scfg.inbound;
+	if (secure_inbound == undefined)
+		secure_inbound = inbound;
 
 	if (fname.search(/\.(?:pkt|su.|mo.|tu.|we.|th.|fr.|sa.)$/i) !== -1) {
 		semname = system.data_dir + 'fidoin.now';
@@ -374,14 +378,22 @@ function rx_callback(fname, bp)
 	}
 	else {
 		if (bp.authenticated === 'secure') {
-			log(LOG_INFO, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)+"'.");
-			if (!rename_or_move(fname, bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)))
-				return false;
+			if (secure_inbound === undefined)
+				log(LOG_ERROR, "No secure inbound configured in sbbsecho!  Leaving secure file as '"+fname+"'.");
+			else {
+				log(LOG_INFO, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)+"'.");
+				if (!rename_or_move(fname, bp.cb_data.binkit_scfg.secure_inbound+file_getname(fname)))
+					return false;
+			}
 		}
 		else {
-			log(LOG_INFO, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.inbound+file_getname(fname)+"'.");
-			if (!rename_or_move(fname, bp.cb_data.binkit_scfg.inbound+file_getname(fname)))
-				return false;
+			if (secure_inbound === undefined)
+				log(LOG_ERROR, "No inbound configured in sbbsecho!  Leaving inseucre file as '"+fname+"'.");
+			else {
+				log(LOG_INFO, "Moving '"+fname+"' to '"+bp.cb_data.binkit_scfg.inbound+file_getname(fname)+"'.");
+				if (!rename_or_move(fname, bp.cb_data.binkit_scfg.inbound+file_getname(fname)))
+					return false;
+			}
 		}
 	}
 	return true;
@@ -495,7 +507,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.23 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.24 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -778,7 +790,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.23 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.24 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
