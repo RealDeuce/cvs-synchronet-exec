@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.117 2016/01/07 19:37:08 deuce Exp $
+// $Id: lbshell.js,v 1.118 2016/01/23 01:34:56 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -220,7 +220,9 @@ function format_opt(str, width, expand)
 	return(opt);
 }
 
-function ShellLB() {}
+function ShellLB() {
+	Lightbar.call(this);
+}
 ShellLB.prototype = new Lightbar;
 // Extend the Lightbar prototype...
 ShellLB.prototype.erase=function() {
