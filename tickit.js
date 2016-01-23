@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.21 2016/01/14 09:01:55 deuce Exp $
+ * $Id: tickit.js,v 1.22 2016/01/23 02:25:46 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -431,7 +431,7 @@ function import_files()
 		f.write(files_bbs[i]);
 		f.close();
 
-		cmd = system.exec_dir+"addfiles "+i+" -zd +"+f.name+" 12 23";
+		cmd = system.exec_dir+"addfiles "+i+" -zd +"+f.name+" 23 12";
 		log(LOG_DEBUG, "Executing: '"+cmd+"'.");
 		system.exec(cmd);
 	}
