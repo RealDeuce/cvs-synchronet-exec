@@ -112,10 +112,6 @@ function unlock_flow(locks)
 	}
 }
 
-/*
- * TODO: Read the ftn_domains.ini and get the outbound from there,
- * falling back to the sbbsecho one.
- */
 function outbound_root(addr, scfg, ftnd)
 {
 	if (ftnd.outboundMap[addr.domain] === undefined)
@@ -510,7 +506,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1);
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.28 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.29 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -852,7 +848,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1);
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.28 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.29 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
