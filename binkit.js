@@ -510,7 +510,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1);
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.27 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.28 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -520,7 +520,7 @@ function callout(addr, scfg, ftnd, semaphores, locks)
 		binkitcfg:new BinkITCfg(),
 		binkit_to_addr:addr,
 		binkit_scfg:scfg,
-		binkit_ftnd:scfg,
+		binkit_ftnd:ftnd,
 		binkit_file_actions:{},
 		binkit_flow_contents:{},
 		binkit_create_semaphores:semaphores,
@@ -852,7 +852,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1);
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.27 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.28 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
