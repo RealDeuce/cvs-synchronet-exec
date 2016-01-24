@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.22 2016/01/23 02:25:46 deuce Exp $
+ * $Id: tickit.js,v 1.23 2016/01/24 20:53:02 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -98,7 +98,7 @@ function process_tic(tic)
 			ld = tic.ldesc.split(/\r?\n/);
 			for (i=0; i<ld.length; i++) {
 				if (i)
-					files_bbs[dir] += "                        ";
+					files_bbs[dir] += " ".repeat(23);
 				files_bbs[dir] += ld[i]+"\r\n";
 			}
 		}
