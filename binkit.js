@@ -506,7 +506,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.30 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.31 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -534,6 +534,8 @@ function callout(addr, scfg, ftnd, semaphores, locks)
 	bp.default_zone = myaddr.zone;
 	bp.default_domain = myaddr.domain;
 	bp.want_callback = callout_want_callback;
+	if (bp.cb_data.binkitcfg.caps !== undefined)
+		bp.capabilities = bp.cb_data.binkitcfg.caps;
 
 	/*
 	 * We can't use the defaults since the defaults are only 4D addresses,
@@ -858,7 +860,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.30 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.31 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -881,6 +883,8 @@ function run_inbound(sock)
 	bp.default_zone = myaddr.zone;
 	bp.default_domain = myaddr.domain;
 	bp.want_callback = callout_want_callback;
+	if (bp.cb_data.binkitcfg.caps !== undefined)
+		bp.capabilities = bp.cb_data.binkitcfg.caps;
 
 	// We can't use the defaults since the defaults are only 4D addresses.
 	bp.addr_list = [];
