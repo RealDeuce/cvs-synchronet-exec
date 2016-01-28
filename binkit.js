@@ -486,7 +486,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.33 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.34 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -755,7 +755,7 @@ function run_outbound()
 		});
 	});
 	outbound_dirs.forEach(function(dir) {
-		run_one_outbound_dir(fullpath(dir), scfg, ftnd, semaphores);
+		run_one_outbound_dir(dir, scfg, ftnd, semaphores);
 	});
 
 	semaphores.forEach(function(semname) {
@@ -830,7 +830,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.33 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.34 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
