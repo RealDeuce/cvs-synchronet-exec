@@ -486,7 +486,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.38 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.39 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -834,7 +834,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.38 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.39 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -895,7 +895,9 @@ function poll_node(addr_str, scfg, ftnd, bicfg, myaddr)
 
 	var addr = FIDO.parse_addr(addr_str, 1, 'fidonet');
 
-	if ((lock_files = lock_flow(outbound_root(addr, scfg, ftnd)+addr.flo_outbound(myaddr.zone))) !== undefined) {
+	if ((lock_files = lock_flow(outbound_root(addr, scfg, ftnd)+addr.flo_outbound(myaddr.zone))) === undefined)
+		return;
+	else {
 		if (check_held(addr, scfg, ftnd, myaddr)) {
 			unlock_flow(lock_files);
 			return;
