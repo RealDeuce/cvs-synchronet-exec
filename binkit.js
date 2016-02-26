@@ -486,7 +486,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.37 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.38 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -834,7 +834,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.37 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.38 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -922,7 +922,10 @@ function run_polls(ran)
 	bicfg = new BinkITCfg();
 	myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
 
-	bicfg.node.forEach(function(addr_str) {
+	Object.keys(bicfg.node).forEach(function(addr_str) {
+		if (!bicfg.node[addr_str].poll)
+			return;
+
 		var addr = FIDO.parse_addr(addr_str, 1, 'fidonet');
 
 		if (ran[addr] !== undefined)
