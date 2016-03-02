@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.26 2016/02/29 01:06:37 deuce Exp $
+ * $Id: tickit.js,v 1.27 2016/03/02 01:10:40 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -178,8 +178,10 @@ function process_tic(tic)
 
 	log(LOG_DEBUG, "Moving file from "+tic.full_path+" to "+path+".");
 	if (file_exists(path+tic.file)) {
-		if (tic.file !== tic.replaces)
+		if (tic.file !== tic.replaces) {
 			log(LOG_ERROR, "'"+tic.full_path+"' already exists in '"+path+"' and TIC does not have Replaces line.");
+			return false;
+		}
 		else {
 			if (!do_move(path, tic))
 				return false;
