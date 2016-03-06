@@ -417,7 +417,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL "+this.capabilities);
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.55 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.56 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -530,7 +530,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.55 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.56 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
@@ -636,8 +636,8 @@ BinkP.prototype.session = function()
 										this.sendCmd(this.command.M_GET, this.escapeFileName(args[0])+' '+args[1]+' '+args[2]+' '+size);
 									}
 									else {
-										log(LOG_ERR, "M_FILE Offset of -1 in reliable mode!");
-										this.sendCmd(this.command.M_ERR, "M_FILE Offset of -1 in reliable mode!");
+										log(LOG_WARNING, "M_FILE Offset of -1 in reliable mode (bug in remote)!");
+										this.sendCmd(this.command.M_GET, this.escapeFileName(args[0])+' '+args[1]+' '+args[2]+' '+size);
 									}
 								}
 								else {
