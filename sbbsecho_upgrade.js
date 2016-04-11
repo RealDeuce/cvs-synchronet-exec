@@ -1,11 +1,11 @@
-// $Id: sbbsecho_upgrade.js,v 1.8 2016/04/11 09:59:05 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.9 2016/04/11 10:59:41 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
 // Converts ctrl/sbbsecho.cfg (or other file if specified)
 // to ctrl/sbbsecho.ini
 
-const REVISION = "$Revision: 1.8 $".split(' ')[1];
+const REVISION = "$Revision: 1.9 $".split(' ')[1];
 
 var debug =  false;
 
@@ -185,12 +185,12 @@ for(var i in nodelist) {
 	file.writeln("\tPassive = " + Boolean(nodelist[i].passive));
 	file.writeln("\tDirect = " + Boolean(nodelist[i].direct));
 	file.writeln("\tStatus = " + (nodelist[i].crash ? "crash" : nodelist[i].hold ? "hold" : "normal"));
-	file.writeln("\tPacker = " + (nodelist[i].usepacker || "none"));
+	file.writeln("\tArchive = " + (nodelist[i].usepacker || "none"));
 	file.writeln("\tKeys = " + nodelist[i].keys.join(","));
 }
 for(var i in packer) {
 	file.writeln();
-	file.writeln("[packer:" + packer[i].name + "]");
+	file.writeln("[archive:" + packer[i].name + "]");
 	file.writeln("\tSigOffset = " + packer[i].offset);
 	file.writeln("\tSig = " + packer[i].sig);
 	file.writeln("\tPack = " + packer[i].pack);
