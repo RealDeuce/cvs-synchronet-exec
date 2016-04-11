@@ -1,11 +1,11 @@
-// $Id: sbbsecho_upgrade.js,v 1.7 2016/02/25 08:52:28 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.8 2016/04/11 09:59:05 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
 // Converts ctrl/sbbsecho.cfg (or other file if specified)
 // to ctrl/sbbsecho.ini
 
-const REVISION = "$Revision: 1.7 $".split(' ')[1];
+const REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 var debug =  false;
 
@@ -24,6 +24,8 @@ if(!file.open("r")) {
 	exit();
 }
 var cfg = file.readAll(4096);
+file.close();
+
 var line_num;
 var bool_opts = [];
 var value_opts = [];
@@ -215,3 +217,8 @@ for(var i in echolist) {
 
 file.close();
 print(cfgfile + " successfully converted to " + inifile);
+var oldcfg = cfgfile + ".old";
+if(file_rename(cfgfile,oldcfg))
+	print(cfgfile + " renamed to " + oldcfg);
+else
+	alert("Error renaming " + cfgfile + " to " + oldcfg);
