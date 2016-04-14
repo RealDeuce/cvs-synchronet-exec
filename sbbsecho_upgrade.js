@@ -1,11 +1,11 @@
-// $Id: sbbsecho_upgrade.js,v 1.9 2016/04/11 10:59:41 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.10 2016/04/14 09:28:18 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
 // Converts ctrl/sbbsecho.cfg (or other file if specified)
 // to ctrl/sbbsecho.ini
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 
 var debug =  false;
 
@@ -204,8 +204,10 @@ for(var i in echolist) {
 		elist.shift();
 		hub = { addr: elist.shift(), pwd: elist.shift() };
 		forward = true;
-	} else if(elist[0].toUpperCase()=="HUB")
+	} else if(elist[0].toUpperCase()=="HUB") {
+		elist.shift();
 		hub = { addr: elist.shift(), pwd: '' };
+	}
 
 	file.writeln();
 	file.writeln("[echolist:" + elist.shift() + "]");
