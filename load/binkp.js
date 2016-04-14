@@ -417,7 +417,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL "+this.capabilities);
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.57 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.58 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -530,7 +530,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.57 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.58 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
@@ -697,7 +697,7 @@ BinkP.prototype.session = function()
 								break cmd_switch;
 						}
 						// Is this the current "sending" file?
-						if (this.sending === args[0]) {
+						if (this.sending.sendas === args[0]) {
 							// Stop waiting for a M_GET
 							this.sending.waitingForGet = false;
 							// Now, simply adjust the position in the sending file
