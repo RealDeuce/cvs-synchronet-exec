@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.107 2015/11/18 01:05:12 rswindell Exp $
+// $Id: newslink.js,v 1.108 2016/04/18 21:50:37 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.107 $".split(' ')[1];
+const REVISION = "$Revision: 1.108 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -631,10 +631,12 @@ for(i in area) {
 
 			recv_lines++;
 
-//			printf("msgtxt: %s\r\n",line);
+			if(debug)
+				printf("msgtxt: %s\r\n",line);
 
 			if(line==".") {
-//				print("End of message text");
+				if(debug)
+					print("End of message text");
 				break;
 			}
 			if(line=="" && header) {
@@ -771,7 +773,8 @@ for(i in area) {
 			//print(line);
 		}
 
-
+		if(debug)
+			print("Parsing message header");
 		// Parse the message header
 		var hdr={ from: "", to: newsgroup, subject: "", id: "" };
 		for(h in hfields)
@@ -787,6 +790,9 @@ for(i in area) {
 		}
 
         if(file!=undefined) {   
+			if(debug)
+				print("Parsing attachment");
+
             if(file.is_open==true) { /* Incomplete attachment? */
 				print("!Incomplete attachment: " + file_getname(file.name));
                 file.remove();
@@ -825,6 +831,9 @@ for(i in area) {
 				continue;
 			}
         } 
+
+		if(debug)
+			print("Decoding body text");
 		
 		body=decode_news_body(hdr, body);
 
@@ -901,6 +910,10 @@ for(i in area) {
 			body += tearline;
 		if(flags.indexOf('m')>=0)
 			hdr.attr |= MSG_MODERATED;
+
+		if(debug)
+			print("Saving message");
+
 		if(msgbase.save_msg(hdr,body)) {
 			imported++;
 			subimported++;
