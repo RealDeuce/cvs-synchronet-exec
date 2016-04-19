@@ -1,11 +1,11 @@
-// $Id: sbbsecho_upgrade.js,v 1.10 2016/04/14 09:28:18 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.11 2016/04/19 05:38:22 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
 // Converts ctrl/sbbsecho.cfg (or other file if specified)
 // to ctrl/sbbsecho.ini
 
-const REVISION = "$Revision: 1.10 $".split(' ')[1];
+const REVISION = "$Revision: 1.11 $".split(' ')[1];
 
 var debug =  false;
 
@@ -187,6 +187,8 @@ for(var i in nodelist) {
 	file.writeln("\tStatus = " + (nodelist[i].crash ? "crash" : nodelist[i].hold ? "hold" : "normal"));
 	file.writeln("\tArchive = " + (nodelist[i].usepacker || "none"));
 	file.writeln("\tKeys = " + nodelist[i].keys.join(","));
+	if(nodelist[i].route_to)
+		file.writeln("\tRoute = " + nodelist[i].route_to);
 }
 for(var i in packer) {
 	file.writeln();
