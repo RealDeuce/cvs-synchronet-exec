@@ -1,9 +1,7 @@
-/* $Id: http.js,v 1.25 2015/05/06 02:08:44 deuce Exp $ */
+/* $Id: http.js,v 1.26 2016/04/22 09:32:47 deuce Exp $ */
 
-if(!js.global || js.global.SOCK_STREAM==undefined)
-	load('sockdefs.js');
-if(!js.global || js.global.URL==undefined)
-	load("url.js");
+load('require.js', 'sockdefs.js', 'SOCK_STREAM');
+load('require.js', 'url.js', 'URL');
 
 /*
  * TODO Stuff:

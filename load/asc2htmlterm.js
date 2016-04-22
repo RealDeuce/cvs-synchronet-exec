@@ -1,8 +1,8 @@
-// $Id: asc2htmlterm.js,v 1.2 2007/07/28 12:49:31 deuce Exp $
+// $Id: asc2htmlterm.js,v 1.3 2016/04/22 09:32:46 deuce Exp $
 
 // Converts a ^A/@-code text to HTML for htmlterm usage.
 
-load("graphic.js");
+load('require.js', "graphic.js", 'Graphic');
 
 function asc2htmlterm(buf, dospin, partial, mode)
 {

@@ -1,4 +1,4 @@
-// $Id: ansiterm_lib.js,v 1.2 2015/09/01 08:20:44 rswindell Exp $
+// $Id: ansiterm_lib.js,v 1.3 2016/04/22 09:32:46 deuce Exp $
 
 load("sbbsdefs.js");
 

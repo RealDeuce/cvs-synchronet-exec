@@ -1,7 +1,6 @@
-// $Id: geoip.js,v 1.8 2011/08/25 19:24:51 deuce Exp $
+// $Id: geoip.js,v 1.9 2016/04/22 09:32:47 deuce Exp $
 
-if(!js.global || js.global.HTTPRequest==undefined)
-	load("http.js");
+load('require.js', 'http.js', 'HTTPRequest');
 
 var geoipAPIKey='a1ddc4963461ca20bffd54bb926ce74dc1ecbb8a421122cdc3cdfef616f5aad1';	// Enter your API info here!
 

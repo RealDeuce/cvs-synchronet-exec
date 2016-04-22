@@ -1,7 +1,6 @@
-// $Id: msgutils.js,v 1.25 2013/10/02 15:23:15 deuce Exp $
+// $Id: msgutils.js,v 1.26 2016/04/22 09:32:47 deuce Exp $
 
-if(!js.global || js.global.HIGH==undefined)
-	load("sbbsdefs.js");
+load('require.js', 'sbbsdefs.js', 'HIGH');
 
 function attr_to_ansi(atr, curatr)
 {

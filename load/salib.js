@@ -1,10 +1,9 @@
 /*
  * http://spamassassin.apache.org/full/3.0.x/dist/spamd/PROTOCOL
- * $Id: salib.js,v 1.25 2015/08/23 21:52:26 deuce Exp $
+ * $Id: salib.js,v 1.26 2016/04/22 09:32:47 deuce Exp $
  */
 
-if(!js.global || js.global.SOCK_STREAM==undefined)
-	load("sockdefs.js")
+load('require.js', 'sockdefs.js', 'SOCK_STREAM');
 
 function SPAMC_Message(messagefile, addr, port, user)
 {

@@ -1,9 +1,8 @@
 // Used for handling the input of /X commands
 
-// $Id: getkeye.js,v 1.3 2010/11/17 01:33:33 rswindell Exp $
+// $Id: getkeye.js,v 1.4 2016/04/22 09:32:47 deuce Exp $
 
-if(!js.global || js.global.K_UPPER==undefined)
-	load("sbbsdefs.js");
+load('require.js', "sbbsdefs.js", 'K_UPPER');
 
 function getkeye()
 {

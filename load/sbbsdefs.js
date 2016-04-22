@@ -2,7 +2,7 @@
 
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.61 2016/01/07 01:30:36 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.62 2016/04/22 09:32:47 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -35,8 +35,7 @@
  * Note: If this box doesn't appear square, then you need to fix your tabs.	*
  ****************************************************************************/
 
-if(!js.global || js.global.NODE_WFC==undefined)
-	load("nodedefs.js");
+load('require.js', 'nodedefs.js', 'NODE_WFC');
 
 /* Would rather use const than var, but end up with redeclaration errors.	*/
 

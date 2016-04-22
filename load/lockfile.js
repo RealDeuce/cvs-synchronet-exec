@@ -2,15 +2,14 @@
 
 // File locking library for JS
 
-// $Id: lockfile.js,v 1.6 2010/11/17 01:33:33 rswindell Exp $
+// $Id: lockfile.js,v 1.7 2016/04/22 09:32:47 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
 var LockedFiles={};
 js.on_exit("UnlockAll()");
 
-if(!js.global || js.global.LOG_ERR===undefined)
-	load("sbbsdefs.js");
+load('require.js', 'sbbsdefs.js', 'LOG_ERR');
 
 function Lock(filename, lockid, forwrite, timeout)
 {
