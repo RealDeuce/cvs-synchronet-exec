@@ -1,6 +1,6 @@
-// $Id: msgutils.js,v 1.26 2016/04/22 09:32:47 deuce Exp $
+// $Id: msgutils.js,v 1.27 2016/04/22 10:44:29 deuce Exp $
 
-load('require.js', 'sbbsdefs.js', 'HIGH');
+load('require.js', typeof(argv)=='undefined'?'undefined':argv, 'sbbsdefs.js', 'HIGH');
 
 function attr_to_ansi(atr, curatr)
 {

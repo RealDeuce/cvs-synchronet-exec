@@ -1,8 +1,8 @@
 // Support functions for cold/hot keys in JS shells.
 
-// $Id: coldfuncs.js,v 1.8 2016/04/22 09:32:46 deuce Exp $
+// $Id: coldfuncs.js,v 1.9 2016/04/22 10:44:28 deuce Exp $
 
-load('require.js', "sbbsdefs.js", 'SYS_CLOSED');
+load('require.js', typeof(argv)=='undefined'?'undefined':argv, "sbbsdefs.js", 'SYS_CLOSED');
 var coldfuncs_last_hotkey='';
 
 function get_next_key()

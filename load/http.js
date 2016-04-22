@@ -1,7 +1,7 @@
-/* $Id: http.js,v 1.26 2016/04/22 09:32:47 deuce Exp $ */
+/* $Id: http.js,v 1.27 2016/04/22 10:44:28 deuce Exp $ */
 
-load('require.js', 'sockdefs.js', 'SOCK_STREAM');
-load('require.js', 'url.js', 'URL');
+load('require.js', typeof(argv)=='undefined'?'undefined':argv, 'sockdefs.js', 'SOCK_STREAM');
+load('require.js', typeof(argv)=='undefined'?'undefined':argv, 'url.js', 'URL');
 
 /*
  * TODO Stuff:

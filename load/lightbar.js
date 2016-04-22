@@ -1,10 +1,10 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.32 2016/04/22 09:32:47 deuce Exp $
+ * $Id: lightbar.js,v 1.33 2016/04/22 10:44:28 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
-load('require.js', "sbbsdefs.js", 'SYS_CLOSED');
+load('require.js', typeof(argv)=='undefined'?'undefined':argv, "sbbsdefs.js", 'SYS_CLOSED');
 
 /*
  * Lightbar object
