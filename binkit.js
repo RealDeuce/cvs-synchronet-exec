@@ -17,9 +17,10 @@
  * See FTS-5005 for details.
  */
 
-load("binkp.js");
-load("fidocfg.js");
-load("freqit_common.js");
+load('fido.js');
+load('fidocfg.js');
+load('binkp.js');
+load('freqit_common.js');
 
 FREQIT.add_file = function(filename, bp, cfg)
 {
@@ -486,7 +487,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, ftnd, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.40 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.41 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -834,7 +835,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.40 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.41 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
