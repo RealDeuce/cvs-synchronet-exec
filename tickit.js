@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.27 2016/03/02 01:10:40 deuce Exp $
+ * $Id: tickit.js,v 1.28 2016/05/12 10:14:08 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -24,8 +24,8 @@
  */
 
 load("sbbsdefs.js");
-load("fido.js");
 load("fidocfg.js");
+load("fido.js");
 
 var sbbsecho = new SBBSEchoCfg();
 var tickit = new TickITCfg();
