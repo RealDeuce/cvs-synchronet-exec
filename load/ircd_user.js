@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.44 2011/10/09 07:10:30 deuce Exp $
+// $Id: ircd_user.js,v 1.45 2016/05/12 11:14:51 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.44 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.45 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -261,13 +261,11 @@ function User_Work(cmdline) {
 	   don't bother processing anything else the user sends until at least
 	   2 seconds from now. */
 	if ( (time() - this.idletime) <= 2) {
-		this.throttle_count++;
-		if (this.throttle_count >= 5) {
-			this.recvq.add(cmdline);
-			this.throttle_count = 0;
-			this.idletime = time();
+		if (this.throttle_count >= 4) {
+			this.recvq.prepend(cmdline);
 			return 0;
 		}
+		this.throttle_count++;
 	} else {
 		this.throttle_count = 0;
 	}
