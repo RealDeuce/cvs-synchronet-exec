@@ -417,7 +417,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL "+this.capabilities);
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.64 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.65 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -530,7 +530,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.64 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.65 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
@@ -848,7 +848,8 @@ BinkP.prototype.sendCmd = function(cmd, data)
 	var len = data.length+1;
 	len |= 0x8000;
 	// We'll send it all in one go to avoid sending small packets...
-	if (!this.sock.send(this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + ascii(cmd) + data)))
+	var sstr = this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + ascii(cmd) + data;
+	if (this.sock.send(sstr) !== sstr.length))
 		return false;
 	switch(cmd) {
 		case this.command.M_EOB:
@@ -878,7 +879,8 @@ BinkP.prototype.sendData = function(data)
 	if (this.debug)
 		log(LOG_DEBUG, "Sending "+data.length+" bytes of data");
 	// We'll send it all in one go to avoid sending small packets...
-	if (!this.sock.send(this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + data)))
+	var sstr = this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + data);
+	if (!this.sock.send(sstr) != sstr.length)
 		return false;
 	return true;
 };
