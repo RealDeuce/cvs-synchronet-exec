@@ -1,6 +1,6 @@
 /* ircmsg.js */
 
-/* $Id: ircwho.js,v 1.3 2004/11/25 21:21:23 deuce Exp $ */
+/* $Id: ircwho.js,v 1.4 2016/05/13 01:33:20 deuce Exp $ */
 
 if(this.IRCLIB_REVISION==undefined)
 	load("irclib.js");	// Thanks Cyan!
@@ -84,7 +84,7 @@ if(!sent_heads && this.http_request!=undefined)
 
 function send(msg)
 {
-	if(!my_server.send(msg+"\r\n"))
+	if(my_server.send(msg+"\r\n") != msg.length + 2)
 		alert("send failure");
 }
 
