@@ -2,7 +2,7 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.12 2016/05/09 07:05:15 rswindell Exp $
+// $Id: login.js,v 1.13 2016/05/27 07:34:25 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -56,6 +56,10 @@ for(var c=0; c < options.login_prompts; c++) {
 	if(bbs.login(str, "\1n\1c\1hPW:\b\b\bPassword: \1w")) {
 		bbs.logon();
 		exit();
+	}
+	if(system.trashcan("name", str)) {
+		alert(log(LOG_NOTICE, "!Failed login with blocked user name: " + str));
+		break;
 	}
 	console.clearkeybuffer();	// Clear pending input (e.g. mistyped system password)
 	bbs.rlogin_name='';		// Clear user/login name (if supplied via protocol)
