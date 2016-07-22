@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.28 2016/05/12 10:14:08 deuce Exp $
+ * $Id: tickit.js,v 1.29 2016/07/22 00:46:26 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -197,15 +197,11 @@ function process_tic(tic)
 			files_bbs[dir] = '';
 
 		files_bbs[dir] += format("%-12s %10s ", tic.file, tic.size);
-		if (tic.ldesc === undefined || tic.ldesc.length <= tic.desc)
-			files_bbs[dir] += tic.desc + "\r\n";
-		else {
-			ld = tic.ldesc.split(/\r?\n/);
-			for (i=0; i<ld.length; i++) {
-				if (i)
-					files_bbs[dir] += " ".repeat(24);
-				files_bbs[dir] += ld[i]+"\r\n";
-			}
+		ld = tic.ldesc.split(/\r?\n/);
+		for (i=0; i<ld.length; i++) {
+			if (i)
+				files_bbs[dir] += " ".repeat(24);
+			files_bbs[dir] += ld[i]+"\r\n";
 		}
 	}
 	log(LOG_DEBUG, "Deleting TIC file '"+tic.tic_filename+"'.");
@@ -452,7 +448,6 @@ function parse_ticfile(fname)
 				case 'lfile':
 				case 'size':
 				case 'date':
-				case 'desc':
 				case 'created':
 				case 'magic':
 				case 'replaces':
@@ -467,6 +462,7 @@ function parse_ticfile(fname)
 					break;
 
 				// Multi-line values
+				case 'desc':
 				case 'ldesc':
 					outtic.push(line);
 					tic[key] += val+"\r\n";
@@ -480,10 +476,8 @@ function parse_ticfile(fname)
 		}
 	}
 
-	if (tic.desc.length > 56) {
-		if (tic.ldesc === undefined || tic.ldesc.length <= tic.desc.length)
-			tic.ldesc = word_wrap(tic.desc, 56, 65535, false);
-	}
+	if (tic.ldesc === undefined || tic.ldesc.length <= tic.desc.length)
+		tic.ldesc = tic.desc;
 
 	f.close();
 	f = new File(dir+tic.file);
