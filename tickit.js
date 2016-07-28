@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.32 2016/07/27 11:46:58 deuce Exp $
+ * $Id: tickit.js,v 1.33 2016/07/28 02:48:28 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -149,7 +149,7 @@ function process_tic(tic)
 	}
 
 	if (handler !== undefined) {
-		if (handler.Handle_TIC(tic, this);
+		if (handler.Handle_TIC(tic, this));
 			return true;
 	}
 
