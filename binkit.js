@@ -406,9 +406,14 @@ function callout_want_callback(fobj, fsize, fdate, offset, bp)
 	// Or process the old ones first.
 	if (this.received_files.indexOf(fobj.name) != -1)
 		return this.file.REJECT;
-	// Skip existing files.
-	if (file_exists(fobj.name))
+	// Reject or skip existing files.
+	if (file_exists(fobj.name)) {
+		// If the size and date are the same, reject it.
+		if (fsize == file_size(fobj.name) && fdate == file_date(fobj.name))
+			return this.file.REJECT;
+		// Otherwise, skip it.
 		return this.file.SKIP;
+	}
 	// Accept everything else
 	return this.file.ACCEPT;
 }
@@ -487,7 +492,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.43 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.44 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -832,7 +837,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.43 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.44 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
