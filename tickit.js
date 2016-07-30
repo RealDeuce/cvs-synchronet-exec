@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.36 2016/07/30 09:17:52 deuce Exp $
+ * $Id: tickit.js,v 1.37 2016/07/30 09:47:44 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -161,7 +161,6 @@ function process_tic(tic)
 		catch (e) {
 			log(LOG_ERROR, "TICK Handler threw an exception: "+e);
 		}
-		return false;
 	}
 
 	if (dir !== undefined) {
