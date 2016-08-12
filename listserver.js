@@ -2,12 +2,12 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.43 2015/02/23 07:43:05 rswindell Exp $
+// $Id: listserver.js,v 1.44 2016/08/12 22:16:32 rswindell Exp $
 
 load("sbbsdefs.js");
 load("mailproc_util.js");	// import parse_msg_header() and get_msg_body()
 
-const REVISION = "$Revision: 1.43 $".split(' ')[1];
+const REVISION = "$Revision: 1.44 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -329,6 +329,8 @@ for(var l in list_array) {
 		log(LOG_INFO,format("%s Sending message #%lu from %s to %lu recipients: %s"
 			,list.name.toUpperCase(), ptr, hdr.from, rcpt_list.length, hdr.subject));
 
+		if(hdr.from_net_type == NET_FIDO)
+			hdr.from_net_addr = fidoaddr_to_emailaddr(hdr.from, hdr.from_net_addr);
 		hdr.replyto_net_type = NET_INTERNET;
 		hdr.replyto_net_addr = list.address;
 		hdr.from_agent = AGENT_PROCESS;
