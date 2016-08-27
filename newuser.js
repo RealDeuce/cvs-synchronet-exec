@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.22 2016/01/22 11:52:18 deuce Exp $
+// $Id: newuser.js,v 1.23 2016/08/27 07:50:45 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -14,6 +14,9 @@ qnet=false;
 
 if(options && (bbs.sys_status&SS_RLOGIN))
 	options.ask_qnet=false;
+
+if(options && options.qwk_settings)
+	user.qwk_settings = eval(options.qwk_settings);
 
 console.clear();
 
