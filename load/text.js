@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.16 2016/11/13 05:45:40 rswindell Exp $ */
+/* $Id: text.js,v 1.17 2016/11/13 21:36:32 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -789,8 +789,9 @@ var AgeOfPostedItem=777;
 var NodeStatusLogout=778;
 var VotingNotAllowed=779;
 var VotedAlready=780;
-var QWKSettingsVoting=781;
-var VoteMsgUpDownOrQuit=782;
-var MsgVotes=783;
-var MsgVoteNotice=784;
-var R_Voting=785;
+var R_Voting=781;
+var QWKSettingsVoting=782;
+var VoteMsgUpDownOrQuit=783;
+var MsgVotes=784;
+var MsgUpVoteNotice=785;
+var MsgDownVoteNotice=786;
