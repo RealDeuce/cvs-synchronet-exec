@@ -1,4 +1,4 @@
-// $Id: sbbslist_lib.js,v 1.5 2015/10/28 07:45:04 rswindell Exp $
+// $Id: sbbslist_lib.js,v 1.6 2016/11/16 07:45:59 rswindell Exp $
 
 // Synchronet BBS List (SBL) v4 Library
 
@@ -294,7 +294,7 @@ function read_list()
     log(LOG_INFO, "Opening list file: " + f.name);
     if(!f.open("r")) {
         log(LOG_ERR, "SBBSLIST: Error " + f.error + " opening " + f.name);
-        return null;
+        return [];
     }
 
     var buf = f.read();
