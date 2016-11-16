@@ -1,4 +1,4 @@
-// $Id: portdefs.js,v 1.4 2015/09/10 07:59:02 rswindell Exp $
+// $Id: portdefs.js,v 1.5 2016/11/16 07:43:21 rswindell Exp $
 
 // Standard Unix service TCP and UDP port numbers
 
@@ -45,4 +45,5 @@ standard_service_port = {
 	"irc":		6667,
 	"http-alt":	8080,
 	"json":		10088,
+	"binkp":	24554,
 };
