@@ -2,7 +2,7 @@
 
 # Default Command Shell for Synchronet Version 2.00a+
 
-# $Id: default.src,v 1.16 2015/08/28 02:50:18 rswindell Exp $
+# $Id: default.src,v 1.17 2016/11/27 23:23:45 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -300,6 +300,14 @@ cmdkey U
 cmdkey /U
 	userlist_all
 	end_cmd
+
+cmdkey V
+    exec_bin scanpolls
+    end_cmd
+
+cmdkey /V
+    exec_bin scanpolls all
+    end_cmd
 
 cmdkey X
 	exec_bin xtrn_sec
