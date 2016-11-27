@@ -1,4 +1,4 @@
-// $Id: postpoll.js,v 1.4 2016/11/22 07:26:16 rswindell Exp $
+// $Id: postpoll.js,v 1.5 2016/11/27 23:25:34 rswindell Exp $
 
 load('sbbsdefs.js');
 
@@ -67,5 +67,6 @@ if(js.global.bbs) {
 if(option["votes"])
 	poll.votes = option["votes"];
 print("posted from: " + poll.from);
+poll.to = "All";
 if(!msgbase.add_poll(poll))
 	alert("Error " + msgbase.status + " " + msgbase.last_error);
