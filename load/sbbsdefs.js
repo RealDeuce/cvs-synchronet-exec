@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.66 2016/11/20 07:12:48 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.67 2016/11/27 23:16:05 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -576,6 +576,7 @@ var	SCAN_TOYOU		=(1<<3);	/* Display messages to you only				*/
 var	SCAN_FIND		=(1<<4);	/* Find text in messages				    */
 var	SCAN_UNREAD		=(1<<5);	/* Display un-read messages to you only		*/
 var SCAN_MSGSONLY	=(1<<6);	/* Do not do a new file scan even if the    */
+var SCAN_POLLS		=(1<<7);	/* Scan for polls only (no messages)		*/
 								/* user enabled Automatic New File Scan		*/
 					    		/********************************************/
 
