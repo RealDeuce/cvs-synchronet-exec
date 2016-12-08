@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.67 2016/11/27 23:16:05 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.68 2016/12/08 07:58:21 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -157,13 +157,16 @@ var	  CON_DELETELINE=(1<<17);	/* Deleted line - from getstr(K_LEFTEXIT)	*/
 								/********************************************/
 								/* Special inkey()/getkey() return values	*/
 								/********************************************/
-var	  KEY_UP		='\x1e';	/* ctrl-^ (up arrow)						*/
-var	  KEY_DOWN		='\x0a';	/* ctrl-j (dn arrow)						*/
-var   KEY_RIGHT		='\x06';	/* ctrl-f (rt arrow)						*/
-var	  KEY_LEFT		='\x1d';	/* ctrl-] (lf arrow)						*/
-var	  KEY_HOME		='\x02';	/* ctrl-b (home)							*/
-var   KEY_END       ='\x05';	/* ctrl-e (end)								*/
-var   KEY_DEL       ='\x7f';    /* (del)                                    */
+var		KEY_UP		='\x1e';	/* ctrl-^ (up arrow)						*/
+var		KEY_DOWN	='\x0a';	/* ctrl-j (dn arrow)						*/
+var		KEY_RIGHT	='\x06';	/* ctrl-f (rt arrow)						*/
+var		KEY_LEFT	='\x1d';	/* ctrl-] (lf arrow)						*/
+var		KEY_HOME	='\x02';	/* ctrl-b (home)							*/
+var		KEY_END     ='\x05';	/* ctrl-e (end)								*/
+var		KEY_INSERT	='\x16';	/* ctrl-v (insert)							*/
+var		KEY_DEL     ='\x7f';    /* ctrl-BkSpc (DEL)							*/
+								/********************************************/
+var		KEY_ABORT	='\x03';	/* ctrl-c (cancel/abort/break)				*/
 								/********************************************/
 
 							    /********************************************/
