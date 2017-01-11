@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.75 2017/01/11 19:07:27 echicken Exp $ */
+/* $Id: frame.js,v 1.76 2017/01/11 20:28:57 echicken Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -917,6 +917,8 @@ Frame.prototype.pageup = function() {
 Frame.prototype.clear = function (attr) {
 	if (attr) this.attr = attr;
 	this.__properties__.data = [];
+	this.__position__.offset.x = 0;
+	this.__position__.offset.y = 0;
 	this.home();
 	this.invalidate();
 }
