@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.73 2017/01/11 17:52:35 echicken Exp $ */
+/* $Id: frame.js,v 1.74 2017/01/11 18:52:57 echicken Exp $ */
 
 /**
  	Javascript Frame Library 					
@@ -937,6 +937,7 @@ Frame.prototype.clear = function(attr) {
 }
 Frame.prototype.cleardata = function () {
 	this.__properties__.data = [];
+	this.home();
 	this.invalidate();
 }
 Frame.prototype.clearline = function(attr) {
