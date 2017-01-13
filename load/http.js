@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.29 2016/05/13 01:48:34 deuce Exp $ */
+/* $Id: http.js,v 1.30 2017/01/13 19:51:10 echicken Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -11,7 +11,7 @@ require('url.js', 'URL');
  *	Parse response headers
  */
 
-function HTTPRequest(username,password)
+function HTTPRequest(username,password,extra_headers)
 {
 	/* request properties */
 	this.request_headers;
@@ -41,6 +41,16 @@ function HTTPRequest(username,password)
 		this.request_headers.push("User-Agent: SYNXv0.1");
 	};
 
+	this.AddExtraHeaders = function () {
+		if (typeof extra_headers !== 'object') return;
+		var self = this;
+		Object.keys(extra_headers).forEach(
+			function (e) {
+				self.request_headers.push(e + ': ' + extra_headers[e]);
+			}
+		);
+	}
+
 	this.SetupGet=function(url, referer, base) {
 		this.referer=referer;
 		this.base=base;
@@ -53,6 +63,7 @@ function HTTPRequest(username,password)
 		this.request="GET "+this.url.request_path+" HTTP/1.0";
 		this.request_headers=[];
 		this.AddDefaultHeaders();
+		this.AddExtraHeaders();
 	};
 
 	this.SetupPost=function(url, referer, base, data) {
@@ -67,6 +78,7 @@ function HTTPRequest(username,password)
 		this.request="POST "+this.url.request_path+" HTTP/1.0";
 		this.request_headers=[];
 		this.AddDefaultHeaders();
+		this.AddExtraHeaders();
 		this.body=data;
 		this.request_headers.push("Content-Type: application/x-www-form-urlencoded");
 		this.request_headers.push("Content-Length: "+data.length);
