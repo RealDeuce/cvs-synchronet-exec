@@ -1,8 +1,8 @@
-/* $Id: update.js,v 1.3 2015/08/23 21:41:07 deuce Exp $ */
+/* $Id: update.js,v 1.4 2017/01/19 01:19:35 rswindell Exp $ */
 
 /* Synchronet v3.15 update script (to be executed with jsexec) */
 
-const REVISION = "$Revision: 1.3 $".split(' ')[1];
+const REVISION = "$Revision: 1.4 $".split(' ')[1];
 
 function update_exec_dir()
 {
@@ -54,3 +54,10 @@ printf("Updating exec directory: ");
 printf("%s\n", update_exec_dir() ? "Success" : "FAILURE");
 printf("Updating ip_address field: ");
 printf("%d records updated\n", move_laston_address());
+
+var sbbsecho_cfg = system.ctrl_dir + "sbbsecho.cfg";
+var sbbsecho_ini = system.ctrl_dir + "sbbsecho.ini";
+if(file_exists(sbbsecho_cfg) && !file_exists(sbbsecho_ini)) {
+	printf("Converting %s to %s: ", sbbsecho_cfg, sbbsecho_ini);
+	load({}, "sbbsecho_upgrade.js");
+}
