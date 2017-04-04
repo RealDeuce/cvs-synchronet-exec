@@ -1,3 +1,5 @@
+// $Id: binkit.js,v 1.45 2017/04/04 21:05:23 rswindell Exp $
+
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
  * mailer.
@@ -11,7 +13,7 @@
  *    zone.  That is, if the default zone is zone 1, and the outbound
  *    is "/path/to/outbound", it will not correctly handle the case
  *    where there is a "/path/to/outbound.001" directory.
- * 3) Flow files are processed in alphabetical order, not the reccomended
+ * 3) Flow files are processed in alphabetical order, not the recommended
  *    order from FTS-5005.
  * 
  * See FTS-5005 for details.
@@ -492,7 +494,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.44 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.45 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -837,7 +839,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.44 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.45 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
