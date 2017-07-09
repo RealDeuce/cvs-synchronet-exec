@@ -1,4 +1,4 @@
-// $Id: DDLightbarMenu.js,v 1.9 2017/07/08 23:43:35 nightfox Exp $
+// $Id: DDLightbarMenu.js,v 1.10 2017/07/09 03:43:44 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -502,10 +502,12 @@ function DDLightbarMenu_WriteItem(pIdx, pItemLen, pHighlight)
 				}
 			}
 		}
-		// Ensure the item text fills the width of the menu (if there's a background color,
-		// use it for the entire width of the item text).  Then write the item.
-		while (itemTextDisplayableLen(itemText) < itemLen)
-			itemText += " ";
+		// Ensure the item text fills the width of the menu (in case there's a
+		// background color, it should be used for the entire width of the item
+		// text).  Then write the item.
+		var currentTextLen = itemTextDisplayableLen(itemText);
+		if (currentTextLen < itemLen)
+			itemText += format("%" + +(itemLen-currentTextLen) + "s", ""); // Append spaces to the end of itemText
 		console.print(itemText + "\1n");
 	}
 }
