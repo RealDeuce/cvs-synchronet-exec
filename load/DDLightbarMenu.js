@@ -1,4 +1,4 @@
-// $Id: DDLightbarMenu.js,v 1.13 2017/08/05 19:16:02 nightfox Exp $
+// $Id: DDLightbarMenu.js,v 1.14 2017/08/05 22:14:12 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -823,7 +823,7 @@ function DDLightbarMenu_GetVal(pDraw)
 				else
 					console.gotoxy(this.pos.x, this.pos.y+this.selectedItemIdx-this.topItemIdx);
 				this.WriteItem(this.selectedItemIdx, null, false);
-				this.selectedItemIdx = this.topItemIdx + numItemsPerPage;
+				this.selectedItemIdx = this.topItemIdx + numItemsPerPage - 1;
 				if (this.selectedItemIdx >= this.items.length)
 					this.selectedItemIdx = this.items.length - 1;
 				// Draw the new current item in selected colors
