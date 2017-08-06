@@ -1,4 +1,4 @@
-// $Id: DDLightbarMenu.js,v 1.15 2017/08/06 20:08:10 nightfox Exp $
+// $Id: DDLightbarMenu.js,v 1.16 2017/08/06 20:36:34 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -420,7 +420,10 @@ function DDLightbarMenu_Draw()
 		for (; numItemsWritten < numPossibleItems; ++numItemsWritten)
 		{
 			console.gotoxy(curPos.x, curPos.y++);
-			printf("\1n" + this.colors.itemColor + "%-" + itemLen + "s", "");
+			console.print("\1n");
+			if (this.numberedMode)
+				printf("%" + this.itemNumLen + "s ", "");
+			printf(this.colors.itemColor + "%-" + itemLen + "s", "");
 		}
 	}
 }
