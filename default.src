@@ -2,7 +2,7 @@
 
 # Default Command Shell for Synchronet Version 2.00a+
 
-# $Id: default.src,v 1.17 2016/11/27 23:23:45 rswindell Exp $
+# $Id: default.src,v 1.18 2017/08/14 10:20:27 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -260,6 +260,10 @@ cmdkey /O
 
 cmdkey P
 	msg_post
+	end_cmd
+
+cmdkey /P
+	exec_bin postpoll
 	end_cmd
 
 cmdkey Q
