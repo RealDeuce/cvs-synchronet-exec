@@ -1,4 +1,4 @@
-// $Id: postpoll.js,v 1.6 2017/07/17 22:58:04 rswindell Exp $
+// $Id: postpoll.js,v 1.7 2017/08/14 10:29:49 rswindell Exp $
 
 load('sbbsdefs.js');
 
@@ -29,8 +29,13 @@ if(!basecode && js.global.bbs)
 while(!basecode)
         basecode = prompt("message base");
 
+if(!msg_area.sub[basecode.toLowerCase()].can_post) {
+	alert("Sorry, you can't post on sub-board: " + basecode);
+	exit();
+}
+
 if(msg_area.sub[basecode.toLowerCase()].settings&SUB_NOVOTING) {
-	alert("No voting allowed in sub-board: " + basecode);
+	alert("No voting (and thus, no polls) allowed in sub-board: " + basecode);
 	exit();
 }
 var msgbase = MsgBase(basecode);
@@ -39,7 +44,7 @@ if(!msgbase.open()) {
         exit();
 }
 
-print("Posting Poll to sub-board: " + basecode);
+print("\1n\1h\1bPosting Poll to sub-board: \1w" + basecode);
 
 var poll = { field_list: [] };
 if(!(poll.subject = prompt("Poll question")))
@@ -70,7 +75,12 @@ if(js.global.bbs) {
 }
 if(option["votes"])
 	poll.votes = option["votes"];
-print("posted from: " + poll.from);
+else {
+	printf("Maximum answers/votes per ballot [1]: ");
+	poll.votes = console.getnum(count, 1);
+}
+if(!js.global.bbs)
+	print("Posting poll from: " + poll.from);
 poll.to = "All";
 if(!msgbase.add_poll(poll))
 	alert("Error " + msgbase.status + " " + msgbase.last_error);
