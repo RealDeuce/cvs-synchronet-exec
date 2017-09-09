@@ -1,4 +1,4 @@
-// $Id: DDLightbarMenu.js,v 1.21 2017/08/19 16:33:49 nightfox Exp $
+// $Id: DDLightbarMenu.js,v 1.22 2017/09/09 03:47:18 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -248,6 +248,9 @@ function DDLightbarMenu(pX, pY, pWidth, pHeight)
 	this.RemoveAllItemHotkeys = DDLightbarMenu_RemoveAllItemHotkeys;
 	this.GetVal = DDLightbarMenu_GetVal;
 	this.SetBorderChars = DDLightbarMenu_SetBorderChars;
+	this.GetNumItemsPerPage = DDLightbarMenu_GetNumItemsPerPage;
+	this.GetTopItemIdxToTopOfLastPage = DDLightbarMenu_GetTopItemIdxToTopOfLastPage;
+	this.SetTopItemIdxToTopOfLastPage = DDLightbarMenu_SetTopItemIdxToTopOfLastPage;
 
 	// Set some things based on the parameters passed in
 	if ((typeof(pX) == "number") && (typeof(pY) == "number"))
@@ -1111,6 +1114,33 @@ function DDLightbarMenu_SetBorderChars(pBorderChars)
 		if (pBorderChars.hasOwnProperty(borderPropNames))
 			this.borderChars[borderPropNames[i]] = pBorderChars[borderPropNames[i]];
 	}
+}
+
+// Returns the number of (possible) items per page
+function DDLightbarMenu_GetNumItemsPerPage()
+{
+	var numItemsPerPage = this.size.height;
+	if (this.borderEnabled)
+		numItemsPerPage -= 2;
+	return numItemsPerPage;
+}
+
+// Gets the top item index of the last page of items
+function DDLightbarMenu_GetTopItemIdxToTopOfLastPage()
+{
+	var numItemsPerPage = this.size.height;
+	if (this.borderEnabled)
+		numItemsPerPage -= 2;
+	return this.items.length - numItemsPerPage;
+}
+
+// Sets the top item index to the top item of the last page of items
+function DDLightbarMenu_SetTopItemIdxToTopOfLastPage()
+{
+	var numItemsPerPage = this.size.height;
+	if (this.borderEnabled)
+		numItemsPerPage -= 2;
+	this.topItemIdx = this.items.length - numItemsPerPage;
 }
 
 // Inputs a keypress from the user and handles some ESC-based
