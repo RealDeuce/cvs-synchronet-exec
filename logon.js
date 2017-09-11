@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.23 2015/04/14 01:54:09 rswindell Exp $
+// $Id: logon.js,v 1.24 2017/09/11 02:43:36 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -39,17 +39,25 @@ if(user.security.restrictions&UFLAG_G) {
 		email=console.getstr(LEN_NETMAIL);
 		if(!email || !email.length)
 			continue;
+		if(bbs.trashcan("email", email)) {
+			bbs.hangup();
+			exit();
+		}
 		bbs.log_str("  " + email);
 		user.netmail=email;
 		user.settings|=USER_NETMAIL;
 		break;
 	}
-		
+
 	while(bbs.online) {
 		printf("\1y\1hPlease enter your location (City, State): \1w");
 		location=console.getstr(LEN_LOCATION,K_UPRLWR);
 		if(!location || !location.length)
 			continue;
+		if(bbs.trashcan("location", email)) {
+			bbs.hangup();
+			exit();
+		}
 		bbs.log_str("  " + location);
 		user.location=location;
 		break;
