@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.24 2017/09/11 02:43:36 rswindell Exp $
+// $Id: logon.js,v 1.25 2017/09/13 20:10:26 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -54,7 +54,7 @@ if(user.security.restrictions&UFLAG_G) {
 		location=console.getstr(LEN_LOCATION,K_UPRLWR);
 		if(!location || !location.length)
 			continue;
-		if(bbs.trashcan("location", email)) {
+		if(bbs.trashcan("location", location)) {
 			bbs.hangup();
 			exit();
 		}
