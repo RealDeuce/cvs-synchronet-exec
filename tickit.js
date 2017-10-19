@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.38 2016/07/30 09:50:20 deuce Exp $
+ * $Id: tickit.js,v 1.39 2017/10/19 06:13:45 rswindell Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -337,7 +337,7 @@ function forward_tic(tic)
 			return false;
 		}
 
-		pw = sbbsecho.get_pw(link);
+		pw = sbbsecho.get_ticpw(link);
 		if (pw===undefined)
 			pw = '';
 
@@ -528,7 +528,7 @@ function parse_ticfile(fname)
 	}
 
 	if (!tickit.gcfg.ignorepassword) {
-		if (!sbbsecho.match_pw(tic.from, tic.pw))
+		if (!sbbsecho.match_ticpw(tic.from, tic.pw))
 			return false;
 	}
 
