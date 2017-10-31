@@ -3,14 +3,16 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.27 2014/01/10 06:38:41 rswindell Exp $
+// $Id: newsutil.js,v 1.28 2017/10/31 19:44:46 rswindell Exp $
 
 if(!js.global || js.global.mail_get_name==undefined)
 	load("mailutil.js");
 
-FIDOCTRL     = 0xa0     // from smbdefs.h
+FIDOCTRL     = 0xa0	// from smbdefs.h
+FIDOSEENBY	 = 0xa2	// from smbdefs.h
+FIDOPATH     = 0xa3 // from smbdefs.h
 RFC822HEADER = 0xb0	// from smbdefs.h
-
+					
 function write_news_header(hdr,writeln)
 {
 	/* Required header fields */
@@ -58,8 +60,13 @@ function write_news_header(hdr,writeln)
 				if(hdr.field_list[i].data.toLowerCase().indexOf("content-type:")==0)
 					content_type = hdr.field_list[i].data;
 				writeln(hdr.field_list[i].data);
-			} else if(hdr.field_list[i].type==FIDOCTRL)
+			} else if(hdr.field_list[i].type==FIDOCTRL) {
 				writeln("X-FTN-Kludge: " + hdr.field_list[i].data);
+			} else if(hdr.field_list[i].type==FIDOSEENBY) {
+				writeln("X-FTN-SEEN-BY: " + hdr.field_list[i].data);
+			} else if(hdr.field_list[i].type==FIDOPATH) {
+				writeln("X-FTN-PATH: " + hdr.field_list[i].data);
+			}
 		}
 	}
 	if(content_type==undefined) {
