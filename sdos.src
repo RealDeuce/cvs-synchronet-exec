@@ -2,7 +2,7 @@
 
 # DOS shell for Synchronet version 2 systems
 
-# $Id: sdos.src,v 1.10 2011/08/31 00:26:18 rswindell Exp $
+# $Id: sdos.src,v 1.11 2017/11/07 03:28:25 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -27,7 +27,7 @@ inc_main_cmds
 call display_prompt
 print ">n"
 getstr 128
-logstr
+log "%s, "
 
 compare_word "cd"
 if_true
@@ -315,7 +315,7 @@ call display_prompt
 
 print "FILES>n"
 getstr 128
-logstr
+log "%s, "
 
 compare_word "cd"
 if_true
@@ -516,7 +516,7 @@ call display_prompt
 
 print "MAIL>n"
 getstr 128
-logstr
+log "%s, "
 
 compare_word "cd"
 if_true
