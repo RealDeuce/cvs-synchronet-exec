@@ -1,4 +1,4 @@
-// $Id: postpoll.js,v 1.7 2017/08/14 10:29:49 rswindell Exp $
+// $Id: postpoll.js,v 1.8 2017/11/07 03:24:34 rswindell Exp $
 
 load('sbbsdefs.js');
 
@@ -44,7 +44,7 @@ if(!msgbase.open()) {
         exit();
 }
 
-print("\1n\1h\1bPosting Poll to sub-board: \1w" + basecode);
+print("\1n\1h\1b\r\nPosting Poll to sub-board: \1w" + basecode);
 
 var poll = { field_list: [] };
 if(!(poll.subject = prompt("Poll question")))
