@@ -1,11 +1,11 @@
-// $Id: sbbsecho_upgrade.js,v 1.12 2017/11/06 02:51:19 rswindell Exp $
+// $Id: sbbsecho_upgrade.js,v 1.13 2017/11/07 03:26:01 rswindell Exp $
 
 // SBBSecho upgrade from v2.x to v3.x (run with jsexec)
 
 // Converts ctrl/sbbsecho.cfg (or other file if specified)
 // to ctrl/sbbsecho.ini
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 var debug =  false;
 
@@ -161,8 +161,10 @@ if(value_opts["log_level"])
 	file.writeln("LogLevel = " + value_opts["log_level"]), delete value_opts["log_level"];
 if(!value_opts["inbound"] && value_opts["outbound"]) {
 	var inbound = value_opts["outbound"].replace("out","in");
-	alert("Setting inbound dir to best guess (no longer using SCFG setting): " + inbound);
+	alert("Setting non-secure inbound dir to best guess (no longer using SCFG setting): " + inbound);
 	file.writeln("inbound = " + inbound);
+	if(!file_isdir(inbound))
+		alert("Non-secure inbound directory (" + inbound + ") does not appear to exist.");
 }
 if(value_opts["secure_inbound"])
 	file.writeln("SecureInbound = " + value_opts["secure_inbound"]), delete value_opts["secure_inbound"];
