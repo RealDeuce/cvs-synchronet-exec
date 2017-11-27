@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.16 2016/01/02 22:06:42 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.17 2017/11/27 20:11:24 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -56,6 +56,16 @@ function external_program_menu(xsec)
 			write(bbs.text(NoXtrnPrograms));
 			console.pause();
 			break; 
+		}
+
+		// If there's only one program available to the user in the section, just run it (or try to)
+		if(options.autoexec && prog_list.length == 1) {
+			if(options.clear_screen_on_exec)
+				console.clear();
+			bbs.exec_xtrn(prog_list[0].code); 
+			if(prog_list[0].settings&XTRN_PAUSE)
+				console.pause();
+			break;
 		}
 
 		if(file_exists(system.text_dir + "menu/xtrn" + (xtrn_area.sec_list[xsec].number+1) + ".asc")) {
@@ -119,7 +129,7 @@ function external_program_menu(xsec)
 		bbs.exec_xtrn(prog_list[i].code); 
 
 		if(prog_list[i].settings&XTRN_PAUSE)
-			bbs.line_counter=2;	/* force a pause before CLS */
+			console.pause();
 	}
 }
 
