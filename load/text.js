@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.20 2017/11/17 17:19:46 rswindell Exp $ */
+/* $Id: text.js,v 1.21 2017/11/28 03:45:21 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -804,5 +804,7 @@ var BallotAnswerFmt=792;
 var BallotVoteWhich=793;
 var Only=794;
 var SPAMVisibilityIsNow=795;
+var VoteInThisPollNow=796;
+var MIMEDecodedPlainText=797;
 
-var TOTAL_TEXT=796;
+var TOTAL_TEXT=798;
