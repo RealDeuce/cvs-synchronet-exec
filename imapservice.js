@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.52 2016/01/14 03:55:23 deuce Exp $
+ * $Id: imapservice.js,v 1.53 2017/12/02 21:05:44 rswindell Exp $
  */
 
 load("sbbsdefs.js");
@@ -223,7 +223,7 @@ function send_fetch_response(msgnum, fmat, uid)
 	 */
 	function get_header() {
 		if(hdr == undefined) {
-			hdr=base.get_msg_header(msgnum);
+			hdr=base.get_msg_header(msgnum, /* expand_fields: */false);
 		}
 	}
 
