@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.39 2017/10/19 06:13:45 rswindell Exp $
+ * $Id: tickit.js,v 1.40 2017/12/05 05:46:55 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -419,7 +419,7 @@ function parse_ticfile(fname)
 	var val;
 	var m;
 	var line;
-	var tic={seenby:[], path:[], tic_filename:fname};
+	var tic={seenby:[], path:[], tic_filename:fname, desc:''};
 	var outtic=[];
 	var f=new File(fname);
 	var dir = fullpath(fname).replace(/([\/\\])[^\/\\]*$/,'$1');
