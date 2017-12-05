@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.40 2017/12/05 05:46:55 deuce Exp $
+ * $Id: tickit.js,v 1.41 2017/12/05 05:56:31 deuce Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -431,11 +431,13 @@ function parse_ticfile(fname)
 		return false;
 	}
 	while ((line = f.readln(65535)) != undefined) {
-		m = line.match(/^\s*([^\s]+)\s+(.*)$/);
+		m = line.match(/^\s*([^\s]+)\s(.*)$/);
 		if (m !== null) {
 			key = m[1].toLowerCase();
 			val = m[2];
 
+			if (key !== 'desc' && key !== 'ldesc')
+				key = key.replace(/^\s*/,'');
 			switch(key) {
 				// These are not passed unmodified.
 				// Single value, single line...
