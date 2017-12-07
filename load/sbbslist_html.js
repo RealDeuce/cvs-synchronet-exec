@@ -1,6 +1,6 @@
-/* $Id: sbbslist_html.js,v 1.3 2015/09/27 12:09:36 rswindell Exp $ */
+/* $Id: sbbslist_html.js,v 1.4 2017/12/07 18:35:57 rswindell Exp $ */
 
-var REVISION = "$Revision: 1.3 $".split(' ')[1];
+var REVISION = "$Revision: 1.4 $".split(' ')[1];
 
 var start=time();
 
@@ -20,7 +20,7 @@ if(list == undefined)
 
 if(this.query_string && query_string.length) {
     lib.sort_property=query_string;
-    list.sort(lib.compare);
+    list.sort(lib.verify_compare);
 }
 
 writeln('<!DOCTYPE html>');
@@ -58,7 +58,7 @@ load("graphic.js");
 
 //writeln('<body><font face="Arial" size="-1">');
 
-list=list.filter(function(obj) { return obj.software && obj.software.bbs && obj.software.bbs.substr(0,10).toLowerCase() == "synchronet"; });
+list=list.filter(function(obj) { return obj.software && obj.software.substr(0,10).toLowerCase() == "synchronet"; });
 
 
 writeln('<h1 style="text-align: center;"><i>' + 'Synchronet'.link('http://www.synchro.net') + ' BBS List</i></h1>');
