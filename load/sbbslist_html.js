@@ -1,6 +1,6 @@
-/* $Id: sbbslist_html.js,v 1.4 2017/12/07 18:35:57 rswindell Exp $ */
+/* $Id: sbbslist_html.js,v 1.5 2017/12/08 08:07:58 rswindell Exp $ */
 
-var REVISION = "$Revision: 1.4 $".split(' ')[1];
+var REVISION = "$Revision: 1.5 $".split(' ')[1];
 
 var start=time();
 
@@ -111,7 +111,7 @@ function bbs_service(service)
 
         uri=format('%s:%s%s%s', protocol, sep, service.address, port);
     }
-    return encode_text(service.address + port).link(encodeURI(uri)) + " ("+encode_text(service.protocol)+")";
+    return encode_text(service.address).link(encodeURI(uri)) + " ("+encode_text(service.protocol)+")";
 }
 
 function bbs_sysop(sysop)
