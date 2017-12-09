@@ -1,4 +1,4 @@
-// $Id: termcapture_lib.js,v 1.4 2015/10/28 07:42:26 rswindell Exp $
+// $Id: termcapture_lib.js,v 1.5 2017/12/09 12:05:38 rswindell Exp $
 
 // Currently, only supports Telnet and RLogin
 
@@ -11,6 +11,7 @@ var address = "localhost";
 var port = 23;
 var rows = 24;
 var timeout = 30;
+var poll_timeout = 10;
 var max_lines = 512;
 var max_line_length = 256*1024;
 var error="";
@@ -37,7 +38,7 @@ function capture()
     }
     /* RLogin handshake: */
     if(protocol=="rlogin") {
-        if(!socket.poll(timeout)) {
+        if(!socket.poll(poll_timeout)) {
             error = "RLogin Timeout";
             return false;
         }
@@ -68,8 +69,8 @@ function capture()
             stopcause = "Capture timeout reached: " + timeout + " seconds";
             break;
         }
-        if(!socket.poll(timeout)) {
-            stopcause = "Poll timeout reached: " + timeout + " seconds";
+        if(!socket.poll(poll_timeout)) {
+            stopcause = "Poll timeout reached: " + poll_timeout + " seconds";
             break;
         }
         var byte = socket.recvBin(1);
