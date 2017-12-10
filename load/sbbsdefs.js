@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.70 2017/11/28 03:45:50 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.71 2017/12/10 02:08:06 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -165,6 +165,8 @@ var		KEY_HOME	='\x02';	/* ctrl-b (home)							*/
 var		KEY_END     ='\x05';	/* ctrl-e (end)								*/
 var		KEY_INSERT	='\x16';	/* ctrl-v (insert)							*/
 var		KEY_DEL     ='\x7f';    /* ctrl-BkSpc (DEL)							*/
+var		KEY_PAGEUP	='\x15';	/* ctrl-u (Page Up)							*/
+var		KEY_PAGEDN	='\x04';	/* ctrl-d (Page Down)						*/
 								/********************************************/
 var		KEY_ABORT	='\x03';	/* ctrl-c (cancel/abort/break)				*/
 								/********************************************/
