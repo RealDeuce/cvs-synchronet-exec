@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.17 2017/12/11 05:22:32 rswindell Exp $
+// $Id: sbbslist.js,v 1.18 2017/12/11 07:30:07 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.17 $".split(' ')[1];
+var REVISION = "$Revision: 1.18 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -143,7 +143,7 @@ function export_to_msgbase(list, msgbase, last_export, limit, all)
 			last_export=ini.iniGetValue("sbbslist","last_export", new Date(0));
 			print("last export = " + last_export);
 			ini.close();
-		} else
+		} else if(debug)
 			print("Error " + ini.error + " opening " + ini.name);
 		/* Fallback to using old SBL export pointer (time_t) storage file/format */
 		if(!last_export || !last_export.valueOf()) {
@@ -363,7 +363,7 @@ function import_from_msgbase(list, msgbase, import_ptr, limit, all)
 		if(ini.open("r")) {
 			import_ptr=ini.iniGetValue("sbbslist","import_ptr", 0);
 			ini.close();
-		} else
+		} else if(debug)
 			print("Error " + ini.error + " opening " + ini.name);
 		if(import_ptr==undefined) {
 			var f = new File(file_getcase(msgbase.file + ".sbl"));
@@ -1680,10 +1680,13 @@ function edit_array(title, arr, props, max_lens, prop_descs, max_array_len)
 
 		var keys = "Q";
 		var prompt = "\r\nWhich";
-		if(arr.length < max_array_len)
+		if(arr.length < max_array_len) {
 			prompt += ", ~Add", keys += 'A';
+			if(arr.length > 0)
+				prompt += ", ~Insert", keys += 'I';
+		}
 		if(arr.length > 0)
-			prompt += ", ~Insert, ~Delete", keys += 'ID';
+			prompt += ", ~Delete", keys += 'D';
 		prompt += " or ~Quit: ";
 		console.mnemonics(prompt);
 		var which = console.getkeys(keys, arr.length);
@@ -1698,7 +1701,9 @@ function edit_array(title, arr, props, max_lens, prop_descs, max_array_len)
 			var obj = {};
 			for(var i in props) {
 				printf("\r\n%s\r\n", prop_descs[i]);
-				obj[props[i]] = getstr(props[i].capitalize(), max_lens[i]);
+				do {
+					obj[props[i]] = getstr(props[i].capitalize(), max_lens[i]);
+				} while(i==0 && !obj[props[i]]);
 			}
 			if(which == 'A')
 				arr.push(obj);
