@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.18 2017/12/11 07:30:07 rswindell Exp $
+// $Id: sbbslist.js,v 1.19 2017/12/12 08:36:51 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.18 $".split(' ')[1];
+var REVISION = "$Revision: 1.19 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -1754,7 +1754,10 @@ function edit(bbs)
 		printf("\1n%2u \1h%-*s : %.*s\r\n"	, opts++, optlen, "Software", optmax, bbs.software);
 		printf("\1n%2u \1h%-*s : %.*s\r\n"	, opts++, optlen, "Description", optmax, bbs.description.join(" "));
 		printf("\1n%2u \1h%-*s : %u\r\n"	, opts++, optlen, "Terminal Nodes", bbs.terminal.nodes);
-		printf("\1n%2u \1h%-*s : %.*s\r\n"	, opts++, optlen, "Terminal Types", optmax, bbs.terminal.types.join(", "));
+		var term_types = "";
+		if(bbs.terminal.types)
+			term_types = bbs.terminal.types.join(", ");
+		printf("\1n%2u \1h%-*s : %.*s\r\n"	, opts++, optlen, "Terminal Types", optmax, term_types);
 		printf("\1n%2u \1hTotals...\r\n"	, opts++);
 		printf("\1n%2u \1hNetworks...\r\n"	, opts++);
 		printf("\1n%2u \1hServices...\r\n"	, opts++);
