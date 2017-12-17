@@ -1,3 +1,5 @@
+// $Id: SlyEdit_IceStuff.js,v 1.16 2017/12/17 16:48:31 nightfox Exp $
+
 /* This contains IceEdit-specific functions for SlyEdit.
  *
  * Author: Eric Oulashin (AKA Nightfox)

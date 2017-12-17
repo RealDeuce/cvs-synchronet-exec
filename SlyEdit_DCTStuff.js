@@ -1,3 +1,5 @@
+// $Id: SlyEdit_DCTStuff.js,v 1.9 2017/12/17 16:48:31 nightfox Exp $
+
 /* This file contains DCTEdit-specific functions for SlyEdit.
  *
  * Author: Eric Oulashin (AKA Nightfox)
