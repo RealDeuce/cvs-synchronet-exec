@@ -1,4 +1,4 @@
-// $Id: DDLightbarMenu.js,v 1.23 2017/09/10 03:38:49 nightfox Exp $
+// $Id: DDLightbarMenu.js,v 1.24 2017/12/18 20:09:10 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -138,10 +138,19 @@ load("sbbsdefs.js");
 // Keyboard keys
 var KEY_ESC = ascii(27);
 var KEY_ENTER = "\x0d";
-// PageUp & PageDown keys - Not real key codes, but codes defined
-// to be used & recognized in this script
-var KEY_PAGE_UP = "\1PgUp";
-var KEY_PAGE_DOWN = "\1PgDn";
+// PageUp & PageDown keys - Synchronet 3.17 as of about December 18, 2017
+// use CTRL-P and CTRL-N for PageUp and PageDown, respectively.  sbbsdefs.js
+// defines them as KEY_PAGEUP and KEY_PAGEDN; I've used slightly different names
+// in this script so that this script will work with Synchronet systems before
+// and after the update containing those key definitions.
+var KEY_PAGE_UP = "\x10"; // Ctrl-P
+var KEY_PAGE_DOWN = "\x0e"; // Ctrl-N
+// Ensure KEY_PAGE_UP and KEY_PAGE_DOWN are set to what's defined in sbbs.js
+// for KEY_PAGEUP and KEY_PAGEDN in case they change
+if (typeof(KEY_PAGEUP) === "string")
+	KEY_PAGE_UP = KEY_PAGEUP;
+if (typeof(KEY_PAGEDN) === "string")
+	KEY_PAGE_DOWN = KEY_PAGEDN;
 
 // Box-drawing/border characters: Single-line
 var UPPER_LEFT_SINGLE = "\xDA";
