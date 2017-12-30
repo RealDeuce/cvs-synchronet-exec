@@ -1,8 +1,10 @@
-// $Id: sbbslist_lib.js,v 1.11 2017/12/11 05:22:41 rswindell Exp $
+// $Id: sbbslist_lib.js,v 1.12 2017/12/30 03:12:25 rswindell Exp $
 
 // Synchronet BBS List (SBL) v4 Library
 
 load("synchronet-json.js"); // For compatibility with older verisons of Synchronet/JavaScript-C without the JSON object
+load("graphic.js");
+load("lz-string.js");
 
 var list_fname = system.data_dir + 'sbbslist.json';
 
@@ -577,6 +579,35 @@ function syncterm_list(list, dir)
 	return f.name;
 }
 
+const base64_max_line_len = 72;
+
+function compress_preview(preview)
+{
+	var compressed = LZString.compressToBase64(base64_decode(preview.join("")));
+	return ["!LZ"].concat(compressed.match(new RegExp('([\x00-\xff]{0,' + base64_max_line_len + '})', 'g')));
+}
+
+function encode_preview(ansi_capture)
+{
+	var graphic = new Graphic();
+	graphic.ANSI = ansi_capture.join("\r\n");
+	return compress_preview(graphic.base64_encode());
+}
+
+function decode_preview(preview)
+{
+	if(preview[0] == "!LZ")
+		return LZString.decompressFromBase64(preview.slice(1).join(""));
+	else
+		return base64_decode(preview.join(""));
+}
+
+function draw_preview(bbs)
+{
+	var graphic = new Graphic();
+	graphic.BIN = decode_preview(bbs.preview);
+	graphic.draw();
+}
 
 /* Leave as last line for convenient load() usage: */
 this;
