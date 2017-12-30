@@ -1,4 +1,4 @@
-// $Id: sbbslist_lib.js,v 1.12 2017/12/30 03:12:25 rswindell Exp $
+// $Id: sbbslist_lib.js,v 1.13 2017/12/30 03:44:03 rswindell Exp $
 
 // Synchronet BBS List (SBL) v4 Library
 
@@ -457,9 +457,9 @@ function imsg_capable_system(bbs)
 	if(!bbs.entry.autoverify || !bbs.entry.autoverify.last_success)
 		return false;
 	var services = bbs.entry.autoverify.last_success.other_services;
-	if(services.udp.indexOf("finger")<0	&& services.udp.indexOf("systat")<0)
+	if(services.udp.indexOf("systat")<0)
 		return false;
-	if(services.tcp.indexOf("msp")<0 && services.tcp.indexOf("smtp")<0 && services.tcp.indexOf("submission")<0)
+	if(services.tcp.indexOf("msp")<0)
 		return false;
 	return true;
 }
