@@ -2,7 +2,7 @@
 
 // Chat Section for any/all Synchronet command shells
 
-// $Id: chat_sec.js,v 1.9 2017/11/16 19:11:47 rswindell Exp $
+// $Id: chat_sec.js,v 1.10 2017/12/30 05:53:26 rswindell Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -11,6 +11,7 @@ load("nodedefs.js");
 var irc_server = "irc.synchro.net 6667";
 var irc_channel = "#Synchronet"
 var irc_seclevel = 90;  // Minimum security level required to change the IRC server being connected to
+var finger = true;
 var options = load("modopts.js", "chat_sec");
 if (options) {
     if (options.irc_server)
@@ -19,6 +20,8 @@ if (options) {
         irc_channel = options.irc_channel;
     if (options.irc_seclevel)
         irc_seclevel = options.irc_seclevel;
+	if (options.finger != undefined)
+		finger = options.finger;
 }
 var cmdkey;
 
@@ -42,7 +45,10 @@ while(1) {
 	bbs.nodesync();
 	write("\r\n\001_\1y\001hChat: \001n");
 
-	switch(cmdkey=console.getkeys("ACDFIJPQRST?\r",K_UPPER)) {
+	var keys = "ACDIJPQRST?\r";
+	if(finger)
+		keys += "F";
+	switch(cmdkey=console.getkeys(keys,K_UPPER)) {
 		case "S":
 			var val = user.chat_settings ^= CHAT_SPLITP;
 			write("\001n\r\nPrivate split-screen chat is now: \001h");
