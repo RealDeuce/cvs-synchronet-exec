@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.22 2017/12/30 03:16:59 rswindell Exp $
+// $Id: sbbslist.js,v 1.23 2017/12/31 17:59:44 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.22 $".split(' ')[1];
+var REVISION = "$Revision: 1.23 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -57,7 +57,7 @@ function date_to_str(date)
     return format("%02u/%02u/%02u", date.getUTCMonth()+1, date.getUTCDate(), date.getUTCFullYear()%100);
 }
 
-function date_from_str(datestrStr)
+function date_from_str(str)
 {
 	var a = str.split("/");
 	var month = parseInt(a[0]);
