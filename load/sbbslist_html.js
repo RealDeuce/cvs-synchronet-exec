@@ -1,6 +1,6 @@
-/* $Id: sbbslist_html.js,v 1.5 2017/12/08 08:07:58 rswindell Exp $ */
+/* $Id: sbbslist_html.js,v 1.6 2017/12/31 18:32:32 rswindell Exp $ */
 
-var REVISION = "$Revision: 1.5 $".split(' ')[1];
+var REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 var start=time();
 
@@ -136,7 +136,7 @@ function bbs_preview(num, bbs)
     **/
 //    log(LOG_DEBUG,bbs.preview.join("\r\n"));
     var graphic=new Graphic();
-    graphic.base64_decode(bbs.preview);
+	graphic.BIN = lib.decode_preview(bbs.preview);
     write('<pre title="Click to Zoom-In" onclick="onClick(this)">'); // onmouseout="this.className=\'zoomOut\'">');
 	var html = graphic.HTML;
 	/* HTML Optimization: */
