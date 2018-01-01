@@ -1,4 +1,4 @@
-// $Id: sbbslist_lib.js,v 1.13 2017/12/30 03:44:03 rswindell Exp $
+// $Id: sbbslist_lib.js,v 1.14 2018/01/01 22:49:29 rswindell Exp $
 
 // Synchronet BBS List (SBL) v4 Library
 
@@ -581,17 +581,17 @@ function syncterm_list(list, dir)
 
 const base64_max_line_len = 72;
 
-function compress_preview(preview)
+function compress_preview(bin)
 {
-	var compressed = LZString.compressToBase64(base64_decode(preview.join("")));
-	return ["!LZ"].concat(compressed.match(new RegExp('([\x00-\xff]{0,' + base64_max_line_len + '})', 'g')));
+	var compressed = LZString.compressToBase64(bin);
+	return ["!LZ"].concat(compressed.match(new RegExp('([\x00-\xff]{1,' + base64_max_line_len + '})', 'g')));
 }
 
 function encode_preview(ansi_capture)
 {
 	var graphic = new Graphic();
 	graphic.ANSI = ansi_capture.join("\r\n");
-	return compress_preview(graphic.base64_encode());
+	return compress_preview(graphic.BIN);
 }
 
 function decode_preview(preview)
@@ -604,9 +604,14 @@ function decode_preview(preview)
 
 function draw_preview(bbs)
 {
+	if(!bbs.preview)
+		return false;
 	var graphic = new Graphic();
-	graphic.BIN = decode_preview(bbs.preview);
-	graphic.draw();
+	var bin = decode_preview(bbs.preview);
+	if(!bin || !bin.length)
+		return false;
+	graphic.BIN = bin;
+	return graphic.draw();
 }
 
 /* Leave as last line for convenient load() usage: */
