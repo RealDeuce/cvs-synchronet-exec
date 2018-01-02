@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.24 2018/01/01 22:51:36 rswindell Exp $
+// $Id: sbbslist.js,v 1.25 2018/01/02 08:09:15 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.24 $".split(' ')[1];
+var REVISION = "$Revision: 1.25 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -100,7 +100,9 @@ function export_entry(bbs, msgbase)
                 break;
             case 'telnet':
                 body += "Telnet:        " + bbs.service[i].address + "\r\n";
-                body += "Port:          " + bbs.service[i].port + "\r\n";
+				if(bbs.service[i].port 
+					&& bbs.service[i].port != standard_service_port["telnet"])
+					body += "Port:          " + bbs.service[i].port + "\r\n";
                 break;
          }
     }
@@ -1325,7 +1327,7 @@ function print_additional_services(bbs, addr, start)
 		if(!bbs.service[i] || bbs.service[i].address != addr)
 			continue;
 		printf(", %s", bbs.service[i].protocol);
-		if(bbs.service[i].port != standard_service_port[bbs.service[i].protocol.toLowerCase()])
+		if(bbs.service[i].port && bbs.service[i].port != standard_service_port[bbs.service[i].protocol.toLowerCase()])
 			printf(":%u", bbs.service[i].port);
 	}
 }  
@@ -1444,7 +1446,9 @@ function view(list, current)
 			if(listed_hosts.indexOf(bbs.service[i].address) >= 0)	// Already listed
 				continue;
 			printf("\1n\1c%11s \1h%s\1n\1c", bbs.service[i].protocol, bbs.service[i].address);
-			if(bbs.service[i].protocol != 'modem' && bbs.service[i].port != standard_service_port[bbs.service[i].protocol.toLowerCase()])
+			if(bbs.service[i].protocol != 'modem' 
+				&& bbs.service[i].port
+				&& bbs.service[i].port != standard_service_port[bbs.service[i].protocol.toLowerCase()])
 				printf(":%u", bbs.service[i].port);
 			if(bbs.service[i].description)
 				printf(" %s", bbs.service[i].description);
