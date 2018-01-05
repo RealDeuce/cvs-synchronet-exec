@@ -1,4 +1,4 @@
-// $Id: SlyEdit_IceStuff.js,v 1.21 2018/01/05 06:21:40 nightfox Exp $
+// $Id: SlyEdit_IceStuff.js,v 1.22 2018/01/05 06:31:13 nightfox Exp $
 
 /* This contains IceEdit-specific functions for SlyEdit.
  *
@@ -400,7 +400,7 @@ function DisplayBottomHelpLine_IceStyle(pLineNum, pUsingQuotes)
       // This line contains the copyright mesage & ESC key help
       var screenText = iceText(EDITOR_PROGRAM_NAME + " v", "w") + "ch"
                       + EDITOR_VERSION.toString() + "   "
-                      + iceText("Copyright", "w") + " ch2017 "
+                      + iceText("Copyright", "w") + " ch2018 "
                       + iceText("Eric Oulashin", "w") + " nb" + DOT_CHAR + " "
                       + iceText("Press ESCape For Help", "w");
       // Calculate the starting position to center the help text, and front-pad
