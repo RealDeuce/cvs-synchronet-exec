@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.25 2018/01/02 08:09:15 rswindell Exp $
+// $Id: sbbslist.js,v 1.26 2018/01/06 00:51:46 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.25 $".split(' ')[1];
+var REVISION = "$Revision: 1.26 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -247,7 +247,8 @@ function import_entry(name, text)
         if(debug) print(match[1] + " = " + match[2]);
         switch(match[1].toLowerCase()) {
             case 'birth':
-                bbs.first_online = date_from_str(match[2]);
+		if(match[2] && match[2].length)
+                	bbs.first_online = date_from_str(match[2]);
                 break;
             case 'software':
                 bbs.software = match[2];
