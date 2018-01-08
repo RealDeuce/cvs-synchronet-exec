@@ -1,4 +1,7 @@
-																	/* Values for MsgBase.status */
+// $Id: smbdefs.js,v 1.2 2018/01/08 00:37:49 rswindell Exp $
+// Synchronet Message Base constant definitions (from smbdefs.h and smblib.h)								
+								
+								/* Values for MsgBase.status */
 var SMB_SUCCESS			=0;		/* Successful result/return code */
 var SMB_DUPE_MSG		=1;		/* Duplicate message detected by smb_addcrc() */
 var SMB_FAILURE			=-1;	/* Generic error (discouraged) */
