@@ -1,4 +1,4 @@
-// $Id: SlyEdit.js,v 1.50 2018/01/07 23:51:31 nightfox Exp $
+// $Id: SlyEdit.js,v 1.51 2018/01/08 00:39:50 nightfox Exp $
 
 /* This is a text editor for Synchronet designed to mimic the look & feel of
  * DCTEdit and IceEdit, since neither of those editors have been developed
@@ -2118,6 +2118,8 @@ function doPrintableChar(pUserInput, pCurpos, pCurrentWordLength)
 		currentWordLength: pCurrentWordLength
 	};
 
+	var lineIdxWasAtBeginningOrMiddle = false;
+
 	// Note: gTextLineIndex is where the new character will appear in the line.
 	// If gTextLineIndex is somehow past the end of the current line, then
 	// fill it with spaces up to gTextLineIndex.
@@ -2134,6 +2136,7 @@ function doPrintableChar(pUserInput, pCurpos, pCurrentWordLength)
 	else
 	{
 		// gTextLineIndex is at the beginning or in the middle of the line.
+		lineIdxWasAtBeginningOrMiddle = true;
 		if (inInsertMode())
 			gEditLines[gEditLinesIndex].text = spliceIntoStr(gEditLines[gEditLinesIndex].text, gTextLineIndex, pUserInput);
 		else
@@ -2304,7 +2307,7 @@ function doPrintableChar(pUserInput, pCurpos, pCurrentWordLength)
 		// user was inserting text into a line when more lines existed below.
 		if (reAdjusted && !wasOnLastLine && (gEditLinesIndex > 0))
 		{
-			if (originalTextLineLength > gEditLines[gEditLinesIndex-1].text.length)
+			if (!lineIdxWasAtBeginningOrMiddle && (originalTextLineLength > gEditLines[gEditLinesIndex-1].text.length))
 			{
 				var wordLen = originalTextLineLength - gEditLines[gEditLinesIndex-1].text.length;
 				var displayableWordLen = originalTextLineDisplayLength - gEditLines[gEditLinesIndex-1].displayLength();
