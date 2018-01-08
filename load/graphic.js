@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.67 2018/01/08 12:28:43 rswindell Exp $
+// $Id: graphic.js,v 1.68 2018/01/08 22:35:31 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -37,6 +37,7 @@ function Graphic(w,h,attr,ch)
 		this.width=w;
 
 	this.atcodes=true;
+	this.cpm_eof=true;
 	this.attr_mask=0xff;
 
 	this.data=new Array(this.width);
@@ -313,6 +314,8 @@ Object.defineProperty(Graphic.prototype, "ANSI", {
    	            continue;
 			}
 
+			if(this.cpm_eof == true && ans[0] == '\x1a') // EOF
+				break;
 			/* set character and attribute */
 			ch = ans[0];
 			ans = ans.substr(1);
