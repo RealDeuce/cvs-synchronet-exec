@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.63 2018/01/01 22:46:01 rswindell Exp $
+// $Id: graphic.js,v 1.64 2018/01/08 00:34:45 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -9,7 +9,7 @@
  * Class that represents a drawable object.
  * w = width (default of 80)
  * h = height (default of 24)
- * attr = default attribute (default of 7 ie: LIGHTGREY)
+ * attr = default attribute (default of 7 ie: LIGHTGRAY)
  * ch = default character (default of space)
  *
  * Instance variable data contains an array of array of Graphics.Cell objects
@@ -52,7 +52,7 @@ function Graphic(w,h,attr,ch)
  * Load sbbsdefs.js into Graphic.defs
  */
 Graphic.prototype.defs = {};
-load(Graphic.prototype.defs, "sbbsdefs.js");
+load(Graphic.prototype.defs, "cga_defs.js");
 
 /*
  * Load ansiterm_lib into Graphic.ansi
