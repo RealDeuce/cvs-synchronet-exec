@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.65 2018/01/08 02:30:23 rswindell Exp $
+// $Id: graphic.js,v 1.66 2018/01/08 07:08:24 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -507,7 +507,7 @@ Graphic.prototype.drawfx = function(xpos,ypos,width,height,xoff,yoff)
  * Loads a ANS or BIN file.
  * TODO: The ASC load is pretty much guaranteed to be broken.
  */
-Graphic.prototype.load = function(filename)
+Graphic.prototype.load = function(filename, offset)
 {
 	var file_type=file_getext(filename).substr(1);
 	var f=new File(filename);
@@ -525,7 +525,9 @@ Graphic.prototype.load = function(filename)
 	case "BIN":
 		if(!(f.open("rb",true)))
 			return(false);
-		this.BIN = f.read();
+		if(offset)
+			f.position = offset * this.height * this.width * 2;
+		this.BIN = f.read(this.height * this.width * 2);
 		f.close();
 		break;
 	case "ASC":
