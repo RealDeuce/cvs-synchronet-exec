@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.64 2018/01/08 00:34:45 rswindell Exp $
+// $Id: graphic.js,v 1.65 2018/01/08 02:30:23 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -132,7 +132,8 @@ Object.defineProperty(Graphic.prototype, "ANSI", {
 //            	if(char == ' ' || (x<this.width-1))
                 	ansi += char;
         	}
-			ansi += '\r\n';
+			ansi += this.ansi.cursor_position.move('down');
+			ansi += this.ansi.cursor_position.move('left', this.width);
     	}
     	return ansi;
 	},
