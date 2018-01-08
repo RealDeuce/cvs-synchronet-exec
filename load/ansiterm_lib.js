@@ -1,4 +1,4 @@
-// $Id: ansiterm_lib.js,v 1.5 2018/01/06 02:03:04 rswindell Exp $
+// $Id: ansiterm_lib.js,v 1.6 2018/01/08 02:32:50 rswindell Exp $
 // vi: tabstop=4
 
 /* Example usage:
@@ -8,7 +8,7 @@
 	ansi.send('screen', 'clear');
 */
 
-load("sbbsdefs.js");
+load("cga_defs.js");
 
 const defs = {
 	// SyncTerm extended modes
