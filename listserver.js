@@ -2,12 +2,12 @@
 
 // Mailing List Server module for Synchronet v3.12
 
-// $Id: listserver.js,v 1.45 2016/08/13 04:40:30 rswindell Exp $
+// $Id: listserver.js,v 1.46 2018/01/09 06:26:53 rswindell Exp $
 
 load("sbbsdefs.js");
 load("mailproc_util.js");	// import parse_msg_header() and get_msg_body()
 
-const REVISION = "$Revision: 1.45 $".split(' ')[1];
+const REVISION = "$Revision: 1.46 $".split(' ')[1];
 const user_list_ext = ".list.sub";
 
 log(LOG_INFO,"ListServer " + REVISION);
@@ -392,7 +392,8 @@ for(var l in list_array) {
 	
 		}
 
-		if(hdr.to == listserver_name || hdr.subject == "Delivery failure: Synchronet ListServer Response") {
+		if(hdr.to == listserver_name || hdr.to_net_addr == listserver_address
+			|| hdr.subject == "Delivery failure: Synchronet ListServer Response") {
 			log(LOG_INFO,format("Deleting bounce message #%u to %s", hdr.number, hdr.to));
 			if(!mailbase.remove_msg(/* by offset: */ true, num))
 				log(LOG_ERR,format("!ERROR %d (%s) removing message #%u to %s"
