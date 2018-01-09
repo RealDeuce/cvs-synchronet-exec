@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.26 2018/01/06 00:51:46 rswindell Exp $
+// $Id: sbbslist.js,v 1.27 2018/01/09 06:33:04 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.26 $".split(' ')[1];
+var REVISION = "$Revision: 1.27 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -377,12 +377,13 @@ function import_from_msgbase(list, msgbase, import_ptr, limit, all)
         if(idx.number <= import_ptr)
             continue;
         if(idx.to != sbl_crc) {
-            //print(idx.to + " != " + sbl_crc);
             continue;
         }
         if(idx.number > highest)
             highest = idx.number;
         var hdr = msgbase.get_msg_header(/* by_offset: */true, i);
+		if(!hdr.to || hdr.to.toLowerCase() != "sbl")
+			continue;
         var l;
         var msg_from = hdr.from;
 		if(all != true && !hdr.from_net_type)	// Skip locally posted messages
