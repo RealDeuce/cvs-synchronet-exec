@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.2 2018/01/09 06:16:04 rswindell Exp $
+// $Id: avatars.js,v 1.3 2018/01/09 07:19:42 rswindell Exp $
 
-var REVISION = "$Revision: 1.2 $".split(' ')[1];
+var REVISION = "$Revision: 1.3 $".split(' ')[1];
 load('sbbsdefs.js');
 load("lz-string.js");
 var lib = load({}, 'avatar_lib.js');
@@ -133,12 +133,13 @@ function import_shared_file(hdr, body)
 		return false;
 	}
 	if(sauce.datatype != SAUCE.defs.datatype.bin
-		|| sauce.cols != lib.defs.width) {
-		alert(format("%s has invalid SAUCE! (%u %u)"
-			,file.name, sauce.datatype, sauce.cols));
+		|| sauce.cols != lib.defs.width
+		|| (sauce.filesize%lib.size) != 0) {
+		alert(format("%s has invalid SAUCE! (datatype=%u cols=%u size=%u)"
+			,file.name, sauce.datatype, sauce.cols, sauce.filesize));
 		return false;
 	}
-	var new_path = format("%savatars/%s", system.text_dir, filename);
+	var new_path = format("%s%s", lib.local_library(), filename);
 	var result = file_copy(file.name, new_path);
 	if(!result)
 		alert("ERROR copying " + file.name + " to " + new_path);
@@ -294,7 +295,7 @@ function main()
 		optval[arg] = val;
 
         switch(arg) {
-			case '-f':
+			case '-file':
 				filename = val;
 				break;
 			case '-offset':
@@ -320,7 +321,7 @@ function main()
 				break;
 		}
 	}
-
+	mkdir(lib.local_library());
 	for(var c in cmds) {
 		var cmd = cmds[c].toLowerCase();
 		switch(cmd) {

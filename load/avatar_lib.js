@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.2 2018/01/09 06:16:11 rswindell Exp $
+// $Id: avatar_lib.js,v 1.3 2018/01/09 07:19:48 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -6,6 +6,8 @@ const defs = {
 	width: 10,
 	height: 6,
 };
+
+const size = defs.width * defs.height * 2;	// 2 bytes per cell for char and attributes
 
 function local_library()
 {
