@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.5 2018/01/10 03:27:44 rswindell Exp $
+// $Id: avatars.js,v 1.6 2018/01/10 04:42:03 rswindell Exp $
 
-var REVISION = "$Revision: 1.5 $".split(' ')[1];
+var REVISION = "$Revision: 1.6 $".split(' ')[1];
 load('sbbsdefs.js');
 load("lz-string.js");
 var lib = load({}, 'avatar_lib.js');
@@ -83,7 +83,7 @@ function find_name(objs, name)
 function import_netuser_list(hdr, list)
 {
 	var objs = [];
-	var file = new File(this.netuser_fname(hdr.from_net_addr));
+	var file = new File(lib.netuser_fname(hdr.from_net_addr));
 	if(file.open("r")) {
 		objs = file.iniGetAllObjects();
 		file.close();
@@ -181,8 +181,7 @@ function import_from_msgbase(msgbase, import_ptr, limit, all)
 		if(ini.open("r")) {
 			import_ptr=ini.iniGetValue("avatars","import_ptr", 0);
 			ini.close();
-		} else if(debug)
-			print("Error " + ini.error + " opening " + ini.name);
+		}
 	}
     highest=import_ptr;
     print("import_ptr = " + import_ptr);
