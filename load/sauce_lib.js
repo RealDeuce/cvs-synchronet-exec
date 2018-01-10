@@ -1,4 +1,4 @@
-// $Id: sauce_lib.js,v 1.5 2018/01/10 11:22:56 rswindell Exp $
+// $Id: sauce_lib.js,v 1.6 2018/01/10 21:39:43 rswindell Exp $
 // vi: tabstop=4
 
 const defs = {
@@ -106,8 +106,11 @@ function read(fname)
 		if(file.read(defs.id_length) == 'COMNT') {
 			while(comments--) {
 				var line = file.read(defs.comment_length);
-				if(line)
-					obj.comment.push(truncsp(line));
+				if(!line)
+					continue;
+				var a = line.split('\n');	// Work-around for PabloDraw-Windows
+				for(var i in a)
+					obj.comment.push(truncsp(a[i]));
 			}
 		}
 	}
