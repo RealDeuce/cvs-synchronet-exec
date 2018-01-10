@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.4 2018/01/10 03:27:49 rswindell Exp $
+// $Id: avatar_lib.js,v 1.5 2018/01/10 03:50:53 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -33,11 +33,11 @@ function is_valid(buf)
 			switch(e) {
 				case '\r':
 				case '\n':
-				case '\a':
+				case '\x07':	// Beep/BEL ('\a')
 				case '\b':
 				case '\t':
 				case '\f':
-				case '\x1b':	// ESC
+				case '\x1b':	// ESC ('\e')
 				case '\xff':	// Telnet IAC
 					return true;
 			}
