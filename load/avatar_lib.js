@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.3 2018/01/09 07:19:48 rswindell Exp $
+// $Id: avatar_lib.js,v 1.4 2018/01/10 03:27:49 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -22,6 +22,31 @@ function localuser_fname(usernum)
 function netuser_fname(netaddr)
 {
 	return format("%sqnet/%s.avatars.ini", system.data_dir, file_getname(netaddr));
+}
+
+function is_valid(buf)
+{
+	if(!buf || !buf.length || buf.length != this.size)
+		return false;
+	var invalid = buf.split('').filter(function (e,i) { 
+		if((i&1) == 0) { // char
+			switch(e) {
+				case '\r':
+				case '\n':
+				case '\a':
+				case '\b':
+				case '\t':
+				case '\f':
+				case '\x1b':	// ESC
+				case '\xff':	// Telnet IAC
+					return true;
+			}
+			return false;
+		}
+		// attr
+		return (ascii(e)&BLINK);
+		});
+	return invalid.length == 0;
 }
 
 function write_localuser(usernum, obj)
@@ -91,6 +116,8 @@ function import_file(usernum, filename, offset)
 	load('graphic.js');
 	var graphic = new Graphic(this.defs.width, this.defs.height);
 	if(!graphic.load(filename, offset))
+		return false;
+	if(!is_valid(graphic.BIN))
 		return false;
 	return update_localuser(usernum, base64_encode(graphic.BIN));
 }
