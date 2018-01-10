@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.6 2018/01/10 04:42:03 rswindell Exp $
+// $Id: avatars.js,v 1.7 2018/01/10 06:51:13 rswindell Exp $
 
-var REVISION = "$Revision: 1.6 $".split(' ')[1];
+var REVISION = "$Revision: 1.7 $".split(' ')[1];
 load('sbbsdefs.js');
 load("lz-string.js");
 var lib = load({}, 'avatar_lib.js');
@@ -129,7 +129,7 @@ function valid_shared_file(filename)
 		return false;
 	var data = file.read(sauce.filesize);
 	file.close();
-	var list = data.match(new RegExp('(.{1,' + lib.size + '})', 'g'));
+	var list = data.match(new RegExp('([\x00-\xff]{1,' + lib.size + '})', 'g'));
 	printf("%u avatars\r\n", list.length);
 //	print(JSON.stringify(list, null, 4));
 	for(var i in list)
