@@ -2,13 +2,13 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.25 2017/09/13 20:10:26 rswindell Exp $
+// $Id: logon.js,v 1.26 2018/01/10 22:24:33 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
 load("sbbsdefs.js");
 load("text.js");
-load("asc2htmlterm.js");
+var Avatar = load({}, "avatar_lib.js");
 var options = load("modopts.js", "logon");
 
 // Check if we're being asked to auto-run an external (web interface external programs section uses this)
@@ -136,6 +136,7 @@ if(user.settings&USER_HTML) {
 }
 
 if(user.settings&USER_HTML) {
+	load("asc2htmlterm.js");
 	var buf="\2\2<html><head><title>Welcome status screen</title></head><body bgcolor=\"black\" text=\"#a8a8a8\">";
 
 	// Last few callers
@@ -219,6 +220,9 @@ else {
 		console.printfile(auto_msg,P_NOATCODES);
 		console.crlf();
 	}
+
+	if(console.term_supports(USER_ANSI))
+		Avatar.draw(user.number, /* name: */null, /* netaddr: */null, /* above: */false, /* right: */true);
 }
 
 // Automatically set shell to WIPSHELL
