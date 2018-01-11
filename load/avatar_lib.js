@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.7 2018/01/11 05:22:18 rswindell Exp $
+// $Id: avatar_lib.js,v 1.8 2018/01/11 06:34:27 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -151,7 +151,8 @@ function import_file(usernum, filename, offset)
 
 function enabled(obj)
 {
-	return typeof obj == 'object' 
+	return obj
+		&& typeof obj == 'object' 
 		&& typeof obj.data == 'string'
 		&& obj.data.length
 		&& !obj.disabled;
