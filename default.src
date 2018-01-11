@@ -2,7 +2,7 @@
 
 # Default Command Shell for Synchronet Version 2.00a+
 
-# $Id: default.src,v 1.18 2017/08/14 10:20:27 rswindell Exp $
+# $Id: default.src,v 1.19 2018/01/11 08:47:15 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -185,6 +185,9 @@ if_true
 
 cmdkey A
 	auto_message
+	end_cmd
+cmdkey /A
+	exec_bin avatar_chooser
 	end_cmd
 
 cmdkey B
