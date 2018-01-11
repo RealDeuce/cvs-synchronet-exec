@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.8 2018/01/10 22:23:20 rswindell Exp $
+// $Id: avatars.js,v 1.9 2018/01/11 05:23:09 rswindell Exp $
 
-var REVISION = "$Revision: 1.8 $".split(' ')[1];
+var REVISION = "$Revision: 1.9 $".split(' ')[1];
 load('sbbsdefs.js');
 load("lz-string.js");
 var lib = load({}, 'avatar_lib.js');
@@ -278,6 +278,8 @@ function export_users(msgbase, realnames)
 		if(realnames)
 			list[data].push(u.name);
 	}
+	if(!list.length)
+		return true;	// Nothing to export
 	for(var i in list)
 		list[i].sort();
 	var body = "json-begin\r\n";
