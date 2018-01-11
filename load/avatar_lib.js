@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.6 2018/01/10 22:21:48 rswindell Exp $
+// $Id: avatar_lib.js,v 1.7 2018/01/11 05:22:18 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -26,6 +26,7 @@ function netuser_fname(netaddr)
 
 function is_valid(buf)
 {
+	load("cga_defs.js");
 	if(!buf || !buf.length || buf.length != this.size)
 		return false;
 	var invalid = buf.split('').filter(function (e,i) { 
