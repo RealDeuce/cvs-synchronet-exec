@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.24 2018/01/13 04:25:37 rswindell Exp $
+// $Id: newuser.js,v 1.25 2018/01/13 22:20:52 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -17,6 +17,11 @@ if(options && (bbs.sys_status&SS_RLOGIN))
 
 if(options && options.qwk_settings)
 	user.qwk_settings = eval(options.qwk_settings);
+
+if(options && options.avatar) {
+	var avatar = load({}, 'avatar_lib.js');
+	avatar.update_localuser(user.number, options.avatar);
+}	
 
 console.clear();
 
