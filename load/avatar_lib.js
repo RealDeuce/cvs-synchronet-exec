@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.8 2018/01/11 06:34:27 rswindell Exp $
+// $Id: avatar_lib.js,v 1.9 2018/01/13 06:18:03 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -124,6 +124,8 @@ function read(usernum, username, netaddr)
 {
 	if(parseInt(usernum) >= 1)
 		return read_localuser(usernum);
+	else if(!netaddr)
+		return read_localuser(system.matchuser(username));
 	else
 		return read_netuser(username, netaddr);
 }
