@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.12 2018/01/13 01:12:42 rswindell Exp $
+// $Id: avatars.js,v 1.13 2018/01/13 06:26:51 rswindell Exp $
 
-var REVISION = "$Revision: 1.12 $".split(' ')[1];
+var REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -101,6 +101,10 @@ function import_netuser_list(hdr, list)
 	}
 	for(var i in list) {
 		for(var u in list[i]) {
+			if(system.findstr(system.ctrl_dir + "twitlist.cfg", list[i][u])) {
+				alert("Ignoring twit-listed user: " + list[i][u]);
+				continue;
+			}
 			var index = find_name(objs, list[i][u]);
 			if(index >= 0) {
 				if(objs[index].data != i) {
@@ -232,6 +236,10 @@ function import_from_msgbase(msgbase, import_ptr, limit, all)
         var hdr = msgbase.get_msg_header(/* by_offset: */true, i);
 		if(all != true && !hdr.from_net_type)	// Skip locally posted messages
 			continue;
+		if(system.findstr(system.ctrl_dir + "twitlist.cfg", hdr.from)) {
+			alert("Ignoring twit-listed sender: " + hdr.from);
+			continue;
+		}
 		printf("Importing msg #%u from %s: ", hdr.number, hdr.from);
 		var success = false;
 		var body = msgbase.get_msg_body(/* by_offset: */true, i
