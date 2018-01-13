@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.11 2018/01/11 08:42:59 rswindell Exp $
+// $Id: avatars.js,v 1.12 2018/01/13 01:12:42 rswindell Exp $
 
-var REVISION = "$Revision: 1.11 $".split(' ')[1];
+var REVISION = "$Revision: 1.12 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -167,9 +167,16 @@ function import_shared_file(hdr, body)
 	if(!data)
 		return false;
 
-	var filename = format("%s.%s", hdr.from_net_addr, file_getname(hdr.subject));
-	if(file_getext(filename).toLowerCase() != '.bin')
-		filename += '.bin';
+	// If the filename (in the subject) already contains the sender's QWK-ID, skip-it
+	var filename = file_getname(hdr.subject);
+	var prefix = file_getname(hdr.from_net_addr) + '.';
+	var suffix = '.bin';
+	if(filename.length > prefix.length + suffix.length
+		&& filename.substr(0, prefix.length).toLowerCase() == prefix.toLowerCase())
+		filename = filename.slice(prefix.length);
+	filename = prefix + filename;
+	if(file_getext(filename).toLowerCase() != suffix)
+		filename += suffix;
 
 	var file = new File(format("%sqnet/%s", system.data_dir, filename));
 	if(!file.open("wb")) {
