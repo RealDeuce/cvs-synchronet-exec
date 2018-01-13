@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.27 2018/01/09 06:33:04 rswindell Exp $
+// $Id: sbbslist.js,v 1.28 2018/01/13 04:56:31 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.27 $".split(' ')[1];
+var REVISION = "$Revision: 1.28 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -72,7 +72,7 @@ function date_from_str(str)
 function export_entry(bbs, msgbase)
 {
     var i;
-    var hdr = { to:'sbl', from:bbs.entry.created.by, subject:bbs.name };
+    var hdr = { to:'SBL', from:bbs.entry.created.by, subject:bbs.name };
 
     var body = "";      // This section for SMB2SBL compatibility
     body += "Name:          " + bbs.name + "\r\n";
@@ -2215,6 +2215,9 @@ function main()
 						if(debug) print(JSON.stringify(entry, null, 1));
 					}
 				}
+				break;
+			case "maint":
+				alert("Not yet implemented");
 				break;
 		}
     }
