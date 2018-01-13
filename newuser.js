@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.23 2016/08/27 07:50:45 rswindell Exp $
+// $Id: newuser.js,v 1.24 2018/01/13 04:25:37 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -107,7 +107,7 @@ if(options
 		user.qwk_settings&=~QWK_FILES;
 	}
 	else if(console.yesno("\r\nDo you wish to access the Synchronet BBS List database"))
-		bbs.exec_xtrn("SBL");
+		bbs.exec_xtrn("SBBSLIST");
 }
 
 /********************************/
