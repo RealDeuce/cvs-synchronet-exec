@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.26 2018/01/10 22:24:33 rswindell Exp $
+// $Id: logon.js,v 1.27 2018/01/14 01:58:53 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -221,8 +221,10 @@ else {
 		console.crlf();
 	}
 
-	if(console.term_supports(USER_ANSI))
+	if(console.term_supports(USER_ANSI)) {
 		Avatar.draw(user.number, /* name: */null, /* netaddr: */null, /* above: */false, /* right: */true);
+		console.attributes = 0;	// Clear the background attribute
+	}
 }
 
 // Automatically set shell to WIPSHELL
