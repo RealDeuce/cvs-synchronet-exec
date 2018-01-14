@@ -1,4 +1,4 @@
-// $Id: sauce.js,v 1.2 2018/01/10 22:19:34 rswindell Exp $
+// $Id: sauce.js,v 1.3 2018/01/14 22:42:04 rswindell Exp $
 // vi: tabstop=4
 
 var lib = load({}, "sauce_lib.js");
@@ -71,6 +71,11 @@ function main()
 					var str = prompt(i + " [" + sauce[i] + "]");
 					if(str)
 						sauce[i] = truncp(str);
+				}
+				for(var i = 1; i <= 4; i++) {
+					var str = prompt("tinfo" + i + " [" + sauce["tinfo" + i] + "]");
+					if(str)
+						sauce["tinfo" + i] = parseInt(str);
 				}
 				var orig_comment = sauce.comment.slice();
 				sauce.comment.length = 0;
