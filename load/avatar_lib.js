@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.10 2018/01/14 02:45:11 rswindell Exp $
+// $Id: avatar_lib.js,v 1.11 2018/01/15 03:37:11 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -148,6 +148,12 @@ function update_localuser(usernum, data)
 
 function import_file(usernum, filename, offset)
 {
+	if(!offset) {
+		sauce_lib=load({}, 'sauce_lib.js');
+		sauce = sauce_lib.read(filename);
+		if(sauce)
+			offset = random(sauce.filesize / this.size);
+	}
 	load('graphic.js');
 	var graphic = new Graphic(this.defs.width, this.defs.height);
 	try {
