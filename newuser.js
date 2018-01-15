@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.25 2018/01/13 22:20:52 rswindell Exp $
+// $Id: newuser.js,v 1.26 2018/01/15 03:41:02 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -18,9 +18,12 @@ if(options && (bbs.sys_status&SS_RLOGIN))
 if(options && options.qwk_settings)
 	user.qwk_settings = eval(options.qwk_settings);
 
-if(options && options.avatar) {
-	var avatar = load({}, 'avatar_lib.js');
-	avatar.update_localuser(user.number, options.avatar);
+if(options && (options.avatar || options.avatar_file)) {
+	var avatar_lib = load({}, 'avatar_lib.js');
+	if(options.avatar_file)
+		avatar_lib.import_file(user.number, options.avatar_file, options.avatar_offset);
+	else
+		avatar_lib.update_localuser(user.number, options.avatar);
 }	
 
 console.clear();
