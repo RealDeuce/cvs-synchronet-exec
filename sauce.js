@@ -1,4 +1,4 @@
-// $Id: sauce.js,v 1.3 2018/01/14 22:42:04 rswindell Exp $
+// $Id: sauce.js,v 1.4 2018/01/15 11:20:17 rswindell Exp $
 // vi: tabstop=4
 
 var lib = load({}, "sauce_lib.js");
@@ -70,7 +70,7 @@ function main()
 				for(var i in { title:0, author:0, group:0 }) {
 					var str = prompt(i + " [" + sauce[i] + "]");
 					if(str)
-						sauce[i] = truncp(str);
+						sauce[i] = truncsp(str);
 				}
 				for(var i = 1; i <= 4; i++) {
 					var str = prompt("tinfo" + i + " [" + sauce["tinfo" + i] + "]");
