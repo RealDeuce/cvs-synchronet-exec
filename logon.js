@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.29 2018/01/15 11:19:18 rswindell Exp $
+// $Id: logon.js,v 1.30 2018/01/15 11:22:37 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -249,7 +249,7 @@ if(options
 	&& bbs.sys_status&SS_RLOGIN) {
 	bbs.xtrn_sec();
 	bbs.hangup();
-} else if(user.security.restrictions&UFLAG_G
+} else if(!(user.security.restrictions&UFLAG_G)
 	&& console.term_supports(USER_ANSI) 
 	&& options && options.set_avatar == true) {
 	var avatar = Avatar.read_localuser(user.number);
