@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.28 2018/01/14 10:33:55 rswindell Exp $
+// $Id: logon.js,v 1.29 2018/01/15 11:19:18 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -249,7 +249,9 @@ if(options
 	&& bbs.sys_status&SS_RLOGIN) {
 	bbs.xtrn_sec();
 	bbs.hangup();
-} else if(console.term_supports(USER_ANSI) && options && options.set_avatar == true) {
+} else if(user.security.restrictions&UFLAG_G
+	&& console.term_supports(USER_ANSI) 
+	&& options && options.set_avatar == true) {
 	var avatar = Avatar.read_localuser(user.number);
 	if(!avatar || !avatar.data) {
 		alert("You have not selected an avatar.");
