@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.16 2018/01/15 04:26:07 rswindell Exp $
+// $Id: avatars.js,v 1.17 2018/01/16 05:16:10 rswindell Exp $
 
-var REVISION = "$Revision: 1.16 $".split(' ')[1];
+var REVISION = "$Revision: 1.17 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -120,8 +120,8 @@ function import_netuser_list(hdr, list)
 	if(!file.open("w"))
 		return false;
 	var result = file.iniSetAllObjects(objs);
-	file.writeln(format(";imported from %s at %s (%s) on %s"
-		, hdr.from, hdr.subj, hdr.from_net_addr, new Date().toISOString()));
+	file.writeln(format(";updated by %s at %s (%s) on %s"
+		, hdr.from, hdr.subject, hdr.from_net_addr, new Date().toISOString()));
 	file.close();
 	return result;
 }
@@ -316,6 +316,8 @@ function export_users(msgbase, realnames, all)
 			|| updated > last_exported
 			|| new Date() - last_exported >= export_freq * (24*60*60*1000)) {
 			if(avatar.disabled == true) {
+				if(!last_exported)
+					continue;
 				printf("Exporting disabled-avatar state for user #%u\r\n", n);
 				if(!list.disabled)
 					list.disabled = [];
