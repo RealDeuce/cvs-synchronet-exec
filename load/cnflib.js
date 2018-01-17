@@ -1,5 +1,5 @@
 /* CNF data structure definitions (see scfglib2.c) 
-	$Id: cnflib.js,v 1.10 2015/12/28 18:31:47 mcmlxxix Exp $
+	$Id: cnflib.js,v 1.11 2018/01/17 04:31:44 rswindell Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -172,13 +172,31 @@ var CNF = new (function() {
 		}
 		return bytes;
 	}
+
+	this.fullpath = function(fileName) {
+		if(file_name(fileName) == fileName)
+			return system.ctrl_dir + fileName;
+		return fileName;
+	}
 	
 	/* read records from .cnf file */
 	this.read = function(fileName,struct) {
-		var f = new File(fileName);
-		f.open('rb',true);
-		f.etx=3;
-		
+		if(!struct) {
+			switch(file_getname(fileName).toLowerCase()) {
+				case "xtrn.cnf":
+					struct = js.global.struct.xtrn;
+					break;
+				case "msgs.cnf":
+					struct = js.global.struct.msg;
+					break;
+				default:
+					return false;
+			}
+		}
+		var f = new File(fullpath(fileName));
+		if(!f.open('rb'))
+			return false;
+
 		var data = readRecord(f,struct);
 
 		f.close();
@@ -187,8 +205,20 @@ var CNF = new (function() {
 
 	/* write records to .cnf file */
 	this.write = function(fileName,struct,data) {
-		var f = new File(fileName);
-		if(!f.open('wb',true))
+		if(!struct) {
+			switch(file_getname(fileName).toLowerCase()) {
+				case "xtrn.cnf":
+					struct = js.global.struct.xtrn;
+					break;
+				case "msgs.cnf":
+					struct = js.global.struct.msg;
+					break;
+				default:
+					return false;
+			}
+		}
+		var f = new File(fullpath(fileName));
+		if(!f.open('wb'))
 			return false;
 		
 		writeRecord(f,struct,data);
@@ -197,3 +227,5 @@ var CNF = new (function() {
 	}
 
 })();
+
+CNF;
