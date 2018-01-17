@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.12 2018/01/15 04:24:10 rswindell Exp $
+// $Id: avatar_lib.js,v 1.13 2018/01/17 04:34:55 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -12,6 +12,13 @@ const size = defs.width * defs.height * 2;	// 2 bytes per cell for char and attr
 function local_library()
 {
 	return format("%savatars/", system.text_dir);
+}
+
+function fullpath(filename)
+{
+	if(file_getname(filename) != filename)
+		return filename;
+	return local_library() + filename;
 }
 
 function localuser_fname(usernum)
@@ -149,7 +156,7 @@ function update_localuser(usernum, data)
 function import_file(usernum, filename, offset)
 {
 	sauce_lib = load({}, 'sauce_lib.js');
-	var sauce = sauce_lib.read(filename);
+	var sauce = sauce_lib.read(fullpath(filename));
 	if(sauce) {
 		var num_avatars = sauce.filesize / this.size;
 		if(num_avatars < 1) {
@@ -164,7 +171,7 @@ function import_file(usernum, filename, offset)
 	load('graphic.js');
 	var graphic = new Graphic(this.defs.width, this.defs.height);
 	try {
-		if(!graphic.load(filename, offset))
+		if(!graphic.load(fullpath(filename), offset))
 			return false;
 	} catch(e) {
 		alert(e);
