@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.29 2018/01/17 05:56:05 rswindell Exp $
+// $Id: sbbslist.js,v 1.30 2018/01/18 06:59:55 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.29 $".split(' ')[1];
+var REVISION = "$Revision: 1.30 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -1960,7 +1960,7 @@ function install()
 		};
 	var sblupdate_cfg = {
         "code": "SBLUPDAT",
-        "cmd": "?sbbslist update",
+        "cmd": "?sbbslist update -preview",
         "days": 255,
         "time": 0,
         "node": 1,
