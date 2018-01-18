@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.19 2018/01/17 22:47:02 rswindell Exp $
+// $Id: avatars.js,v 1.20 2018/01/18 21:18:17 rswindell Exp $
 
-var REVISION = "$Revision: 1.19 $".split(' ')[1];
+var REVISION = "$Revision: 1.20 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -300,7 +300,10 @@ function export_users(msgbase, realnames, all)
 		if(!system.username(n))
 			continue;
 		var u = new User(n);
-		if(u.settings&USER_DELETED)
+		if((u.settings&USER_DELETED)
+			|| !u.total_posts			// No need to export avatars for users that have never posted
+			|| (u.security_restrictions&(UFLAG_P|UFLAG_N|UFLAG_Q)) // or will never post
+			)
 			continue;
 		var avatar = lib.read_localuser(n);
 		if(avatar.export_count == undefined)
@@ -308,6 +311,8 @@ function export_users(msgbase, realnames, all)
 		var last_exported = 0;
 		if(avatar.last_exported)
 			last_exported = new Date(avatar.last_exported);
+		if(u.stats.laston_date * 1000 < last_exported)
+			continue;	// Don't export avatars of inactive users
 		var updated;
 		if(avatar.updated)
 			updated = new Date(avatar.updated);
