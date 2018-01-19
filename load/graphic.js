@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.70 2018/01/14 02:46:37 rswindell Exp $
+// $Id: graphic.js,v 1.71 2018/01/19 08:03:56 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -785,6 +785,58 @@ Graphic.prototype.base64_decode = function(rows)
 {
 	this.BIN = base64_decode(rows.join(""));
 };
+
+// Fixes anomalies in "ANSI art" invisible to artists (but visible when viewed without colors)
+// where the artist used an inverse-space instead of a solid block, for example.
+// The normalized graphic should appear the same as the original when viewed in color
+// and the same or better without color.
+Graphic.prototype.normalize = function(bg)
+{
+	if(bg == undefined)
+		bg = this.data[0][0].attr;
+	bg &= 0xf0;
+	for (var y=0; y<this.height; y++) {
+		for (var x=0; x<this.width; x++) {
+			// Colored-BG space? Replace with full block
+			if(bg == 0 && this.data[x][y].ch == ' ' && (this.data[x][y].attr&0xf0) != 0) {
+				this.data[x][y].ch = ascii(219);
+				this.data[x][y].attr >>= 4;	// Original foreground color discarded (irrelevant)
+				continue;
+			}
+			if((this.data[x][y].attr&0x0f) << 4 != bg)
+				continue;
+			if((this.data[x][y].attr&0xf0) == bg)
+				continue;
+			var ch = this.data[x][y].ch;
+			switch(ascii(this.data[x][y].ch)) {
+				case 219:
+					ch = ascii(32);
+					break;
+				case 32:
+					ch = ascii(219);
+					break;
+				case 220:
+					ch = ascii(223);
+					break;
+				case 223:
+					ch = ascii(220);
+					break;
+				case 221:
+					ch = ascii(222);
+					break;
+				case 222:
+					ch = ascii(221);
+					break;
+			}
+			if(ch != this.data[x][y].ch) {
+				this.data[x][y].ch = ch;
+				this.data[x][y].attr >>= 4;
+				this.data[x][y].attr |= bg;
+			}
+		}
+	}
+	return this;
+}
 
 /* Leave as last line for convenient load() usage: */
 Graphic;
