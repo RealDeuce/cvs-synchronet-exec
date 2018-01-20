@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.24 2018/01/20 00:59:56 rswindell Exp $
+// $Id: avatars.js,v 1.25 2018/01/20 01:04:37 rswindell Exp $
 
-var REVISION = "$Revision: 1.24 $".split(' ')[1];
+var REVISION = "$Revision: 1.25 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -113,6 +113,8 @@ function import_netuser_list(hdr, list)
 			}
 			var index = find_name(objs, list[i][u]);
 			if(index >= 0) {
+				if(verbosity)
+					printf("%s = %s\r\n", objs[index].name, i);
 				if(i == "disabled")
 					delete objs[index];	// Remove rather than just mark as disabled
 				else if(objs[index].data != i) {
@@ -132,7 +134,7 @@ function import_netuser_list(hdr, list)
 		, hdr.from, hdr.subject, hdr.from_net_addr, new Date()));
 	file.close();
 	if(verbosity)
-		printf("%s written with %u avatars", file.name, objs.length);
+		printf("%s written with %u avatars\r\n", file.name, objs.length);
 	return result;
 }
 
