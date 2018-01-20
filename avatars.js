@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.25 2018/01/20 01:04:37 rswindell Exp $
+// $Id: avatars.js,v 1.26 2018/01/20 01:07:59 rswindell Exp $
 
-var REVISION = "$Revision: 1.25 $".split(' ')[1];
+var REVISION = "$Revision: 1.26 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -116,7 +116,7 @@ function import_netuser_list(hdr, list)
 				if(verbosity)
 					printf("%s = %s\r\n", objs[index].name, i);
 				if(i == "disabled")
-					delete objs[index];	// Remove rather than just mark as disabled
+					objs.splice(index, 1);	// Remove rather than just mark as disabled
 				else if(objs[index].data != i) {
 					objs[index].data = i;
 					objs[index].updated = new Date();
