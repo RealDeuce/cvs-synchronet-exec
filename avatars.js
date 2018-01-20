@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.22 2018/01/19 08:57:05 rswindell Exp $
+// $Id: avatars.js,v 1.23 2018/01/20 00:55:55 rswindell Exp $
 
-var REVISION = "$Revision: 1.22 $".split(' ')[1];
+var REVISION = "$Revision: 1.23 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -120,12 +120,16 @@ function import_netuser_list(hdr, list)
 				objs.push({ name: list[i][u], data: i, created: new Date() });
 		}
 	}
-	if(!file.open("w"))
+	if(!file.open("w")) {
+		alert("Error opening " + file.name);
 		return false;
+	}
 	var result = file.iniSetAllObjects(objs);
 	file.writeln(format(";updated by %s at %s (%s) on %s"
 		, hdr.from, hdr.subject, hdr.from_net_addr, new Date()));
 	file.close();
+	if(verbosity)
+		printf("%s written with %u avatars", file.name, objs.length);
 	return result;
 }
 
