@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.23 2018/01/20 00:55:55 rswindell Exp $
+// $Id: avatars.js,v 1.24 2018/01/20 00:59:56 rswindell Exp $
 
-var REVISION = "$Revision: 1.23 $".split(' ')[1];
+var REVISION = "$Revision: 1.24 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -101,6 +101,9 @@ function import_netuser_list(hdr, list)
 	if(file.open("r")) {
 		objs = file.iniGetAllObjects();
 		file.close();
+	} else if(file_exists(file.name)) {
+		alert("Error " + file.error + " opening " + file.name);
+		return false;
 	}
 	for(var i in list) {
 		for(var u in list[i]) {
