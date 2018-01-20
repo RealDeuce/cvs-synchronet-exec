@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.31 2018/01/20 04:18:33 rswindell Exp $
+// $Id: sbbslist.js,v 1.32 2018/01/20 07:47:33 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.31 $".split(' ')[1];
+var REVISION = "$Revision: 1.32 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -133,7 +133,7 @@ function export_entry(bbs, msgbase)
 
 	delete bbs.entry;
     body += "\r\njson-begin\r\n";
-    body += JSON.stringify(bbs, null, 1) + "\r\n";
+    body += lfexpand(JSON.stringify(bbs, null, 1)) + "\r\n";
     body += "json-end\r\n";
     body += "--- " + js.exec_file + " " + REVISION + "\r\n";
 //    print(body);
