@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.33 2018/01/21 04:07:59 rswindell Exp $
+// $Id: sbbslist.js,v 1.34 2018/01/21 06:26:53 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.33 $".split(' ')[1];
+var REVISION = "$Revision: 1.34 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -28,7 +28,7 @@ var color_cfg = {
 	sorted: BG_RED,
 };
 var cmd_prompt_fmt = "\1n\1c\xfe \1h%s \1n\1c\xfe ";
-if(!console.term_supports(USER_ANSI))
+if(js.global.console==undefined || !console.term_supports(USER_ANSI))
 	cmd_prompt_fmt = "%s: ";
 
 var debug = false;
