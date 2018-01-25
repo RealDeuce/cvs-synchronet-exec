@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.31 2018/01/25 01:12:17 rswindell Exp $
+// $Id: avatars.js,v 1.32 2018/01/25 10:13:38 rswindell Exp $
 
-var REVISION = "$Revision: 1.31 $".split(' ')[1];
+var REVISION = "$Revision: 1.32 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -387,7 +387,8 @@ function export_users(msgbase, realnames, all)
 	}
 	for(var i in list)
 		list[i].sort();
-	var body = "json-begin\r\n";
+	var body = "Timestamp: " + new Date() + "\r\n";
+	body += "json-begin\r\n";
 	body += lfexpand(JSON.stringify(list, null, 1)) + "\r\n";
 	body += "json-end\r\n";
 	body += "--- " + js.exec_file + " " + REVISION + "\r\n";
