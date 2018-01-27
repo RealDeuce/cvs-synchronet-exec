@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.15 2018/01/21 03:59:24 rswindell Exp $
+// $Id: avatar_lib.js,v 1.16 2018/01/27 21:10:51 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -54,7 +54,7 @@ function netuser_fname(netaddr)
 		fido = netaddr.match(FTN_4D_PATTERN);
 	if(fido)
 		return format("%sfido/%04x%04x.avatars.ini", system.data_dir, fido[2], fido[3]);
-	if(netaddr.search(QWK_ID_PATTERN) == 0)
+	if(file_getname(netaddr).search(QWK_ID_PATTERN) == 0)
 		return format("%sqnet/%s.avatars.ini", system.data_dir, file_getname(netaddr));
 	return false;
 }
