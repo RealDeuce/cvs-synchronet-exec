@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.34 2018/01/21 06:26:53 rswindell Exp $
+// $Id: sbbslist.js,v 1.35 2018/01/31 00:52:17 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.34 $".split(' ')[1];
+var REVISION = "$Revision: 1.35 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -571,7 +571,7 @@ function upgrade_list(sbl_dab)
     print("Upgrading from: " + sbl_dab);
     if(!dab.open("rb", /* shareable: */true)) {
         alert("Error " + dab.error + " opening " + dab.name);
-        exit();
+        return [];
     }
 
     var list=[];
@@ -1701,6 +1701,8 @@ function edit_field(obj, field, max_len)
 
 function can_edit(bbs)
 {
+	if(!bbs)
+		return "not an entry";
 	if(bbs.imported) {
 		return "Cannot edit imported entries";
 	}
@@ -2134,9 +2136,13 @@ function main()
 	if(!quiet)
 		print(version_notice);
 
-    if(!file_exists(lib.list_fname))
-        list=upgrade_list(sbl_dir + "sbl.dab");
-    else
+    if(!file_exists(lib.list_fname)) {
+		var dab = sbl_dir + "sbl.dab";
+		if(file_exists(dab))
+			list=upgrade_list(dab);
+		else
+			list=[];
+    } else
         list=lib.read_list();
 	if(options && options.sort)
 		lib.sort(list, options.sort);
