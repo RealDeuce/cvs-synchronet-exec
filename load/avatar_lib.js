@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.16 2018/01/27 21:10:51 rswindell Exp $
+// $Id: avatar_lib.js,v 1.17 2018/02/02 12:32:51 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -67,6 +67,7 @@ function is_valid(buf)
 	var invalid = buf.split('').filter(function (e,i) { 
 		if((i&1) == 0) { // char
 			switch(e) {
+				case '\x00':
 				case '\r':
 				case '\n':
 				case '\x07':	// Beep/BEL ('\a')
