@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.32 2018/01/25 10:13:38 rswindell Exp $
+// $Id: avatars.js,v 1.33 2018/02/02 13:01:55 rswindell Exp $
 
-var REVISION = "$Revision: 1.32 $".split(' ')[1];
+var REVISION = "$Revision: 1.33 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -453,7 +453,7 @@ function export_file(msgbase, filename)
 function install()
 {
 	if(!file_exists(lib.local_library() + "*.bin"))
-		return "Not avatars collections (.bin files) found in " + lib.local_library();
+		return "No avatars collections (.bin files) found in " + lib.local_library();
 	var cnflib = load({}, "cnflib.js");
 	var xtrn_cnf = cnflib.read("xtrn.cnf");
 	if(!xtrn_cnf)
