@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.17 2017/11/27 20:11:24 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.18 2018/02/02 12:59:55 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -126,7 +126,9 @@ function external_program_menu(xsec)
 		}
 		if(options.clear_screen_on_exec)
 			console.clear();
+		load('fonts.js', 'xtrn:' + prog_list[i].code);
 		bbs.exec_xtrn(prog_list[i].code); 
+		load('fonts.js', 'default');
 
 		if(prog_list[i].settings&XTRN_PAUSE)
 			console.pause();
