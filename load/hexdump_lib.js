@@ -1,19 +1,19 @@
-// $Id: hexdump_lib.js,v 1.1 2017/12/30 03:00:13 rswindell Exp $
+// $Id: hexdump_lib.js,v 1.2 2018/02/02 12:33:23 rswindell Exp $
 
 function hexdump(title, val)
 {
 	var i;
 
 	if(!val) {
-		printf("%s: (null)\n", title);
+		printf("%s: (null)\r\n", title);
 		return false;
 	}
-	printf("%s: %u bytes\n", title, val.length);
+	printf("%s: %u bytes\r\n", title, val.length);
 	var ascii = '';
 	for(i=0; i < val.length; i++) {
 		var ch = val.charCodeAt(i);
 		if(i && i%16 == 0) {
-			printf("  %s\n", ascii);
+			printf("  %s\r\n", ascii);
 			ascii = '';
 		}
 		else if(i && i%8 == 0)
@@ -28,7 +28,7 @@ function hexdump(title, val)
 			if((i%16) < 8)
 				gap += 2;
 		}
-		printf("%*s  %s\n", gap, "", ascii);
+		printf("%*s  %s\r\n", gap, "", ascii);
 	}
 	print();
 	return true;
