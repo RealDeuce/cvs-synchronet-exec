@@ -1,4 +1,4 @@
-// $Id: sauce.js,v 1.5 2018/01/17 04:42:10 rswindell Exp $
+// $Id: sauce.js,v 1.6 2018/02/02 13:06:31 rswindell Exp $
 // vi: tabstop=4
 
 var lib = load({}, "sauce_lib.js");
@@ -55,7 +55,7 @@ function main()
 			if(sauce == false) {
 				sauce = { datatype: lib.defs.datatype.bin, cols: 80, comment: [], tinfos: '' };
 			} else {
-				printf("(%ux%u%s", sauce.cols, sauce.rows, sauce.ice_color ? " iCE":"");
+				printf("(Type:%u %ux%u%s", sauce.datatype, sauce.cols, sauce.rows, sauce.ice_color ? " iCE":"");
 				if(sauce.title) printf(" '%s'", sauce.title);
 				if(sauce.author) printf(" by %s", sauce.author);
 				if(sauce.group) printf(" [%s]", sauce.group);
