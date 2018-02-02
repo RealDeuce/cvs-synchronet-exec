@@ -1,4 +1,4 @@
-// $Id: SlyEdit_Misc.js,v 1.41 2018/01/29 04:12:31 nightfox Exp $
+// $Id: SlyEdit_Misc.js,v 1.42 2018/02/02 03:32:35 nightfox Exp $
 
 /* This file declares some general helper functions and variables
  * that are used by SlyEdit.
@@ -4812,7 +4812,7 @@ function getAttrsAndIndexesBeforeStrIdx(pStr, pIdx)
 	// Look for indexes of any Synchronet attribute codes before the given
 	// index.  If there are some, then set the start index after the attribute
 	// codes end.
-	retObj.syncAttrStartIdx = strIdxOfSyncAttrBefore(pStr, idx, false, false);
+	retObj.syncAttrStartIdx = strIdxOfSyncAttrBefore(pStr, idx, /*false*/true, false);
 	if ((retObj.syncAttrStartIdx > -1) && (retObj.syncAttrStartIdx < idx))
 	{
 		retObj.syncAttrEndIdx = regexLastIndexOf(pStr, gSyncAttrRegex, retObj.syncAttrStartIdx, idx);
