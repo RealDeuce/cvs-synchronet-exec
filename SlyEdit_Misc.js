@@ -1,4 +1,4 @@
-// $Id: SlyEdit_Misc.js,v 1.42 2018/02/02 03:32:35 nightfox Exp $
+// $Id: SlyEdit_Misc.js,v 1.43 2018/02/03 01:16:08 nightfox Exp $
 
 /* This file declares some general helper functions and variables
  * that are used by SlyEdit.
@@ -37,8 +37,8 @@
  * 2018-01-27 Eric Oulashin     Added removeStrayANSIOneChars()
  */
  
- load("text.js");
- 
+load("text.js");
+
 // Note: These variables are declared with "var" instead of "const" to avoid
 // multiple declaration errors when this file is loaded more than once.
 
