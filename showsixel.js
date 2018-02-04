@@ -1,6 +1,6 @@
-// $Id: showsixel.js,v 1.2 2018/02/04 05:15:06 rswindell Exp $
+// $Id: showsixel.js,v 1.3 2018/02/04 05:18:17 rswindell Exp $
 
-load('cterm_libs.js');
+load('cterm_lib.js');
 
 if(console.cterm_version >= 1189) {
 	var image=new File(argv[0]);
