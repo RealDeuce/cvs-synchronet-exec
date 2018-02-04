@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.3 2018/02/04 01:57:23 rswindell Exp $
+// $Id: cterm_lib.js,v 1.4 2018/02/04 03:48:22 rswindell Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -133,7 +133,7 @@ function charheight(rows)
 
 function supports_fonts()
 {
-	if(console.cterm_version < cterm_version_supports_fonts)
+	if(console.cterm_version == undefined || console.cterm_version < cterm_version_supports_fonts)
 		return false;
 	if(font_state === undefined)
 		query_fontstate();
