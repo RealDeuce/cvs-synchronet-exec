@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.30 2018/01/15 11:22:37 rswindell Exp $
+// $Id: logon.js,v 1.31 2018/02/05 05:57:25 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -10,6 +10,7 @@ load("sbbsdefs.js");
 load("text.js");
 var Avatar = load({}, "avatar_lib.js");
 var options = load("modopts.js", "logon");
+load("loadfonts.js");
 
 // Check if we're being asked to auto-run an external (web interface external programs section uses this)
 if (options && (options.rlogin_auto_xtrn) && (bbs.sys_status & SS_RLOGIN) && (console.terminal.indexOf("xtrn=") === 0)) {
@@ -100,7 +101,7 @@ for(var i=0;;i++) {
 	var fname="logon";
 	if(i)
 		fname+=i;
-	if(!file_exists(system.text_dir + "menu/" + fname + ".*")) {
+	if(!file_exists(system.text_dir + "menu/" + fname + ".asc")) {
 		if(i>1)
 			break;
 		continue;
