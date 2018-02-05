@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.6 2018/02/05 05:15:13 rswindell Exp $
+// $Id: cterm_lib.js,v 1.7 2018/02/05 11:42:32 rswindell Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -41,7 +41,7 @@ function query(request)
 
 	var lastch;
 	while(1) {
-		var ch=console.inkey(0, 1000);
+		var ch=console.inkey(0, 3000);
 		if(ch=="")
 			break;
 		if(!response.length) {
