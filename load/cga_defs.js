@@ -1,4 +1,4 @@
-// $Id: cga_defs.js,v 1.2 2018/02/02 12:31:24 rswindell Exp $
+// $Id: cga_defs.js,v 1.3 2018/02/06 04:51:54 rswindell Exp $
 // CGA (IBM Color Graphics Adapter) definitions
 
 								/********************************************/
@@ -25,6 +25,25 @@ var   LIGHTMAGENTA	=13;
 var   YELLOW		=14;
 var   WHITE			=15;
 
+// This array allows a fast color-index -> name lookup
+var colors = [
+	'BLACK',
+	'BLUE',
+	'GREEN',
+	'CYAN',
+	'RED',
+	'MAGENTA' ,
+	'BROWN',
+	'LIGHTGRAY',
+	'DARKGRAY',
+	'LIGHTBLUE',
+	'LIGHTGREEN', 
+	'LIGHTCYAN',
+	'LIGHTRED',
+	'LIGHTMAGENTA',
+	'YELLOW',
+	'WHITE'
+	];
 							    /* background colors */
 var   ANSI_NORMAL	=0x100;		/* special value for ansi() */
 var   BG_BLACK		=0x200;		/* special value for ansi() */
