@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.78 2018/02/06 19:03:02 deuce Exp $
+// $Id: graphic.js,v 1.79 2018/02/06 19:09:57 deuce Exp $
 
 /*
  * "Graphic" object
@@ -473,6 +473,12 @@ Object.defineProperty(Graphic.prototype, "MSG", {
             	ch = this.data[x][y].ch;
 				if(ch == '\1')	// Convert a Ctrl-A char to a Ctrl-AA (escaped)
 					ch += 'A';
+				else if (this.illegal_characters.indexOf(ascii(ch)) >= 0) {
+					if (this.doorway_mode)
+						ch = ascii(0) + ch;
+					else
+						ch=this.ch;
+				}
                 msg += ch;
         	}
 			msg += '\1N\r\n';
