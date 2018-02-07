@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.11 2018/02/06 11:18:21 rswindell Exp $
+// $Id: cterm_lib.js,v 1.12 2018/02/07 06:13:54 rswindell Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -395,8 +395,10 @@ function xbin_draw(image, xpos, ypos, fg_color, bg_color, delay, cycle)
 	}
 	
 	ansiterm.send("ext_mode", "clear", "cursor");
+	ansiterm.send("ext_mode", "clear", "autowrap");
 //	log(LOG_DEBUG, 'CTerm Enabled modes ' + this.query_mode());
 	var graphic = new Graphic(image.width, image.height);
+	graphic.autowrap = false;
 	graphic.BIN = image.bin;
 	var width = image.width;
 	var height = image.height;
@@ -507,6 +509,7 @@ function xbin_cleanup(image)
 
 	console.clear(ansiterm.LIGHTGRAY|ansiterm.BG_BLACK);
 	ansiterm.send("ext_mode", "set", "cursor");
+	ansiterm.send("ext_mode", "set", "autowrap");
 
 	if(this.supports_fonts() != false
 		&& (image===undefined || (image.font && image.charheight == this.charheight(console.screen_rows)))) {
