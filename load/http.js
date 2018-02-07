@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.30 2017/01/13 19:51:10 echicken Exp $ */
+/* $Id: http.js,v 1.31 2018/02/07 01:31:37 rswindell Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -105,6 +105,7 @@ function HTTPRequest(username,password,extra_headers)
 
 		if((this.sock=new Socket(SOCK_STREAM))==null)
 			throw("Unable to create socket");
+		this.sock.nonblocking = true;	// Use non-blocking operations
 		if(!this.sock.connect(this.url.host, this.url.port?this.url.port:(this.url.scheme=='http'?80:443))) {
 			this.sock.close();
 			throw("Unable to connect");
