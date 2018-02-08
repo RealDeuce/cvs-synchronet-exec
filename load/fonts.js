@@ -1,4 +1,4 @@
-// $Id: fonts.js,v 1.1 2018/02/02 12:57:04 rswindell Exp $
+// $Id: fonts.js,v 1.2 2018/02/08 06:36:31 rswindell Exp $
 
 var cterm = load({}, 'cterm_lib.js');
 
@@ -36,7 +36,7 @@ function fonts(key)
 			var slotnum = parseInt(slotval, 10);
 			log(LOG_DEBUG, "activate: " + obj[p] + " slot " + slotnum + " >= " + cterm.font_slot_first);
 			if(slotval !== undefined && slotnum >= cterm.font_slot_first
-				&& !console.cterm_font_loaded[slotnum]) {
+				&& !cterm.fonts_loaded[slotnum]) {
 				// Need to load the font
 				var filename;
 				if(filenames)
