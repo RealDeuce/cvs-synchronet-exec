@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.14 2018/02/07 09:47:11 rswindell Exp $
+// $Id: cterm_lib.js,v 1.15 2018/02/08 00:27:02 rswindell Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -25,7 +25,7 @@ if(console.cterm_version === undefined) {
 	var response = query_da();
 	if(response) {
 		da_response = response.split(/;/);
-		console.cterm_version = (da_response[da_ver_major]*1000) + da_response[da_ver_minor];
+		console.cterm_version = (parseInt(da_response[da_ver_major], 10)*1000) + parseInt(da_response[da_ver_minor], 10);
 	}
 }
 
