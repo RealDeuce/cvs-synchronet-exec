@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.35 2018/01/31 00:52:17 rswindell Exp $
+// $Id: sbbslist.js,v 1.36 2018/02/09 19:13:02 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.35 $".split(' ')[1];
+var REVISION = "$Revision: 1.36 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -366,14 +366,15 @@ function import_from_msgbase(list, msgbase, import_ptr, limit, all)
 		}
 	}
     highest=import_ptr;
-    log(LOG_DEBUG, "import_ptr = " + import_ptr + " last_msg = " + msgbase.last_msg);
+	var total_msgs = msgbase.total_msgs;
+    log(LOG_DEBUG, "import_ptr = " + import_ptr + ", last_msg = " + msgbase.last_msg + ", total_msgs = " + total_msgs);
 	if(msgbase.last_msg >= import_ptr)
 		i = total_msgs - (msgbase.last_msg - import_ptr);
-	var total_msgs = msgbase.total_msgs;
     for(; i<total_msgs; i++) {
         if(js.terminated)
             break;
-        //print(i);
+		if(debug)
+			print(i);
         var idx = msgbase.get_msg_index(/* by_offset: */true, i);
         if(!idx) {
 //            print("Error " + msgbase.error + " reading index of msg offset " + i);
