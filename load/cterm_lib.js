@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.17 2018/02/10 01:35:40 deuce Exp $
+// $Id: cterm_lib.js,v 1.18 2018/02/10 01:45:42 deuce Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -261,9 +261,11 @@ function load_font(slot, data, force)
 	}
 	log(LOG_DEBUG, format("CTerm load_font: slot %u with %u bytes", slot, data.length));
 	load('sbbsdefs.js');
-	if(!(console.telnet_mode&TELNET_MODE_OFF)) {
-		if(!console.telnet_cmd(TELNET_WILL, TELNET_BINARY_TX, 1000))
-			mswait(100);	// Insure we enter binary mode *before* sending font data
+	if (cterm_version < cterm_version_supports_b64_fonts) {
+		if(!(console.telnet_mode&TELNET_MODE_OFF)) {
+			if(!console.telnet_cmd(TELNET_WILL, TELNET_BINARY_TX, 1000))
+				mswait(100);	// Insure we enter binary mode *before* sending font data
+		}
 	}
 	var fsize = fontsize(data.length);
 	if(fsize < 0) {
@@ -279,8 +281,10 @@ function load_font(slot, data, force)
 	}
 	if(fsize == 1 && console.cterm_version < 1168)
 		console.write("\x00\x00");	// Work-around cterm bug for 8x14 fonts
-	if(!(console.telnet_mode&TELNET_MODE_OFF))
-		console.telnet_cmd(TELNET_WONT, TELNET_BINARY_TX);
+	if (cterm_version < cterm_version_supports_b64_fonts) {
+		if(!(console.telnet_mode&TELNET_MODE_OFF))
+			console.telnet_cmd(TELNET_WONT, TELNET_BINARY_TX);
+	}
 	console.cterm_fonts_loaded[slot] = true;
 	return true;
 }
