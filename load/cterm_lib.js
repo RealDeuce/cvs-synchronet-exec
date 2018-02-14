@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.18 2018/02/10 01:45:42 deuce Exp $
+// $Id: cterm_lib.js,v 1.19 2018/02/14 05:51:02 deuce Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -64,6 +64,65 @@ function query(request)
 		response += ch;
 		if((ch < ' ' || ch > '/') && (ch < '0' || ch > '?'))
 			break;
+	}
+	console.ctrlkey_passthru = oldctrl;
+	var printable=response;
+	printable=printable.replace(/\x1b/g,"");
+	log(LOG_DEBUG, "CTerm query response: "+printable);
+	return response;
+}
+
+/*
+ * Like query() but you pass a string of intermediate bytes and final
+ * byte, and it waits for and returns just that response.
+ * 
+ * It also requests a DSR to terminate the request, so we almost never
+ * timeout.
+ */
+function query_fb(request, fb)
+{
+	var response='';
+	var buf='';
+	var lastch;
+	var m;
+	var i;
+	var ch;
+	var re;
+	var printable;
+
+	var oldctrl = console.ctrlkey_passthru;
+	console.ctrlkey_passthru=-1;
+
+	console.write(request);
+	if (fb != 'R') {
+		console.write('\x1b[6n');
+		re = new RegExp('^(.*)(\x1b\[[0-?]*'+fb+')?\x1b\[[0-?]*R');
+	}
+	else {
+		console.write('\x1b[5n');
+		re = new RegExp('^(.*)(\x1b\[[0-?]*'+fb+')?\x1b\[[0-?]*n');
+	}
+	// Clean out the input buffer...
+	//console.clearkeybuffer()
+	while(1) {
+		ch=console.inkey(0, 0);
+		log(LOG_DEBUG, "CTerm Discarding: " + format("'%c' (%02X)", m[1].substr(i, 1), ascii(m[1].substr(i, 1))));
+	}
+	while(1) {
+		ch=console.inkey(0, 3000);
+		if(ch=="")
+			break;
+		buf += ch;
+		m = re.exec(buf);
+		if (m !== null) {
+			if (m[1].length > 0) {
+				for (i = 0; i < m[1].length; i++)
+					log(LOG_DEBUG, "CTerm Discarding: " + format("'%c' (%02X)", m[1].substr(i, 1), ascii(m[1].substr(i, 1))));
+			}
+			if (m[2] !== undefined)
+				response = m[2];
+			break;
+		}
 	}
 	console.ctrlkey_passthru = oldctrl;
 	var printable=response;
