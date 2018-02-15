@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.114 2018/01/20 04:17:35 rswindell Exp $
+// $Id: nntpservice.js,v 1.115 2018/02/15 23:44:07 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.114 $".split(' ')[1];
+const REVISION = "$Revision: 1.115 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -604,19 +604,25 @@ while(client.socket.is_connected && !quit) {
 
 			current_article=hdr.number;
 
-			if(cmd[0].toUpperCase()!="HEAD")
+			if(cmd[0].toUpperCase()!="HEAD") {
 				body=msgbase.get_msg_body(false,current_article
 					,true /* remove ctrl-a codes */
 					,true /* rfc822 formatted text */);
 
-			// force taglines for QNET Users on local messages
-			if(add_tag && user.security.restrictions&UFLAG_Q && !hdr.from_net_type)
-				body += "\r\n" + tearline + tagline;
+				if(!body) {
+					writeln("430 error getting message body: " + msgbase.last_error);
+					break;
+				}
 
-			if(!ex_ascii || (msgbase.cfg && msgbase.cfg.settings&SUB_ASCII)) {
-				/* Convert Ex-ASCII chars to approximate ASCII equivalents */
-				body = ascii_str(body);
-				hdr.subject = ascii_str(hdr.subject);
+				// force taglines for QNET Users on local messages
+				if(add_tag && user.security.restrictions&UFLAG_Q && !hdr.from_net_type)
+					body += "\r\n" + tearline + tagline;
+
+				if(!ex_ascii || (msgbase.cfg && msgbase.cfg.settings&SUB_ASCII)) {
+					/* Convert Ex-ASCII chars to approximate ASCII equivalents */
+					body = ascii_str(body);
+					hdr.subject = ascii_str(hdr.subject);
+				}
 			}
 
 /* Eliminate dupe loops
