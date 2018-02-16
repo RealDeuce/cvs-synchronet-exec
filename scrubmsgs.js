@@ -1,4 +1,4 @@
-// $Id: scrubmsgs.js,v 1.1 2018/02/16 02:02:38 rswindell Exp $
+// $Id: scrubmsgs.js,v 1.2 2018/02/16 02:29:24 rswindell Exp $
 
 // Scrub msg headers of invalid control characters (sign of corruption) in one or more message bases
 
@@ -70,6 +70,16 @@ function open_and_scrub_base(code)
 	return result;
 }
 
+function base_filename(fullname)
+{
+	var ext = file_getext(fullname);
+
+	if(!ext)
+		return fullname;
+
+	return fullname.slice(0, -ext.length);
+}
+
 for(var i in argv) {
 	switch(argv[i]) {
 		case '-debug':
@@ -79,7 +89,7 @@ for(var i in argv) {
 			scan_only = true;
 			break;
 		default:
-			open_and_scrub_base(argv[i]);
+			open_and_scrub_base(base_filename(argv[i]));
 			break;
 	}
 }
