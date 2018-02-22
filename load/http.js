@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.32 2018/02/07 02:25:34 rswindell Exp $ */
+/* $Id: http.js,v 1.33 2018/02/22 22:12:35 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -81,6 +81,7 @@ function HTTPRequest(username,password,extra_headers)
 		this.AddExtraHeaders();
 		this.body=data;
 		this.request_headers.push("Content-Type: application/x-www-form-urlencoded");
+		//this.request_headers.push("Content-Type: application/jose+json");
 		this.request_headers.push("Content-Length: "+data.length);
 	};
 
