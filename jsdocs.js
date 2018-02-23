@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.35 2015/09/02 06:41:27 deuce Exp $
+// $Id: jsdocs.js,v 1.36 2018/02/23 08:09:12 deuce Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -185,6 +185,7 @@ function document_properties(name, obj)
 
 		prop_name=name + "." + prop;
 
+log(LOG_ERR, "Prop: "+prop);
 		if(typeof(obj[prop])=="object" 
 			&& prop!="socket" 
 			&& prop!="global"
@@ -324,6 +325,10 @@ if(js.global.COM != undefined) {
 if(js.global.CryptContext != undefined) {
 	var cc = new CryptContext(CryptContext.ALGO.AES);
 	if(cc != undefined)			document_object("CryptContext",cc, "class");
+}
+if(js.global.CryptKeyset != undefined) {
+	var cks = new CryptKeyset("/tmp/tmpkeyset", CryptKeyset.KEYOPT.CREATE);
+	if(cks != undefined)			document_object("CryptKeyset",cks, "class");
 }
 if(js.global.conio != undefined) {
 	document_object("conio",js.global.conio);
