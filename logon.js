@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.31 2018/02/05 05:57:25 rswindell Exp $
+// $Id: logon.js,v 1.32 2018/02/25 02:54:59 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -254,7 +254,7 @@ if(options
 	&& console.term_supports(USER_ANSI) 
 	&& options && options.set_avatar == true) {
 	var avatar = Avatar.read_localuser(user.number);
-	if(!avatar || !avatar.data) {
+	if(!avatar || (!avatar.data && !avatar.disabled)) {
 		alert("You have not selected an avatar.");
 		if(console.yesno("Select avatar now"))
 			load("avatar_chooser.js");
