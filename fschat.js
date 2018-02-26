@@ -12,7 +12,7 @@
 
 (function() {
 
-	const VERSION = "$Revision: 1.4 $".split(' ')[1];
+	const VERSION = "$Revision: 1.5 $".split(' ')[1];
 	load("sbbsdefs.js");
 	bbs.command_str='';
 	load("str_cmds.js");
@@ -111,6 +111,13 @@
 			// console.write(stamp + " ");
 		// }
 		
+		
+		if(!msg.nick) {
+			console.attributes = chat_settings.NOTICE_COLOR;
+			console.writeln(msg.str);
+			return;
+		}
+		
 		console.attributes = chat_settings.CHANNEL_COLOR;
 		console.write("[" + chan.name + "] ");
 		
@@ -149,7 +156,7 @@
 			case '/':
 				console.attributes = chat_settings.COMMAND_COLOR;
 				console.write(k);
-				chat.handle_command(channels[channel_index],console.getstr(500));
+				chat.getcmd(channels[channel_index],console.getstr(500));
 				break;
 			/* process a sysop command */
 			case ';':
