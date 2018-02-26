@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.35 2018/02/26 07:43:32 deuce Exp $ */
+/* $Id: http.js,v 1.36 2018/02/26 07:50:19 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -20,6 +20,7 @@ function HTTPRequest(username,password,extra_headers)
 	this.url = undefined;
 	this.body = undefined;
 
+	this.extra_headers = extra_headers;
 	this.username=username;
 	this.password=password;
 }
@@ -43,14 +44,14 @@ HTTPRequest.prototype.AddDefaultHeaders=function(){
 };
 
 HTTPRequest.prototype.AddExtraHeaders = function () {
-	if (typeof extra_headers !== 'object') return;
+	if (typeof this.extra_headers !== 'object') return;
 	var self = this;
-	Object.keys(extra_headers).forEach(
+	Object.keys(this.extra_headers).forEach(
 		function (e) {
-			self.request_headers.push(e + ': ' + extra_headers[e]);
+			self.request_headers.push(e + ': ' + this.extra_headers[e]);
 		}
 	);
-}
+};
 
 HTTPRequest.prototype.SetupGet=function(url, referer, base) {
 	this.referer=referer;
@@ -60,7 +61,6 @@ HTTPRequest.prototype.SetupGet=function(url, referer, base) {
 		throw("Unknown scheme! '"+this.url.scheme+"'");
 	if(this.url.path=='')
 		this.url.path='/';
-	if(this.url.query != '');
 	this.request="GET "+this.url.request_path+" HTTP/1.0";
 	this.request_headers=[];
 	this.AddDefaultHeaders();
@@ -75,7 +75,6 @@ HTTPRequest.prototype.SetupPost=function(url, referer, base, data) {
 		throw("Unknown scheme! '"+this.url.scheme+"'");
 	if(this.url.path=='')
 		this.url.path='/';
-	if(this.url.query != '');
 	this.request="POST "+this.url.request_path+" HTTP/1.0";
 	this.request_headers=[];
 	this.AddDefaultHeaders();
@@ -194,7 +193,7 @@ HTTPRequest.prototype.BasicAuth=function(username,password) {
 		var auth = base64_encode(this.username + ":" + this.password);
 		this.request_headers.push("Authorization: Basic " + auth);
 	}
-}
+};
 
 HTTPRequest.prototype.Get=function(url, referer, base) {
 	this.SetupGet(url,referer,base);
