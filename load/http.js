@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.38 2018/02/27 00:04:31 deuce Exp $ */
+/* $Id: http.js,v 1.39 2018/02/27 00:06:28 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -23,7 +23,7 @@ function HTTPRequest(username,password,extra_headers)
 	this.extra_headers = extra_headers;
 	this.username=username;
 	this.password=password;
-	thus.user_agent = 'SYNXv0.1';
+	this.user_agent='SYNXv0.1';
 }
 
 HTTPRequest.prototype.AddDefaultHeaders=function(){
