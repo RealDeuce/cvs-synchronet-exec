@@ -60,6 +60,7 @@ function authorize_order(acme, order, webroots)
 	var tmp;
 	var token;
 	var tokens=[];
+	var waittime;
 
 	/*
 	 * Find an http-01 authorization
@@ -101,9 +102,14 @@ function authorize_order(acme, order, webroots)
 			/*
 			 * Wait for server to confirm
 			 */
+			waittime = 1000;
 			if (fulfilled) {
 				while (!acme.poll_authorization(order.authorizations[auth])) {
-					mswait(1000);
+					if (waittime > 64000) {
+						throw("Authorization timeout");
+					}
+					mswait(waittime);
+					waittime *= 2;
 				}
 				completed++;
 			}
@@ -153,6 +159,7 @@ var webroot;
 var webroots = {};
 var usersa = true;	// TODO: Make configurable
 var keysize = 256;	// TODO: Make configurable... ECC sizes are 32, 48, and 66 (66 is not supported by Let's Encrypt)
+var waittime;
 
 /*
  * Get the Web Root
@@ -259,7 +266,7 @@ if (renew || rekey || revoke) {
 	 */
 	settings.open(settings.exists ? "r+" : "w+");
 	key_id = settings.iniGetValue("key_id", new_host, undefined);
-	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.27 $".split(' ')[1])});
+	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.28 $".split(' ')[1])});
 	if (acme.key_id === undefined) {
 		acme.create_new_account({termsOfServiceAgreed:true,contact:["mailto:sysop@"+system.inet_addr]});
 	}
@@ -343,11 +350,19 @@ if (renew) {
 	csr.check();
 	order = acme.finalize_order(order, csr);
 
+	waittime = 1000;
 	while (order.status !== 'valid') {
 		order = acme.poll_order(order);
-		if (order.status == 'invalid')
+		if (order.status == 'valid')
+			break;
+		else if (order.status == 'invalid')
 			throw("Order "+order.Location+" invalid!");
-		mswait(1000);
+		if (waittime > 64000) {
+			log(LOG_DEBUG, JSON.stringify(order));
+			throw("Timeout waiting for order to be valid");
+		}
+		mswait(waittime);
+		waittime *= 2;
 	}
 
 	cert = acme.get_cert(order);
