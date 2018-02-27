@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.119 2018/02/25 21:27:05 rswindell Exp $
+// $Id: lbshell.js,v 1.120 2018/02/27 03:19:45 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -502,7 +502,7 @@ function Xtrnsec(sec)
 
 	xtrnsecprogwidth=0;
 	// Figure out the correct width
-	for(j=0; j<xtrn_area.sec_list[sec].prog_list.length; j++) {
+	for(j=0; j<xtrn_area.sec_list[sec].prog_list.length && j < (console.screen_rows-2); j++) {
 		if(xtrn_area.sec_list[sec].prog_list[j].name.length > xtrnsecprogwidth)
 			xtrnsecprogwidth=xtrn_area.sec_list[sec].prog_list[j].name.length;
 	}
