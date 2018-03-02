@@ -18,18 +18,23 @@ function at_least_a_third()
 	var cert;
 
 	if (!file_exists(sks_fname))
-		return true;
+		return false;
 	sks = new CryptKeyset(sks_fname, CryptKeyset.KEYOPT.READONLY);
 	try {
 		cert = sks.get_public_key("ssl_cert");
 	}
 	catch(e1) {
 		sks.close();
-		return true;
+		return false;
 	}
 	sks.close();
 	now = new Date();
-	cutoff = new Date(cert.validfrom.valueOf() + ((cert.validto.valueOf() - cert.validfrom.valueOf())/3)*2);
+	try {
+		cutoff = new Date(cert.validfrom.valueOf() + ((cert.validto.valueOf() - cert.validfrom.valueOf())/3)*2);
+	}
+	catch(badcert) {
+		return false;
+	}
 	return now < cutoff;
 }
 
@@ -271,7 +276,7 @@ if (renew || rekey || revoke || print_tos) {
 	 */
 	settings.open(settings.exists ? "r+" : "w+");
 	key_id = settings.iniGetValue("key_id", new_host, undefined);
-	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.30 $".split(' ')[1])});
+	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.31 $".split(' ')[1])});
 	if (renew || rekey || revoke) {
 		if (acme.key_id === undefined) {
 			if (TOSAgreed)
