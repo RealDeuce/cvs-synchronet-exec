@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.49 2018/03/02 19:21:04 rswindell Exp $
+// $Id: binkit.js,v 1.50 2018/03/02 20:03:36 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -493,7 +493,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.49 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.50 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -503,6 +503,7 @@ function callout(addr, scfg, semaphores, locks, bicfg)
 	log(LOG_INFO, "Callout to "+addr+" started.");
 	if (bicfg === undefined)
 		bicfg = new BinkITCfg();
+	bp.system_operator = bicfg.sysop;
 	bp.cb_data = {
 		binkitcfg:bicfg,
 		binkit_to_addr:addr,
@@ -857,7 +858,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.49 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.50 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -873,6 +874,7 @@ function run_inbound(sock)
 		binkit_create_semaphores:semaphores,
 		binkit_locks:locks
 	};
+	bp.system_operator = bp.cb_data.binkitcfg.sysop;
 
 	// TODO: Force debug mode for now...
 	bp.debug = true;
