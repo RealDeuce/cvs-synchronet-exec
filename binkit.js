@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.48 2018/03/02 06:45:43 deuce Exp $
+// $Id: binkit.js,v 1.49 2018/03/02 19:21:04 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -493,7 +493,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.48 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.49 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -857,7 +857,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.48 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.49 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -1052,7 +1052,7 @@ var addr;
 if (sock !== undefined && sock.descriptor !== -1)
 	run_inbound(sock);
 else {
-	if (argv.indexOf('install' !== -1)) {
+	if (argv.indexOf('install') !== -1) {
 		var result = install();
 		if (result != true) {
 			alert(result);
