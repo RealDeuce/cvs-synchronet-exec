@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.171 2016/05/14 02:02:04 deuce Exp $
+// $Id: ircd.js,v 1.172 2018/03/03 02:05:18 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.171 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.172 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -210,6 +210,11 @@ while (!js.terminated) {
 			var client_sock=open_plines[pl].accept();
 			if(client_sock) {
 				client_sock.nonblocking = true;
+				switch(client_sock.local_port) {
+					case 994:
+					case 6697:
+						client_sock.ssl_server=1;
+				}
 				if (!client_sock.remote_ip_address) {
 					log(LOG_DEBUG,"Socket has no IP address.  Closing.");
 					client_sock.close();
