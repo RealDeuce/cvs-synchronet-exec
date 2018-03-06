@@ -1,4 +1,5 @@
-// $Id: portdefs.js,v 1.5 2016/11/16 07:43:21 rswindell Exp $
+// $Id: portdefs.js,v 1.6 2018/03/06 04:59:07 rswindell Exp $
+// vi: tabstop=4
 
 // Standard Unix service TCP and UDP port numbers
 
@@ -30,6 +31,7 @@ standard_service_port = {
 	"imap":		143,
 	"imap2":	143,
 	"https":	443,
+	"submissions":	465,	// SMTPS
 	"login":	513,
 	"rlogin":	513,
 	"talk":		517,
