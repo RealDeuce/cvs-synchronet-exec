@@ -1,5 +1,5 @@
 /* CNF data structure definitions (see scfglib2.c) 
-	$Id: cnflib.js,v 1.11 2018/01/17 04:31:44 rswindell Exp $
+	$Id: cnflib.js,v 1.12 2018/03/06 00:26:21 rswindell Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -35,6 +35,8 @@ var CNF = new (function() {
 		if(typeof length !== 'undefined' && length) {
 			setInt(file,length,str.length);
 		}
+		if(str === undefined)
+			str = '';
 		file.write(str,bytes);
 	}
 
