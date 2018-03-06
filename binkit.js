@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.50 2018/03/02 20:03:36 rswindell Exp $
+// $Id: binkit.js,v 1.51 2018/03/06 00:34:32 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -493,7 +493,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.50 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.51 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -858,7 +858,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.50 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.51 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
@@ -972,9 +972,9 @@ function install()
 				"cmd": "?binkit",
 				"days": 255,
 				"time": 0,
-				"node": 1,
-				"misc": 0,
-				"dir": "",
+				"node_num": 1,
+				"settings": 0,
+				"startup_dir": "",
 				"freq": 0,
 				"mdays": 0,
 				"months": 0
@@ -989,9 +989,9 @@ function install()
 				"cmd": "?binkit -p",
 				"days": 255,
 				"time": 0,
-				"node": 1,
-				"misc": 0,
-				"dir": "",
+				"node_num": 1,
+				"settings": 0,
+				"startup_dir": "",
 				"freq": 60,
 				"mdays": 0,
 				"months": 0
