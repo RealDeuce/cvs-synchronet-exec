@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.51 2018/03/06 00:34:32 rswindell Exp $
+// $Id: binkit.js,v 1.52 2018/03/06 20:53:02 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -59,16 +59,21 @@ function lock_flow(file)
 
 		// TODO: This is hacked for a signed 32-bit time_t... watch out in 2038!
 		orig_date = f.date;
-		if (orig_date > (now - 60*60*6))
+		if (orig_date > (now - 60*60*6)) {
+			log(LOG_WARNING, format("%ld > %ld", orig_date, now-60*60*6));
 			return false;
+		}
 		remain = 0x80000000 - now;
 		future = now + random(remain);
 		f.date = future;
 		mswait(1000);
-		if (f.date != future)
+		if (f.date != future) {
+			log(LOG_WARNING, format("%ld != future(%ld)", f.date, future));
 			return false;
+		}
 		if (!f.open("wb")) {
 			f.date = orig_date;
+			log(LOG_WARNING, "Error " + f.error + " opening " + f.name);
 			return false;
 		}
 		f.date = now;
@@ -77,6 +82,7 @@ function lock_flow(file)
 
 	log(LOG_DEBUG, "Locking "+ret.bsy.name);
 	if (!ret.bsy.open("web")) {
+		log(LOG_WARNING, "Error " + ret.bsy.error + " creating " + ret.bsy.name);
 		if (!take_lockfile(ret.bsy)) {
 			log(LOG_NOTICE, "Lock on "+ret.bsy.name+" failed.");
 			return undefined;
@@ -493,7 +499,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.51 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.52 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -858,7 +864,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.51 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.52 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
