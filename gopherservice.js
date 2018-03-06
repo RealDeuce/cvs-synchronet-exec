@@ -1,6 +1,6 @@
 // gopherservice.js
 
-// $Id: gopherservice.js,v 1.16 2009/03/23 05:12:29 rswindell Exp $
+// $Id: gopherservice.js,v 1.17 2018/03/06 08:28:00 rswindell Exp $
 
 // Synchronet Service for the Gopher Protocol (RFC 1436)
 
@@ -15,7 +15,7 @@
 load("sbbsdefs.js");
 load("nodedefs.js");
 
-const REVISION = "$Revision: 1.16 $".split(' ')[1];
+const REVISION = "$Revision: 1.17 $".split(' ')[1];
 const GOPHER_PORT = client.socket.local_port;
 
 var debug = false;
@@ -219,6 +219,10 @@ switch(field[0]) {
 			}
 		break;
 	case "sub":
+		if(!msg_area.sub[field[1]]) {
+			writeln(log(LOG_NOTICE, "Invalid message area: " + field[1]));
+			break;
+		}
 		msgbase = new MsgBase(field[1]);
 		if(msgbase.open!=undefined && msgbase.open()==false) {
 			writeln("!ERROR " + msgbase.last_error);
