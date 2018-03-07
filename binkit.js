@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.53 2018/03/07 05:09:02 rswindell Exp $
+// $Id: binkit.js,v 1.54 2018/03/07 07:49:40 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -347,6 +347,7 @@ function rx_callback(fname, bp)
 	if (secure_inbound == undefined)
 		secure_inbound = inbound;
 
+	log(LOG_INFO, "Received file: " + fname + format(" (%1.1fKB)", file_size(fname) / 1024.0));
 	if (fname.search(/\.(?:pkt|su.|mo.|tu.|we.|th.|fr.|sa.)$/i) !== -1) {
 		semname = system.data_dir + 'fidoin.now';
 		if (bp.cb_data.binkit_create_semaphores.indexOf(semname) == -1)
@@ -499,7 +500,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.53 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.54 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -866,7 +867,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.53 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.54 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;
