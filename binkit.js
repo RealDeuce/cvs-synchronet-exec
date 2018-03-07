@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.52 2018/03/06 20:53:02 rswindell Exp $
+// $Id: binkit.js,v 1.53 2018/03/07 05:09:02 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -499,7 +499,7 @@ function callout_done(bp, semaphores)
 function callout(addr, scfg, semaphores, locks, bicfg)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.52 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.53 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var host;
 	var f;
@@ -827,8 +827,10 @@ function inbound_auth_cb(pwd, bp)
 					addrs.push(addr);
 					check_nocrypt(bp.cb_data.binkitcfg.node[addr]);
 					ret = cpw;
-				} else
+				} else {
 					log(LOG_WARNING, "CRAM-MD5 of password does not match");
+					ret = false;	// How do we break out of this forEach loop?!?
+				}
 			}
 			else {
 				// TODO: Deal with arrays of passwords?
@@ -864,7 +866,7 @@ function inbound_auth_cb(pwd, bp)
 function run_inbound(sock)
 {
 	var myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
-	var bp = new BinkP('BinkIT/'+("$Revision: 1.52 $".split(' ')[1]), undefined, rx_callback, tx_callback);
+	var bp = new BinkP('BinkIT/'+("$Revision: 1.53 $".split(' ')[1]), undefined, rx_callback, tx_callback);
 	var port;
 	var f;
 	var success = false;

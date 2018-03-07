@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.72 2018/03/02 02:17:58 deuce Exp $
+// $Id: binkp.js,v 1.73 2018/03/07 05:04:59 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -395,7 +395,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 
 	if(!this.sock.connect(inet_host, port)) {
 		this.sock = undefined;
-		log(LOG_INFO, "Connection to "+inet_host+":"+port+" failed.");
+		log(LOG_WARNING, "Connection to "+inet_host+":"+port+" failed.");
 		return false;
 	}
 
@@ -404,11 +404,11 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 		this.sendCmd(this.command.M_NUL, "OPT CRYPT");
 	else {
 		/*
-		 * TODO: This is to work around an apparent incompatability with
+		 * TODO: This is to work around an apparent incompatibility with
 		 * Radius.  I thought this worked with binkd, but it would need
 		 * to be tested again.
 		 * 
-		 * Not super-important since using encrpytion without a password
+		 * Not super-important since using encryption without a password
 		 * is about as "secure" as rot13.
 		 */
 		this.wont_crypt = true;
@@ -419,7 +419,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL "+this.capabilities);
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.72 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.73 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.remote_addrs === undefined) {
@@ -462,7 +462,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 		if (this.cram === undefined || this.cram.algo !== 'MD5')
 			this.sendCmd(this.command.M_ERR, "Encryption requires CRAM-MD5 auth");
 		else {
-			log(LOG_INFO, "Initializing crypt keys.");
+			log(LOG_DEBUG, "Initializing crypt keys.");
 			this.out_keys = [0, 0, 0];
 			this.in_keys = [0, 0, 0];
     		this.crypt.init_keys(this.out_keys, password);
@@ -483,7 +483,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	return this.session();
 };
 /*
- * sock can be either a lisening socket or a connected socket.
+ * sock can be either a listening socket or a connected socket.
  *
  * auth_cb(passwds, this) is called to accept and add
  * files if it returns a password, the session is considered secure.  auth_cb()
@@ -537,7 +537,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
 	this.sendCmd(this.command.M_NUL, "NDL 115200,TCP,BINKP");
 	this.sendCmd(this.command.M_NUL, "TIME "+new Date().toString());
-	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.72 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
+	this.sendCmd(this.command.M_NUL, "VER "+this.name_ver+",JSBinkP/"+("$Revision: 1.73 $".split(' ')[1])+'/'+system.platform+" binkp/1.1");
 	this.sendCmd(this.command.M_ADR, this.addr_list.join(' '));
 
 	while(!js.terminated && this.authenticated === undefined) {
@@ -553,6 +553,10 @@ BinkP.prototype.accept = function(sock, auth_cb)
 							this.sendCmd(this.command.M_ERR, "Encryption requires CRAM-MD5 auth");
 					}
 					pwd = auth_cb(args, this);
+					if (pwd === false) {
+						this.sendCmd(this.command.M_ERR, "Password mismatch");
+						break;
+					}
 					if (pwd === undefined)
 						pwd = '-';
 					if (pwd === '-') {
@@ -573,7 +577,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	}
 
 	if (this.will_crypt) {
-		log(LOG_INFO, "Initializing crypt keys.");
+		log(LOG_DEBUG, "Initializing crypt keys.");
 		this.out_keys = [0, 0, 0];
 		this.in_keys = [0, 0, 0];
     	this.crypt.init_keys(this.in_keys, pwd);
