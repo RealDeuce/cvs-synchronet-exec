@@ -1,5 +1,5 @@
-/* CNF data structure definitions (see scfglib2.c) 
-	$Id: cnflib.js,v 1.12 2018/03/06 00:26:21 rswindell Exp $
+/* CNF data structure definitions (see scfglib2.c, scfgdefs.h) 
+	$Id: cnflib.js,v 1.13 2018/03/10 21:40:35 rswindell Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -51,7 +51,7 @@ var CNF = new (function() {
 		setStr(file,bytes,"");
 	}
 
-	/* read a set of records from xtrn.cnf */
+	/* read a set of records from *.cnf */
 	function readArray(file,struct,length) {
 		var list = [];
 		if(length == undefined)
@@ -116,7 +116,7 @@ var CNF = new (function() {
 		return list;
 	}
 
-	/* write a set of records to xtrn.cnf */
+	/* write a set of records to *.cnf */
 	function writeArray(file,struct,length,records) {
 		if(length == undefined) {
 			setInt(file,UINT16_T,records.length);
@@ -191,6 +191,9 @@ var CNF = new (function() {
 				case "msgs.cnf":
 					struct = js.global.struct.msg;
 					break;
+				case "file.cnf":
+					struct = js.global.struct.file;
+					break;
 				default:
 					return false;
 			}
@@ -214,6 +217,9 @@ var CNF = new (function() {
 					break;
 				case "msgs.cnf":
 					struct = js.global.struct.msg;
+					break;
+				case "file.cnf":
+					struct = js.global.struct.file;
 					break;
 				default:
 					return false;
