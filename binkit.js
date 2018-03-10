@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.55 2018/03/10 01:10:16 rswindell Exp $
+// $Id: binkit.js,v 1.56 2018/03/10 20:13:55 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.55 $".split(' ')[1];
+var REVISION = "$Revision: 1.56 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 
 FREQIT.add_file = function(filename, bp, cfg)
@@ -895,6 +895,8 @@ function run_inbound(sock)
 	bp.want_callback = callout_want_callback;
 	if (bp.cb_data.binkitcfg.caps !== undefined)
 		bp.capabilities = bp.cb_data.binkitcfg.caps;
+	if (bp.cb_data.binkitcfg.cram_challenge_length !== undefined)
+		bp.cram_challenge_length = bp.cb_data.binkitcfg.cram_challenge_length;
 
 	// We can't use the defaults since the defaults are only 4D addresses.
 	bp.addr_list = [];
