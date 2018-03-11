@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.77 2018/03/10 20:14:02 rswindell Exp $
+// $Id: binkp.js,v 1.78 2018/03/11 01:36:17 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.77 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.78 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -1112,6 +1112,7 @@ BinkP.prototype.recvFrame = function(timeout)
 							}
 							break;
 						case 'VER':
+							log(LOG_INFO, "Peer version: " + args.slice(1).join(' '));
 							tmp = ret.data.split(/ /);
 							if (tmp.length >= 3) {
 								if (tmp[2].substr(0, 6) === 'binkp/') {
