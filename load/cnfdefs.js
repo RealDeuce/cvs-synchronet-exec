@@ -1,5 +1,5 @@
 /* 	CNF file reader/writer - mcmlxxix - 2013
-	$Id: cnfdefs.js,v 1.5 2018/03/10 21:40:35 rswindell Exp $
+	$Id: cnfdefs.js,v 1.6 2018/03/11 00:42:07 rswindell Exp $
 */
 
 /* miscellaneous constants required for cnf parsing
@@ -197,7 +197,7 @@ struct.msg={
 	smb_retry_time:	{bytes:UCHAR, 			type:"int"},
 	max_qwkmsgage:	{bytes:UINT16_T, 		type:"int"},
 	__PADDING1__:466,
-	msg_misc:		{bytes:UINT32_T, 		type:"int"},
+	settings:		{bytes:UINT32_T, 		type:"int"},	// was msg_misc
 	__PADDING2__:510,
 	grp:			{bytes:struct.grp_t, 	type:"lst"},
 	sub:			{bytes:struct.sub_t, 	type:"lst"},
