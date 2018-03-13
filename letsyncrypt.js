@@ -146,7 +146,7 @@ var identifiers = [];
 var ks;
 var key_id;
 var maincnf = new File(maincnf_fname);
-var new_host = "acme-staging-v02.api.letsencrypt.org";
+var new_host = "acme-v02.api.letsencrypt.org";
 var new_domain_hash = '';
 var old_domain_hash;
 var old_host;
@@ -191,7 +191,7 @@ if (settings.open("r")) {
 		}
 	}
 	old_domain_hash = settings.iniGetValue("State", "DomainHash", "<None>");
-	old_host = settings.iniGetValue("State", "Host", "acme-staging-v02.api.letsencrypt.org");
+	old_host = settings.iniGetValue("State", "Host", "acme-v02.api.letsencrypt.org");
 	new_host = settings.iniGetValue(null, "Host", new_host);
 	dir_path = settings.iniGetValue(null, "Directory", dir_path);
 	TOSAgreed = settings.iniGetValue(null, "TOSAgreed", TOSAgreed);
@@ -276,7 +276,7 @@ if (renew || rekey || revoke || print_tos) {
 	 */
 	settings.open(settings.exists ? "r+" : "w+");
 	key_id = settings.iniGetValue("key_id", new_host, undefined);
-	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.31 $".split(' ')[1])});
+	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.32 $".split(' ')[1])});
 	if (renew || rekey || revoke) {
 		if (acme.key_id === undefined) {
 			if (TOSAgreed)
