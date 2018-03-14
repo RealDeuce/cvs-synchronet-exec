@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.57 2018/03/13 22:13:27 rswindell Exp $
+// $Id: binkit.js,v 1.58 2018/03/14 22:01:14 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.57 $".split(' ')[1];
+var REVISION = "$Revision: 1.58 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 
 FREQIT.add_file = function(filename, bp, cfg)
@@ -839,7 +839,7 @@ function inbound_auth_cb(pwd, bp)
 			}
 			else {
 				// TODO: Deal with arrays of passwords?
-				if (bp.cb_data.binkitcfg.node[addr].nomd5)
+				if (!bp.cb_data.binkitcfg.node[addr].nomd5)	// AllowPlainPasswords=false
 					log(LOG_WARNING, "CRAM-MD5 required (and not provided) by " + addr);
 				else if (bp.cb_data.binkitcfg.node[addr].pass === pwd[0]) {
 					log(LOG_INFO, "Plain-text password match for " + addr);
