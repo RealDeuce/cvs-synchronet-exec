@@ -1,4 +1,4 @@
-// $Id: postmsg.js,v 1.1 2017/11/07 03:18:27 rswindell Exp $
+// $Id: postmsg.js,v 1.2 2018/03/14 06:04:28 rswindell Exp $
 
 // Post a message to a local sub-board, a preferred alternative to using "smbutil i"
 
@@ -78,7 +78,7 @@ if(!sub_code) {
 	exit();
 }
 
-if(!msg_area.sub[sub_code.toLowerCase()]) {
+if(sub_code != 'mail' && !msg_area.sub[sub_code.toLowerCase()]) {
 	alert("Invalid sub-code: " + sub_code);
 	print();
 	print("Valid sub-codes:");
