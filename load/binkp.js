@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.80 2018/03/14 23:31:52 deuce Exp $
+// $Id: binkp.js,v 1.81 2018/03/14 23:41:11 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.80 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.81 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -79,6 +79,8 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	this.sent_nr = false;
 	this.ver1_1 = false;
 	this.require_md5 = true;
+	// IREX VER Internet Rex 2.29 Win32 (binkp/1.1) doesn't work with longer challenges
+	// TODO: Remove this knob
 	this.cram_challenge_length = 16;
 	this.require_crypt = true;
 	this.timeout = 120;
@@ -529,7 +531,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	if (this.sock == undefined || !this.sock.is_connected)
 		return false;
 
-	// IREX VER Internet Rex 2.29 Win32 (binkp/1.1) doesn't work with longer challenges
+	// IREX VER Internet Rex 2.29 Win32 (binkp/1.1) doesn't work with challenges longer than 32 chars
 	for (i=0; i < this.cram_challenge_length * 2; i++)
 		challenge += random(16).toString(16);
 
