@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.54 2018/01/09 06:43:49 deuce Exp $
+ * $Id: imapservice.js,v 1.55 2018/03/14 02:25:15 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -191,7 +191,7 @@ function tagged(tag, msg, desc)
 function untagged(msg)
 {
 	client.socket.send("* "+msg+"\r\n");
-	debug_log("Send: * "+msg, false);
+	debug_log("Send: * "+msg.length+": "+msg, false);
 }
 
 
@@ -380,8 +380,12 @@ function send_fetch_response(msgnum, fmat, uid)
 
 	function add_part(mime) {
 		var i;
-		var ret='(';
+		var ret='(NIL) ';
 
+		if (mime.mime.parsed == undefined) {
+			log(LOG_WARNING, "MIME part was not actually parsed!");
+			return '';
+		}
 		if(mime.mime.parts != undefined) {
 			for(i in mime.mime.parts)
 				ret += add_part(mime.mime.parts[i]);
