@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.34 2016/04/24 00:55:45 deuce Exp $
+ * $Id: lightbar.js,v 1.35 2018/03/15 19:46:12 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -464,7 +464,7 @@ Lightbar.prototype.draw = function(current)
 			k++;
 		}
 
-		// Ouput the right padding
+		// Output the right padding
 		if(rpadding != undefined && rpadding != null) {
 			console.attributes=attr;
 			console.write(rpadding);
