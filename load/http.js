@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.40 2018/03/15 18:28:13 echicken Exp $ */
+/* $Id: http.js,v 1.41 2018/03/15 19:22:59 echicken Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -46,11 +46,10 @@ HTTPRequest.prototype.AddDefaultHeaders=function(){
 
 HTTPRequest.prototype.AddExtraHeaders = function () {
 	if (typeof this.extra_headers !== 'object') return;
-	var self = this;
 	Object.keys(this.extra_headers).forEach(
 		function (e) {
-			self.request_headers.push(e + ': ' + self.extra_headers[e]);
-		}
+			this.request_headers.push(e + ': ' + this.extra_headers[e]);
+		}, this
 	);
 };
 
