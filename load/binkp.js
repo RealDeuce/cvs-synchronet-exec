@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.82 2018/03/15 08:16:10 deuce Exp $
+// $Id: binkp.js,v 1.83 2018/03/15 08:59:53 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.82 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.83 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -948,50 +948,16 @@ BinkP.prototype.recvFrame = function(timeout)
 
 	if (this.partialFrame === undefined) {
 		ret = new this.Frame();
-		switch(this.sock.poll(timeout)) {
-			case 0:	// Timeout
-				if (timeout) {
-					log(LOG_WARNING, "Timed out receiving packet header!");
-					this.sock.close();
-					this.sock = undefined;
-					return undefined;
-				}
-				return null;
-			default:
-				log(LOG_ERROR, "Error select()ing socket.");
-				this.sock.close();
-				this.sock = undefined;
-				return undefined;
-			case 1:
-				break;
-		}
-		buf = this.sock.recv(1);
+		buf = this.sock.recv(1, timeout);
 		if (buf === null || buf.length !== 1) {
-			log(LOG_INFO, "Remote disconnected");
+			log(LOG_INFO, "Error in recv() timeout or disconnect");
 			this.sock.close();
 			this.sock = undefined;
 			return undefined;
 		}
-		switch(this.sock.poll(timeout)) {
-			case 0:	// Timeout
-				if (timeout) {
-					log(LOG_WARNING, "Timed out receiving second byte of packet header!");
-					this.sock.close();
-					this.sock = undefined;
-					return undefined;
-				}
-				return null;
-			default:
-				log(LOG_ERROR, "Error select()ing socket.");
-				this.sock.close();
-				this.sock = undefined;
-				return undefined;
-			case 1:
-				break;
-		}
-		buf += this.sock.recv(1);
+		buf += this.sock.recv(1, timeout);
 		if (buf.length !== 2) {
-			log(LOG_ERROR, "Remote disconnected before sending second byte of packet header!");
+			log(LOG_ERROR, "Remote disconnected or timed out before sending second byte of packet header!");
 			this.sock.close();
 			this.sock = undefined;
 			return undefined;
@@ -1005,34 +971,14 @@ BinkP.prototype.recvFrame = function(timeout)
 	else
 		ret = this.partialFrame;
 
-	switch(this.sock.poll(timeout)) {
-		case 1:
-			avail = this.sock.nread;
-			if (avail == 0) {
-				if (this.sock.is_connected)
-					log(LOG_ERROR, "Poll returned data available, but no data available on connected socket!");
-				this.sock.close();
-				this.sock = undefined;
-				return undefined;
-			}
-			if (avail > (ret.length - ret.data.length))
-				avail = ret.length - ret.data.length;
-			ret.data += this.recv_buf(this.sock.recv(avail));
-			break;
-		case 0:
-			if (timeout) {
-				log(LOG_ERROR, "Timed out receiving packet data!");
-				this.sock.close();
-				this.sock = undefined;
-				return undefined;
-			}
-			break;
-		default:
-			log(LOG_ERROR, "Error select()ing socket.");
-			this.sock.close();
-			this.sock = undefined;
-			return undefined;
+	i = this.recv_buf(this.sock.recv(ret.length - ret.data.length));
+	if (i == null || i.length == 0) {
+		log(LOG_ERROR, "Remote disconnected or timed out while receiving packet data!");
+		this.sock.close();
+		this.sock = undefined;
+		return undefined;
 	}
+	ret.data += i;
 
 	if (ret.data.length < ret.length)
 		this.partialFrame = ret;
