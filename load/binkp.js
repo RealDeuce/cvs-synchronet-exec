@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.86 2018/03/15 22:39:04 deuce Exp $
+// $Id: binkp.js,v 1.87 2018/03/15 23:32:15 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.86 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.87 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -715,8 +715,12 @@ BinkP.prototype.session = function()
 							if (!(this.sentempty && this.gotempty))
 								this.senteob = false;
 						}
-						if (this.senteob && this.pending_ack.length === 0)
-							break outer;
+						if (this.senteob) {
+							if (this.pending_ack.length === 0)
+								break outer;
+							else
+								log(LOG_WARNING, "We got an M_EOB, but there are still "+this.pending_ack.length+" files pending M_GOT");
+						}
 						this.gotempty = true;
 						break;
 					case this.command.M_GOT:
@@ -775,13 +779,13 @@ BinkP.prototype.session = function()
 						args = this.parseArgs(pkt.data);
 						for (i=0; i<this.pending_ack.length; i++) {
 							if (this.pending_ack[i].sendas == args[0]) {
+								this.failed_sent_files.push({path:this.pending_ack[i].file.name, sendas:this.pending_ack[i].sendas});
 								this.pending_ack.splice(i, 1);
 								i--;
 							}
 						}
 						if (this.sending !== undefined && this.sending.sendas === args[0]) {
 							this.sending.file.close();
-							this.failed_sent_files.push({path:this.sending.file.name, sendas:this.sending.sendas});
 							this.sending = undefined;
 						}
 						break;
