@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.83 2018/03/15 08:59:53 deuce Exp $
+// $Id: binkp.js,v 1.84 2018/03/15 09:17:14 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.83 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.84 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -543,11 +543,10 @@ BinkP.prototype.accept = function(sock, auth_cb)
 
 	this.cram = {algo:'MD5', challenge:challenge.replace(/[0-9a-fA-F]{2}/g, hex2ascii)};
 	this.authenticated = undefined;
-	this.sendCmd(this.command.M_NUL, "OPT TLS");
+	this.sendCmd(this.command.M_NUL, "OPT CRAM-MD5-"+challenge+(this.wont_crypt?"":" CRYPT")+" TLS");
 	pkt = this.recvFrame(this.timeout);
 	if (pkt === undefined)
 		return false;
-	this.sendCmd(this.command.M_NUL, "OPT CRAM-MD5-"+challenge+(this.wont_crypt?"":" CRYPT"));
 	this.sendCmd(this.command.M_NUL, "SYS "+this.system_name);
 	this.sendCmd(this.command.M_NUL, "ZYZ "+this.system_operator);
 	this.sendCmd(this.command.M_NUL, "LOC "+this.system_location);
@@ -1058,7 +1057,7 @@ BinkP.prototype.recvFrame = function(timeout)
 											this.nonreliable = true;
 											break;
 										case 'CRYPT':
-											if (!this.wont_crypt) {
+											if (!this.wont_crypt && !this.will_tls) {
 												this.will_crypt = true;
 												log(LOG_INFO, "Will encrypt session.");
 											}
@@ -1074,6 +1073,7 @@ BinkP.prototype.recvFrame = function(timeout)
 												this.will_tls = true;
 												this.wont_crypt = true;
 												this.require_crypt = false;
+												this.will_crypt = false;
 											}
 											else {
 												this.sendCmd(this.command.M_ERR, "TLS must be negotiated before any other traffic");
