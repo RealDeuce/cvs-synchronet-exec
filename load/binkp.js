@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.85 2018/03/15 22:21:09 deuce Exp $
+// $Id: binkp.js,v 1.86 2018/03/15 22:39:04 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.85 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.86 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -229,6 +229,19 @@ BinkP.prototype.crypt = {
 		}
 		return ret;
 	},
+};
+BinkP.prototype.send_chunks = function(str) {
+	var ret;
+	var sent = 0;
+
+	while (sent < str.length) {
+		ret = this.sock.send(str.substr(sent));
+		if (ret >= 0)
+			sent += ret;
+		else
+			return false;
+	}
+	return true;
 };
 BinkP.prototype.send_buf = function(str) {
 	if (this.out_keys === undefined)
@@ -880,7 +893,7 @@ BinkP.prototype.sendCmd = function(cmd, data)
 	len |= 0x8000;
 	// We'll send it all in one go to avoid sending small packets...
 	var sstr = this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + ascii(cmd) + data);
-	if (this.sock.send(sstr) !== sstr.length)
+	if (!this.send_chunks(sstr))
 		return false;
 	switch(cmd) {
 		case this.command.M_EOB:
@@ -913,7 +926,7 @@ BinkP.prototype.sendData = function(data)
 		log(LOG_DEBUG, "Sending "+data.length+" bytes of data");
 	// We'll send it all in one go to avoid sending small packets...
 	var sstr = this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + data);
-	if (!this.sock.send(sstr) != sstr.length)
+	if (!this.send_chunks(sstr))
 		return false;
 	return true;
 };
