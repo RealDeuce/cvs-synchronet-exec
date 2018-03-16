@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.58 2018/03/16 15:24:55 deuce Exp $
+ * $Id: imapservice.js,v 1.59 2018/03/16 15:31:33 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -848,7 +848,7 @@ var unauthenticated_command_handlers = {
 					return;
 				}
 				cfgfile=new File(format(system.data_dir+"user/%04d.imap", user.number));
-				if (!cfgfile.open(cfgfile.exists ? 'r+':'w+', true)) {
+				if (!cfgfile.open(cfgfile.exists ? 'r+':'w+', true, 0)) {
 					tagged(tag, "NO", "Can't open imap state file");
 					return;
 				}
