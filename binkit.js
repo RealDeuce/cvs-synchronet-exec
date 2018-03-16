@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.59 2018/03/14 23:30:34 deuce Exp $
+// $Id: binkit.js,v 1.60 2018/03/16 02:39:50 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.59 $".split(' ')[1];
+var REVISION = "$Revision: 1.60 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 
 FREQIT.add_file = function(filename, bp, cfg)
@@ -63,7 +63,7 @@ function lock_flow(file)
 		// TODO: This is hacked for a signed 32-bit time_t... watch out in 2038!
 		orig_date = f.date;
 		if (orig_date > (now - 60*60*6)) {
-			log(LOG_WARNING, format("%ld > %ld", orig_date, now-60*60*6));
+			log(LOG_INFO, format("Lock is too recent to override now (%ld) > six hours ago (%ld)", orig_date, now-60*60*6));
 			return false;
 		}
 		remain = 0x80000000 - now;
@@ -71,7 +71,7 @@ function lock_flow(file)
 		f.date = future;
 		mswait(1000);
 		if (f.date != future) {
-			log(LOG_WARNING, format("%ld != future(%ld)", f.date, future));
+			log(LOG_WARNING, format("Failed to set date in the future fdate (%ld) != future (%ld)", f.date, future));
 			return false;
 		}
 		if (!f.open("wb")) {
