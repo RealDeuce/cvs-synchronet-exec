@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.60 2018/03/16 02:39:50 deuce Exp $
+// $Id: binkit.js,v 1.61 2018/03/17 22:52:50 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.60 $".split(' ')[1];
+var REVISION = "$Revision: 1.61 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 
 FREQIT.add_file = function(filename, bp, cfg)
@@ -598,7 +598,6 @@ function callout(addr, scfg, semaphores, locks, bicfg)
 
 	// We won't add files until the auth finishes...
 	success = bp.connect(addr, bp.cb_data.binkitpw, callout_auth_cb, port, host);
-
 	callout_done(bp, semaphores);
 }
 
@@ -859,7 +858,7 @@ function inbound_auth_cb(pwd, bp)
 	});
 	if (addrs.length === 0) {
 		if (invalid) {
-			bp.sendCmd(this.command.M_ERR, "Password mismatch");
+			bp.sendCmd(bp.command.M_ERR, "Password mismatch");
 		}
 		else {
 			// If we have NONE of their nodes configured, we can send them files for ALL of them.
