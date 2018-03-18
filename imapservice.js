@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.64 2018/03/18 16:57:25 deuce Exp $
+ * $Id: imapservice.js,v 1.65 2018/03/18 23:19:38 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -1303,7 +1303,7 @@ function unlock_cfg()
 function exit_func()
 {
 	close_sub();
-	if (cfgile !== undefined) {
+	if (cfgfile !== undefined) {
 		unlock_cfg();
 		save_cfg(true);
 	}
