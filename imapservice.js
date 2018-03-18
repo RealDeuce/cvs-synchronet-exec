@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.63 2018/03/16 17:50:30 deuce Exp $
+ * $Id: imapservice.js,v 1.64 2018/03/18 16:57:25 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -1303,8 +1303,10 @@ function unlock_cfg()
 function exit_func()
 {
 	close_sub();
-	unlock_cfg();
-	save_cfg(true);
+	if (cfgile !== undefined) {
+		unlock_cfg();
+		save_cfg(true);
+	}
 }
 
 function binify(seen)
