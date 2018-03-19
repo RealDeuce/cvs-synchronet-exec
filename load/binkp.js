@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.96 2018/03/19 17:55:04 deuce Exp $
+// $Id: binkp.js,v 1.97 2018/03/19 18:05:49 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.96 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.97 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -641,11 +641,7 @@ BinkP.prototype.session = function()
 		// skipping files.
 		cur_timeout = 0;
 		if (this.ver1_1) {
-			/*
-			 * Radius/4.010/21.01.2005,13:56(Final-Release)/Win32
-			 * apparently will not send an M_EOB after an empty poll
-			 * until it gets two from the originator.
-			 */
+			// Don't increase the timeout until we've sent the second M_EOB
 			if (this.senteob >= 2)
 				cur_timeout = this.timeout;
 		}
@@ -824,8 +820,10 @@ BinkP.prototype.session = function()
 			this.sending = this.tx_queue.shift();
 			if (this.sending === undefined) {
 				if (this.receiving === undefined) {
-					if (this.ver1_1)
-						this.sendCmd(this.command.M_EOB);
+					if (this.ver1_1) {
+						if (this.senteob == 0 || (this.goteob))
+							this.sendCmd(this.command.M_EOB);
+					}
 					else {
 						if (!this.senteob)
 							this.sendCmd(this.command.M_EOB);
