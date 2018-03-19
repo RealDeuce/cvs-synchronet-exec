@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.62 2018/03/18 00:00:44 rswindell Exp $
+// $Id: binkit.js,v 1.63 2018/03/19 18:41:03 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.62 $".split(' ')[1];
+var REVISION = "$Revision: 1.63 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 
 FREQIT.add_file = function(filename, bp, cfg)
@@ -943,6 +943,9 @@ function poll_node(addr_str, scfg, bicfg, myaddr, semaphores)
 
 	if (myaddr === undefined)
 		myaddr = FIDO.parse_addr(system.fido_addr_list[0], 1, 'fidonet');
+
+	if (semaphores === undefined)
+		semaphores = [];
 
 	var addr = FIDO.parse_addr(addr_str, 1, 'fidonet');
 
