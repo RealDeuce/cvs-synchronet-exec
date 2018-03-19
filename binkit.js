@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.64 2018/03/19 21:53:40 deuce Exp $
+// $Id: binkit.js,v 1.65 2018/03/19 23:39:14 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.64 $".split(' ')[1];
+var REVISION = "$Revision: 1.65 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -93,6 +93,7 @@ function lock_flow(file)
 		}
 	}
 	ret.bsy.writeln("BinkIT");
+	ret.bsy.flush();
 	log(LOG_DEBUG, "Lock successful.");
 	return ret;
 }
