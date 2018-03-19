@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.92 2018/03/18 04:42:04 deuce Exp $
+// $Id: binkp.js,v 1.93 2018/03/19 06:06:01 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.92 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.93 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -1015,7 +1015,7 @@ BinkP.prototype.recvFrame = function(timeout)
 	else
 		ret = this.partialFrame;
 
-	i = this.recv_buf(this.sock.recv(ret.length - ret.data.length));
+	i = this.recv_buf(this.sock.recv(ret.length - ret.data.length, timeout));
 	if (i == null) {
 		log(LOG_INFO, "Error in recv() of packet data");
 		this.sock.close();
