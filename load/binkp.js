@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.97 2018/03/19 18:05:49 deuce Exp $
+// $Id: binkp.js,v 1.98 2018/03/19 18:12:28 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.97 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.98 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -922,20 +922,23 @@ BinkP.prototype.sendCmd = function(cmd, data)
 			break;
 		case this.command.M_ERR:
 		case this.command.M_BSY:
-			this.senteob=this.goteob=0;
 			this.sock.close();
 			this.sock = undefined;
 			break;
 		case this.command.M_NUL:
-			this.senteob=this.goteob=0;
 			if (data.substr(0, 4) === 'OPT ') {
 				tmp = data.substr(4).split(/ /);
 				if (tmp.indexOf('NR'))
 					this.sent_nr = true;
 			}
 			break;
+		case this.command.M_ADR:
+		case this.command.M_PWD:
+		case this.command.M_OK:
+			break;
 		default:
 			this.reset_eob();
+			break;
 	}
 	return true;
 };
@@ -943,7 +946,7 @@ BinkP.prototype.sendData = function(data)
 {
 	var len = data.length;
 
-	this.senteob=this.goteob=0;
+	this.reset_eob();
 	if (this.sock === undefined)
 		return false;
 	if (this.debug)
