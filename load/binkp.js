@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.94 2018/03/19 17:47:14 deuce Exp $
+// $Id: binkp.js,v 1.95 2018/03/19 17:49:28 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.94 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.95 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -640,8 +640,14 @@ BinkP.prototype.session = function()
 		// We want to wait if we have no more files to send or if we're
 		// skipping files.
 		cur_timeout = 0;
-		if (this.senteob)
-			cur_timeout = this.timeout;
+		if (this.ver1_1) {
+			if (this.senteob < 2)
+				cur_timeout = this.timeout;
+		}
+		else {
+			if (this.senteob)
+				cur_timeout = this.timeout;
+		}
 		if (this.sending !== undefined && this.sending.waitingForGet !== undefined && this.sending.waitingForGet)
 			cur_timeout = this.timeout;
 		pkt = this.recvFrame(cur_timeout);
