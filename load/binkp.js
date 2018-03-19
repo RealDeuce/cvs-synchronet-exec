@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.99 2018/03/19 18:49:37 rswindell Exp $
+// $Id: binkp.js,v 1.100 2018/03/19 23:01:24 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.99 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.100 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -994,8 +994,14 @@ BinkP.prototype.recvFrame = function(timeout)
 			return undefined;
 		}
 		if (i.length != 1) {
-			if (timeout) {
-				log(LOG_WARNING, "Timed out receiving first byte of packet header: " + timeout);
+			if (!this.sock.is_connected) {
+				log(LOG_DEBUG, "Remote host closed socket");
+				this.sock.close();
+				this.sock = undefined;
+				return undefined;
+			}
+			else if (timeout) {
+				log(LOG_WARNING, "Timed out receiving first byte of packet header!");
 				this.sock.close();
 				this.sock = undefined;
 				return undefined;
@@ -1011,8 +1017,14 @@ BinkP.prototype.recvFrame = function(timeout)
 			return undefined;
 		}
 		if (i.length != 1) {
-			if (timeout) {
-				log(LOG_WARNING, "Timed out receiving second byte of packet header: " + timeout);
+			if (!this.sock.is_connected) {
+				log(LOG_DEBUG, "Remote host closed socket");
+				this.sock.close();
+				this.sock = undefined;
+				return undefined;
+			}
+			else if (timeout) {
+				log(LOG_WARNING, "Timed out receiving second byte of packet header!");
 				this.sock.close();
 				this.sock = undefined;
 				return undefined;
@@ -1037,8 +1049,14 @@ BinkP.prototype.recvFrame = function(timeout)
 		return undefined;
 	}
 	if (i.length == 0) {
-		if (timeout) {
-			log(LOG_ERROR, "Timed out receiving packet data: " + timeout);
+		if (!this.sock.is_connected) {
+			log(LOG_DEBUG, "Remote host closed socket");
+			this.sock.close();
+			this.sock = undefined;
+			return undefined;
+		}
+		else if (timeout) {
+			log(LOG_ERROR, "Timed out receiving packet data!");
 			this.sock.close();
 			this.sock = undefined;
 			return undefined;
