@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.98 2018/03/19 18:12:28 deuce Exp $
+// $Id: binkp.js,v 1.99 2018/03/19 18:49:37 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.98 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.99 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -995,7 +995,7 @@ BinkP.prototype.recvFrame = function(timeout)
 		}
 		if (i.length != 1) {
 			if (timeout) {
-				log(LOG_WARNING, "Timed out receiving first byte of packet header!");
+				log(LOG_WARNING, "Timed out receiving first byte of packet header: " + timeout);
 				this.sock.close();
 				this.sock = undefined;
 				return undefined;
@@ -1012,7 +1012,7 @@ BinkP.prototype.recvFrame = function(timeout)
 		}
 		if (i.length != 1) {
 			if (timeout) {
-				log(LOG_WARNING, "Timed out receiving second byte of packet header!");
+				log(LOG_WARNING, "Timed out receiving second byte of packet header: " + timeout);
 				this.sock.close();
 				this.sock = undefined;
 				return undefined;
@@ -1038,7 +1038,7 @@ BinkP.prototype.recvFrame = function(timeout)
 	}
 	if (i.length == 0) {
 		if (timeout) {
-			log(LOG_ERROR, "Timed out receiving packet data!");
+			log(LOG_ERROR, "Timed out receiving packet data: " + timeout);
 			this.sock.close();
 			this.sock = undefined;
 			return undefined;
@@ -1106,8 +1106,10 @@ BinkP.prototype.recvFrame = function(timeout)
 						this.sendCmd(this.command.M_ERR, "Authentication already complete.");
 						return undefined;
 					}
-					else
+					else {
+						log(LOG_INFO, "Authentication successful: " + ret.data);
 						this.authenticated = ret.data;
+					}
 					break;
 				case this.command.M_NUL:
 					args = ret.data.split(/ /);
