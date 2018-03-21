@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.87 2018/03/21 19:02:24 deuce Exp $ */
+/* $Id: fseditor.js,v 1.88 2018/03/21 19:18:16 deuce Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.87 $".split(' ')[1];
+const REVISION = "$Revision: 1.88 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -1348,19 +1348,23 @@ function quote_mode()
 					console.gotoxy(1,edit_top);
 				console.write("Quote mode keys:");
 				console.cleartoeol();
+				console.write("\r\n CTRL-A - Select all                     CTRL-R - Redraw screen");
+				console.cleartoeol();
 				console.write("\r\n CTRL-B - Move to begining of message    CTRL-^ - Move up one line");
 				console.cleartoeol();
 				console.write("\r\n CTRL-E - Move to end of message         CTRL-_ - Quick exit (no save)");
 				console.cleartoeol();
 				console.write("\r\n CTRL-J - Move down one line             SPACE  - Select/Unselect current line");
 				console.cleartoeol();
-				console.write("\r\n CTRL-N - Move down one page             ENTER  - Paste lines into message");
+				console.write("\r\n CTRL-K - Show this help                 ENTER  - Paste lines into message");
 				console.cleartoeol();
-				console.write("\r\n CTRL-P - Move up one page               A      - Select all");
+				console.write("\r\n CTRL-M - Paste lines into message       A      - Select all");
 				console.cleartoeol();
-				console.write("\r\n CTRL-Q - Quick exit (no save)           B      - Toggle block select mode");
+				console.write("\r\n CTRL-N - Move down one page             B      - Toggle block select mode");
 				console.cleartoeol();
-				console.write("\r\n CTRL-R - Redraw screen                  N      - Unselect all");
+				console.write("\r\n CTRL-P - Move up one page               N      - Unselect all");
+				console.cleartoeol();
+				console.write("\r\n CTRL-Q - Quick exit (no save)");
 				console.cleartoeol();
 				console.write('\r\n');
 				console.cleartoeol();
@@ -1602,6 +1606,8 @@ function edit(quote_first)
 				console.gotoxy(1,edit_top);
 				console.write("Editing keys:");
 				console.cleartoeol();
+				console.write("\r\n CTRL-@ - Change Colour                  CTRL-P - Page Up");
+				console.cleartoeol();
 				console.write("\r\n CTRL-A - Change Colour                  CTRL-Q - Quick Abort (no save)");
 				console.cleartoeol();
 				console.write("\r\n CTRL-B - Move to beginning of line      CTRL-R - Redraw screen");
@@ -1620,11 +1626,13 @@ function edit(quote_first)
 				console.cleartoeol();
 				console.write("\r\n CTRL-J - Move down one line             CTRL-Z - Save message and exit");
 				console.cleartoeol();
+				console.write("\r\n CTRL-K - Show This Help                 CTRL-\\ - Edit Subject");
+				console.cleartoeol();
 				console.write("\r\n CTRL-L - Insert Line                    CTRL-] - Move left one character");
 				console.cleartoeol();
-				console.write("\r\n CTRL-N - Page Down                      CTRL-^ - Move up one line");
+				console.write("\r\n CTRL-M - Carriage Return                CTRL-^ - Move up one line");
 				console.cleartoeol();
-				console.write("\r\n CTRL-P - Page Up                        CTRL-_ - Quick Abort (no save)");
+				console.write("\r\n CTRL-N - Page Down                      CTRL-_ - Quick Abort (no save)");
 				console.cleartoeol();	
 				console.write('\r\n');
 				console.cleartoeol();
