@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.37 2018/03/06 00:34:32 rswindell Exp $
+// $Id: sbbslist.js,v 1.38 2018/03/21 01:36:54 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.37 $".split(' ')[1];
+var REVISION = "$Revision: 1.38 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -110,6 +110,8 @@ function export_entry(bbs, msgbase)
          }
     }
     for(i in bbs.network) {
+		if(i >= sbl_defs.MAX_NETS)
+			break;
         body += "Network:       " + bbs.network[i].name + "\r\n";
         body += "Address:       " + bbs.network[i].address + "\r\n";
     }
@@ -1909,7 +1911,7 @@ function edit(bbs)
 					,[ "name", "address" ]
 					,[ lib.max_len.network_name, lib.max_len.network_address ]
 					,[ "Network name" ,"Network node address (e.g. QWK-ID or FTN node address)" ]
-					,sbl_defs.MAX_NETS);
+					,20);	// Note: twice as many as sbl_defs.MAX_NETS (10)
 				break;
 			case 11:
 				edit_array("Service"
