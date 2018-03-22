@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.68 2018/03/22 03:24:10 rswindell Exp $
+// $Id: binkit.js,v 1.69 2018/03/22 07:06:56 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.68 $".split(' ')[1];
+var REVISION = "$Revision: 1.69 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -959,7 +959,7 @@ function poll_node(addr_str, scfg, bicfg, myaddr)
 		}
 	}
 	log(LOG_INFO, "Attempting poll for node "+addr);
-	if(lock_files)
+	if(lock_files !== undefined)
 		locks.push(lock_files);
 	// Use a try/catch to ensure we clean up the lock files.
 	callout(addr, scfg, locks, bicfg);
