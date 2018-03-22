@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.70 2018/03/22 07:22:18 deuce Exp $
+// $Id: binkit.js,v 1.71 2018/03/22 07:31:33 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.70 $".split(' ')[1];
+var REVISION = "$Revision: 1.71 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -61,6 +61,8 @@ function lock_flow(file)
 		var remain;
 		var now = time();
 
+		if (!f.exists)
+			return false;
 		// TODO: This is hacked for a signed 32-bit time_t... watch out in 2038!
 		orig_date = f.date;
 		if (orig_date > (now - 60*60*6)) {
