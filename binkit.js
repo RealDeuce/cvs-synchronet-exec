@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.65 2018/03/19 23:39:14 deuce Exp $
+// $Id: binkit.js,v 1.66 2018/03/22 02:53:33 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.65 $".split(' ')[1];
+var REVISION = "$Revision: 1.66 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -762,6 +762,7 @@ function run_outbound(ran)
 	Object.keys(FIDO.FTNDomains.outboundMap).forEach(function(key) {
 		outbound_roots.push(FIDO.FTNDomains.outboundMap[key]);
 	});
+	log(LOG_DEBUG, "Outbound roots: " + JSON.stringify(outbound_roots, null, 0));
 	outbound_roots.forEach(function(oroot) {
 		var dirs;
 
@@ -773,6 +774,8 @@ function run_outbound(ran)
 
 		if (file_isdir(oroot))
 			addDir(oroot);
+		else
+			mkpath(oroot);
 		dirs = directory(oroot+'.*', 0);
 		dirs.forEach(function(dir) {
 			var pnts;
