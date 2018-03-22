@@ -1,6 +1,6 @@
-// $Id: hexdump.js,v 1.1 2017/12/30 03:01:42 rswindell Exp $
+// $Id: hexdump.js,v 1.2 2018/03/22 23:03:45 rswindell Exp $
 
-load("hexdump_lib.js");
+var hexdump = load({}, "hexdump_lib.js");
 
 function main()
 {
@@ -11,7 +11,8 @@ function main()
 		if(!file.open("rb"))
 			alert(file.name + " open error " + file.error);
 		else {
-			hexdump_file(file);
+			var output = hexdump.file(file);
+			print(output.join('\n'));
 			file.close();
 		}
 	}
