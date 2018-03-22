@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.69 2018/03/22 07:06:56 deuce Exp $
+// $Id: binkit.js,v 1.70 2018/03/22 07:22:18 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.69 $".split(' ')[1];
+var REVISION = "$Revision: 1.70 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -750,6 +750,7 @@ function run_outbound(ran)
 	var scfg;
 	var outbound_dirs=[];
 	var outbound_roots=[];
+	var scfg_ob;
 
 	log(LOG_DEBUG, "Running outbound");
 	scfg = new SBBSEchoCfg();
@@ -758,10 +759,12 @@ function run_outbound(ran)
 		log(LOG_ERROR, "sbbsecho not configured for FLO-style mailers.");
 		return false;
 	}
-	outbound_roots.push(scfg.outbound.replace(/[\\\/]$/, ''));
 	Object.keys(FIDO.FTNDomains.outboundMap).forEach(function(key) {
 		outbound_roots.push(FIDO.FTNDomains.outboundMap[key]);
 	});
+	scfg_ob = scfg.outbound.replace(/[\\\/]$/, '');
+	if (outbound_roots.indexOf(scfg_ob) == -1)
+		outbound_roots.push(scfg_ob);
 	log(LOG_DEBUG, "Outbound roots: " + JSON.stringify(outbound_roots, null, 0));
 	outbound_roots.forEach(function(oroot) {
 		var dirs;
