@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.102 2018/03/20 03:47:02 rswindell Exp $
+// $Id: binkp.js,v 1.103 2018/03/23 23:27:47 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.102 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.103 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -907,12 +907,12 @@ BinkP.prototype.sendCmd = function(cmd, data)
 		return false;
 	if (data === undefined)
 		data = '';
-	if (this.debug) {
+	if (this.debug || cmd == this.command.M_ERR) {
 		if (cmd < this.command_name.length)
 			type = this.command_name[cmd];
 		else
 			type = 'Unknown Command '+cmd;
-		log(LOG_DEBUG, "Sent "+type+" command args: "+data);
+		log(cmd == this.command.M_ERR ? LOG_NOTICE : LOG_DEBUG, "Sent "+type+" command args: "+data);
 	}
 	var len = data.length+1;
 	len |= 0x8000;
