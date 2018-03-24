@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.104 2018/03/24 20:57:32 deuce Exp $
+// $Id: binkp.js,v 1.105 2018/03/24 21:01:35 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.104 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.105 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -1165,6 +1165,10 @@ BinkP.prototype.recvFrame = function(timeout)
 							tmp = ret.data.split(/ /);
 							if (tmp.length >= 3) {
 								if (tmp[1].substr(0, 7) === 'Mystic/') {
+									/*
+									 * This allows work-arounds for Mystic binkp
+									 * bugs.  See binkit.js for details.
+									 */
 									this.mystic_detected = true;
 								}
 								if (tmp[2].substr(0, 6) === 'binkp/') {
