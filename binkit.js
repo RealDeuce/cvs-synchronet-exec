@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.72 2018/03/23 08:12:24 rswindell Exp $
+// $Id: binkit.js,v 1.73 2018/03/24 20:57:30 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.72 $".split(' ')[1];
+var REVISION = "$Revision: 1.73 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -851,7 +851,21 @@ function inbound_auth_cb(pwd, bp)
 				} else {
 					log(LOG_WARNING, "CRAM-MD5 password mismatch for " + addr 
 						+ format(" (expected: %s, received: %s)", expected, pwd[0]));
-					invalid = true;
+					if (bp.mystic_detected) {
+						log(LOG_INFO, "Checking Mystic pass...");
+						bp.cram.challenge += '\x00\x00\x00';
+						expected = bp.getCRAM('MD5', cpw);
+						if (expected === pwd[0]) {
+							log(LOG_INFO, "CRAM-MD5 password match for " + addr);
+							addrs.push(addr);
+							check_nocrypt(bp.cb_data.binkitcfg.node[addr]);
+							ret = cpw;
+						}
+						else
+							invalid = true;
+					}
+					else
+						invalid = true;
 				}
 			}
 			else {

@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.103 2018/03/23 23:27:47 rswindell Exp $
+// $Id: binkp.js,v 1.104 2018/03/24 20:57:32 deuce Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.103 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.104 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -93,6 +93,8 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	this.in_keys = undefined;
 	this.out_keys = undefined;
 	this.capabilities = '115200,TCP,BINKP';
+	this.mystic_bug = false;
+	this.mystic_detected = false;
 
 	this.sent_files = [];
 	this.failed_sent_files = [];
@@ -1162,6 +1164,9 @@ BinkP.prototype.recvFrame = function(timeout)
 							log(LOG_INFO, "Peer version: " + args.slice(1).join(' '));
 							tmp = ret.data.split(/ /);
 							if (tmp.length >= 3) {
+								if (tmp[1].substr(0, 7) === 'Mystic/') {
+									this.mystic_detected = true;
+								}
 								if (tmp[2].substr(0, 6) === 'binkp/') {
 									ver = tmp[2].substr(6).split(/\./);
 									if (ver.length >= 2) {
