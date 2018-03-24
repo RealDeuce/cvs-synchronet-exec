@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.74 2018/03/24 21:00:04 deuce Exp $
+// $Id: binkit.js,v 1.75 2018/03/24 21:09:13 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.74 $".split(' ')[1];
+var REVISION = "$Revision: 1.75 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -851,7 +851,7 @@ function inbound_auth_cb(pwd, bp)
 				} else {
 					log(LOG_WARNING, "CRAM-MD5 password mismatch for " + addr 
 						+ format(" (expected: %s, received: %s)", expected, pwd[0]));
-					if (bp.mystic_detected) {
+					if (bp.remote_ver.substr(0, 7) === 'Mystic/') {
 						/*
 						 * MysticBBS v1.12A39 at least has an issue when the CRYPT
 						 * option is included after the CRAM-MD5 challenge.  It appends
