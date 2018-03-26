@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.75 2018/03/24 21:09:13 deuce Exp $
+// $Id: binkit.js,v 1.76 2018/03/26 03:34:11 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.75 $".split(' ')[1];
+var REVISION = "$Revision: 1.76 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -1074,7 +1074,7 @@ function install()
 	ini = new File(file_cfgname(system.ctrl_dir, "services.ini"));
 	if (!ini.open(file_exists(ini.name) ? 'r+':'w+'))
 		return ini.name + " open error " + ini.error;
-	if(!ini.GetObject("BINKP") && !ini.GetObject("BINKIT")) {
+	if(!ini.iniGetObject("BINKP") && !ini.iniGetObject("BINKIT")) {
 		printf("Updating %s\r\n", ini.name);
 		var section = "BINKP";
 		ini.iniSetValue(section, "Enabled", true);
