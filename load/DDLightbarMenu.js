@@ -1,4 +1,4 @@
-// $Id: DDLightbarMenu.js,v 1.24 2017/12/18 20:09:10 nightfox Exp $
+// $Id: DDLightbarMenu.js,v 1.25 2018/03/26 19:55:29 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -1120,7 +1120,7 @@ function DDLightbarMenu_SetBorderChars(pBorderChars)
 	                        "top", "bottom", "left", "right" ];
 	for (var i = 0; i < borderPropNames.length; ++i)
 	{
-		if (pBorderChars.hasOwnProperty(borderPropNames))
+		if (pBorderChars.hasOwnProperty(borderPropNames[i]))
 			this.borderChars[borderPropNames[i]] = pBorderChars[borderPropNames[i]];
 	}
 }
