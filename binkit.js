@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 1.77 2018/03/26 05:17:00 deuce Exp $
+// $Id: binkit.js,v 1.78 2018/03/27 05:16:58 deuce Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 1.77 $".split(' ')[1];
+var REVISION = "$Revision: 1.78 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -825,6 +825,8 @@ function mystic_broken_cram(bp)
 	var min;
 	var ver;
 
+	if (bp.remote_ver === undefined)
+		return false;
 	if (bp.remote_ver.substr(0, 7) !== 'Mystic/')
 		return false;
 	if (bp.wont_crypt)
@@ -909,7 +911,7 @@ function inbound_auth_cb(pwd, bp)
 					 * non-working build.  Hopefully, this is not the case, and this
 					 * block can be removed.
 					 */
-					if (bp.remote_ver === 'Mystic/1.12A39') {
+					if (bp.remote_ver !== undefined && bp.remote_ver === 'Mystic/1.12A39') {
 						log(LOG_INFO, "Checking Mystic pass...");
 						bp.cram.challenge += '\x00\x00\x00';
 						expected = bp.getCRAM('MD5', cpw);
