@@ -276,7 +276,7 @@ if (renew || rekey || revoke || print_tos) {
 	 */
 	settings.open(settings.exists ? "r+" : "w+");
 	key_id = settings.iniGetValue("key_id", new_host, undefined);
-	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.32 $".split(' ')[1])});
+	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.33 $".split(' ')[1])});
 	if (renew || rekey || revoke) {
 		if (acme.key_id === undefined) {
 			if (TOSAgreed)
@@ -398,7 +398,7 @@ if (renew) {
 	/*
 	 * Now delete/create the keyset with the key and cert
 	 */
-	for (i=0; i < 10; i++) {
+	for (i=0; i < 10 && file_exists(sks_fname); i++) {
 		if (file_remove(sks_fname))
 			break;
 		mswait(100);
