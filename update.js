@@ -1,8 +1,8 @@
-/* $Id: update.js,v 1.5 2018/01/19 07:22:41 rswindell Exp $ */
+/* $Id: update.js,v 1.6 2018/03/31 09:34:35 rswindell Exp $ */
 
 /* Synchronet v3.15 update script (to be executed with jsexec) */
 
-const REVISION = "$Revision: 1.5 $".split(' ')[1];
+const REVISION = "$Revision: 1.6 $".split(' ')[1];
 
 var test = argv.indexOf("-test") >= 0;
 
@@ -69,6 +69,13 @@ if(file_exists(sbbsecho_cfg) && !file_exists(sbbsecho_ini)) {
 	printf("Converting %s to %s: ", sbbsecho_cfg, sbbsecho_ini);
 	if(!test)
 		load({}, "sbbsecho_upgrade.js");
+}
+
+var binkit_ini = system.ctrl_dir + "binkit.ini";
+if(file_exists(binkit_ini) && file_exists(sbbsecho_ini)) {
+	printf("Merging %s with %s: ", binkit_ini, sbbsecho_ini);
+	if(!test)
+		load({}, "binkit.js", "upgrade");
 }
 
 if(!file_exists(system.data_dir + "sbbslist.json")) {
