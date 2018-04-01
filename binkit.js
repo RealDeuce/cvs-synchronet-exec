@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.0 2018/03/31 09:33:23 rswindell Exp $
+// $Id: binkit.js,v 2.1 2018/04/01 03:54:19 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.0 $".split(' ')[1];
+var REVISION = "$Revision: 2.1 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -787,9 +787,10 @@ function run_outbound(ran)
 		dirs.forEach(function(dir) {
 			var pnts;
 
-			if (dir.indexOf('.') === -1)
+			var ext = file_getext(dir);
+			if (ext === undefined)
 				return;
-			if (file_getext(dir).search(/^\.[0-9a-f]+$/) == 0) {
+			if (ext.search(/^\.[0-9a-f]+$/) == 0) {
 				if (file_isdir(dir)) {
 					addDir(dir);
 					pnts = directory(backslash(dir)+'.pnt', false);
