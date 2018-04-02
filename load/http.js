@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.41 2018/03/15 19:22:59 echicken Exp $ */
+/* $Id: http.js,v 1.42 2018/04/02 08:29:31 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -105,6 +105,8 @@ HTTPRequest.prototype.SendRequest=function() {
 		return true;
 	}
 
+	if (this.sock != undefined)
+		this.sock.close();
 	if((this.sock=new Socket(SOCK_STREAM))==null)
 		throw("Unable to create socket");
 	if(!this.sock.connect(this.url.host, this.url.port?this.url.port:(this.url.scheme=='http'?80:443))) {
