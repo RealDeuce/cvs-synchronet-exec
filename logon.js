@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.32 2018/02/25 02:54:59 rswindell Exp $
+// $Id: logon.js,v 1.33 2018/04/05 02:22:01 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -224,7 +224,7 @@ else {
 
 	if(console.term_supports(USER_ANSI)) {
 		Avatar.draw(user.number, /* name: */null, /* netaddr: */null, /* above: */false, /* right: */true);
-		console.attributes = 0;	// Clear the background attribute
+		console.attributes = 7;	// Clear the background attribute
 	}
 }
 
