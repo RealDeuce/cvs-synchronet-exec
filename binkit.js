@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.1 2018/04/01 03:54:19 rswindell Exp $
+// $Id: binkit.js,v 2.2 2018/04/09 02:49:54 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.1 $".split(' ')[1];
+var REVISION = "$Revision: 2.2 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -87,7 +87,7 @@ function lock_flow(file)
 	}
 
 	log(LOG_DEBUG, "Locking "+ret.bsy.name);
-	if (!ret.bsy.open("web")) {
+	if (!ret.bsy.open("wb")) {	// Used to include 'e' mode flag (which never worked)
 		log(LOG_WARNING, "Error " + ret.bsy.error + " creating " + ret.bsy.name);
 		if (!take_lockfile(ret.bsy)) {
 			log(LOG_NOTICE, "Lock on "+ret.bsy.name+" failed.");
@@ -320,7 +320,7 @@ function rename_or_move(src, dst)
 	if (!sf.open("rb"))
 		return false;
 	df = new File(dst);
-	if (!df.open("web")) {
+	if (!df.open("wb")) {		// Used to include 'e' mode flag (which never worked)
 		sf.close();
 		return false;
 	}
@@ -723,7 +723,7 @@ function run_one_outbound_dir(dir, scfg, ran)
 			}
 		}
 		if (i<flow_files.length) {
-			log(LOG_INFO, "Attempting callout for file "+flow_files[i]);
+			log(LOG_INFO, "Attempting callout for " + addr + ", file: " + flow_files[i]);
 			locks.push(lock_files);
 			// Use a try/catch to ensure we clean up the lock files.
 			callout(addr, scfg, locks);
