@@ -1,4 +1,4 @@
-// $Id: sbbslist_lib.js,v 1.14 2018/01/01 22:49:29 rswindell Exp $
+// $Id: sbbslist_lib.js,v 1.15 2018/04/12 22:11:06 rswindell Exp $
 
 // Synchronet BBS List (SBL) v4 Library
 
@@ -25,7 +25,7 @@ const max_len = {
 	created_on:			28,
 	updated_on:			28,
 	verified_on:		28,
-	service_address:	28,
+	service_address:	35,		// Increased from 28
 	software:			15,
 	since:				4,		/* just the year portion of the first_online date */
 	nodes:				4,
