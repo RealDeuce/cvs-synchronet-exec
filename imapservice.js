@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.66 2018/03/28 01:45:09 deuce Exp $
+ * $Id: imapservice.js,v 1.67 2018/04/18 02:35:39 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -2272,7 +2272,7 @@ while(1) {
 		parse_command(line);
 	}
 	else {
-		if (!client.socket.is_connected())
+		if (!client.socket.is_connected)
 			exit(0);
 		js.gc();
 		waited++;
