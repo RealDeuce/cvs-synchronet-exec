@@ -2,7 +2,7 @@
 
 // File locking library for JS
 
-// $Id: lockfile.js,v 1.9 2016/04/24 00:55:45 deuce Exp $
+// $Id: lockfile.js,v 1.10 2018/05/02 21:47:37 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -27,7 +27,7 @@ function Lock(filename, lockid, forwrite, timeout)
 			 * We currently hold a write lock and are requesting a read lock...
 			 */
 			if(forwrite===false) {
-				if(readlock.open("we")) {
+				if(readlock.open("w")) {
 					readlock.close();
 					LockedFiles[filename].forwrite=false;
 					file_remove(writelock.name);
@@ -53,7 +53,7 @@ function Lock(filename, lockid, forwrite, timeout)
 		if(!file_exists(filename+".lock")) {
 			if(forwrite) {
 				/* We are locking for write... attempt to create write lock file */
-				if(writelock.open("we")) {
+				if(writelock.open("w")) {
 					writelock.close();
 					/* If we are upgading from a read lock, delete our read lock */
 					if(LockedFiles[filename]!==undefined)
@@ -64,7 +64,7 @@ function Lock(filename, lockid, forwrite, timeout)
 						if(system.timer > endtime) {
 							/* If we were upgrading, restor our old lock... */
 							if(LockedFiles[filename]!==undefined) {
-								if(readlock.open("we")) {
+								if(readlock.open("w")) {
 									readlock.close();
 								}
 							}
@@ -79,7 +79,7 @@ function Lock(filename, lockid, forwrite, timeout)
 				}
 			}
 			else {
-				if(readlock.open("we")) {
+				if(readlock.open("w")) {
 					readlock.close();
 					LockedFiles[filename]={};
 					LockedFiles[filename].forwrite=false;
