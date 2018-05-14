@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.109 2018/05/09 18:48:58 rswindell Exp $
+// $Id: newslink.js,v 1.110 2018/05/14 23:37:47 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.109 $".split(' ')[1];
+const REVISION = "$Revision: 1.110 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -432,6 +432,10 @@ for(i in area) {
 			);
 		if(hdr == null) {
 			alert("Failed to read msg header #" + ptr);
+			continue;
+		}
+		if(!hdr.id) {
+			alert("Message #" + ptr + " is missing a Message-ID header field");
 			continue;
 		}
 		if(hdr.attr&MSG_DELETE)	{ /* marked for deletion */
