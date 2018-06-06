@@ -1,6 +1,7 @@
+// $Id: birthdate.js,v 1.4 2018/06/06 21:44:23 rswindell Exp $
 /*
- * When this code is load()ed, User objects get an extra borthDate propert
- * which is a JavaScript Date object representing the birthdate.
+ * When this code is load()ed, User objects get an extra 'birthDate' property
+ * which is a JavaScript Date object representing the user's birthdate.
  */
 
 User.prototype.__defineGetter__("birthDate", function() {
