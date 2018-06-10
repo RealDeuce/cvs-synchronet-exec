@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.22 2018/01/13 02:01:47 rswindell Exp $ */
+/* $Id: text.js,v 1.23 2018/06/10 08:35:53 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -809,5 +809,8 @@ var MIMEDecodedPlainText=797;
 var MsgHdrBodySeparator=798;
 var FileHdrDescSeparator=799;
 var RemoveFileQ=800;
+var OriginFidoAddr=801;
 
-var TOTAL_TEXT=801;
+var TOTAL_TEXT=802;
+
+this;
