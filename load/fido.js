@@ -1,4 +1,4 @@
-// $Id: fido.js,v 1.32 2018/04/01 20:46:25 rswindell Exp $
+// $Id: fido.js,v 1.33 2018/06/17 19:26:49 rswindell Exp $
 require('fido_syscfg.js', 'FTNDomains');
 
 /*
@@ -200,12 +200,14 @@ var FIDO = {
 		zone = m[1];
 		if (zone == null)
 			zone = default_zone;
+		else
+			zone = parseInt(zone, 16);
 		point = m[5];
 		if(point == null)
 			point = 0;
-		if (FIDO.FTNDomains.domainMap[parseInt(zone, 16)] !== undefined)
-			domain = FIDO.FTNDomains.domainMap[parseInt(zone, 16)];
-		return new FIDO.Addr(parseInt(m[2], 16), parseInt(m[3], 16), parseInt(zone, 16), parseInt(point, 16), domain);
+		if (FIDO.FTNDomains.domainMap[zone] !== undefined)
+			domain = FIDO.FTNDomains.domainMap[zone];
+		return new FIDO.Addr(parseInt(m[2], 16), parseInt(m[3], 16), zone, parseInt(point, 16), domain);
 	},
 	Node:function(addr, hub) {
 		this.addr = addr.str;
