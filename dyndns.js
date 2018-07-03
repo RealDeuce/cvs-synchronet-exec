@@ -2,11 +2,11 @@
 
 // Client for Synchronet dynamic DNS service (yourbbs.synchro.net)
 
-// $Id: dyndns.js,v 1.12 2015/08/26 05:14:43 deuce Exp $
+// $Id: dyndns.js,v 1.13 2018/07/03 22:58:27 rswindell Exp $
 
 // usage: ?dyndns <password> [ip_address] [-mx address]
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 
 printf("Synchronet Dynamic DNS Client %s\r\n", REVISION);
 
@@ -20,6 +20,7 @@ function writeln(str)
 
 var mx_record;
 var ip_address;
+var ip6_address;
 var host_name = system.qwk_id;
 
 for(i=1;i<argc;i++) {
@@ -29,6 +30,10 @@ for(i=1;i<argc;i++) {
 			break;
 		case "-hn":
 			host_name = argv[++i];
+			break;
+		case "-ip6":
+		case "-ipv6":
+			ip6_address = argv[++i];
 			break;
 		default:
 			ip_address = argv[i];
@@ -64,6 +69,12 @@ for(h in host_list) {
 			case "ip?":
 				if(ip_address)
 					writeln(ip_address);
+				else
+					writeln("");
+				break;
+			case "ip6?":
+				if(ip6_address)
+					writeln(ip6_address);
 				else
 					writeln("");
 				break;
