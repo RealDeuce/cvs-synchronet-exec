@@ -2,11 +2,11 @@
 
 // Client for Synchronet dynamic DNS service (yourbbs.synchro.net)
 
-// $Id: dyndns.js,v 1.14 2018/07/03 23:52:27 rswindell Exp $
+// $Id: dyndns.js,v 1.15 2018/07/04 05:42:41 rswindell Exp $
 
 // usage: ?dyndns <password> [ip_address] [-mx address]
 
-const REVISION = "$Revision: 1.14 $".split(' ')[1];
+const REVISION = "$Revision: 1.15 $".split(' ')[1];
 
 printf("Synchronet Dynamic DNS Client %s\r\n", REVISION);
 
@@ -18,9 +18,13 @@ function writeln(str)
 	print(str);
 }
 
-var mx_record;
-var ip_address;
-var ip6_address;
+var options=load({}, "modopts.js", "dyndns");
+if(!options)
+	options = {};
+
+var mx_record = options.mx;
+var ip_address = options.ip;
+var ip6_address = options.ip6;
 var host_name = system.qwk_id;
 
 for(i=1;i<argc;i++) {
