@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.107 2018/07/08 21:50:17 rswindell Exp $
+// $Id: binkp.js,v 1.108 2018/07/08 22:10:39 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.107 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.108 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -450,7 +450,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 
 	while(!js.terminated && this.remote_addrs === undefined) {
 		pkt = this.recvFrame(this.timeout);
-		if (pkt === undefined)
+		if (pkt === undefined || pkt === null)
 			return false;
 	}
 
@@ -472,7 +472,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 
 	while((!js.terminated) && this.authenticated === undefined) {
 		pkt = this.recvFrame(this.timeout);
-		if (pkt === undefined)
+		if (pkt === undefined || pkt === null)
 			return false;
 	}
 
@@ -560,7 +560,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 	this.authenticated = undefined;
 	this.sendCmd(this.command.M_NUL, "OPT CRAM-MD5-"+challenge+(this.wont_crypt?"":" CRYPT"));
 	pkt = this.recvFrame(this.timeout);
-	if (pkt === undefined)
+	if (pkt === undefined || pkt === null)
 		return false;
 	this.sendCmd(this.command.M_NUL, "SYS "+this.system_name);
 	this.sendCmd(this.command.M_NUL, "ZYZ "+this.system_operator);
@@ -572,7 +572,7 @@ BinkP.prototype.accept = function(sock, auth_cb)
 
 	while(!js.terminated && this.authenticated === undefined) {
 		pkt = this.recvFrame(this.timeout);
-		if (pkt === undefined)
+		if (pkt === undefined || pkt === null)
 			return false;
 		if (pkt !== null && pkt !== this.partialFrame) {
 			if (pkt.is_cmd) {
@@ -915,14 +915,17 @@ BinkP.prototype.sendCmd = function(cmd, data)
 			type = this.command_name[cmd];
 		else
 			type = 'Unknown Command '+cmd;
-		log(cmd == this.command.M_ERR ? LOG_NOTICE : LOG_DEBUG, "Sent "+type+" command args: "+data);
+		log(cmd == this.command.M_ERR ? LOG_NOTICE : LOG_DEBUG, "Sending "+type+" command args: "+data);
 	}
 	var len = data.length+1;
 	len |= 0x8000;
 	// We'll send it all in one go to avoid sending small packets...
 	var sstr = this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + ascii(cmd) + data);
-	if (!this.send_chunks(sstr))
+	if (!this.send_chunks(sstr)) {
+		log(LOG_WARNING, "Send failure");
 		return false;
+	}
+	log(LOG_DEBUG, "Sent " + type + " command");
 	switch(cmd) {
 		case this.command.M_EOB:
 			this.senteob++;
@@ -960,8 +963,10 @@ BinkP.prototype.sendData = function(data)
 		log(LOG_DEBUG, "Sending "+data.length+" bytes of data");
 	// We'll send it all in one go to avoid sending small packets...
 	var sstr = this.send_buf(ascii((len & 0xff00)>>8) + ascii(len & 0xff) + data);
-	if (!this.send_chunks(sstr))
+	if (!this.send_chunks(sstr)) {
+		log(LOG_WARNING, "Send failure");
 		return false;
+	}
 	return true;
 };
 BinkP.prototype.recvFrame = function(timeout)
