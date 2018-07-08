@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.106 2018/03/24 21:09:18 deuce Exp $
+// $Id: binkp.js,v 1.107 2018/07/08 21:50:17 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.106 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.107 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -417,11 +417,13 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	if (this.sock === undefined)
 		this.sock = new Socket(SOCK_STREAM, "binkp");
 
+	log(LOG_INFO, "Connecting to "+inet_host+":"+port);
 	if(!this.sock.connect(inet_host, port)) {
 		this.sock = undefined;
 		log(LOG_WARNING, "Connection to "+inet_host+":"+port+" failed.");
 		return false;
 	}
+	log(LOG_DEBUG, "Connection to "+inet_host+":"+port+" successful");
 
 	this.authenticated = undefined;
 	if (password !== '-')
