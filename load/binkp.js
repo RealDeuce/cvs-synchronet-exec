@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.108 2018/07/08 22:10:39 rswindell Exp $
+// $Id: binkp.js,v 1.109 2018/07/08 23:55:18 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -54,7 +54,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.108 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.109 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -240,7 +240,7 @@ BinkP.prototype.send_chunks = function(str) {
 
 	while (sent < str.length) {
 		ret = this.sock.send(str.substr(sent));
-		if (ret >= 0)
+		if (ret > 0)
 			sent += ret;
 		else
 			return false;
