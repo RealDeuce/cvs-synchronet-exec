@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.5 2018/07/08 21:48:45 rswindell Exp $
+// $Id: binkit.js,v 2.6 2018/07/09 01:36:48 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,14 +22,9 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.5 $".split(' ')[1];
+var REVISION = "$Revision: 2.6 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
-
-function log(level, str)
-{
-	return js.global.log(level, "BinkIT: " + str);
-}
 
 FREQIT.add_file = function(filename, bp, cfg)
 {
