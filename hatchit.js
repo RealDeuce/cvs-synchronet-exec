@@ -254,8 +254,8 @@ function hatch_file(file, area, origin)
 				tf.write('Ldesc '+line+'\r\n');
 			});
 		}
-		tf.write('Created by TickIT '+"$Revision: 1.3 $".split(' ')[1]+'\r\n');
-		tf.write('Crc '+file_crc(file.path)+'\r\n');
+		tf.write('Created by TickIT '+"$Revision: 1.4 $".split(' ')[1]+'\r\n');
+		tf.printf('Crc %08lX\r\n', file_crc(file.path));
 		for (i=0; i<tic.path.length; i++)
 			tf.write('Path '+tic.path[i]+'\r\n');
 		for (i=0; i<tic.seenby.length; i++)
