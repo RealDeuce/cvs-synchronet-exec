@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.119 2018/07/28 08:10:21 rswindell Exp $
+// $Id: nntpservice.js,v 1.120 2018/07/28 20:13:21 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.119 $".split(' ')[1];
+const REVISION = "$Revision: 1.120 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -366,18 +366,17 @@ while(client.socket.is_connected && !quit) {
 					if(ini_file.open("r")) {
 						var created = ini_file.iniGetValue(null, "Created", 0);
 						ini_file.close();
-						if(created < compare.getTime() / 1000)
-							continue;
+						if(created >= compare.getTime() / 1000 
+							&& msgbase.open()) {
+							writeln(format("%s %u %u %s"
+								,msg_area.grp_list[g].sub_list[s].newsgroup
+								,msgbase.last_msg
+								,msgbase.first_msg
+								,msg_area.grp_list[g].sub_list[s].can_post ? "y" : "n"
+								));
+							msgbase.close();
+						}
 					}
-					if(msgbase.open!=undefined && msgbase.open()==false)
-						continue;
-					writeln(format("%s %u %u %s"
-						,msg_area.grp_list[g].sub_list[s].newsgroup
-						,msgbase.last_msg
-						,msgbase.first_msg
-						,msg_area.grp_list[g].sub_list[s].can_post ? "y" : "n"
-						));
-					msgbase.close();
 				}
 			}
 
