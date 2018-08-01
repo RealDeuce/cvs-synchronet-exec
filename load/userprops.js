@@ -1,11 +1,11 @@
-// $Id: userprops.js,v 1.1 2018/06/10 08:37:00 rswindell Exp $
+// $Id: userprops.js,v 1.2 2018/08/01 22:34:07 rswindell Exp $
 
 function filename(usernum)
 {
 	return system.data_dir + format("user/%04u.ini", usernum);
 }
 
-function get(section, key, usernum)
+function get(section, key, deflt, usernum)
 {
 	if(!usernum)
 		usernum = user.number;
@@ -18,7 +18,7 @@ function get(section, key, usernum)
 	else if(!key)
 		result = file.iniGetObject(section);
 	else 
-		result = file.iniGetValue(section, key);
+		result = file.iniGetValue(section, key, deflt);
 	file.close();
 	return result;
 }
