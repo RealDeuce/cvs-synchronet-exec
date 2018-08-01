@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.121 2018/07/29 04:45:23 rswindell Exp $
+// $Id: nntpservice.js,v 1.122 2018/08/01 20:57:18 echicken Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.121 $".split(' ')[1];
+const REVISION = "$Revision: 1.122 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -334,10 +334,6 @@ while(client.socket.is_connected && !quit) {
 		case "NEWGROUPS":
 			var date = cmd[1];
 			var time = cmd[2];
-			if(js.global.file_cdate == undefined) {
-				writeln("500 Command Unsupported");
-				break;
-			}
 			if(!date || !time) {
 				writeln("411 no date or time specified");
 				break;
@@ -346,12 +342,12 @@ while(client.socket.is_connected && !quit) {
 			var year, month, day;
 			if(date.length == 6) {
 				year = 2000 + parseInt(date.substr(0, 2));
-				month = parseInt(date.substr(2, 2)) - 1;
-				day = parseInt(date.substr(4, 2));
+				month = date.substr(2, 2) - 1;
+				day = date.substr(4, 2);
 			} else {
 				year = parseInt(date.substr(0, 4));
-				month = parseInt(date.substr(4, 2)) - 1;
-				day = parseInt(date.substr(6, 2));
+				month = date.substr(4, 2) - 1;
+				day = date.substr(6, 2);
 			}
 			var compare;
 			if(zone == "GMT")
