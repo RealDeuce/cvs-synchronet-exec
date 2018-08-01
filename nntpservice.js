@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.123 2018/08/01 21:15:39 echicken Exp $
+// $Id: nntpservice.js,v 1.124 2018/08/01 21:57:05 echicken Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.123 $".split(' ')[1];
+const REVISION = "$Revision: 1.124 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -341,7 +341,14 @@ while(client.socket.is_connected && !quit) {
 			var zone = cmd[3];
 			var year, month, day;
 			if(date.length == 6) {
-				year = 2000 + parseInt(date.substr(0, 2), 10);
+				var ng_year = '' + new Date().getFullYear();
+				year = parseInt(date.substr(0, 2), 10);
+				if (parseInt(year, 10) <= parseInt(ng_year.substr(2, 2), 10)) {
+					year = parseInt(ng_year.substr(0, 2) + year, 10);
+				} else {
+					var ng_pc = parseInt(ng_year.substr(0, 2)) - 1;
+					year = parseInt('' + ng_pc + year, 10);
+				}
 				month = parseInt(date.substr(2, 2), 10) - 1;
 				day = parseInt(date.substr(4, 2), 10);
 			} else {
