@@ -1,4 +1,4 @@
-// $Id: fido_syscfg.js,v 1.18 2018/04/01 20:46:25 rswindell Exp $
+// $Id: fido_syscfg.js,v 1.19 2018/08/09 20:08:27 deuce Exp $
 /*
  * Parse as much as needed from the SBBSecho configuration.
  * v3+ uses sbbsecho.ini.
@@ -22,6 +22,7 @@ function SBBSEchoCfg ()
 {
 	var line;
 	var m;
+	var ecfg;
 
 	this.inb = [];
 	this.pktpass = {};
