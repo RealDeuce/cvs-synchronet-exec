@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.45 2018/08/09 20:20:19 deuce Exp $
+ * $Id: tickit.js,v 1.46 2018/08/14 15:24:28 echicken Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT    
@@ -240,7 +240,7 @@ function forward_tic(tic)
 	var flobase;
 	var pw;
 	var i;
-	var addrs;
+	var addrs = [];
 	var saddr;
 
 	defzone = get_zone(system.fido_addr_list[0]);
