@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.18 2018/02/02 12:59:55 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.19 2018/08/15 03:03:21 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -45,6 +45,7 @@ function external_program_menu(xsec)
 
 	while(bbs.online) {
 
+		console.aborted = false;
 	    if(user.security.restrictions&UFLAG_X) {
 		    write(bbs.text(R_ExternalPrograms));
 		    break;
@@ -132,6 +133,8 @@ function external_program_menu(xsec)
 
 		if(prog_list[i].settings&XTRN_PAUSE)
 			console.pause();
+		else
+			console.line_counter=0;
 	}
 }
 
@@ -141,6 +144,7 @@ function external_section_menu()
 
     while(bbs.online) {
 
+		console.aborted = false;
 	    if(user.security.restrictions&UFLAG_X) {
 		    write(bbs.text(R_ExternalPrograms));
 		    break;
