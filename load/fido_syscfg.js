@@ -1,4 +1,4 @@
-// $Id: fido_syscfg.js,v 1.19 2018/08/09 20:08:27 deuce Exp $
+// $Id: fido_syscfg.js,v 1.20 2018/08/26 21:10:47 rswindell Exp $
 /*
  * Parse as much as needed from the SBBSecho configuration.
  * v3+ uses sbbsecho.ini.
@@ -69,6 +69,8 @@ SBBSEchoCfg.prototype.get_ticpw = function(node)
 			return this.ticpass[n];
 		if (n === 'ALL')
 			break;
+		if (n.indexOf('@') !== -1)
+			n = n.replace(/@.*$/,'');
 		if (n.indexOf('ALL') !== -1)
 			n = n.replace(/[0-9]+[^0-9]ALL$/, 'ALL');
 		else
