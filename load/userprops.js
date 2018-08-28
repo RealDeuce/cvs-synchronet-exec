@@ -1,4 +1,4 @@
-// $Id: userprops.js,v 1.3 2018/08/17 15:50:27 rswindell Exp $
+// $Id: userprops.js,v 1.4 2018/08/28 06:09:29 rswindell Exp $
 
 function filename(usernum)
 {
@@ -30,7 +30,13 @@ function set(section, key, value, usernum)
 	var file = new File(filename(usernum));
 	if(!file.open(file.exists ? 'r+':'w+'))
 		return false;
-	var result = file.iniSetValue(section, key, value);
+	var result;
+	if(!section)
+		result = file.iniSetAllObjects(value);
+	else if(!key)
+		result = file.iniSetObject(section, value);
+	else
+		result = file.iniSetValue(section, key, value);
 	file.close();
 	return result;
 }
