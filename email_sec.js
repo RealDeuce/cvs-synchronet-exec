@@ -1,6 +1,6 @@
 // E-mail Section
 
-// $Id: email_sec.js,v 1.3 2018/08/16 21:10:30 echicken Exp $
+// $Id: email_sec.js,v 1.4 2018/08/28 06:04:16 rswindell Exp $
 
 // Note: this module replaces the old ### E-mail section ### Baja code in exec/*.src
 // replace "call E-mail" with "exec_bin email_sec"
@@ -8,6 +8,7 @@
 load("sbbsdefs.js");
 var text = load({}, "text.js");
 var userprops = load({}, "userprops.js");
+var ini_section = "netmail sent";
 
 const NetmailAddressHistoryLength = 10;
 
@@ -57,17 +58,19 @@ while(bbs.online) {
 			if((netmail&NMAIL_FILE) && !console.noyes("Attach a file"))
 				wm_mode = WM_FILE;
 			console.print(bbs.text(text.EnterNetMailAddress));
-			var addr_list = userprops.get("netmail sent", "address", []) || [];
+			var addr_list = userprops.get(ini_section, "address", []) || [];
 			var addr = console.getstr(60, K_LINE, addr_list);
 			if(!addr || console.aborted)
 				break;
 			if(bbs.netmail(addr, wm_mode)) {
-				if(addr_list.indexOf(addr) == -1)
-					addr_list.unshift(addr);
+				var addr_idx = addr_list.indexOf(addr);
+				if(addr_idx >= 0)
+					addr_list.splice(addr_idx, 1);
+				addr_list.unshift(addr);
 				if(addr_list.length > NetmailAddressHistoryLength)
 					addr_list.length = NetmailAddressHistoryLength;
-				userprops.set("netmail sent", "address", addr_list);
-				userprops.set("netmail sent", "localtime", new Date().toString());
+				userprops.set(ini_section, "address", addr_list);
+				userprops.set(ini_section, "localtime", new Date().toString());
 			}
 			break;
 		case 'Q':	// Quit
