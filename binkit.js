@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.8 2018/09/07 23:54:37 rswindell Exp $
+// $Id: binkit.js,v 2.9 2018/09/08 00:35:14 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.8 $".split(' ')[1];
+var REVISION = "$Revision: 2.9 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -85,8 +85,9 @@ function lock_flow(file)
 		f.date = now;
 		return true;
 	}
-
 	log(LOG_DEBUG, "Locking "+ret.bsy.name);
+	if(!mkpath(ret.bsy.name.slice(-file_getname(ret.bsy.name).length)))
+		log(LOG_WARNING, "MKPATH ERROR " + errno + " (" + errno_str + "): " + ret.bsy.name);
 	if (!ret.bsy.open("wb")) {	// Used to include 'e' mode flag (which never worked)
 		log(LOG_WARNING, "Error " + ret.bsy.error + " creating " + ret.bsy.name);
 		if (!take_lockfile(ret.bsy)) {
