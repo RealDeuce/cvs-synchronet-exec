@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.110 2018/09/07 23:54:48 rswindell Exp $
+// $Id: binkp.js,v 1.111 2018/09/24 02:57:24 echicken Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -55,7 +55,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.110 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.111 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -755,7 +755,7 @@ BinkP.prototype.session = function()
 								break cmd_switch;
 						}
 						// Is this the current "sending" file?
-						if (this.sending.sendas === args[0]) {
+						if (this.sending !== undefined && this.sending.sendas === args[0]) {
 							// Stop waiting for a M_GET
 							this.sending.waitingForGet = false;
 							// Now, simply adjust the position in the sending file
