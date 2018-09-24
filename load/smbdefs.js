@@ -1,4 +1,4 @@
-// $Id: smbdefs.js,v 1.4 2018/09/24 01:40:19 rswindell Exp $
+// $Id: smbdefs.js,v 1.5 2018/09/24 05:05:17 rswindell Exp $
 // Synchronet Message Base constant definitions (from smbdefs.h and smblib.h)								
 								
 								/* Values for MsgBase.status */
@@ -108,5 +108,6 @@ var AGENT_SMTPSYSMSG	=3;		/* Synchronet SMTP server system message */
 								/* Message hfield types */
 var SMB_SUMMARY			= 0x61; /* Not currently used for messages */								
 var SMB_COMMENT 		= 0x62; /* Appear in message text, before body */
+var SMB_TAGS			= 0x69; /* Tags (ala hashtags) for a message */
 var SMB_POLL_ANSWER		= 0xe0;	/* One poll answer (the subject is the question) */
 
