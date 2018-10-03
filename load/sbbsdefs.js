@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.78 2018/06/10 08:34:31 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.79 2018/10/03 23:50:42 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -297,6 +297,7 @@ var	  K_LEFTEXIT	=(1<<19);	/* Allow exit from getstr() with backspace	*/
 var   K_USEOFFSET	=(1<<20);	/* Use console.getstr_offset with getstr()	*/
 var   K_NOSPIN      =(1<<21);	/* Do not honor user's spinning cursor		*/
 var   K_ANSI_CPR	=(1<<22);	/* ANSI Cursor Position Report expected		*/
+var   K_TRIM        =(1<<23);   /* Trim white-space from both ends of str   */
 					    		/********************************************/
 
 						    	/********************************************/
