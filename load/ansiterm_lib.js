@@ -1,4 +1,4 @@
-// $Id: ansiterm_lib.js,v 1.7 2018/02/02 12:34:41 rswindell Exp $
+// $Id: ansiterm_lib.js,v 1.8 2018/10/04 06:38:12 rswindell Exp $
 // vi: tabstop=4
 
 /* Example usage:
@@ -203,6 +203,7 @@ function set_attributes(a)
 
 function send(a,b,c,d)
 {
+	log(LOG_DEBUG, "ansterm.sending: " + this[a][b](c,d));
 	console.write(this[a][b](c,d));
 }
 

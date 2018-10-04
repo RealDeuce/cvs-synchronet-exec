@@ -1,4 +1,4 @@
-// $Id: sbbslist_lib.js,v 1.15 2018/04/12 22:11:06 rswindell Exp $
+// $Id: sbbslist_lib.js,v 1.16 2018/10/04 06:38:42 rswindell Exp $
 
 // Synchronet BBS List (SBL) v4 Library
 
@@ -562,6 +562,8 @@ function syncterm_list(list, dir)
     if(!f.open("w")) {
 		return false;
     }
+	f.writeln(format("; Exported from %s on %s", system.name, new Date().toString()));
+	f.writeln();
     for(i in list) {
         for(j in list[i].service) {
             if(!list[i].service[j].protocol)
