@@ -1,7 +1,8 @@
-// $Id: xbimage.js,v 1.4 2018/02/06 11:21:57 rswindell Exp $
+// $Id: xbimage.js,v 1.5 2018/10/04 06:32:33 rswindell Exp $
 
 // Utility module for creating and displaying XBin image files.
 
+load('sbbsdefs.js');
 var image_lib = load({}, 'xbimage_lib.js');
 var bmplib = load({}, 'bmp_lib.js');
 var cga = load({}, 'cga_defs.js');
@@ -140,7 +141,10 @@ function demo(filename, delay)
 
 	if(global.name) {
 		print("\1n\1hDemonstration beginning: \1y" + global.name + "\1w (Hit '\1cQ\1w' to abort)");
-		console.inkey(0, delay);
+		var key = console.inkey(K_UPPER, delay);
+		console.line_counter = 0;
+		if(key == 'Q')
+			return true;
 	}
 	if(global.delay === undefined)
 		global.delay = delay;
@@ -173,6 +177,7 @@ function demo(filename, delay)
 	if(global.name) {
 		print("\1n\1hDemonstration concluded: \1y" + global.name);
 		console.inkey(0, delay);
+		console.line_counter = 0;
 	}
 }
 
