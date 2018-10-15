@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.10 2018/09/08 19:37:54 rswindell Exp $
+// $Id: binkit.js,v 2.11 2018/10/15 20:40:31 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.10 $".split(' ')[1];
+var REVISION = "$Revision: 2.11 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -324,10 +324,13 @@ function rename_or_move(src, dst)
 	if (file_rename(src, dst))
 		return true;
 	sf = new File(src);
-	if (!sf.open("rb"))
+	if (!sf.open("rb")) {
+		log(LOG_ERR, "Error " + sf.error + " opening " + sf.name);
 		return false;
+	}
 	df = new File(dst);
 	if (!df.open("wb")) {		// Used to include 'e' mode flag (which never worked)
+		log(LOG_ERR, "Error " + df.error + " opening " + df.name);
 		sf.close();
 		return false;
 	}
@@ -340,6 +343,7 @@ function rename_or_move(src, dst)
 			remain = 0x200000;
 		buf = sf.read(remain);
 		if (!df.write(buf)) {
+			log(LOG_ERR, "Error " + df.error + " writing to " + df.name);
 			df.close();
 			df.remove();
 			sf.close();
