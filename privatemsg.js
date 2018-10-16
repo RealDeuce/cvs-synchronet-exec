@@ -2,7 +2,7 @@
 
 // Private Message (Ctrl-P) Hot Key Handler
 
-// $Id: privatemsg.js,v 1.2 2018/10/04 06:23:50 rswindell Exp $
+// $Id: privatemsg.js,v 1.3 2018/10/16 07:43:26 rswindell Exp $
 
 // Install this module in SCFG->External Programs->Global Hot Key Events:
 // Global Hot Key             Ctrl-P        
@@ -55,7 +55,7 @@ while(bbs.online && !(console.aborted)) {
 			break;
 		
 		console.line_counter = 0;
-		bbs.nodesync();
+		bbs.nodesync(true);
 		if(console.line_counter)	// Something was displayed, so redisplay our prompt
 			continue outer_loop;
 	}
@@ -66,11 +66,13 @@ while(bbs.online && !(console.aborted)) {
 			continue;
 		case 'T':   /* Telegram */
 			console.print("Telegram\r\n");
-			bbs.put_telegram();
+			if(!bbs.put_telegram())
+				alert("Failed!");
 			break;
 		case 'M':   /* Message */
 			console.print("Message\r\n");
-			bbs.put_node_message();
+			if(!bbs.put_node_message())
+				alert("Failed!");
 			break;
 		case 'C':   /* Chat */
 			console.print("Chat\r\n");
@@ -78,7 +80,7 @@ while(bbs.online && !(console.aborted)) {
 			bbs.node_action = saved_node_action;
 			break;
 		case 'I':	/* Inter-BBS */
-			console.print("Inter-BBS\r\n");
+			console.print("Inter-BBS\r\n\r\n");
 			load({}, 'sbbsimsg.js');
 			break;
 		default:
