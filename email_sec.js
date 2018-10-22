@@ -1,6 +1,6 @@
 // E-mail Section
 
-// $Id: email_sec.js,v 1.4 2018/08/28 06:04:16 rswindell Exp $
+// $Id: email_sec.js,v 1.5 2018/10/22 06:40:18 rswindell Exp $
 
 // Note: this module replaces the old ### E-mail section ### Baja code in exec/*.src
 // replace "call E-mail" with "exec_bin email_sec"
@@ -57,6 +57,8 @@ while(bbs.online) {
 			console.crlf();
 			if((netmail&NMAIL_FILE) && !console.noyes("Attach a file"))
 				wm_mode = WM_FILE;
+			if(console.aborted)
+				break;
 			console.print(bbs.text(text.EnterNetMailAddress));
 			var addr_list = userprops.get(ini_section, "address", []) || [];
 			var addr = console.getstr(60, K_LINE, addr_list);
