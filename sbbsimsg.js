@@ -25,7 +25,7 @@
    - mspservice.js listening on TCP port 18
 */
 
-// $Id: sbbsimsg.js,v 1.31 2018/10/22 06:33:15 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.32 2018/10/22 07:56:07 rswindell Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -159,7 +159,7 @@ function get_default_dest()
 	if(rx && rx.localtime && (!last_send || new Date(rx.localtime) > new Date(last_send))) {
 		var sys = lib.sys_list[rx.ip_address];
 		if(sys)
-			return rx.name + '@' + sys.addr;
+			return rx.name + '@' + sys.host;
 		return rx.name + '@' + rx.ip_address;
 	}
 	if(addr_list.length)
