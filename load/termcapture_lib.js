@@ -1,4 +1,4 @@
-// $Id: termcapture_lib.js,v 1.5 2017/12/09 12:05:38 rswindell Exp $
+// $Id: termcapture_lib.js,v 1.6 2018/10/22 05:55:26 rswindell Exp $
 
 // Currently, only supports Telnet and RLogin
 
@@ -17,9 +17,13 @@ var max_line_length = 256*1024;
 var error="";
 
 function capture()
-{
+{ 
+	if(!address) {
+		error = "No address specified";
+		return false;
+	}
     if(rows == undefined)
-            rows=24;
+		rows=24;
     if(port == undefined) {
         switch(protocol) {
             case "telnet":  port=23; break;
