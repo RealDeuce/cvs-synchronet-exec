@@ -2,7 +2,7 @@
 
 // New user login module
 
-// $Id: newuser.js,v 1.28 2018/02/02 13:05:42 rswindell Exp $
+// $Id: newuser.js,v 1.29 2018/10/22 06:17:02 rswindell Exp $
 
 // @format.tab-size 8, @format.use-tabs true
 
@@ -24,7 +24,7 @@ if(options && options.qwk_settings)
 console.clear();
 
 if(!user.address.length && user.number>1) {
-	printf("\1y\1hWhere did you hear about this BBS? ");
+	print("\1y\1hWhere did you hear about this BBS?");
 	user.address=console.getstr(30,K_LINE);
 }
 
