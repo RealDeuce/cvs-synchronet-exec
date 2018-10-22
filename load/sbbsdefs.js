@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.79 2018/10/03 23:50:42 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.80 2018/10/22 05:25:37 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -205,6 +205,7 @@ var   USER_WIP 		=(1<<21);	/* Supports WIP terminal emulation			*/
 var   USER_AUTOLOGON=(1<<22);	/* AutoLogon via IP							*/
 var	  USER_HTML		=(1<<23);	/* Using Deuce's HTML terminal (*cough*)	*/
 var	  USER_NOPAUSESPIN=(1<<24);	/* No spinning cursor at pause prompt		*/
+var   USER_PETSCII  = (1<<26);	/* Commodore PET (e.g. C64) terminal		*/
 					    		/********************************************/
 
 					    		/********************************************/
@@ -314,6 +315,7 @@ var   P_HTML		=(1<<5);	/* Message is HTML							*/
 var   P_NOCRLF		=(1<<6);	/* Don't prepend a CRLF	in printfile()		*/
 var   P_WORDWRAP	=(1<<7);	/* Word-wrap long lines for user's terminal	*/
 var   P_CPM_EOF		=(1<<8);	/* Treat Ctrl-Z as End-of-file				*/
+var   P_TRUNCATE    =(1<<9);    /* Truncate (don't display) long lines      */
 							    /********************************************/
 
     							/********************************************/
