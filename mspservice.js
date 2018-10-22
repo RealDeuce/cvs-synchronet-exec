@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Message Send Protocol 2 (RFC 1312/1159)
 
-// $Id: mspservice.js,v 1.9 2018/10/15 22:32:45 rswindell Exp $
+// $Id: mspservice.js,v 1.10 2018/10/22 06:42:00 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -116,7 +116,7 @@ usernum=system.matchuser(recipient,true);
 recip_node=read_str();
 if(recip_node.substr(0,6)=="Node: ")
 	to_node=parseInt(recip_node.substr(6));
-message=read_str(true);
+message = '  ' + read_str(true).replace(/\n/g, '\n  ').trimRight() + '\r\n';
 if(version==2) {
 	sender=read_str();
 	sender_term=read_str();
