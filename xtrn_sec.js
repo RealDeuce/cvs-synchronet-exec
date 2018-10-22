@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.19 2018/08/15 03:03:21 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.20 2018/10/22 06:19:19 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -31,6 +31,9 @@ if((options=load({}, "modopts.js","xtrn_sec")) == null)
 
 if(options.multicolumn == undefined)
 	options.multicolumn = true;
+
+if(console.screen_columns < 80)
+	options.multicolumn = false;
 
 function sort_by_name(a, b)
 { 
@@ -69,7 +72,7 @@ function external_program_menu(xsec)
 			break;
 		}
 
-		if(file_exists(system.text_dir + "menu/xtrn" + (xtrn_area.sec_list[xsec].number+1) + ".asc")) {
+		if(bbs.menu_exists("xtrn" + (xtrn_area.sec_list[xsec].number+1))) {
 			bbs.menu("xtrn" + (xtrn_area.sec_list[xsec].number+1)); 
 		}
 		else {
@@ -121,7 +124,7 @@ function external_program_menu(xsec)
 		if((i=console.getnum(prog_list.length))<1)
 			break;
 		i--;
-		if(file_exists(system.text_dir + "menu/xtrn/" + prog_list[i].code + ".*")) {
+		if(bbs.menu_exists("xtrn/" + prog_list[i].code)) {
 			bbs.menu("xtrn/" + prog_list[i].code);
 			console.line_counter=0;
 		}
@@ -162,7 +165,7 @@ function external_section_menu()
 		bbs.node_action=NODE_XTRN;
 		bbs.node_sync();
 
-		if(file_exists(system.text_dir + "menu/xtrn_sec.asc")) {
+		if(bbs.menu_exists("xtrn_sec")) {
 			bbs.menu("xtrn_sec");
 			xsec=console.getnum(sec_list.length);
 			if(xsec<=0)
