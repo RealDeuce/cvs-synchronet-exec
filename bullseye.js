@@ -3,7 +3,7 @@
 // Bulletins written in Baja by Rob Swindell
 // Translated to JS by Stehen Hurd
 
-// $Id: bullseye.js,v 1.4 2007/08/16 19:31:12 rswindell Exp $
+// $Id: bullseye.js,v 1.5 2018/10/25 23:04:59 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -52,13 +52,8 @@ while((str=file.readln())!=null) {
 
 menu:
 while(1) {
-	if(html) {
-		console.printfile(system.text_dir+"bullseye.html");
-	}
-	else {
-		console.printfile(system.text_dir+"bullseye.asc");
-		write("\001n\r\n\001b\001hEnter number of bulletin to view or press (\001wENTER\001b) to continue: \001w");
-	}
+	bbs.menu("../bullseye");
+	write("\001n\r\n\001b\001hEnter number of bulletin to view or press (\001wENTER\001b) to continue: \001w");
 	b=console.getnum(total);
 	if(b<1)
 		exit(0);
