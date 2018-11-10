@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.11 2018/10/15 20:40:31 rswindell Exp $
+// $Id: binkit.js,v 2.12 2018/11/10 01:20:23 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.11 $".split(' ')[1];
+var REVISION = "$Revision: 2.12 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 
@@ -95,7 +95,7 @@ function lock_flow(file)
 			return undefined;
 		}
 	}
-	ret.bsy.writeln("BinkIT");
+	ret.bsy.writeln(version_notice + " args: " + argv.join(' '));
 	ret.bsy.flush();
 	log(LOG_DEBUG, "Lock successful.");
 	return ret;
@@ -868,6 +868,7 @@ function inbound_auth_cb(pwd, bp)
 		}
 	}
 
+	log(LOG_INFO, "Remote addresses: " + bp.remote_addrs.join(' '));
 	bp.remote_addrs.forEach(function(addr) {
 		var cpw;
 		if (bp.cb_data.binkitcfg.node[addr] !== undefined) {
