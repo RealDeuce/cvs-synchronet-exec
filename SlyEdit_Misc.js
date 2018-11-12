@@ -1,4 +1,4 @@
-// $Id: SlyEdit_Misc.js,v 1.44 2018/02/06 20:18:49 nightfox Exp $
+// $Id: SlyEdit_Misc.js,v 1.45 2018/11/12 01:19:45 nightfox Exp $
 
 /* This file declares some general helper functions and variables
  * that are used by SlyEdit.
@@ -3487,7 +3487,11 @@ function postMsgToSubBoard(pSubBoardCode, pTo, pSubj, pMessage, pFromUserNum)
 	// then return an error.
 	var fromUser = new User(pFromUserNum);
 	if (fromUser.settings & USER_DELETED)
+	{
+		//delete fromUser;
+		fromUser = undefined; // Destructs the object now, rather than with 'delete'
 		return ("The 'from' user is marked as deleted");
+	}
 
 	// Open the sub-board so that the message can be posted there.
 	var msgbase = new MsgBase(pSubBoardCode);
@@ -3512,7 +3516,14 @@ function postMsgToSubBoard(pSubBoardCode, pTo, pSubj, pMessage, pFromUserNum)
 	msgbase.close();
 
 	if (!saveRetval)
+	{
+		//delete fromUser;
+		fromUser = undefined; // Destructs the object now, rather than with 'delete'
 		return ("Error saving the message: " + msgbase.last_error);
+	}
+
+	//delete fromUser;
+	fromUser = undefined; // Destructs the object now, rather than with 'delete'
 
 	return "";
 }
