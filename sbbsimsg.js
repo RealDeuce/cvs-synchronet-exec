@@ -25,7 +25,7 @@
    - mspservice.js listening on TCP port 18
 */
 
-// $Id: sbbsimsg.js,v 1.32 2018/10/22 07:56:07 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.33 2018/11/18 23:03:29 rswindell Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -86,8 +86,8 @@ function list_user(user, sys)
 		,user.name
 		,action
 		,system.secondstr(user.timeon)
-		,user.age
-		,user.sex
+		,user.age ? user.age : ''
+		,user.sex ? user.sex : ''
 		));
 }
 
