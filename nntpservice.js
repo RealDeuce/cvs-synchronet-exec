@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.126 2018/10/17 07:28:03 rswindell Exp $
+// $Id: nntpservice.js,v 1.127 2018/11/20 17:36:46 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.126 $".split(' ')[1];
+const REVISION = "$Revision: 1.127 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -454,18 +454,28 @@ while(client.socket.is_connected && !quit) {
 				break;
 			}
 
-			if(cmd[0].toUpperCase()=="GROUP")
+			if(cmd[0].toUpperCase()=="GROUP") {
+				var total_msgs = msgbase.total_msgs;
+				var count = 0;
+				for(i=0;i<total_msgs;i++) {
+					var idx=msgbase.get_msg_index(/* by_offset */true,i);
+					if(idx==null)
+						continue;
+					if(idx.attr&MSG_DELETE)	/* marked for deletion */
+						continue;
+					count++;
+				}
 				writeln(format("211 %u %u %d %s group selected"
-					,msgbase.total_msgs	// articles in group
+					,count	// articles in group
 					,msgbase.first_msg
-					,(msgbase.total_msgs==0) ? (msgbase.first_msg-1):msgbase.last_msg
+					,(count==0) ? (msgbase.first_msg-1):msgbase.last_msg
 					,selected.newsgroup
 					));
-			else {	// LISTGROUP
+			} else {	// LISTGROUP
 				writeln("211 list of article numbers follow");
 				var total_msgs = msgbase.total_msgs;
 				for(i=0;i<total_msgs;i++) {
-					idx=msgbase.get_msg_index(/* by_offset */true,i);
+					var idx=msgbase.get_msg_index(/* by_offset */true,i);
 					if(idx==null)
 						continue;
 					if(idx.attr&MSG_DELETE)	/* marked for deletion */
