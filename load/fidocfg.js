@@ -1,4 +1,4 @@
-// $Id: fidocfg.js,v 1.34 2018/09/07 23:54:48 rswindell Exp $
+// $Id: fidocfg.js,v 1.35 2018/12/10 16:00:48 echicken Exp $
 require('fido.js', 'FIDO');
 
 /*
@@ -42,15 +42,11 @@ function TickITCfg() {
 
 	this.cfgfile = tcfg.name;
 	function get_bool(val) {
-		if (val === undefined)
-			return false;
-		switch(val.toUpperCase()) {
-		case 'YES':
-		case 'TRUE':
-		case 'ON':
-			return true;
-		}
-		return false;
+    if (typeof val == 'undefined') return false;
+    if (typeof val == 'boolean') return val;
+    if (typeof val == 'number') return val != 0;
+		if (typeof val != 'string') return false;
+    return ['TRUE', 'YES', 'ON'].indexOf(val.toUpperCase()) > -1;
 	}
 
 	function lcprops(obj)
