@@ -1,22 +1,22 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.48 2018/09/30 19:04:46 rswindell Exp $
+ * $Id: tickit.js,v 1.49 2018/12/10 21:34:59 echicken Exp $
  *
  * How to set up... add a timed event:
- * Internal Code                   TICKIT    
- * Start-up Directory                        
+ * Internal Code                   TICKIT
+ * Start-up Directory
  * Command Line                    ?tickit.js
- * Enabled                         Yes       
- * Execution Node                  1         
- * Execution Months                Any       
- * Execution Days of Month         Any       
- * Execution Days of Week          None      
- * Execution Time                  00:00     
- * Requires Exclusive Execution    No        
- * Force Users Off-line For Event  No        
- * Native Executable               No        
- * Use Shell to Execute            No        
- * Background Execution            No        
+ * Enabled                         Yes
+ * Execution Node                  1
+ * Execution Months                Any
+ * Execution Days of Month         Any
+ * Execution Days of Week          None
+ * Execution Time                  00:00
+ * Requires Exclusive Execution    No
+ * Force Users Off-line For Event  No
+ * Native Executable               No
+ * Use Shell to Execute            No
+ * Background Execution            No
  * Always Run After Init/Re-init   Yes
  *
  * And set up a semaphore in your mailer... for binkd:
@@ -171,7 +171,7 @@ function process_tic(tic)
 	// TODO: optionally delete replaced files even if it's not an overwrite
 	if (file_exists(path+tic.file) && !force_replace && !force_replace_area) {
 		if (tic.replaces === undefined || !wildmatch(tic.file, tic.replaces)) {
-			log(LOG_ERROR, "'"+tic.full_path+"' already exists in '"+path+"' and TIC does not have matching Replaces line.");
+            log(LOG_ERROR, format('"%s" already exists in "%s", but TIC Replaces line is "%s"', tic.file, path, tic.replaces));
 			return false;
 		}
 		else {
