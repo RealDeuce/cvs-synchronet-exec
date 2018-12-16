@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.36 2018/02/23 08:09:12 deuce Exp $
+// $Id: jsdocs.js,v 1.37 2018/12/16 09:04:04 deuce Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -191,6 +191,8 @@ log(LOG_ERR, "Prop: "+prop);
 			&& prop!="global"
 			&& prop!="scope"
             ) {
+			if(obj[prop]===null)
+				continue;
 			if(obj[prop].length!=undefined) {
 				if(typeof(obj[prop][0])=="object") {	// array ?
 					document_object(prop_name /*+ "[]"*/,obj[prop][0], "array");
