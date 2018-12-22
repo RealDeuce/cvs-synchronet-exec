@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.42 2018/02/06 11:22:47 rswindell Exp $
+// $Id: str_cmds.js,v 1.43 2018/12/22 22:52:54 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -162,8 +162,9 @@ function str_cmds(str)
 			writeln("NS <#>\tDisplays the current node stats for node #.");
 		if(word=="NS") {
 			str=str.substr(2);
-			str=str.replace(/^\s+/,"");
-			bbs.node_stats(parseInt(str));
+			i=parseInt(get_arg(str));
+			if(!i) i=bbs.node_num;
+			bbs.node_stats(i);
 			return;
 		}
 
