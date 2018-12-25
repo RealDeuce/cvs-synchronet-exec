@@ -88,16 +88,23 @@ function authorize_order(acme, order, webroots)
 							if (!mkpath(webroots[i]+".well-known/acme-challenge"))
 								throw("Unable to create "+webroots[i]+".well-known/acme-challenge");
 							tmp = new File(webroots[i]+".well-known/acme-challenge/webctrl.ini");
-							tmp.open("w");
-							tmp.writeln("AccessRequirements=");
-							tmp.close();
+							if(tmp.open("w")) {
+								tmp.writeln("AccessRequirements=");
+								tmp.close();
+							} else
+								log(LOG_ERR, "Error " + errno + " opening/creating " + tmp.name);
 						}
 						token = new File(webroots[i]+".well-known/acme-challenge/"+authz.challenges[challenge].token);
 						if (tokens.indexOf(token.name) < 0) {
-							token.open("w");
-							token.write(authz.challenges[challenge].token+"."+acme.thumbprint());
-							tokens.push(token.name);
-							token.close();
+							log(LOG_DEBUG, "Creating " + token.name);
+							if(token.open("w")) {
+								token.write(authz.challenges[challenge].token+"."+acme.thumbprint());
+								tokens.push(token.name);
+								token.close();
+							} else
+								log(LOG_ERR, "Error " + errno + " opening/creating " + token.name);
+						} else {
+							log(LOG_WARNING, "Token not found: " + token.name);
 						}
 					}
 					acme.accept_challenge(authz.challenges[challenge]);
@@ -276,7 +283,7 @@ if (renew || rekey || revoke || print_tos) {
 	 */
 	settings.open(settings.exists ? "r+" : "w+");
 	key_id = settings.iniGetValue("key_id", new_host, undefined);
-	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.33 $".split(' ')[1])});
+	acme = new ACMEv2({key:rsa, key_id:key_id, host:new_host, dir_path:dir_path, user_agent:'LetSyncrypt '+("$Revision: 1.34 $".split(' ')[1])});
 	if (renew || rekey || revoke) {
 		if (acme.key_id === undefined) {
 			if (TOSAgreed)
