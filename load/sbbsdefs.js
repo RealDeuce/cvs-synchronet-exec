@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.81 2018/12/25 02:29:24 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.82 2018/12/25 02:30:24 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -521,10 +521,10 @@ var   EVENT_DOWNLOAD=7;			/* Execute after file downloaded			*/
 								/********************************************/
 								/* Bits for xtrn_area.event[].settings		*/
 								/********************************************/
-var EVENT_EXCL		(1<<0) 		/* Exclusive execution required				*/
-var EVENT_FORCE		(1<<1) 		/* Force users off-line for event			*/
-var EVENT_INIT		(1<<2)		/* Always run event after BBS init/re-init	*/
-var EVENT_DISABLED	(1<<3)		/* Disabled									*/
+var EVENT_EXCL		=(1<<0);	/* Exclusive execution required				*/
+var EVENT_FORCE		=(1<<1);	/* Force users off-line for event			*/
+var EVENT_INIT		=(1<<2);	/* Always run event after BBS init/re-init	*/
+var EVENT_DISABLED	=(1<<3);	/* Disabled									*/
 								/********************************************/
 								
 					    		/********************************************/
