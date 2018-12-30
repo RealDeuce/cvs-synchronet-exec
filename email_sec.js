@@ -1,6 +1,6 @@
 // E-mail Section
 
-// $Id: email_sec.js,v 1.5 2018/10/22 06:40:18 rswindell Exp $
+// $Id: email_sec.js,v 1.6 2018/12/30 08:28:50 rswindell Exp $
 
 // Note: this module replaces the old ### E-mail section ### Baja code in exec/*.src
 // replace "call E-mail" with "exec_bin email_sec"
@@ -20,10 +20,10 @@ while(bbs.online) {
 	var cmdkeys = "SARUFNKQ?\r";
 	switch(console.getkeys(cmdkeys,K_UPPER)) {
 		case 'R':	// Read your mail
-			bbs.read_mail(MAIL_YOUR, user.number);
+			bbs.read_mail(MAIL_YOUR, user.number, LM_REVERSE);
 			break;
 		case 'U':	// Read your un-read mail
-			bbs.read_mail(MAIL_YOUR, user.number, LM_UNREAD);
+			bbs.read_mail(MAIL_YOUR, user.number, LM_UNREAD|LM_REVERSE);
 			break;
 		case 'K':	// Read/Kill sent mail
 			bbs.read_mail(MAIL_SENT, user.number);
