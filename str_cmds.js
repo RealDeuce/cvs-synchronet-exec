@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.44 2018/12/25 02:48:38 rswindell Exp $
+// $Id: str_cmds.js,v 1.45 2019/01/01 13:38:51 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -122,12 +122,10 @@ function str_cmds(str)
 
 		if(str=="HELP")
 			writeln("EDIT\tEdits a specified file using your message editor.");
-		if(str=="EDIT") {
+		if(word=="EDIT") {
 			if(bbs.check_syspass()) {
-				write(bbs.text(Filename));
-				if((str=console.getstr("",60))!=null) {
-					console.editfile(str);
-				}
+				str=str.substr(4);
+				console.editfile(get_filename(str));
 			}
 		}
 
