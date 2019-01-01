@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.41 2018/10/22 06:23:17 rswindell Exp $
+// $Id: sbbslist.js,v 1.42 2019/01/01 13:32:24 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.41 $".split(' ')[1];
+var REVISION = "$Revision: 1.42 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -2341,7 +2341,7 @@ function main()
 				var index = lib.system_index(list, system.name);
 				if(index < 0) {
 					alert("System '" + system.name + "' does not exist");
-					exit(-1);
+					exit(0);
 				}
 				var bbs=list[index];
 				bbs.software = "Synchronet";
