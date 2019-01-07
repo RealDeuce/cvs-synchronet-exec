@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.113 2019/01/07 05:50:44 rswindell Exp $
+// $Id: binkp.js,v 1.114 2019/01/07 07:17:35 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -55,7 +55,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.113 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.114 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -99,6 +99,9 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	this.remote_operator = undefined;
 	this.remote_capabilities = undefined;
 	this.remote_info = {};
+	this.connect_host = undefined;
+	this.connect_port = undefined;
+	this.connect_error = undefined;
 
 	this.sent_files = [];
 	this.failed_sent_files = [];
@@ -423,7 +426,10 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 		this.sock = new Socket(SOCK_STREAM, "binkp");
 
 	log(LOG_INFO, "Connecting to "+inet_host+":"+port);
+	this.connect_host = inet_host;
+	this.connect_port = port;
 	if(!this.sock.connect(inet_host, port)) {
+		this.connect_error = this.sock.error;
 		this.sock = undefined;
 		log(LOG_WARNING, "Connection to "+inet_host+":"+port+" failed.");
 		return false;
