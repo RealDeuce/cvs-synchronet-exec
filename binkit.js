@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.16 2019/01/07 07:18:42 rswindell Exp $
+// $Id: binkit.js,v 2.17 2019/01/07 20:06:32 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.16 $".split(' ')[1];
+var REVISION = "$Revision: 2.17 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -1051,10 +1051,12 @@ function run_inbound(sock)
 	success = bp.accept(sock, inbound_auth_cb);
 	
 	// Statistics
-	var addr = bp.remote_addrs[0];
-	if(addr) {
-		update_stats(stats.inbound[success], addr, bp, sock.remote_ip_address);
-		update_totals(stats.totals, addr, bp, false, success);
+	if(bp.remote_addrs !== undefined && bp.remote_addrs.length) {
+		var addr = bp.remote_addrs[0];
+		if(addr) {
+			update_stats(stats.inbound[success], addr, bp, sock.remote_ip_address);
+			update_totals(stats.totals, addr, bp, false, success);
+		}
 	}
 	callout_done(bp);
 
