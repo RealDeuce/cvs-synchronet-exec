@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.15 2019/01/07 06:10:00 rswindell Exp $
+// $Id: binkit.js,v 2.16 2019/01/07 07:18:42 rswindell Exp $
 
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.15 $".split(' ')[1];
+var REVISION = "$Revision: 2.16 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -39,8 +39,14 @@ function update_stats(stats, addr, bp, host)
 		stats[addr].caps = bp.remote_capabilities;
 	if(bp.remote_ver)
 		stats[addr].vers = bp.remote_ver;
-	if(host)
+	if(bp.connect_host)
+		stats[addr].host = bp.connect_host;
+	else if(host)
 		stats[addr].host = host;
+	if(bp.connect_port)
+		stats[addr].port = bp.connect_port;
+	if(bp.connect_error !== undefined)
+		stats[addr].connect_error = bp.connect_error;
 	for(var i in bp.remote_info)
 		stats[addr]['info.' + i.toLowerCase()] = bp.remote_info[i];
 
