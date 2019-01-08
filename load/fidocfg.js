@@ -1,4 +1,4 @@
-// $Id: fidocfg.js,v 1.35 2018/12/10 16:00:48 echicken Exp $
+// $Id: fidocfg.js,v 1.36 2019/01/08 08:05:27 rswindell Exp $
 require('fido.js', 'FIDO');
 
 /*
@@ -334,7 +334,7 @@ function BinkITCfg()
 				return;		// Ignore addresses with wildcards (e.g. 'ALL')
 			}
 			this.node[sec] = {};
-			this.node[sec].pass = f.iniGetValue(section, 'SessionPwd');
+			this.node[sec].pass = f.iniGetValue(section, 'SessionPwd', '');
 			this.node[sec].nomd5 = f.iniGetValue(section, 'BinkpAllowPlainAuth', false);
 			this.node[sec].nocrypt = f.iniGetValue(section, 'BinkpAllowPlainText', false);
 			this.node[sec].plain_auth_only = f.iniGetValue(section, 'BinkpPlainAuthOnly', false);
