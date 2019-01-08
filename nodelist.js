@@ -1,4 +1,4 @@
-// $Id: nodelist.js,v 1.5 2019/01/08 07:09:56 rswindell Exp $
+// $Id: nodelist.js,v 1.6 2019/01/08 07:28:54 rswindell Exp $
 
 // Node Listing / Who's Online display script
 
@@ -167,7 +167,7 @@ function nodelist(active, listself)
 		if(node_misc&NODE_MSGW)
 			flags += 'M';
 		if(node_misc&NODE_NMSG)
-			flasg += 'N';
+			flags += 'N';
 		if(node_misc&NODE_POFF)
 			flags += 'P';
 		if(flags)
