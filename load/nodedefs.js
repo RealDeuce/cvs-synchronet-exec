@@ -2,7 +2,7 @@
 
 /* Synchronet node.dab file constants definitions - (mostly bit-fields) */
 
-/* $Id: nodedefs.js,v 1.9 2019/01/08 02:35:30 rswindell Exp $ */
+/* $Id: nodedefs.js,v 1.10 2019/01/08 05:30:14 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -114,9 +114,9 @@ var NodeAction		=[			/* Node.action value descriptions			*/
 	,"transferring bidirectional"
 	,"listing files"
 	,"logging on"
-	,"in local chat with %s"
+	,"in local chat with sysop"
 	,"in multinode chat"
-	,"chatting with %s"
+	,"chatting with The Guru"
 	,"in chat section"
 	,"performing sysop activities"
 	,"transferring QWK packet"
