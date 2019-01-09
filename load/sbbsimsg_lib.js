@@ -2,7 +2,7 @@
 
 // Synchronet inter-bbs instant message library
 
-// $Id: sbbsimsg_lib.js,v 1.2 2018/10/15 22:57:37 rswindell Exp $
+// $Id: sbbsimsg_lib.js,v 1.3 2019/01/09 11:32:45 rswindell Exp $
 
 load("sockdefs.js");	// SOCK_DGRAM
 
@@ -144,14 +144,15 @@ function receive_active_users()
 	return sock.recvfrom(0x10000);
 }
 
+// Cancel listening if callback returns 'true'
 function poll_systems(sent, interval, timeout, callback)
 {
 	var replies = 0;
 	var begin = new Date();
 	for(var loop = 0; replies < sent && new Date().valueOf()-begin.valueOf() < timeout; loop++)
 	{
-		if(callback)
-			callback(loop);
+		if(callback && callback(loop))
+			break;
 		if(!sock.poll(interval))
 			continue;
 
