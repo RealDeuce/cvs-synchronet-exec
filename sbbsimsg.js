@@ -25,7 +25,7 @@
    - mspservice.js listening on TCP port 18
 */
 
-// $Id: sbbsimsg.js,v 1.34 2019/01/01 13:37:19 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.35 2019/01/09 11:33:19 rswindell Exp $
 
 load("sbbsdefs.js");
 load("nodedefs.js");
@@ -58,6 +58,8 @@ for(i=0; i<argc; i++) {
 		function poll_callback(loop)
 		{
 			printf("%c\1[", "/-\\|"[loop%4]);
+			if(console.inkey(0))
+				return true;
 		}
 		lib.poll_systems(sent, 0.25, timeout, poll_callback);
 		list_users();
