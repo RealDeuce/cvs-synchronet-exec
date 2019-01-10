@@ -1,4 +1,4 @@
-// $Id: presence_lib.js,v 1.3 2019/01/10 11:28:04 rswindell Exp $
+// $Id: presence_lib.js,v 1.4 2019/01/10 11:54:44 rswindell Exp $
 
 // Library for reporting user presence (e.g. BBS node listings, who's online)
 // Much of the code was derived from src/sbbs3/getnode.cpp: nodelist(), whos_online(), printnodedat()
@@ -257,7 +257,7 @@ function web_users(max_inactivity)
 			location: user.location,
 			logontime: file_date(e), // TODO: this is probably not the actual logon time, but more like "last activity" time (?)
 			do_not_disturb: (user.chat_settings & CHAT_NOPAGE) ? true : undefined,
-			msg_waiting: file_exists(format(system.data_dir + "msgs/%04u.msg", un)) ? true : undefined
+			msg_waiting: (file_size(format(system.data_dir + "msgs/%04u.msg", un)) > 0) ? true : undefined
 			});
 	});
 	return users;
