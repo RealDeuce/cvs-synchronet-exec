@@ -1,4 +1,4 @@
-// $Id: presence_lib.js,v 1.5 2019/01/10 13:55:59 echicken Exp $
+// $Id: presence_lib.js,v 1.6 2019/01/10 18:29:43 rswindell Exp $
 
 // Library for reporting user presence (e.g. BBS node listings, who's online)
 // Much of the code was derived from src/sbbs3/getnode.cpp: nodelist(), whos_online(), printnodedat()
@@ -242,7 +242,7 @@ function web_users(max_inactivity)
 
     sessions.forEach(function (e) {
 		const base = file_getname(e).replace(file_getext(e), '');
-        const un = parseInt(base);
+        const un = parseInt(base, 10);
         if (isNaN(un) || un < 1 || un > lastuser) return;
         if (time() - file_date(e) >= max_inactivity)
 			return;
