@@ -2,7 +2,7 @@
 
 # PCBoard v15.1 menu/command emulation
 
-# $Id: pcboard.src,v 1.10 2018/06/10 09:09:58 rswindell Exp $
+# $Id: pcboard.src,v 1.11 2019/01/11 04:56:00 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -234,8 +234,12 @@ cmdstr I
 	menu pcboard/welcome
 	end_cmd
 
+cmdstr NODES
+	exec_bin "nodelist"
+	end_cmd
+    
 cmdstr WHO
-	nodelist_users
+	exec_bin "nodelist -active"
 	end_cmd
 
 cmdstr CHAT

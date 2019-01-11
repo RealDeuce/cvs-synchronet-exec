@@ -2,7 +2,7 @@
 
 # DOS shell for Synchronet version 2 systems
 
-# $Id: sdos.src,v 1.11 2017/11/07 03:28:25 rswindell Exp $
+# $Id: sdos.src,v 1.12 2019/01/11 04:56:01 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -468,7 +468,13 @@ end_cmd
 
 compare_word nodes
 if_true
-	nodelist_all
+	exec_bin "nodelist"
+	return
+	end_if
+    
+compare_word who
+if_true
+	exec_bin "nodelist -active"
 	return
 	end_if
 

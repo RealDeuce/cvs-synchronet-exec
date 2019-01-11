@@ -1,6 +1,6 @@
 # wildcat.src
 
-# $Id: wildcat.src,v 1.13 2018/06/10 09:09:58 rswindell Exp $
+# $Id: wildcat.src,v 1.14 2019/01/11 04:56:01 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -98,7 +98,7 @@ cmdkey Y
 	end_cmd
 
 cmdkey W
-	nodelist_users
+	exec_bin "nodelist -active"
 	crlf
 	pause
 	end_cmd

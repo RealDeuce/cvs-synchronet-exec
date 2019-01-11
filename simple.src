@@ -2,7 +2,7 @@
 
 # Simple Synchronet Command Shell - for beginner/first-time users
 
-# $Id: simple.src,v 1.9 2011/08/31 00:26:18 rswindell Exp $
+# $Id: simple.src,v 1.10 2019/01/11 04:56:01 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -198,7 +198,7 @@ cmdstr P
 #List users online
 cmdstr L
 	cls
-	nodelist_users
+	exec_bin "nodelist -active"
 	end_cmd
 
 #List files
