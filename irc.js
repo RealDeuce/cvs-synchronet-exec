@@ -3,14 +3,14 @@
 // Deuce's IRC client module for Synchronet
 // With the "Manny Mods".  :-)
 
-// $Id: irc.js,v 1.49 2015/08/23 21:50:27 deuce Exp $
+// $Id: irc.js,v 1.50 2019/01/12 01:50:33 rswindell Exp $
 
 // disable auto-termination.
 var old_auto_terminate=js.auto_terminate;
 js.on_exit("js.auto_terminate=old_auto_terminate");
 js.auto_terminate=false;
 
-const REVISION = "$Revision: 1.49 $".split(' ')[1];
+const REVISION = "$Revision: 1.50 $".split(' ')[1];
 const SPACEx80 = "                                                                                ";
 const MAX_HIST = 50;
 
@@ -30,8 +30,8 @@ var quit=0;
 var nick=user.handle;
 var nicks=new Array();
 var loading=true;
-var init_passthru=console.ctrlkey_passthru;
 var real_names=true;
+js.on_exit("console.ctrlkey_passthru = " + console.ctrlkey_passthru);
 console.ctrlkey_passthru=~(134217728);
 
 /* Command-line options go BEFORE command-line args */
@@ -835,7 +835,6 @@ function get_nick(prefix)  {
 }
 
 function clean_exit()  {
-	console.ctrlkey_passthru=init_passthru;
 	exit();
 }
 
