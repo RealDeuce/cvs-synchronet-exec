@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.53 2019/01/12 01:35:43 rswindell Exp $
+ * $Id: tickit.js,v 1.54 2019/01/17 17:57:07 rswindell Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT
@@ -32,7 +32,7 @@ var tickit = new TickITCfg();
 var files_bbs={};
 var force_replace = false;
 
-const REVISION = "$Revision: 1.53 $".split(' ')[1];
+const REVISION = "$Revision: 1.54 $".split(' ')[1];
 
 var tickitVersion = "TickIT "+REVISION;
 // emit tickitVersion to the log for general purposes - wk42
@@ -441,6 +441,7 @@ function forward_tic(tic)
 		}
 		// write existing Path lines to the new TIC...
 		for (i=0; i<tic.path.length; i++)
+			tf.write('Path '+tic.path[i]+'\r\n');
 		// now generate our Path line with date/time stamp in UTC per
 		// http://ftsc.org/docs/fts-5006.001 and write it to the TIC - wk42
 		//
