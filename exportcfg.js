@@ -1,4 +1,4 @@
-// $Id: exportcfg.js,v 1.1 2019/01/15 04:37:01 rswindell Exp $
+// $Id: exportcfg.js,v 1.2 2019/01/19 01:13:52 rswindell Exp $
 // vi: tabstop=4
 
 // *****************************************************************
@@ -54,6 +54,7 @@ function usage(msg)
 	writeln("\t[[-grp=<msg_area.grp.name | file_area.lib.name | xtrn_area.sec.code>] [...]]");
 	writeln("\t[-<option>[=<value>] [...]]");
 	writeln("\t[[[property][=<printf-format> [-upper | -lower | -under]] [...]]");
+	writeln("\t[[-ex=<property>] [...]]");
 	writeln();
 	writeln("cfg-types (choose one):");
 	for(var c in cfgtypes)
