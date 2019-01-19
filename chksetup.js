@@ -1,4 +1,4 @@
-// $Id: chksetup.js,v 1.1 2019/01/19 02:54:51 rswindell Exp $
+// $Id: chksetup.js,v 1.2 2019/01/19 22:48:18 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
@@ -15,10 +15,10 @@ function check_codes(desc, grp_list, sub_list)
 			var sub = grp_list[g][sub_list][s];
 			var code = sub.code.toUpperCase();
 			if(list.indexOf(code) >= 0)
-				output.push("Duplicate " + desc +" internal code: " + code);
+				output.push("Duplicate " + desc +" internal code in " + grp_list[g].name + ": " + code);
 			else {
 				if(file_getname(code) != code)
-					output.push("Invalid " + desc + " internal code: " + code);
+					output.push("Invalid " + desc + " internal code in " + grp_list[g].name + ": " + code);
 				list.push(code);
 			}
 		}
