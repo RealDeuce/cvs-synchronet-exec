@@ -1,4 +1,4 @@
-// $Id: fingerservice.js,v 1.46 2019/01/10 11:33:28 rswindell Exp $
+// $Id: fingerservice.js,v 1.47 2019/01/19 07:49:18 rswindell Exp $
 // vi: tabstop=4
 
 // Synchronet Service for the Finger protocol (RFC 1288)
@@ -44,7 +44,7 @@
 // disable those elements.
 
 "use strict";
-const REVISION = "$Revision: 1.46 $".split(' ')[1];
+const REVISION = "$Revision: 1.47 $".split(' ')[1];
 
 var active_users = false;	// Active-Users/SYSTAT protocol mode (Finger when false)
 var options = load({}, 'modopts.js', 'fingerservice');
@@ -176,7 +176,7 @@ if(request=="") {	// no specific user requested, give list of active users
 		,options.include_age ? dashes : ""
 		,options.include_gender ? dashes : ""
 		,dashes));
-	var u = new User();
+	var u = new User;
 	for(n=0;n<system.node_list.length;n++) {
 		var node = system.node_list[n];
 		if(node.status!=NODE_INUSE)
@@ -307,7 +307,7 @@ if(request.charAt(0)=='?' || request.charAt(0)=='.') {	// Handle "special" reque
 			break;
 
 		case "active-users.json":
-			var u = new User();
+			var u = new User;
 			var list = [];
 			for(var n=0;n<system.node_list.length;n++) {
 				var node = system.node_list[n];
