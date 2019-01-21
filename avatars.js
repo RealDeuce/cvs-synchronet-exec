@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.35 2018/09/11 07:28:49 rswindell Exp $
+// $Id: avatars.js,v 1.36 2019/01/21 10:22:52 rswindell Exp $
 
-var REVISION = "$Revision: 1.35 $".split(' ')[1];
+var REVISION = "$Revision: 1.36 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -330,7 +330,7 @@ function export_users(msgbase, realnames, all)
 		var u = new User(n);
 		if((u.settings&USER_DELETED)
 			|| !u.stats.total_posts			// No need to export avatars for users that have never posted
-			|| (u.security_restrictions&(UFLAG_P|UFLAG_N|UFLAG_Q)) // or will never post
+			|| (u.security.restrictions&(UFLAG_P|UFLAG_N|UFLAG_Q)) // or will never post
 			) {
 			if(verbosity)
 				printf("User #%u hasn't or can't post, skipping\r\n", n);
