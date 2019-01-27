@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.83 2018/12/30 08:12:30 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.84 2019/01/27 01:36:33 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -33,9 +33,9 @@
  * Note: If this box doesn't appear square, then you need to fix your tabs.	*
  ****************************************************************************/
 
-load('require.js', typeof(argv)=='undefined'?'undefined':argv, 'nodedefs.js', 'NODE_WFC');
-load('smbdefs.js');
-load('cga_defs.js');
+require('nodedefs.js', 'NODE_WFC');
+require('smbdefs.js', 'SMB_SUCCESS');
+require('cga_defs.js', 'BLACK');
 
 /* Would rather use const than var, but end up with redeclaration errors.	*/
 
