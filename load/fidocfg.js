@@ -1,4 +1,4 @@
-// $Id: fidocfg.js,v 1.37 2019/01/12 01:35:02 rswindell Exp $
+// $Id: fidocfg.js,v 1.38 2019/01/28 21:51:39 rswindell Exp $
 require('fido.js', 'FIDO');
 
 /*
@@ -224,7 +224,7 @@ TickITCfg.prototype.save = function()
 	}
 
 	if (!tcfg.open(tcfg.exists ? 'r+':'w+'))
-		throw("Unable to open '"+tcfg.name+"'");
+		return "Unable to open '"+tcfg.name+"'";
 
 	writesect(null, this.gcfg);
 	sects = tcfg.iniGetSections().map(function(v){return v.toLowerCase();});
@@ -237,6 +237,7 @@ TickITCfg.prototype.save = function()
 	for (i=0; i<sects.length; i++)
 		tcfg.iniRemoveSection(sects[i]);
 	tcfg.close();
+	return true;
 };
 
 /*
@@ -329,7 +330,7 @@ FREQITCfg.prototype.save = function()
 	}
 
 	if (!fcfg.open(fcfg.exists ? 'r+':'w+'))
-		throw("Unable to open '"+fcfg.name+"'");
+		return "Unable to open '"+fcfg.name+"'";
 
 	if (this.dirs.length > 0)
 		fcfg.iniSetValue(null, 'Dirs', this.dirs.join(','));
@@ -350,6 +351,7 @@ FREQITCfg.prototype.save = function()
 	for (i=0; i<sects.length; i++)
 		fcfg.iniRemoveSection(sects[i]);
 	fcfg.close();
+	return true;
 };
 
 function BinkITCfg()
