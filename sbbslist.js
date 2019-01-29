@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.49 2019/01/27 01:28:07 rswindell Exp $
+// $Id: sbbslist.js,v 1.50 2019/01/29 09:15:38 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.49 $".split(' ')[1];
+var REVISION = "$Revision: 1.50 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -38,6 +38,8 @@ if(!options)
 	options = {};
 if(!options.sub)
     options.sub = load({}, "syncdata.js").find();
+if(!options.max_inactivity)
+	options.max_inactivity = 180;	// Days
 if(options && options.format > 0)
 	list_format = options.format;
 if(options && options.export_freq > 0)
@@ -2493,7 +2495,10 @@ function main()
 				}
 				break;
 			case "maint":
-				alert("Not yet implemented");
+				print(list.length + " BBS entries before maintenance");
+				var list = lib.remove_inactive(list, options.max_inactivity, verbose);
+				print(list.length + " BBS entries after maintenance");
+				lib.write_list(list);
 				break;
 			case "install":
 				var result = install();
