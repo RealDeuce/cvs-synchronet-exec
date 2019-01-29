@@ -1,4 +1,4 @@
-// $Id: nodelist.js,v 1.9 2019/01/11 09:34:48 rswindell Exp $
+// $Id: nodelist.js,v 1.10 2019/01/29 10:29:34 rswindell Exp $
 
 // Node Listing / Who's Online display script, replaces the bbs.whos_online() function
 // Installable as a Ctrl-U key handler ('jsexec nodelist install') or as an
@@ -46,25 +46,11 @@ if(!presence) {
 writeln();
 if(js.global.bbs) {
 	var options = bbs.mods.nodelist_options;
-	if(!bbs.mods.nodelist_options) {
-		options = load({}, "modopts.js", "nodelist");
-		if(!options)
-			options = {};
-		if(!options.format)
-			options.format = "\x01n\x01h%3d  \x01n\x01g%s";
-		if(!options.username_prefix)
-			options.username_prefix = '\x01h';
-		if(!options.status_prefix)
-			options.status_prefix = '\x01n\x01g';	
-		if(!options.errors_prefix)
-			options.errors_prefix = '\x01h\x01r';
-		if(!options.web_inactivity)
-			options.web_inactivity = load({}, "modopts.js", "web", "inactivity");
-		bbs.mods.nodelist_options = options;	// cache the options
-	}
-	console.print(bbs.text(NodeLstHdr));
+	if(!options)
+		options = load({}, "nodelist_options.js");
+	write(bbs.text(NodeLstHdr));
 } else{ // e.g. invoked via JSexec
-	var REVISION = "$Revision: 1.9 $".split(' ')[1];
+	var REVISION = "$Revision: 1.10 $".split(' ')[1];
 	options = { 
 		format: "Node %2d: %s", 
 		include_age: true, 
