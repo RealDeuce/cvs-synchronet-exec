@@ -25,7 +25,7 @@
    - mspservice.js listening on TCP port 18
 */
 
-// $Id: sbbsimsg.js,v 1.37 2019/01/29 01:24:35 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.38 2019/01/30 23:31:50 rswindell Exp $
 
 require("sbbsdefs.js", 'K_UPPER');
 require("sockdefs.js", 'SOCK_DGRAM');
@@ -130,8 +130,10 @@ function getmsg()
 		lines++;
 	}
 
-	if(!lines || !bbs.online || console.aborted)
+	if(!lines || !bbs.online || console.aborted) {
+		console.aborted = false;
 		return("");
+	}
 
 	return(msg);
 }
@@ -222,10 +224,16 @@ while(bbs.online) {
 			printf("\1h\1cTelegram\r\n\r\n");
 			var addr_list = userprops.get(lib.props_sent, "address", []);
 			var last_send = userprops.get(lib.props_sent, "localtime");
-			printf("\1n\1h\1y(user@hostname): \1w");
+			printf("\1n\1h\1yDestination (user@hostname): \1w");
 			dest=console.getstr(get_default_dest(addr_list, last_send),64,K_EDIT|K_AUTODEL, addr_list);
-			if(dest==null || dest=='' || console.aborted)
+			if(dest==null || dest=='' || console.aborted) {
+				console.aborted = false;
 				break;
+			}
+			if(!lib.dest_host(dest)) {
+				alert("Invalid destination");
+				break;
+			}
 			if((msg=getmsg())=='')
 				break;
 			send_msg(dest, msg);
