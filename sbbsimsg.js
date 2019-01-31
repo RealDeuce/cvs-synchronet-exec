@@ -25,7 +25,7 @@
    - mspservice.js listening on TCP port 18
 */
 
-// $Id: sbbsimsg.js,v 1.38 2019/01/30 23:31:50 rswindell Exp $
+// $Id: sbbsimsg.js,v 1.39 2019/01/31 21:00:38 rswindell Exp $
 
 require("sbbsdefs.js", 'K_UPPER');
 require("sockdefs.js", 'SOCK_DGRAM');
@@ -44,6 +44,7 @@ lib.read_sys_list();
 // Parse arguments
 for(i=0; i<argc; i++) {
 	if(argv[i].toLowerCase()=="-l") {
+		console.clear();
 		writeln("Inter-BBS Active Users:");
 		var timeout = 2500;
 		var sent = lib.request_active_users();
