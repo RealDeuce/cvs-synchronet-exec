@@ -1,4 +1,4 @@
-// $Id: chksetup.js,v 1.5 2019/01/30 23:33:09 rswindell Exp $
+// $Id: chksetup.js,v 1.6 2019/02/01 07:21:33 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
@@ -208,6 +208,24 @@ var tests = {
 		var list = lib.read_sys_list(/* include_self: */true);
 		if(!lib.find_name(list, system.name))
 			return format("'%s' not listed in %s", system.name, lib.filename);
+	},
+	
+	check_dove_net: function(options)
+	{
+		const TOTAL_DOVENET_CONFERENCES = 22;
+		var output = [];
+		var grp = msg_area.grp["DOVE-Net"];
+		if(!grp)
+			return;
+		if(grp.sub_list.length != TOTAL_DOVENET_CONFERENCES)
+			output.push(format("DOVE-Net: %u sub-boards configured (instead of the expected: %u)"
+				,grp.sub_list.length, TOTAL_DOVENET_CONFERENCES));
+		for(var s in grp.sub_list) {
+			var sub = grp.sub_list[s];
+			if(sub.settings & SUB_GATE)
+				output.push(format("DOVE-Net: %-16s is configured to Gate Between Net Types", sub.code));
+		}
+		return output;
 	},
 	
 	check_sub_codes: function(options)
