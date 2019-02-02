@@ -1,4 +1,4 @@
-// $Id: chksetup.js,v 1.6 2019/02/01 07:21:33 rswindell Exp $
+// $Id: chksetup.js,v 1.7 2019/02/02 22:43:19 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
@@ -36,9 +36,10 @@ var tests = {
 			output.push("User #1    is not a sysop");
 		if(usr.security.restrictions & UFLAG_G)
 			output.push("User #1    should not have the (G)uest restriction");
-		if(system.operator.toLowerCase() != usr.alias.toLowerCase())
-			output.push(format("User #%-4u alias (%s) does not match system operator (%s)"
-							,1, usr.alias, system.operator));
+		if(system.operator.toLowerCase() != usr.alias.toLowerCase()
+			&& system.operator.toLowerCase() != usr.name.toLowerCase())
+			output.push(format("User #%-4u name (%s) and alias (%s) does not match system operator (%s)"
+							,1, usr.name, usr.alias, system.operator));
 		return output;
 	},
 	
@@ -224,6 +225,10 @@ var tests = {
 			var sub = grp.sub_list[s];
 			if(sub.settings & SUB_GATE)
 				output.push(format("DOVE-Net: %-16s is configured to Gate Between Net Types", sub.code));
+			if(sub.settings & SUB_NOVOTING)
+				output.push(format("DOVE-Net: %-16s is NOT configured to allow voting", sub.code));
+			if(!(sub.settings & SUB_QNET))
+				output.push(format("DOVE-Net: %-16s is NOT configured for QWK Networking", sub.code));
 		}
 		return output;
 	},
