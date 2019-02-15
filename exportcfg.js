@@ -1,4 +1,4 @@
-// $Id: exportcfg.js,v 1.3 2019/01/20 01:58:42 rswindell Exp $
+// $Id: exportcfg.js,v 1.4 2019/02/15 11:11:07 rswindell Exp $
 // vi: tabstop=4
 
 // *****************************************************************
@@ -33,12 +33,22 @@ var propex = [];	// properties to exclude
 var grp = [];
 var include = [];	// items to include
 var exclude = [];	// items to exclude
+
+var cnflib = load({}, "cnflib.js");
+var file_cnf = cnflib.read("file.cnf");
+
 var cfgtype;
 var cfgtypes = {
 	'msg-grps': 	msg_area.grp,
 	'msg-subs':		msg_area.sub,
 	'file-libs': 	file_area.lib,
 	'file-dirs':	file_area.dir,
+	'file-prots':	file_cnf.prot,
+	'file-extrs':   file_cnf.fextr,
+	'file-comps':   file_cnf.fcomp,
+	'file-viewers': file_cnf.fview,
+	'file-testers': file_cnf.ftest,
+	'file-dlevents':file_cnf.dlevent,
 	'xtrn-secs': 	xtrn_area.sec,
 	'xtrn-progs': 	xtrn_area.prog,
 	'xtrn-events': 	xtrn_area.event,
