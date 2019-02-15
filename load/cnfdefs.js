@@ -1,5 +1,5 @@
 /* 	CNF file reader/writer - mcmlxxix - 2013
-	$Id: cnfdefs.js,v 1.6 2018/03/11 00:42:07 rswindell Exp $
+	$Id: cnfdefs.js,v 1.7 2019/02/15 10:26:05 rswindell Exp $
 */
 
 /* miscellaneous constants required for cnf parsing
@@ -308,7 +308,7 @@ struct.dlevent_t={
 
 /* File Transfer Protocol (drivers) */
 struct.prot_t={
-	mnemonic:		{bytes:1,				type:"str"},
+	key:			{bytes:UCHAR,			type:"str"},
 	name:			{bytes:26,				type:"str"},
 	ulcmd:			{bytes:LEN_CMD+1,		type:"str"},
 	dlcmd:			{bytes:LEN_CMD+1,		type:"str"},
