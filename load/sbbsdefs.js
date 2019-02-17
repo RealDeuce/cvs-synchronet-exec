@@ -1,6 +1,6 @@
 /* Synchronet Object Model constants definitions - (mostly bit-fields) */
 
-/* $Id: sbbsdefs.js,v 1.84 2019/01/27 01:36:33 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.85 2019/02/17 12:53:29 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -382,6 +382,8 @@ var   NMAIL_DIRECT	=(1<<6);	/* Default Fido netmail to direct			*/
 							    /* Bit values for sub[x].settings			*/
 							    /********************************************/
 var   SUB_NOVOTING	=(1<<0);	/* No voting allowed in this sub-board		*/
+var   SUB_TEMPLATE  =(1<<1);	/* Use this sub as template for new subs    */
+var   SUB_MSGTAGS   =(1<<2);    /* Allow messages to be tagged              */
 var   SUB_QNET		=(1<<3);	/* Sub-board is netted via QWK network		*/
 var   SUB_PNET		=(1<<4);	/* Sub-board is netted via PostLink			*/
 var   SUB_FIDO		=(1<<5);	/* Sub-board is netted via FidoNet			*/
