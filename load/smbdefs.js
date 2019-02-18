@@ -1,4 +1,4 @@
-// $Id: smbdefs.js,v 1.6 2018/10/03 06:10:50 rswindell Exp $
+// $Id: smbdefs.js,v 1.7 2019/02/18 04:43:06 rswindell Exp $
 // Synchronet Message Base constant definitions (from smbdefs.h and smblib.h)								
 								
 								/* Values for MsgBase.status */
@@ -24,6 +24,11 @@ var SMB_ERR_FILE_LEN	=-206;	/* File length invalid */
 var SMB_ERR_DELETE		=-207;	/* File deletion error */
 var SMB_ERR_UNLOCK		=-208;	/* File unlock error */
 var SMB_ERR_MEM			=-300;	/* Memory allocation error */
+
+								/* MsgBase.attributes bit flags: */
+var SMB_EMAIL			= 1;	/* User numbers stored in Indexes */
+var SMB_HYPERALLOC		= 2;	/* No allocation (also storage value for smb_addmsghdr) */
+var SMB_NOHASH			= 4;	/* Do not calculate or store hashes */
 									
 									/* Message Types */
 var MSG_TYPE_NORMAL			= 0;	/* Classic message (for reading) */
