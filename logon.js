@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.39 2019/04/28 09:50:36 rswindell Exp $
+// $Id: logon.js,v 1.40 2019/04/30 02:36:33 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -235,7 +235,7 @@ else {
 	// Auto-message
 	auto_msg=system.data_dir + "msgs/auto.msg"
 	if(file_size(auto_msg)>0) {
-		console.printfile(auto_msg,P_NOATCODES);
+		console.printfile(auto_msg,P_NOATCODES|P_WORDWRAP);
 	}
 	console.crlf();
 
