@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.114 2019/01/07 07:17:35 rswindell Exp $
+// $Id: binkp.js,v 1.115 2019/04/30 21:41:12 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -55,7 +55,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.114 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.115 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -1080,7 +1080,7 @@ BinkP.prototype.recvFrame = function(timeout)
 			return undefined;
 		}
 		else if (timeout) {
-			log(LOG_ERROR, "Timed out receiving packet data from remote: " + this.remote_addrs);
+			log(LOG_WARNING, "Timed out receiving packet data from remote: " + this.remote_addrs);
 			this.sock.close();
 			this.sock = undefined;
 			return undefined;
