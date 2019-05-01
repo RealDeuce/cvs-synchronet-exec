@@ -1,4 +1,4 @@
-// $Id: mimehdr.js,v 1.2 2019/04/30 21:17:51 rswindell Exp $
+// $Id: mimehdr.js,v 1.3 2019/05/01 02:50:25 rswindell Exp $
 
 // Support for RFC2047:
 //
@@ -11,7 +11,7 @@ require("utf8_cp437.js", 'utf8_cp437');
 function decode(hvalue)
 {
 	var result = [];
-	var regex = /(\=\?[a-zA-Z0-9-]+\?.\?[^ ?]+\?\=|\s*\w+\s*|\s+)/g;
+	var regex = /(\=\?[a-zA-Z0-9-]+\?.\?[^ ?]+\?\=|\S+\s*)/g;
 	var word;
 	
 	while(hvalue && (word = regex.exec(hvalue)) !== null) {
