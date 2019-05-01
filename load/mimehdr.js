@@ -1,4 +1,4 @@
-// $Id: mimehdr.js,v 1.4 2019/05/01 08:08:08 rswindell Exp $
+// $Id: mimehdr.js,v 1.5 2019/05/01 08:33:56 rswindell Exp $
 
 // Support for RFC2047:
 //
@@ -46,7 +46,8 @@ function to_cp437(val)
 	var result = [];
 	var words = mimehdr.decode(val);
 	for(i in words) {
-		var word = strip_ctrl(words[i]);
+		var word = words[i];
+		word.data = strip_ctrl(word.data);
 		switch(word.charset) {
 			case 'utf-8':
 				result.push(utf8_cp437(word.data));
