@@ -1,7 +1,7 @@
-// $Id: showfileavatar.js,v 1.3 2018/04/05 02:22:01 rswindell Exp $
+// $Id: showfileavatar.js,v 1.4 2019/05/02 21:31:47 rswindell Exp $
 
 const FM_ANON			=(1<<1);
-const USER_ANSI         =(1<<1);
+require("userdefs.js", 'USER_ANSI');
 
 // Avatar support here:
 if(!(bbs.file_attr&FM_ANON) && console.term_supports(USER_ANSI)) {

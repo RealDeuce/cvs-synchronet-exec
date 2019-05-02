@@ -1,12 +1,12 @@
-// $Id: showmsghdr.js,v 1.4 2018/04/05 02:22:01 rswindell Exp $
+// $Id: showmsghdr.js,v 1.5 2019/05/02 21:31:47 rswindell Exp $
 
 // This can be loaded from text/menu/msghdr.asc via @EXEC:SHOWMSGHDR@
 // Don't forget to include or exclude the blank line after if do
 // (or don't) want a blank line separating message headers and body text
 
-load("smbdefs.js");
-load("text.js");
-var   USER_ANSI         =(1<<1);
+require("text.js", 'MsgAttr');
+require("smbdefs.js", 'MSG_ANONYMOUS');
+require("userdefs.js", 'USER_ANSI');
 
 // ported from sbbs_t::show_msgattr():
 function show_msgattr(msg_attr, msg_auxattr)

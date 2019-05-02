@@ -1,4 +1,4 @@
-// $Id: showmsgavatar.js,v 1.4 2019/04/28 09:52:36 rswindell Exp $
+// $Id: showmsgavatar.js,v 1.5 2019/05/02 21:31:47 rswindell Exp $
 
 // This can be loaded from text/menu/msghdr.asc via @EXEC:SHOWMSGAVATAR@
 // Don't forget to include or exclude the blank line after if you do
@@ -10,9 +10,8 @@
 // If you do not want the avatar right-justified, copy this file to your
 // mods directory and change that parameter below.
 
-load('smbdefs.js');
-var   USER_ANSI         =(1<<1);
-var   USER_NO_EXASCII 	=(1<<15);
+require("smbdefs.js", 'MSG_ANONYMOUS');
+require("userdefs.js", 'USER_ANSI');
 
 // Avatar support here:
 if(!(bbs.msg_attr&MSG_ANONYMOUS) 
