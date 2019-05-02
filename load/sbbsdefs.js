@@ -1,4 +1,4 @@
-/* $Id: sbbsdefs.js,v 1.88 2019/05/02 21:12:23 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.89 2019/05/02 21:29:06 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -33,7 +33,7 @@
 
 require('nodedefs.js', 'NODE_WFC');
 require('smbdefs.js', 'SMB_SUCCESS');
-require('userdefs.js' 'USER_DELETED');
+require('userdefs.js', 'USER_DELETED');
 require('cga_defs.js', 'BLACK');
 
 /* Would rather use const than var, but end up with redeclaration errors.	*/
