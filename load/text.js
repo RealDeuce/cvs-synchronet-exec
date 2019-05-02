@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.26 2019/04/30 08:30:01 rswindell Exp $ */
+/* $Id: text.js,v 1.27 2019/05/02 06:14:46 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -824,7 +824,8 @@ var CharacterReceivedFmt=812;
 var InvalidBackspaceKeyFmt=813;
 var SwapDeleteKeyQ=814;
 var PetTermDetected=815;
+var MsgCarbonCopyList=816;
 
-var TOTAL_TEXT=816;
+var TOTAL_TEXT=817;
 
 this;
