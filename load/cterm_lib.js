@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.20 2018/02/14 19:48:19 rswindell Exp $
+// $Id: cterm_lib.js,v 1.21 2019/05/09 21:25:05 rswindell Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -642,6 +642,13 @@ function xbin_cleanup(image)
 		ansiterm.send("ext_mode", "clear", "no_blink");
 		ansiterm.send("ext_mode", "clear", "bg_bright_intensity");
 	}
+}
+
+function bright_background(enable)
+{
+	var op = enable === false ? "clear" : "set";
+	ansiterm.send("ext_mode", op, "bg_bright_intensity");
+	ansiterm.send("ext_mode", op, "no_blink");
 }
 
 // Leave as last line:
