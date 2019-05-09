@@ -1,4 +1,4 @@
-// $Id: smbdefs.js,v 1.9 2019/05/02 21:19:02 rswindell Exp $
+// $Id: smbdefs.js,v 1.10 2019/05/09 22:21:45 rswindell Exp $
 // Synchronet Message Base constant definitions (from smbdefs.h and smblib.h)								
 								
 /* Values for MsgBase.status (SMBLIB function return values) */
@@ -103,6 +103,14 @@ const AGENT_PERSON			= 0;		// Human
 const AGENT_PROCESS			= 1;		// Unknown process type
 const AGENT_SMBUTIL			= 2;		// Imported via Synchronet SMBUTIL
 const AGENT_SMTPSYSMSG		= 3;		// Synchronet SMTP server system message
+
+/* Message Priority */
+const SMB_PRIORITY_UNSPECIFIED 	= 0;
+const SMB_PRIORITY_HIGHEST		= 1;
+const SMB_PRIORITY_HIGH			= 2;
+const SMB_PRIORITY_NORMAL		= 3;
+const SMB_PRIORITY_LOW			= 4;
+const SMB_PRIORITY_LOWEST		= 5;
 
 /* Message hfield types */										
 const SMB_SUMMARY			= 0x61; 	// Not currently used for messages								
