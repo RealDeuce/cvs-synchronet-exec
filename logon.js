@@ -2,12 +2,12 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.40 2019/04/30 02:36:33 rswindell Exp $
+// $Id: logon.js,v 1.41 2019/05/09 22:18:48 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
-load("sbbsdefs.js");
-load("text.js");
+require("sbbsdefs.js", 'SS_RLOGIN');
+require("text.js", 'SiSysName');
 var Avatar = load({}, "avatar_lib.js");
 load("fonts.js", "preload", "default");
 var options = load("modopts.js", "logon");
@@ -17,6 +17,11 @@ if(options.show_avatar === undefined)
 	options.show_avatar = true;
 if(options.draw_avatar_right === undefined)
 	options.draw_avatar_right = true;
+
+if(user.settings & ICE_COLOR) {
+	var cterm = load({}, "cterm_lib.js");
+	cterm.bright_background(true);
+}
 
 // Check if we're being asked to auto-run an external (web interface external programs section uses this)
 if ((options.rlogin_auto_xtrn) && (bbs.sys_status & SS_RLOGIN) && (console.terminal.indexOf("xtrn=") === 0)) {
