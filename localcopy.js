@@ -1,4 +1,4 @@
-// $Id: localcopy.js,v 1.1 2019/02/15 11:00:20 rswindell Exp $
+// $Id: localcopy.js,v 1.2 2019/05/09 22:20:29 rswindell Exp $
 
 // A simple script that just copies a file on the local/server side
 
@@ -26,7 +26,7 @@ if(!cmd) {
 // Copy a file, confirm over-write, preserving original date/time stamp
 function fcopy(src, dest)
 {
-	if(file_exists(dest) && !confirm("Overwrite " + dest))
+	if(file_exists(dest) && !confirm("Overwrite \1w" + dest))
 		exit(1);
 	if(!file_copy(src, dest)) {
 		alert(format("Error %d copying '%s' to '%s'", errno, src, dest));
