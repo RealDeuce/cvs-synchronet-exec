@@ -1,4 +1,4 @@
-// $Id: userdefs.js,v 1.1 2019/05/02 21:12:23 rswindell Exp $
+// $Id: userdefs.js,v 1.2 2019/05/09 21:21:30 rswindell Exp $
 
 //**********************************************************************
 // user.settings							
@@ -30,6 +30,7 @@ const USER_HTML		    = (1<<23);	// Using Deuce's HTML terminal (*cough*)
 const USER_NOPAUSESPIN  = (1<<24);	// No spinning cursor at pause prompt		
 const USER_PETSCII      = (1<<26);	// Commodore PET (e.g. C64) terminal		
 const USER_SWAP_DELETE  = (1<<27);	// Swap the DEL and backspace keys			
+const ICE_COLOR         = (1<<28);
 
 //**********************************************************************
 // user.qwk_settings 						
