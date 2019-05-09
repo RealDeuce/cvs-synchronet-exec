@@ -1,4 +1,4 @@
-// $Id: hexdump_lib.js,v 1.4 2019/05/01 19:02:56 rswindell Exp $
+// $Id: hexdump_lib.js,v 1.5 2019/05/09 22:21:25 rswindell Exp $
 
 function num_digits(n)
 {
@@ -31,7 +31,7 @@ function generate(title, val, include_ascii, include_offset)
 		output.push(format("%s: %u bytes", title, length));
 	var line = '';
 	var ascii = '';
-	var digits = num_digits(length);
+	var digits = num_digits(length - 1);
 	if(include_offset)
 		line = format("%0*x:  ", digits, 0);
 	for(i=0; i < length; i++) {
