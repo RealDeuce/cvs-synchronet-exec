@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.27 2019/05/02 06:14:46 rswindell Exp $ */
+/* $Id: text.js,v 1.28 2019/05/09 21:23:04 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -823,9 +823,17 @@ var HitYourBackspaceKey=811;
 var CharacterReceivedFmt=812;
 var InvalidBackspaceKeyFmt=813;
 var SwapDeleteKeyQ=814;
-var PetTermDetected=815;
-var MsgCarbonCopyList=816;
+var PetTerminalDetected=815;
+var PetTerminalQ=816;
+var TerminalAutoDetect=817;
+var TerminalColumns=818;
+var TerminalRows=819;
+var TerminalMonochrome=820;
+var TerminalColor=821;
+var TerminalIceColor=822;
+var IceColorTerminalQ=823;
+var MsgCarbonCopyList=824;
 
-var TOTAL_TEXT=817;
+var TOTAL_TEXT=825;
 
 this;
