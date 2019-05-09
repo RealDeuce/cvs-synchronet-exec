@@ -1,4 +1,4 @@
-// $Id: cga_defs.js,v 1.3 2018/02/06 04:51:54 rswindell Exp $
+// $Id: cga_defs.js,v 1.4 2019/05/09 22:15:59 rswindell Exp $
 // CGA (IBM Color Graphics Adapter) definitions
 
 								/********************************************/
@@ -47,6 +47,7 @@ var colors = [
 							    /* background colors */
 var   ANSI_NORMAL	=0x100;		/* special value for ansi() */
 var   BG_BLACK		=0x200;		/* special value for ansi() */
+var   BG_BRIGHT		=0x400;		/* not an ANSI.SYS compatible attribute */
 var   BG_BLUE		=(BLUE<<4);
 var   BG_GREEN		=(GREEN<<4);
 var   BG_CYAN		=(CYAN<<4);
