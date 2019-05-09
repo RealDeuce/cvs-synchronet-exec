@@ -1,4 +1,4 @@
-// $Id: presence_lib.js,v 1.10 2019/01/25 08:34:54 rswindell Exp $
+// $Id: presence_lib.js,v 1.11 2019/05/09 08:00:15 rswindell Exp $
 
 // Library for reporting user presence (e.g. BBS node listings, who's online)
 // Much of the code was derived from src/sbbs3/getnode.cpp: nodelist(), whos_online(), printnodedat()
@@ -181,6 +181,16 @@ function node_status(node, is_sysop, options)
 		case NODE_NEWUSER:
 			output += format(NodeStatus[node_status], node.aux);
 			output += node_connection_desc(node);
+			break;
+		case NODE_LOGOUT:
+			output += NodeStatus[node_status];
+
+			if(options.username_prefix)
+				output += options.username_prefix;
+			if(js.global.bbs && (node.misc&NODE_ANON) && !is_sysop)
+				output += bbs.text(UNKNOWN_USER);
+			else
+				output += system.username(node.useron);
 			break;
 		default:
 			output += format(NodeStatus[node_status], node.aux);
