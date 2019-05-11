@@ -1,4 +1,4 @@
-// $Id: dd_lightbar_menu.js,v 1.3 2019/05/11 21:06:44 nightfox Exp $
+// $Id: dd_lightbar_menu.js,v 1.4 2019/05/11 21:22:14 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -986,14 +986,19 @@ function DDLightbarMenu_GetVal(pDraw)
 				}
 				// Draw a character next to the item if it's selected, or nothing if it't not selected
 				var XPos = this.pos.x + this.size.width - 2;
+				var YPos = this.pos.y+(this.selectedItemIdx-this.topItemIdx);
 				if (this.borderEnabled)
-					++XPos;
+				{
+					--XPos;
+					++YPos;
+				}
 				if (this.showScrollbar)
 					--XPos;
-				var YPos = this.pos.y+(this.selectedItemIdx-this.topItemIdx);
 				console.gotoxy(XPos, YPos);
 				if (added)
+				{
 					console.print(this.colors.selectedItemColor + " " + this.multiSelectItemChar + "\1n");
+				}
 				else
 				{
 					// If any of the item text is right at the end, then display it.  Otherwise,
