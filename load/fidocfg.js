@@ -1,4 +1,4 @@
-// $Id: fidocfg.js,v 1.38 2019/01/28 21:51:39 rswindell Exp $
+// $Id: fidocfg.js,v 1.39 2019/05/16 09:18:57 rswindell Exp $
 require('fido.js', 'FIDO');
 
 /*
@@ -383,6 +383,8 @@ function BinkITCfg()
 			this.node[sec].port = f.iniGetValue(section, 'BinkpPort');
 			this.node[sec].src = f.iniGetValue(section, 'BinkpSourceAddress');
 			this.node[sec].host = f.iniGetValue(section, 'BinkpHost');
+			this.node[sec].inbox = f.iniGetValue(section, 'inbox');
+			this.node[sec].outbox = f.iniGetValue(section, 'outbox');
 		}, this);
 		f.close();
 	}
