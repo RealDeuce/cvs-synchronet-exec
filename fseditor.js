@@ -1,9 +1,9 @@
 /* ToDo: At what point should trailing whitespace be removed? */
-/* $Id: fseditor.js,v 1.93 2019/04/28 09:49:25 rswindell Exp $ */
+/* $Id: fseditor.js,v 1.94 2019/05/20 08:18:32 rswindell Exp $ */
 
 load("sbbsdefs.js");
 
-const REVISION = "$Revision: 1.93 $".split(' ')[1];
+const REVISION = "$Revision: 1.94 $".split(' ')[1];
 var line=new Array();
 var quote_line=new Array();
 var xpos=0;									/* Current xpos of insert point */
@@ -38,6 +38,10 @@ var hdr_fmt	= "\1b\1h%-4s\1n\1b: \1h\1c%.60s\1>\r\n";
 var stat_attr	= 0x1f;
 var stat_fmt	= "\1h\1w\0014 FSEditor v" + REVISION + " - Type \1yCTRL-K\1w for help          %s\1>\1n";
 var subj,to,from;
+
+var options = load('modopts.js', 'fseditor');
+if(!options)
+	options = {};
 
 function Line(copyfrom)
 {
@@ -1420,7 +1424,7 @@ function save_file()
 		alert("Error " + f.error + " opening " + f.name);
 		return false;
 	}
-	var s=make_strings(/* soft-CRs: */true, /* embed-colors: */true);
+	var s=make_strings(/* soft-CRs: */Boolean(options.soft_cr), /* embed-colors: */true);
 	f.write(s[0]);
 	f.close();
 	return true;
