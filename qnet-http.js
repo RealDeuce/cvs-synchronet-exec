@@ -1,4 +1,4 @@
-// $Id: qnet-http.js,v 1.1 2019/05/23 03:34:17 rswindell Exp $
+// $Id: qnet-http.js,v 1.2 2019/05/23 04:37:49 rswindell Exp $
 
 // QWK network HTTP[S] client
 
@@ -48,8 +48,10 @@ function send_rep(rep)
 		alert(http.request + " Response: " + http.status_line);
 		return false;
 	}
-	if(!file_remove(rep))
+	if(!file_remove(rep)) {
 		log(LOG_ERR, "Error removing file: " + rep);
+		return false;
+	}
 	return true;
 }
 
@@ -75,7 +77,8 @@ function receive_qwk(qwk)
 	else {
 		print("Received " + contents.length + " bytes");
 		file.write(contents);
-		success = true;
+		http.Post(url + '?received=' + file.position, '');
+		success = (http.response_code == HTTP_RESPONSE_NO_CONTENT);
 	}
 	file.close();
 	return success;
