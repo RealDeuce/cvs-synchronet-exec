@@ -1,4 +1,4 @@
-// $Id: sort_file.js,v 1.1 2019/05/25 04:03:37 nightfox Exp $
+// $Id: sort_file.js,v 1.2 2019/05/25 05:40:43 nightfox Exp $
 
 /* This is a script that can sort a file.  This script is meant to be run with jsexec
  * (on the OS command prompt, not via the Synchronet terminal server).  One purpose
@@ -52,6 +52,7 @@ function sortFile(pInputFilename, pOutputFilename, pToLowercase)
 	var fileLines = [];
 	if (inFile.open("r"))
 	{
+		var dupeCheckObj = {};
 		var fileLine;
 		while (!inFile.eof)
 		{
@@ -61,7 +62,15 @@ function sortFile(pInputFilename, pOutputFilename, pToLowercase)
 			// where for some reason it isn't.  If it's not a string,
 			// then continue onto the next line.
 			if (typeof(fileLine) == "string")
-				fileLines.push(pToLowercase ? fileLine.toLowerCase() : fileLine);
+			{
+				if (pToLowercase)
+					fileLine = fileLine.toLowerCase();
+				if (!dupeCheckObj.hasOwnProperty(fileLine))
+				{
+					fileLines.push(fileLine);
+					dupeCheckObj[fileLine] = true;
+				}
+			}
 		}
 		inFile.close();
 	}
