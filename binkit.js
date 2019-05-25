@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.19 2019/05/24 02:05:25 rswindell Exp $
+// $Id: binkit.js,v 2.20 2019/05/25 06:36:44 rswindell Exp $
 // vi: tabstop=4
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.19 $".split(' ')[1];
+var REVISION = "$Revision: 2.20 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -961,7 +961,7 @@ function inbound_auth_cb(pwd, bp)
 	var invalid=false;
 
 	function check_nocrypt(node) {
-		if (node) {
+		if (node.nocrypt) {
 			if (nocrypt === undefined)
 				nocrypt = true;
 		}
