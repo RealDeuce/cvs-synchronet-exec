@@ -1,10 +1,13 @@
-// $Id: qnet-http.js,v 1.2 2019/05/23 04:37:49 rswindell Exp $
+// $Id: qnet-http.js,v 1.3 2019/05/27 02:05:26 rswindell Exp $
 
 // QWK network HTTP[S] client
 
 // Example usage in SCFG->Networks->QWK->Hubs->VERT->Call-out Command Line:
 //
 //                  ?qnet-http %s dove.synchro.net YOURPASS
+
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
+log(LOG_INFO, "QNET-HTTP " + REVISION + " invoked with options: " + argv.join(' '));
 
 load("http.js");
 
