@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.22 2019/05/25 08:39:08 rswindell Exp $
+// $Id: binkit.js,v 2.23 2019/05/27 02:11:18 rswindell Exp $
 // vi: tabstop=4
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.22 $".split(' ')[1];
+var REVISION = "$Revision: 2.23 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -604,6 +604,7 @@ function callout(addr, scfg, locks, bicfg)
 	if (bicfg === undefined)
 		bicfg = new BinkITCfg();
 	bp.system_operator = bicfg.sysop;
+	bp.plain_auth_only = bicfg.plain_auth_only;
 	bp.cb_data = {
 		binkitcfg:bicfg,
 		binkit_to_addr:addr,
@@ -618,7 +619,8 @@ function callout(addr, scfg, locks, bicfg)
 		host = bp.cb_data.binkitcfg.node[addr].host;
 		bp.require_md5 = !(bp.cb_data.binkitcfg.node[addr].nomd5);
 		bp.require_crypt = !(bp.cb_data.binkitcfg.node[addr].nocrypt);
-		bp.plain_auth_only = bp.cb_data.binkitcfg.node[addr].plain_auth_only;
+		if(!bp.plain_auth_only)
+			bp.plain_auth_only = bp.cb_data.binkitcfg.node[addr].plain_auth_only;
 	}
 	// TODO: Force debug mode for now...
 	bp.debug = true;
@@ -1075,6 +1077,7 @@ function run_inbound(sock)
 		binkit_locks:locks
 	};
 	bp.system_operator = bp.cb_data.binkitcfg.sysop;
+	bp.plain_auth_only = bp.cb_data.binkitcfg.plain_auth_only;
 
 	// TODO: Force debug mode for now...
 	bp.debug = true;
