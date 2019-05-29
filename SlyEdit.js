@@ -1,4 +1,4 @@
-// $Id: SlyEdit.js,v 1.61 2019/05/25 06:20:36 nightfox Exp $
+// $Id: SlyEdit.js,v 1.62 2019/05/29 19:50:55 nightfox Exp $
 
 /* This is a text editor for Synchronet designed to mimic the look & feel of
  * DCTEdit and IceEdit, since neither of those editors have been developed
@@ -57,6 +57,11 @@
  * 2019-05-24 Eric Oulashin     Version 1.65
  *                              Added support for parsing many standard language
  *                              tags for the dictionary filenames
+ * 2019-05-28 Eric Oulashin     Version 1.66 Beta
+ *                              Added more parsing for dictionary filenames
+ *                              for 'general' dictionaries and 'supplimental' ones
+ * 2019-05-29 Eric Oulashin     Version 1.66
+ *                              Releasing this version
  */
 
 /* Command-line arguments:
@@ -153,8 +158,8 @@ if (console.screen_columns < 80)
 }
 
 // Constants
-const EDITOR_VERSION = "1.65";
-const EDITOR_VER_DATE = "2019-05-24";
+const EDITOR_VERSION = "1.66";
+const EDITOR_VER_DATE = "2019-05-29";
 
 
 // Program variables
@@ -6317,16 +6322,25 @@ function doUserSettings(pCurpos, pReturnCursorToOriginalPos)
 //  pDictionaryFilenames: An array of the dictionary filenames
 function doUserDictionaryLanguageSelection(pBoxTopLeftX, pBoxTopLeftY, pBoxWidth, pBoxHeight, pDictionaryFilenames)
 {
-	var dictMenu = new DDLightbarMenu(pBoxTopLeftX, pBoxTopLeftY, pBoxWidth, pBoxHeight);
-	var selectedItemIndexes = { };
+	// First, sort the languages by name, and ensure the ones with (General) are before
+	// the other, localized/supplimental ones.
+	var languageNamesAndDictionaries = [];
 	for (var i = 0; i < pDictionaryFilenames.length; ++i)
 	{
 		var languageName = getLanguageNameFromDictFilename(pDictionaryFilenames[i]);
-		dictMenu.Add(languageName, pDictionaryFilenames[i]);
+		languageNamesAndDictionaries.push({ name: languageName, filename: pDictionaryFilenames[i] });
+	}
+	languageNamesAndDictionaries.sort(languageNameDictFilenameSort);
+	// Add the language/dictionary options to the menu
+	var dictMenu = new DDLightbarMenu(pBoxTopLeftX, pBoxTopLeftY, pBoxWidth, pBoxHeight);
+	var selectedItemIndexes = { };
+	for (var i = 0; i < languageNamesAndDictionaries.length; ++i)
+	{
+		dictMenu.Add(languageNamesAndDictionaries[i].name, languageNamesAndDictionaries[i].filename);
 		// See if this dictionary is in the user's configured
 		// dictionaries, and if so, add this dictionary to the
 		// selected items list.
-		if (languageIsSelectedInUserSettings(gUserSettings, pDictionaryFilenames[i]))
+		if (languageIsSelectedInUserSettings(gUserSettings, languageNamesAndDictionaries[i].filename))
 			selectedItemIndexes[i] = true;
 	}
 	dictMenu.ampersandHotkeysInItems = false;
