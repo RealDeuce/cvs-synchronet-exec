@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.117 2019/05/27 02:08:58 rswindell Exp $
+// $Id: binkp.js,v 1.118 2019/05/29 01:09:22 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -55,7 +55,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.117 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.118 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -471,7 +471,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 		}
 		else if (this.cram === undefined || this.cram.algo !== 'MD5') {
 			if (this.require_md5)
-				this.sendCmd(this.command.M_ERR, "MD5 Required");
+				this.sendCmd(this.command.M_ERR, "CRAM-MD5 authentication required");
 			else {
 				if (this.will_crypt)
 					this.sendCmd(this.command.M_ERR, "Encryption requires CRAM-MD5 auth");
