@@ -1,4 +1,4 @@
-// $Id: showmsgavatar.js,v 1.6 2019/06/04 05:02:08 rswindell Exp $
+// $Id: showmsgavatar.js,v 1.7 2019/06/04 09:02:10 rswindell Exp $
 
 // This can be loaded from text/menu/msghdr.asc via @EXEC:SHOWMSGAVATAR@
 // Don't forget to include or exclude the blank line after if you do
@@ -26,7 +26,7 @@ function draw_default_avatar(sub)
 	if(!avatar)
 		avatar = options[msg_area.sub[sub].grp_name.toLowerCase() + "_default"];
 	if(!avatar)
-		avatar = options.sub_default;
+		avatar = options.msg_default;
 	if(avatar)
 		Avatar.draw_bin(avatar, /* above: */true, /* right-justified: */true, bbs.msghdr_top_of_screen);
 }

@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.37 2019/06/04 05:03:18 rswindell Exp $
+// $Id: avatars.js,v 1.38 2019/06/04 09:02:10 rswindell Exp $
 
-var REVISION = "$Revision: 1.37 $".split(' ')[1];
+var REVISION = "$Revision: 1.38 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -598,7 +598,8 @@ function main()
 			case "normalize":
 			case "count":
 			case "colls":
-			case "sub_default":
+			case "msg-default":
+			case "msg_default":
 				cmds.push(arg);
 				break;
 			default:
@@ -773,7 +774,8 @@ function main()
 				printf("%s\r\n", success ? "Successful" : "FAILED!");
 				ini.close();
 				break;
-			case "sub_default":
+			case "msg-default":
+			case "msg_default":
 				if(!files.length)
 					files.push(optval[cmd]);
 				if(!files.length) {
@@ -795,7 +797,7 @@ function main()
 					alert(ini.name + " open error " + ini.error);
 					break;
 				}
-				var success = ini.iniSetValue("avatars", "sub_default", data);
+				var success = ini.iniSetValue("avatars", "msg_default", data);
 				printf("%s\r\n", success ? "Successful" : "FAILED!");
 				ini.close();
 				break;
