@@ -1,4 +1,4 @@
-// $Id: SlyEdit_IceStuff.js,v 1.28 2019/05/25 00:34:04 nightfox Exp $
+// $Id: SlyEdit_IceStuff.js,v 1.29 2019/06/06 03:50:47 nightfox Exp $
 
 /* This contains IceEdit-specific functions for SlyEdit.
  *
@@ -364,6 +364,8 @@ function DisplayBottomHelpLine_IceStyle(pLineNum, pUsingQuotes)
 	// Display the help text on the screen
 	console.gotoxy(1, lineNum);
 	console.print(DisplayBottomHelpLine_IceStyle.helpText);
+	console.print("\1n");
+	console.cleartoeol();
 }
 
 // Updates the insert mode displayd on the screen, for Ice Edit style.

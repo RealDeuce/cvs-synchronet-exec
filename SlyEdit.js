@@ -1,4 +1,4 @@
-// $Id: SlyEdit.js,v 1.62 2019/05/29 19:50:55 nightfox Exp $
+// $Id: SlyEdit.js,v 1.63 2019/06/06 03:50:47 nightfox Exp $
 
 /* This is a text editor for Synchronet designed to mimic the look & feel of
  * DCTEdit and IceEdit, since neither of those editors have been developed
@@ -158,8 +158,8 @@ if (console.screen_columns < 80)
 }
 
 // Constants
-const EDITOR_VERSION = "1.66";
-const EDITOR_VER_DATE = "2019-05-29";
+const EDITOR_VERSION = "1.66.1";
+const EDITOR_VER_DATE = "2019-06-05";
 
 
 // Program variables
