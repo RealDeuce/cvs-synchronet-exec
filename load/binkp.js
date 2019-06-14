@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.118 2019/05/29 01:09:22 rswindell Exp $
+// $Id: binkp.js,v 1.119 2019/06/14 21:08:53 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -55,7 +55,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.118 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.119 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -413,7 +413,7 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 		throw("No address specified!");
 	addr = FIDO.parse_addr(addr, this.default_zone, this.default_domain);
 
-	if (password === undefined)
+	if (!password)
 		password = '-';
 	if (password === '-')
 		this.require_md5 = false;

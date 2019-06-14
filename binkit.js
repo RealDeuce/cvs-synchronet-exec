@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.25 2019/05/29 10:03:22 rswindell Exp $
+// $Id: binkit.js,v 2.26 2019/06/14 21:08:42 rswindell Exp $
 // vi: tabstop=4
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.25 $".split(' ')[1];
+var REVISION = "$Revision: 2.26 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -316,7 +316,7 @@ function callout_auth_cb(mode, bp)
 	 */
 	var addrs = [];
 
-	if (bp.cb_data.binkitpw === undefined || bp.cb_data.binkitpw === '-')
+	if (!bp.cb_data.binkitpw || bp.cb_data.binkitpw === '-')
 		addrs.push(bp.cb_data.binkit_to_addr);
 	else {
 		bp.remote_addrs.forEach(function(addr) {
@@ -982,7 +982,7 @@ function inbound_auth_cb(pwd, bp)
 		if (bp.cb_data.binkitcfg.node[addr] !== undefined) {
 			log(LOG_INFO, "Inbound session for: " + addr);
 			cpw = bp.cb_data.binkitcfg.node[addr].pass;
-			if (cpw === undefined)
+			if (!cpw)
 				cpw = '-';
 			if (pwd[0].substr(0, 9) === 'CRAM-MD5-') {
 				if (mystic_broken_cram(bp))
