@@ -1,4 +1,4 @@
-// $Id: avatar_lib.js,v 1.19 2019/03/24 10:51:01 rswindell Exp $
+// $Id: avatar_lib.js,v 1.20 2019/06/15 01:24:19 rswindell Exp $
 
 // Library for dealing with user Avatars (ex-ASCII/ANSI block art)
 
@@ -14,11 +14,6 @@ const FTN_4D_PATTERN = /^(\d+):(\d+)\/(\d+)\.(\d+)$/;
 const size = defs.width * defs.height * 2;	// 2 bytes per cell for char and attributes
 
 var cache = {};
-if(js.global.bbs) {
-	if(!bbs.mods.avatar_cache)
-		bbs.mods.avatar_cache = {};
-	cache = bbs.mods.avatar_cache;
-}
 
 function cache_key(username, netaddr)
 {
