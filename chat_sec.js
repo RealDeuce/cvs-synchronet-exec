@@ -1,4 +1,4 @@
-// $Id: chat_sec.js,v 1.13 2019/06/15 03:02:39 rswindell Exp $
+// $Id: chat_sec.js,v 1.14 2019/06/15 03:18:49 rswindell Exp $
 
 // Chat Section for any/all Synchronet command shells
 
@@ -8,8 +8,10 @@ require("sbbsdefs.js", 'USER_EXPERT');
 require("nodedefs.js", 'NODE_CHAT');
 require("text.js", 'R_Chat');
 
-// Over-ride these default values by creating/modifying the [chat_sec] section in your ctrl/modopts.ini file
-var options = load("modopts.js", "chat_sec");
+// Over-ride these default values by creating/modifying the [chat] section in your ctrl/modopts.ini file
+var options = load("modopts.js", "chat");
+if (!options)
+	options = load("modopts.js", "chat_sec");
 if (!options)
 	options = {};
 if (options.irc === undefined)
