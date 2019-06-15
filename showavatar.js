@@ -1,4 +1,4 @@
-// $Id: showavatar.js,v 1.1 2019/04/22 22:51:33 rswindell Exp $
+// $Id: showavatar.js,v 1.2 2019/06/15 01:23:30 rswindell Exp $
 
 var usernum = user.number;
 var draw = false;
@@ -28,10 +28,12 @@ for(var i in argv) {
 	}
 }
 	
-var Avatar = load({}, 'avatar_lib.js');
+if(!bbs.mods.avatar_lib)
+	bbs.mods.avatar_lib = load({}, 'avatar_lib.js');
+
 if(draw) {
-	Avatar.draw(usernum, /* name: */null, /* netaddr: */null, above, right, top);	
+	bbs.mods.avatar_lib.draw(usernum, /* name: */null, /* netaddr: */null, above, right, top);	
 	console.attributes = 7;	// Clear the background attribute as the next line might scroll, filling with BG attribute
 } else {
-	Avatar.show(usernum);
+	bbs.mods.avatar_lib.show(usernum);
 }

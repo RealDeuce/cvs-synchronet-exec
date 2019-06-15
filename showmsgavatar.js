@@ -1,4 +1,4 @@
-// $Id: showmsgavatar.js,v 1.8 2019/06/11 07:27:55 rswindell Exp $
+// $Id: showmsgavatar.js,v 1.9 2019/06/15 01:23:30 rswindell Exp $
 
 // This can be loaded from text/menu/msghdr.asc via @EXEC:SHOWMSGAVATAR@
 // Don't forget to include or exclude the blank line after if you do
@@ -28,14 +28,15 @@ function draw_default_avatar(sub)
 	if(!avatar)
 		avatar = options.msg_default;
 	if(avatar)
-		Avatar.draw_bin(avatar, /* above: */true, /* right-justified: */true, bbs.msghdr_top_of_screen);
+		bbs.mods.avatar_lib.draw_bin(avatar, /* above: */true, /* right-justified: */true, bbs.msghdr_top_of_screen);
 }
 
 // Avatar support here:
 if(!(bbs.msg_attr&MSG_ANONYMOUS) 
 	&& (console.term_supports()&(USER_ANSI|USER_NO_EXASCII)) == USER_ANSI) {
-	var Avatar = load({}, 'avatar_lib.js');
-	var success = Avatar.draw(bbs.msg_from_ext, bbs.msg_from, bbs.msg_from_net, /* above: */true, /* right-justified: */true
+	if(!bbs.mods.avatar_lib)
+		bbs.mods.avatar_lib = load({}, 'avatar_lib.js');
+	var success = bbs.mods.avatar_lib.draw(bbs.msg_from_ext, bbs.msg_from, bbs.msg_from_net, /* above: */true, /* right-justified: */true
 		,bbs.msghdr_top_of_screen);
 	if(!success && bbs.smb_sub_code) {
 		draw_default_avatar(bbs.smb_sub_code);
