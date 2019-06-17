@@ -1,4 +1,4 @@
-// $Id: fidocfg.js,v 1.42 2019/06/17 05:21:25 rswindell Exp $
+// $Id: fidocfg.js,v 1.43 2019/06/17 05:36:29 rswindell Exp $
 require('fido.js', 'FIDO');
 
 /*
@@ -367,7 +367,7 @@ function BinkITCfg()
 		this.caps = f.iniGetValue('BinkP', 'Capabilities');
 		this.sysop = f.iniGetValue('BinkP', 'Sysop', system.operator);
 		this.plain_auth_only = f.iniGetValue('BinkP', 'PlainAuthOnly', false);
-		this.crypt_support = f.iniGetValue('BinkP', 'CryptSupport', true);
+		this.crypt_support = !f.iniGetValue('BinkP', 'PlainTextOnly', false);
 		sects = f.iniGetSections('node:');
 		sects.forEach(function(section) {
 			var addr = section.substr(5);
