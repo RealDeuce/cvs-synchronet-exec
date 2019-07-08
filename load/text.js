@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.28 2019/05/09 21:23:04 rswindell Exp $ */
+/* $Id: text.js,v 1.29 2019/07/08 21:18:29 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -832,8 +832,9 @@ var TerminalMonochrome=820;
 var TerminalColor=821;
 var TerminalIceColor=822;
 var IceColorTerminalQ=823;
-var MsgCarbonCopyList=824;
+var Utf8TerminalQ=824;
+var MsgCarbonCopyList=825;
 
-var TOTAL_TEXT=825;
+var TOTAL_TEXT=826;
 
 this;
