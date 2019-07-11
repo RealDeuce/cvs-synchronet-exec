@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.42 2019/07/06 08:46:10 rswindell Exp $
+// $Id: logon.js,v 1.43 2019/07/11 23:05:40 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -133,7 +133,7 @@ var random_list = directory(system.text_dir + "menu/random*.*");
 if(random_list.length)
 	bbs.menu(file_getname(random_list[random(random_list.length)]).slice(0,-4));
 
-console.clear();
+console.clear(LIGHTGRAY);
 bbs.user_event(EVENT_LOGON);
 
 if(user.security.level==99				/* Sysop logging on */
@@ -228,7 +228,7 @@ if(user.settings&USER_HTML) {
 else {
 	// Last few callers
 	console.aborted=false;
-	console.clear();
+	console.clear(LIGHTGRAY);
 	logonlst=system.data_dir + "logon.lst"
 	if(file_size(logonlst)<1)
 		printf("\1n\1g\1hYou are the first caller of the day!\r\n");
