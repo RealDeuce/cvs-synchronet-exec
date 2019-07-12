@@ -1,6 +1,6 @@
 // E-mail Section
 
-// $Id: email_sec.js,v 1.7 2019/01/15 07:04:41 rswindell Exp $
+// $Id: email_sec.js,v 1.8 2019/07/12 01:49:21 rswindell Exp $
 
 // Note: this module replaces the old ### E-mail section ### Baja code in exec/*.src
 // replace "call E-mail" with "exec_bin email_sec"
@@ -34,7 +34,7 @@ while(bbs.online) {
 		case 'A':	// Send file attachment
 			wm_mode = WM_FILE;
 		case 'S':	// Send Mail
-			console.print(bbs.text(text.Email));
+			console.putmsg(bbs.text(text.Email));
 			var name = console.getstr(40);
 			if(!name)
 				break;
@@ -50,7 +50,7 @@ while(bbs.online) {
 			if(number)
 				bbs.email(number, wm_mode);
 			else
-				console.print(bbs.text(text.UnknownUser));
+				console.putmsg(bbs.text(text.UnknownUser));
 			break;
 		case 'N':	// Send NetMail
 			var netmail = msg_area.fido_netmail_settings | msg_area.inet_netmail_settings;
@@ -59,7 +59,7 @@ while(bbs.online) {
 				wm_mode = WM_FILE;
 			if(console.aborted)
 				break;
-			console.print(bbs.text(text.EnterNetMailAddress));
+			console.putmsg(bbs.text(text.EnterNetMailAddress));
 			var addr_list = userprops.get(ini_section, "address", []) || [];
 			var addr = console.getstr(60, K_LINE, addr_list);
 			if(!addr || console.aborted)
