@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.43 2019/07/11 23:05:40 rswindell Exp $
+// $Id: logon.js,v 1.44 2019/07/12 02:18:50 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -18,6 +18,8 @@ if(options.show_avatar === undefined)
 	options.show_avatar = true;
 if(options.draw_avatar_right === undefined)
 	options.draw_avatar_right = true;
+if(options.last_few_callers === undefined)
+	options.last_few_callers = 4;
 
 if(user.settings & USER_ICE_COLOR) {
 	var cterm = load({}, "cterm_lib.js");
@@ -234,7 +236,7 @@ else {
 		printf("\1n\1g\1hYou are the first caller of the day!\r\n");
 	else {
 		printf("\1n\1g\1hLast few callers:\1n\r\n");
-		console.printtail(logonlst,4,P_NOATCODES|P_TRUNCATE);      // args: filename, lines, mode
+		console.printtail(logonlst, options.last_few_callers, P_NOATCODES|P_TRUNCATE|P_NOABORT);
 	}
 	console.crlf();
 
