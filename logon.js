@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.45 2019/07/15 03:03:03 rswindell Exp $
+// $Id: logon.js,v 1.46 2019/07/15 06:23:11 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -28,7 +28,7 @@ if(user.settings & USER_ICE_COLOR) {
 
 if(options.email_validation == true) {
 	load({}, "emailval.js");
-	if(!online)
+	if(!bbs.online)
 		exit();
 }
 
