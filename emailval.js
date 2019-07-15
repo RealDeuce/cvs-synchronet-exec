@@ -1,5 +1,6 @@
+// $Id: emailval.js,v 1.6 2019/07/15 00:36:41 rswindell Exp $
 /*******************************************************************************
-$ Id: $
+Originally based on:
 FILE: emailval.js v0.2
 BY  : Michael J. Ryan (http://tracker1.info/)
 ON  : 2005-02-14
@@ -68,7 +69,7 @@ var cPrevalText = "telvalcode";
 var cValCodeLen = 16;
 
 //include SBBS Definition constants
-load("sbbsdefs.js"); 
+require("sbbsdefs.js", 'NET_NONE'); 
 
 //gets the validation code in use, if any, otherwise sets/returns a new code.
 function GetValidationCode() {
