@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.44 2019/07/12 02:18:50 rswindell Exp $
+// $Id: logon.js,v 1.45 2019/07/15 03:03:03 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -24,6 +24,12 @@ if(options.last_few_callers === undefined)
 if(user.settings & USER_ICE_COLOR) {
 	var cterm = load({}, "cterm_lib.js");
 	cterm.bright_background(true);
+}
+
+if(options.email_validation == true) {
+	load({}, "emailval.js");
+	if(!online)
+		exit();
 }
 
 // Check if we're being asked to auto-run an external (web interface external programs section uses this)
