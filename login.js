@@ -2,7 +2,7 @@
 
 // Login module for Synchronet BBS v3.1
 
-// $Id: login.js,v 1.17 2019/02/17 00:09:44 rswindell Exp $
+// $Id: login.js,v 1.18 2019/07/16 05:10:47 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -60,6 +60,10 @@ for(var c=0; c < options.login_prompts; c++) {
 		   exit();
 	   }
 	   continue;
+	}
+	if(options.fast_logon == true && str.charAt(0) === (options.fast_logon_char || '!')) {
+		str = str.substr(1);
+		bbs.fast_logon = true;
 	}
 	// Continue normal login (prompting for password)
 	if(bbs.login(str, "\1n\1c\1hPW:\b\b\bPassword: \1w")) {
