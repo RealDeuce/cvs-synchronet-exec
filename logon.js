@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.47 2019/07/16 05:10:47 rswindell Exp $
+// $Id: logon.js,v 1.48 2019/07/16 07:13:12 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -113,7 +113,8 @@ if(user.security.exemptions&UFLAG_H)
 * Replaces the 2.1 Logon stuff
 ******************************/
 
-if(bbs.fast_logon !== true) {
+if(options.fast_logon !== true || !(bbs.sys_status&SS_FASTLOGON)
+	|| !user.compare_ars(options.fast_logon_requirements)) {
 
 	// Logon screens
 
