@@ -1,4 +1,4 @@
-/* $Id: sbbsdefs.js,v 1.92 2019/07/06 08:38:03 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.93 2019/07/16 07:08:19 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -109,6 +109,8 @@ var   SS_RLOGIN		=(1<<26);	/* Current login via BSD RLogin				*/
 var   SS_FILEXFER	=(1<<27);	/* File transfer in progress, halt spy		*/
 var   SS_SSH		=(1<<28);	/* Current login via Secure Shell (SSH)     */
 var   SS_MOFF		=(1<<29);	/* Disable node/time messages				*/
+var   SS_QWKLOGON   =(1<<30);	/* QWK logon 								*/
+var   SS_FASTLOGON  =(1<<31);	/* Fast logon                               */
 					    		/********************************************/
 
 						    	/********************************************/
