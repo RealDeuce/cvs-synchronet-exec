@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.69 2019/07/17 03:33:18 deuce Exp $
+ * $Id: imapservice.js,v 1.70 2019/07/17 03:47:07 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -938,7 +938,7 @@ var unauthenticated_command_handlers = {
 			var pass=args[2];
 
 			if (!client.socket.ssl_session) {
-				taggeed(tag, "NO", "Basic RFC stuff here! A client implementation MUST NOT send a LOGIN command if the LOGINDISABLED capability is advertised.");
+				tagged(tag, "NO", "Basic RFC stuff here! A client implementation MUST NOT send a LOGIN command if the LOGINDISABLED capability is advertised.");
 				return;
 			}
 			if(!login(usr, pass)) {
