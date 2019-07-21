@@ -1,4 +1,4 @@
-// $Id: SlyEdit_DCTStuff.js,v 1.22 2019/07/21 19:04:00 nightfox Exp $
+// $Id: SlyEdit_DCTStuff.js,v 1.23 2019/07/21 21:47:14 nightfox Exp $
 
 /* This file contains DCTEdit-specific functions for SlyEdit.
  *
@@ -67,6 +67,8 @@ function readColorConfig(pFilename)
 // Sets up any global screen-related variables needed for DCT style
 function globalScreenVarsSetup_DCTStyle()
 {
+	gSubjPos.x = 12;
+	gSubjPos.y = 4;
 	gSubjScreenLen = console.screen_columns - 15;
 }
 

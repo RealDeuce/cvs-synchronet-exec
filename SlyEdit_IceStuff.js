@@ -1,4 +1,4 @@
-// $Id: SlyEdit_IceStuff.js,v 1.30 2019/07/21 19:04:00 nightfox Exp $
+// $Id: SlyEdit_IceStuff.js,v 1.31 2019/07/21 21:47:14 nightfox Exp $
 
 /* This contains IceEdit-specific functions for SlyEdit.
  *
@@ -56,6 +56,8 @@ function readColorConfig(pFilename)
 // Sets up any global screen-related variables needed for Ice style
 function globalScreenVarsSetup_IceStyle()
 {
+	gSubjPos.x = 12;
+	gSubjPos.y = 3;
 	gSubjScreenLen = +(console.screen_columns * (54/80)).toFixed(0);
 }
 

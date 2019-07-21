@@ -1,4 +1,4 @@
-// $Id: SlyEdit.js,v 1.64 2019/07/21 19:04:00 nightfox Exp $
+// $Id: SlyEdit.js,v 1.65 2019/07/21 21:47:14 nightfox Exp $
 
 /* This is a text editor for Synchronet designed to mimic the look & feel of
  * DCTEdit and IceEdit, since neither of those editors have been developed
@@ -342,8 +342,6 @@ if (EDITOR_STYLE == "DCT")
 	fpCallESCMenu = callDCTESCMenu;
 	fpGlobalScreenVarsSetup = globalScreenVarsSetup_DCTStyle;
 
-	gSubjPos.x = 12;
-	gSubjPos.y = 4;
 	// Note: gSubjScreenLen is set in redrawScreen_DCTStyle()
 	fpRefreshSubjectOnScreen = refreshSubjectOnScreen_DCTStyle;
 }
@@ -371,8 +369,6 @@ else if (EDITOR_STYLE == "ICE")
 	fpCallESCMenu = callIceESCMenu;
 	fpGlobalScreenVarsSetup = globalScreenVarsSetup_IceStyle;
 
-	gSubjPos.x = 12;
-	gSubjPos.y = 3;
 	// Note: gSubjScreenLen is set in redrawScreen_IceStyle()
 	fpRefreshSubjectOnScreen = refreshSubjectOnScreen_IceStyle;
 }
