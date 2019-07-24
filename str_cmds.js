@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.46 2019/04/09 21:13:24 rswindell Exp $
+// $Id: str_cmds.js,v 1.47 2019/07/24 22:13:48 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -109,13 +109,37 @@ function str_cmds(str)
 		}
 
 		if(str=="HELP") {
-			writeln("LIST <filename>");
-			writeln("\tDisplays a file.");
+			writeln("TYPE [filename]");
+			writeln("\tDisplays a file. Aliases: LIST and CAT");
 		}
-		if(word=="LIST") {
+		if(word=="LIST" || word=="TYPE" || word=="CAT") {
 			if(bbs.check_syspass()) {
 				str=str.substr(4);
 				console.printfile(get_filename(str));
+				return;
+			}
+		}
+		
+		if(str=="HELP") {
+			writeln("ECHO [string]");
+			writeln("\tPrint a text message.");
+		}
+		if(word=="ECHO") {
+			if(bbs.check_syspass()) {
+				str=str.substr(4);
+				console.putmsg(get_arg(str));
+				return;
+			}
+		}
+		
+		if(str=="HELP") {
+			writeln("EVAL [string]");
+			writeln("\tEvaluate a JavaScirpt expression and display result.");
+		}
+		if(word=="EVAL") {
+			if(bbs.check_syspass()) {
+				str=str.substr(4);
+				console.print(eval(get_arg(str)));
 				return;
 			}
 		}
