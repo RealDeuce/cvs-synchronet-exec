@@ -1,4 +1,4 @@
-// $Id: automsg.js,v 1.1 2019/05/16 19:40:47 rswindell Exp $
+// $Id: automsg.js,v 1.2 2019/07/24 22:09:59 rswindell Exp $
 // vi: tabstop=4
 
 "use strict";
@@ -14,9 +14,9 @@ function automsg()
 	while(bbs.online && !js.termiated) {
 		bbs.nodesync();
 		console.mnemonics(bbs.text(AutoMsg));
-		switch(console.getkeys("RWQ",0)) {
+		switch(console.getkeys("RWQD",0)) {
 			case 'R':
-				console.printfile(automsg,P_NOABORT|P_NOATCODES|P_WORDWRAP);
+				console.printfile(automsg,P_NOABORT|P_NOATCODES|P_WORDWRAP|P_NOERROR);
 				break;
 			case 'W':
 				if(user.security.restrictions&UFLAG_W) {
@@ -57,6 +57,10 @@ function automsg()
 					file.write(buf);
 					file.close();
 				}
+				break;
+			case 'D':
+				if(user.is_sysop)
+					file_remove(automsg);
 				break;
 			case 'Q':
 				return;
