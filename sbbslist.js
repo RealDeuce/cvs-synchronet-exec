@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.53 2019/03/20 22:41:16 rswindell Exp $
+// $Id: sbbslist.js,v 1.54 2019/07/24 22:15:44 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.53 $".split(' ')[1];
+var REVISION = "$Revision: 1.54 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -49,7 +49,10 @@ var lib = load({}, "sbbslist_lib.js");
 var capture = load({}, "termcapture_lib.js");
 capture.timeout=15;
 capture.poll_timeout=10;
-var avatar_lib = load({}, "avatar_lib.js");
+if(js.global.bbs && bbs.mods.avatar_lib)
+	avatar_lib = bbs.mods.avatar_lib;
+else
+	avatar_lib = load({}, 'avatar_lib.js');
 
 function objcopy(obj)
 {
@@ -646,7 +649,7 @@ function capture_preview(bbs, addr)
 
 function verify_terminal_service(service)
 {
-    print("Verifying terminal service: " + service.protocol);
+    print("Verifying terminal service: " + service.protocol + " at " + service.address + ":" + service.port);
     capture.protocol = service.protocol.toLowerCase();
     capture.address = service.address;
     capture.port = service.port;
