@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.30 2019/05/02 21:23:04 rswindell Exp $
+// $Id: newsutil.js,v 1.31 2019/07/25 01:56:40 rswindell Exp $
 
 require("mailutil.js", 'mail_get_name');
 require("smbdefs.js", 'RFC822HEADER');
@@ -65,8 +65,12 @@ function write_news_header(hdr,writeln)
 		}
 	}
 	if(content_type==undefined) {
-		/* No content-type specified, so assume IBM code-page 437 (full ex-ASCII) */
-		writeln("Content-Type: text/plain; charset=IBM437");
+		var charset = hdr.text_charset;
+		if(!charset)
+			charset = "IBM437";
+		if(hdr.is_utf8)
+			charset = "UTF-8";
+		writeln("Content-Type: text/plain; charset=" + charset);
 		writeln("Content-Transfer-Encoding: 8bit");
 	}
 
