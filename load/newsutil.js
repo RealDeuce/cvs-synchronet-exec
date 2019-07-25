@@ -3,7 +3,7 @@
 // Generates and parses USENET news headers 
 // for use with newslink.js and nntpservice.js
 
-// $Id: newsutil.js,v 1.31 2019/07/25 01:56:40 rswindell Exp $
+// $Id: newsutil.js,v 1.32 2019/07/25 02:04:37 rswindell Exp $
 
 require("mailutil.js", 'mail_get_name');
 require("smbdefs.js", 'RFC822HEADER');
@@ -65,15 +65,10 @@ function write_news_header(hdr,writeln)
 		}
 	}
 	if(content_type==undefined) {
-		var charset = hdr.text_charset;
-		if(!charset)
-			charset = "IBM437";
-		if(hdr.is_utf8)
-			charset = "UTF-8";
+		var charset = hdr.text_charset || (hdr.is_utf8 ? "UTF-8" : "IBM437");
 		writeln("Content-Type: text/plain; charset=" + charset);
 		writeln("Content-Transfer-Encoding: 8bit");
 	}
-
 }
 
 function parse_news_header(hdr, line)
