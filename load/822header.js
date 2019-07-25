@@ -1,4 +1,4 @@
-// $Id: 822header.js,v 1.13 2019/05/20 18:56:00 rswindell Exp $
+// $Id: 822header.js,v 1.14 2019/07/25 02:02:45 rswindell Exp $
 
 require("utf8_ascii.js", 'utf8_ascii');
 require("smbdefs.js", 'RFC822HEADER');
@@ -104,8 +104,8 @@ MsgBase.HeaderPrototype.get_rfc822_header=function(force_update, unfold)
 				}
 		}
 		if(content_type==undefined) {
-			/* No content-type specified, so assume IBM code-page 437 (full ex-ASCII) */
-			this.rfc822 += "Content-Type: text/plain; charset=IBM437\r\n";
+			var charset = this.text_charset || (this.is_utf8 ? "UTF-8" : "IBM437");
+			this.rfc822 += "Content-Type: text/plain; charset=" + charset + "\r\n";
 			this.rfc822 += "Content-Transfer-Encoding: 8bit\r\n";
 		}
 
