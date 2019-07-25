@@ -1,4 +1,4 @@
-// $Id: unicode_cp437.js,v 1.2 2019/07/24 22:03:58 rswindell Exp $
+// $Id: unicode_cp437.js,v 1.3 2019/07/25 11:13:25 rswindell Exp $
 
 function unicode_cp437(uc)
 {
@@ -485,6 +485,6 @@ function unicode_cp437(uc)
 		case 0xFFEC: return String.fromCharCode(0x0056);
 		case 0xFFED: return String.fromCharCode(0x00FE);
 		default:
-			return tring.fromCharCode(0x00A8); // Inverted question mark
+			return String.fromCharCode(0x00A8); // Inverted question mark
 	}
 }
