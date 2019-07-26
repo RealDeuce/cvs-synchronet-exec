@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.47 2019/07/24 22:13:48 rswindell Exp $
+// $Id: str_cmds.js,v 1.48 2019/07/26 02:22:29 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -54,7 +54,7 @@ function str_cmds(str)
 	if(str=="HELP")
 		write("\r\nAvailable STR commands (prefix with a semi-colon)\r\n\r\n");
 
-	if(user.compare_ars("SYSOP") || (bbs.sys_status&SS_TMPSYSOP)) {
+	if(bbs.compare_ars("SYSOP")) {
 		// Change node action to "sysop activities"
 		bbs.node_action=NODE_SYSP;
 		//sync

@@ -1,4 +1,4 @@
-// $Id: text_sec.js,v 1.1 2019/07/25 06:27:33 rswindell Exp $
+// $Id: text_sec.js,v 1.2 2019/07/26 02:22:29 rswindell Exp $
 
 // [General] Text File Section ("G-Files")
 // Replacement for Baja TEXT_FILE_SECTION and JS bbs.text_sec() functions
@@ -52,7 +52,7 @@ function write_list(sec, list)
 
 var usrsec = [];
 for(var i in file_cnf.txtsec) {
-	if(user.compare_ars(file_cnf.txtsec[i].ars))
+	if(bbs.compare_ars(file_cnf.txtsec[i].ars))
 		usrsec.push(file_cnf.txtsec[i]);
 }
 if(!usrsec.length) {
