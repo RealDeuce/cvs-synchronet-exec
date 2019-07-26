@@ -1,4 +1,4 @@
-/* $Id: sbbsdefs.js,v 1.93 2019/07/16 07:08:19 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.94 2019/07/26 08:47:31 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -228,6 +228,7 @@ var   P_NOERROR     =(1<<10);   /* Don't report error if file doesn't exist */
 var   P_PETSCII     =(1<<11);   /* Message is native PETSCII                */
 var   P_WRAP        =(1<<12);   /* Wrap/split long-lines, ungracefully      */
 var   P_UTF8        =(1<<13);	/* Message is UTF-8 encoded                 */
+var   P_AUTO_UTF8	=(1<<14);	/* Message may be UTF-8, auto-detect		*/
 							    /********************************************/
 
     							/********************************************/
