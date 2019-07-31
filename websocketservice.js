@@ -1,4 +1,4 @@
-// $Id: websocketservice.js,v 1.12 2019/01/12 22:05:53 rswindell Exp $
+// $Id: websocketservice.js,v 1.13 2019/07/31 03:25:28 echicken Exp $
 
 // websocketservice.js 
 
@@ -50,7 +50,7 @@ try {
         SendToWebSocketClient(StringToBytes("Redirecting to server...\r\n"));
 
         // Default to localhost on the telnet port
-		var TargetHostname = 'localhost';
+		var TargetHostname = GetTelnetInterface();
 		var TargetPort = GetTelnetPort();
         
         // If fTelnet client sent a port on the querystring, try to use that
@@ -62,6 +62,7 @@ try {
             if ((RequestedPort > 0) && (RequestedPort <= 65535) && ((RequestedPort == GetTelnetPort()) || (RequestedPort == GetRLoginPort()))) {
                 TargetPort = RequestedPort;
                 log(LOG_DEBUG, "Using user-requested port " + Path.query.Port);
+                if (TargetPort == GetRLoginPort()) TargetHostname = GetRLoginInterface();
             } else {
                 log(LOG_NOTICE, "Client requested to connect to port " + Path.query.Port + ", which was denied");
             }
