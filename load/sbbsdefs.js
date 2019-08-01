@@ -1,4 +1,4 @@
-/* $Id: sbbsdefs.js,v 1.95 2019/07/26 21:04:58 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.96 2019/08/01 07:46:56 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -598,6 +598,7 @@ var WM_PRIVATE		=(1<<8);	/* Private (for creating MSGINF file)		*/
 var WM_SUBJ_RO		=(1<<9);	/* Subject/title is read-only				*/
 var WM_EDIT			=(1<<10);	/* Editing existing message					*/
 var WM_FORCEFWD		=(1<<11);	/* Force "yes" to ForwardMailQ for email	*/
+var WM_NOFWD		=(1<<12);	/* Don't forward email to netmail			*/
 								/********************************************/
 
 								/************************************************/
