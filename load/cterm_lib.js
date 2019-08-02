@@ -1,4 +1,4 @@
-// $Id: cterm_lib.js,v 1.22 2019/07/12 02:24:32 rswindell Exp $
+// $Id: cterm_lib.js,v 1.23 2019/08/02 07:32:43 rswindell Exp $
 
 // Library for dealing with CTerm/SyncTERM enhanced features (e.g. fonts)
 
@@ -7,8 +7,8 @@ var xbin = load({}, 'xbin_defs.js');
 var ansiterm = load({}, 'ansiterm_lib.js');
 
 const cterm_version_supports_b64_fonts = 1213;
-const cterm_version_supports_fonts = 1061;
-const cterm_version_supports_fontstate_query = 1161;	// Yes, just a coincidence
+const cterm_version_supports_fonts = 1155;
+const cterm_version_supports_fontstate_query = 1161;
 const cterm_version_supports_mode_query = 1160;
 const cterm_version_supports_palettes = 1167;
 const cterm_version_supports_sixel = 1189;
