@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.175 2019/08/05 21:34:51 deuce Exp $
+// $Id: ircd.js,v 1.176 2019/08/05 23:37:45 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.175 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.176 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -174,7 +174,7 @@ if(this.server==undefined) {		// Running from JSexec?
 		default_port = mline_port;
 
 	server = { socket: false, terminated: false,
-		version_detail: jsexec_revision_detail, interface_ip_addr_list: [0,"::"] };
+		version_detail: jsexec_revision_detail };
 	server.socket = create_new_socket(default_port)
 	if (!server.socket)
 		exit();
@@ -627,9 +627,19 @@ function connect_to_server(this_cline,the_port) {
 		the_port = this_cline.port;
 	else if (!the_port)
 		the_port = default_port; // try a safe default.
-	connect_sock = new Socket();
-	connect_sock.bind(0,server.interface_ip_address);
-	connect_sock.connect(this_cline.host,the_port,ob_sock_timeout);
+	if (js.global.ConnectedSocket != undefined) {
+		try {
+			connect_sock = new ConnectedSocket(this_cline.host, the_port, {timeout:ob_sock_timeout, bindaddrs:server.interface_ip_addr_list});
+		}
+		catch(e) {
+			connect_sock = new Socket();
+		}
+	}
+	else {
+		connect_sock = new Socket();
+		connect_sock.bind(0,server.interface_ip_address);
+		connect_sock.connect(this_cline.host,the_port,ob_sock_timeout);
+	}
 
 	var sendts = true; /* Assume Bahamut */
 
@@ -856,8 +866,15 @@ function create_new_socket(port) {
 
 	log(LOG_DEBUG,"Creating new socket object on port " + port);
 	if (js.global.ListeningSocket != undefined) {
-		newsock = new ListeningSocket(server.interface_ip_addr_list, port, "IRCd");
-		log(format("IRC server socket bound to TCP port " + port));
+		try {
+			newsock = new ListeningSocket(server.interface_ip_address, port, "IRCd");
+			log(format("IRC server socket bound to TCP port " + port));
+		}
+		catch(e) {
+			log(LOG_ERR,"!Error " + e + " creating listening socket on port "
+				+ port);
+			return 0;
+		}
 	}
 	else {
 		newsock = new Socket();
