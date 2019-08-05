@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.37 2018/12/16 09:04:04 deuce Exp $
+// $Id: jsdocs.js,v 1.38 2019/08/05 21:09:20 deuce Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -308,6 +308,16 @@ if(js.global.uifc != undefined)			document_object("uifc"		,uifc);
 if(js.global.MsgBase != undefined)		document_object("MsgBase"	,new MsgBase(msg_area.grp_list[0].sub_list[0].code), "class");
 if(js.global.File != undefined)			document_object("File"		,new File(system.devnull), "class");
 if(js.global.Queue != undefined)		document_object("Queue"		,new Queue(), "class");
+if(js.global.ConnectedSocket != undefined) {
+	var sock=new ConnectedSocket("www.google.com", 80);
+	sock.close();
+	if(sock != undefined)		document_object("ConnectedSocket"	,sock, "class");
+}
+if(js.global.ListeningSocket != undefined) {
+	var sock=new ListeningSocket("localhost", 0, "jsdocs");
+	sock.close();
+	if(sock != undefined)		document_object("ListeningSocket"	,sock, "class");
+}
 if(js.global.Socket != undefined) {
 	var sock=new Socket();
 	sock.close();
