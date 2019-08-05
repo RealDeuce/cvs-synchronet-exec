@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.173 2019/08/05 21:23:43 deuce Exp $
+// $Id: ircd.js,v 1.174 2019/08/05 21:30:31 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.173 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.174 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -857,7 +857,7 @@ function create_new_socket(port) {
 	log(LOG_DEBUG,"Creating new socket object on port " + port);
 	if (js.global.ConnectedSocket != undefined) {
 		newsock = new ListeningSocket(server.interface_ip_address, port, "IRCd");
-		log(format("IRC server socket bound to TCP port " + port);
+		log(format("IRC server socket bound to TCP port " + port));
 	}
 	else {
 		newsock = new Socket();
