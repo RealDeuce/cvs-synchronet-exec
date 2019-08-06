@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.178 2019/08/05 23:46:12 deuce Exp $
+// $Id: ircd.js,v 1.179 2019/08/06 16:27:34 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.178 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.179 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -747,11 +747,49 @@ function read_ini_config(fname) {
 
 function read_conf_config(fname) {
 	var conf = new File(fname);
+
+	function fancy_split(line) {
+		var ret = [];
+		var i;
+		var s = 0;
+		var inb = false;
+		var str;
+
+		for (i = 0; i < line.length; i++) {
+			if (line[i] == ':') {
+				if (inb)
+					continue;
+				if (i > 0 && line[i-1] == ']')
+					str = line.slice(s, i-1);
+				else
+					str = line.slice(s, i);
+				ret.push(str);
+				s = i + 1;
+			}
+			else if (line[i] == '[' && s == i) {
+				inb = true;
+				s = i + 1;
+			}
+			else if (line[i] == ']' && (i+1 == line.length || line[i+1] == ':')) {
+				inb = false;
+			}
+		}
+		if (s < line.length) {
+			if (i > 0 && line[i-1] == ']')
+				str = line.slice(s, i-1);
+			else
+				str = line.slice(s, i);
+			ret.push(str);
+		}
+
+		return ret;
+	}
+
 	if (conf.open("r")) {
 		while (!conf.eof) {
 			var conf_line = conf.readln();
 			if ((conf_line != null) && conf_line.match("[:]")) {
-				var arg = conf_line.split(":");
+				var arg = fancy_split(conf_line);
 				for(argument in arg) {
 					arg[argument]=arg[argument].replace(
 						/SYSTEM_HOST_NAME/g,system.host_name);
