@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.179 2019/08/06 16:27:34 deuce Exp $
+// $Id: ircd.js,v 1.180 2019/08/06 16:29:32 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.179 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.180 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -766,7 +766,7 @@ function read_conf_config(fname) {
 				ret.push(str);
 				s = i + 1;
 			}
-			else if (line[i] == '[' && s == i) {
+			else if (!inb && line[i] == '[' && s == i) {
 				inb = true;
 				s = i + 1;
 			}
