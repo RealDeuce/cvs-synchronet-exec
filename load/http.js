@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.43 2019/02/21 01:49:37 rswindell Exp $ */
+/* $Id: http.js,v 1.44 2019/08/06 04:13:22 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -88,6 +88,7 @@ HTTPRequest.prototype.SetupPost=function(url, referer, base, data, content_type)
 
 HTTPRequest.prototype.SendRequest=function() {
 	var i;
+	var port;
 
 	function do_send(sock, str) {
 		var sent = 0;
@@ -107,12 +108,18 @@ HTTPRequest.prototype.SendRequest=function() {
 
 	if (this.sock != undefined)
 		this.sock.close();
-	if((this.sock=new Socket(SOCK_STREAM))==null)
-		throw("Unable to create socket");
-	var port = this.url.port?this.url.port:(this.url.scheme=='http'?80:443);
-	if(!this.sock.connect(this.url.host, port)) {
-		this.sock.close();
-		throw(format("Unable to connect to %s:%u", this.url.host, this.url.port));
+	port = this.url.port?this.url.port:(this.url.scheme=='http'?80:443);
+	if (js.global.ConnectedSocket != undefined) {
+		if ((this.sock = new ConnectedSocket(this.url.host, port)) == null)
+			throw(format("Unable to connect to %s:%u", this.url.host, this.url.port));
+	}
+	else {
+		if((this.sock=new Socket(SOCK_STREAM))==null)
+			throw("Unable to create socket");
+		if(!this.sock.connect(this.url.host, port)) {
+			this.sock.close();
+			throw(format("Unable to connect to %s:%u", this.url.host, this.url.port));
+		}
 	}
 	if(this.url.scheme=='https')
 		this.sock.ssl_session=true;
