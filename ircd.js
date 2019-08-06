@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.180 2019/08/06 16:29:32 deuce Exp $
+// $Id: ircd.js,v 1.181 2019/08/06 16:49:47 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.180 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.181 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -526,7 +526,7 @@ function create_ban_mask(str,kline) {
 	tmp_banstr[2] = "";
 	var bchar_counter = 0;
 	var part_counter = 0; // BAN: 0!1@2 KLINE: 0@1
-	var regexp="[A-Za-z\{\}\`\^\_\|\\]\\[\\\\0-9\-.*?\~]";
+	var regexp="[A-Za-z\{\}\`\^\_\|\\]\\[\\\\0-9\-.*?\~:]";
 	var finalstr;
 	for (bchar in str) {
 		if (str[bchar].match(regexp)) {
