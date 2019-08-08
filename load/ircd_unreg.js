@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.39 2016/05/12 11:14:51 deuce Exp $
+// $Id: ircd_unreg.js,v 1.40 2019/08/08 23:55:33 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.39 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.40 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -118,6 +118,7 @@ function IRC_Unregistered_Commands(cmdline) {
 		// since some *broken* IRC clients use this in the unreg stage.
 		command = cmd[1].toUpperCase();
 		cmdline = cmdline.slice(cmdline.indexOf(" ")+1);
+		cmd = cmdline.split(" ");
 	} else {
 		command = cmd[0].toUpperCase();
 	}
