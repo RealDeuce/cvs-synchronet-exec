@@ -2,7 +2,7 @@
 
 // Global String Command Module for Synchronet
 
-// $Id: str_cmds.js,v 1.48 2019/07/26 02:22:29 rswindell Exp $
+// $Id: str_cmds.js,v 1.49 2019/08/08 04:08:21 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -139,7 +139,11 @@ function str_cmds(str)
 		if(word=="EVAL") {
 			if(bbs.check_syspass()) {
 				str=str.substr(4);
-				console.print(eval(get_arg(str)));
+				try {
+					console.print(eval(get_arg(str)));
+				} catch(e) {
+					alert(e);
+				}
 				return;
 			}
 		}
