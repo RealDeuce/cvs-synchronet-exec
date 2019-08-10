@@ -1,4 +1,4 @@
-// $Id: SlyEdit_IceStuff.js,v 1.31 2019/07/21 21:47:14 nightfox Exp $
+// $Id: SlyEdit_IceStuff.js,v 1.32 2019/08/10 02:42:29 nightfox Exp $
 
 /* This contains IceEdit-specific functions for SlyEdit.
  *

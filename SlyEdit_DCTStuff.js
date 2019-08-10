@@ -1,4 +1,4 @@
-// $Id: SlyEdit_DCTStuff.js,v 1.24 2019/07/21 21:55:57 nightfox Exp $
+// $Id: SlyEdit_DCTStuff.js,v 1.25 2019/08/10 02:42:29 nightfox Exp $
 
 /* This file contains DCTEdit-specific functions for SlyEdit.
  *
