@@ -2,7 +2,7 @@
 
 /* Helper functions to get values from sbbs.ini/services.ini for fTelnet */
 
-/* $Id: ftelnethelper.js,v 1.10 2019/08/11 01:42:58 echicken Exp $ */
+/* $Id: ftelnethelper.js,v 1.11 2019/08/11 16:43:05 echicken Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -136,17 +136,22 @@ function UsingSecondRLoginName() {
 	return (FBBSOptions.indexOf("USE_2ND_RLOGIN") !== -1);
 }
 
+function GetInterface(i) {
+	if (['', '0.0.0.0', '::'].indexOf(i) > -1) return 'localhost';
+	return i;
+}
+
 function GetGlobalInterface() {
 	GetSBBSIniValues();
-	return FGlobalInterface == '' ? 'localhost' : FGlobalInterface;
+	return GetInterface(FGlobalInterface);
 }
 
 function GetTelnetInterface() {
 	GetSBBSIniValues();
-	return FTelnetInterface == '' ? GetGlobalInterface() : FTelnetInterface;
+	return GetInterface(FTelnetInterface);
 }
 
 function GetRLoginInterface() {
 	GetSBBSIniValues();
-	return FRLoginInterface == '' ? GetGlobalInterface() : FRLoginInterface;
+	return GetInterface(FRLoginInterface);
 }
