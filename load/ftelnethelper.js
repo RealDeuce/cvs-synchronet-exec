@@ -2,7 +2,7 @@
 
 /* Helper functions to get values from sbbs.ini/services.ini for fTelnet */
 
-/* $Id: ftelnethelper.js,v 1.9 2019/07/31 03:23:50 echicken Exp $ */
+/* $Id: ftelnethelper.js,v 1.10 2019/08/11 01:42:58 echicken Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -62,9 +62,9 @@ function GetSBBSIniValues() {
 				FBBSOptions = f.iniGetValue("BBS", "Options", "");
 				FRLoginPort = f.iniGetValue("BBS", "RLoginPort", -1);
 				FTelnetPort = f.iniGetValue("BBS", "TelnetPort", -1);
-				FGlobalInterface = f.iniGetValue("Global", "Interface", "");
-				FRLoginInterface = f.iniGetValue("BBS", "RLoginInterface", "");
-				FTelnetInterface = f.iniGetValue("BBS", "TelnetInterface", "");
+				FGlobalInterface = f.iniGetValue("Global", "Interface", "").split(',')[0];
+				FRLoginInterface = f.iniGetValue("BBS", "RLoginInterface", "").split(',')[0];
+				FTelnetInterface = f.iniGetValue("BBS", "TelnetInterface", "").split(',')[0];
 				f.close();
 			}
 		} catch (err) {
