@@ -1,4 +1,4 @@
-// $Id: text_sec.js,v 1.2 2019/07/26 02:22:29 rswindell Exp $
+// $Id: text_sec.js,v 1.3 2019/08/14 06:31:54 rswindell Exp $
 
 // [General] Text File Section ("G-Files")
 // Replacement for Baja TEXT_FILE_SECTION and JS bbs.text_sec() functions
@@ -9,6 +9,7 @@
 require("text.js", 'TextSectionLstHdr');
 require("nodedefs.js", 'NODE_RTXT');
 require("cga_defs.js", 'LIGHTGRAY');
+require("sbbsdefs.js", 'P_CPM_EOF');
 
 if(!bbs.mods.cnflib)
 	bbs.mods.cnflib = load({}, "cnflib.js");
@@ -29,9 +30,9 @@ function read_list(sec)
 	f.close();
 	var list = [];
 	for(var i = 0; i < lines.length; i += 2) {
-		var path = file_getcase(lines[i]);
+		var path = txtsec_data(sec) + "/" + lines[i]; 
 		if(!path)
-			path = txtsec_data(sec) + "/" + lines[i];
+			path = file_getcase(lines[i]);
 		list.push({ path: path, orig_path: lines[i], desc: lines[i + 1]});
 	}
 	return list;
@@ -145,7 +146,7 @@ while(bbs.online) {
 				if(typeof(cmd) == "number") {
 					cmd--;
 					console.attributes = LIGHTGRAY;
-					console.printfile(list[cmd].path);
+					console.printfile(list[cmd].path, P_CPM_EOF);
 					log(LOG_INFO, "read text file: " + list[cmd].path);
 					console.pause();
 				}
