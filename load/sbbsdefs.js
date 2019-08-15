@@ -1,4 +1,4 @@
-/* $Id: sbbsdefs.js,v 1.96 2019/08/01 07:46:56 rswindell Exp $ */
+/* $Id: sbbsdefs.js,v 1.97 2019/08/15 23:25:59 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -159,7 +159,7 @@ var   CON_NORM_FONT	=(1<<18);	/* Alt normal font activated				*/
 var   CON_HIGH_FONT	=(1<<19);	/* Alt high-intensity font activated		*/
 var   CON_BLINK_FONT=(1<<20);	/* Alt blink font activated					*/
 var   CON_HBLINK_FONT=(1<<21);	/* Alt high-blink font activated			*/
-var   CON_CR_CLREOL	=(1<<31)	// Sending '\r', clears to end-of-line first
+var   CON_CR_CLREOL	=(1<<31);	// Sending '\r', clears to end-of-line first
 					    		/********************************************/
 
 								/********************************************/
