@@ -1,4 +1,4 @@
-// $Id: logonlist_lib.js,v 1.1 2019/08/16 02:45:11 rswindell Exp $
+// $Id: logonlist_lib.js,v 1.2 2019/08/16 03:57:28 rswindell Exp $
 
 // Library for dealing with the "logon list" (data/logon.jsonl)
 
@@ -22,11 +22,12 @@ function add(obj)
 		obj.user.limits = undefined;
 		obj.user.security = undefined;
 	}
-	if(obj.node === undefined && js.global.bbs !== undefined)
-		obj.node = bbs.node_num;
-	if(obj.total === undefined)
-		obj.total = system.stats.total_logons;
-
+	if(js.global.bbs !== undefined) {
+		if(obj.node === undefined)
+			obj.node = bbs.node_num;
+		if(obj.total === undefined)
+			obj.total = system.stats.total_logons;
+	}
 	if(obj.terminal === undefined
 		&& js.global.console !== undefined) {
 		obj.terminal =  { 
