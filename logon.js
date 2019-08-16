@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.51 2019/08/16 02:50:43 rswindell Exp $
+// $Id: logon.js,v 1.52 2019/08/16 04:15:31 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -22,8 +22,6 @@ if(options.show_avatar === undefined)
 	options.show_avatar = true;
 if(options.draw_avatar_right === undefined)
 	options.draw_avatar_right = true;
-if(options.last_few_callers === undefined)
-	options.last_few_callers = 4;
 
 if(user.settings & USER_ICE_COLOR) {
 	var cterm = load({}, "cterm_lib.js");
