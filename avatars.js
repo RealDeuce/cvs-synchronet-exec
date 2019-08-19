@@ -1,6 +1,6 @@
-// $Id: avatars.js,v 1.38 2019/06/04 09:02:10 rswindell Exp $
+// $Id: avatars.js,v 1.39 2019/08/19 03:01:58 rswindell Exp $
 
-var REVISION = "$Revision: 1.38 $".split(' ')[1];
+var REVISION = "$Revision: 1.39 $".split(' ')[1];
 
 load('sbbsdefs.js');
 load("lz-string.js");
@@ -195,7 +195,9 @@ function import_shared_file(hdr, body)
 
 	// If the filename (in the subject) already contains the sender's QWK-ID, skip-it
 	var filename = file_getname(hdr.subject);
-	var prefix = file_getname(hdr.from_net_addr) + '.';
+	var prefix = '';
+	if(!fidoaddr.is_valid(hdr.from_net_addr))
+		prefix = file_getname(hdr.from_net_addr) + '.';
 	var suffix = '.bin';
 	if(filename.length > prefix.length + suffix.length
 		&& filename.substr(0, prefix.length).toLowerCase() == prefix.toLowerCase())
