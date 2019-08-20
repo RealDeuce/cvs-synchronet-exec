@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.6 2015/11/16 21:03:30 deuce Exp $
+// $Id: graphic.js,v 1.7 2019/08/20 23:03:13 deuce Exp $
 
 /*
  * "Graphic" object
@@ -15,9 +15,7 @@
  * Instance variable data contains an array of array of Graphics.Cell objects
  *
  */
-
-if (typeof(Attribute) === 'undefined')
-	load("attribute.js");
+require('attribute.js', 'Attribute');
 
 function Graphic(w,h,attr,ch)
 {
