@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.7 2019/08/20 23:03:13 deuce Exp $
+// $Id: graphic.js,v 1.8 2019/08/22 08:29:20 deuce Exp $
 
 /*
  * "Graphic" object
@@ -69,7 +69,7 @@ Object.defineProperty(Graphic.prototype, "BIN", {
 		for (y=0; y<this.height; y++) {
 			for (x=0; x<this.width; x++) {
 				bin += this.data[x][y].ch;
-				bin += ascii(this.data[x][y].attr);
+				bin += ascii(this.data[x][y].attr.value);
 			}
 		}
 		return bin;
