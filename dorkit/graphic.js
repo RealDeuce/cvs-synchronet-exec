@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.9 2019/08/22 09:31:19 deuce Exp $
+// $Id: graphic.js,v 1.10 2019/08/22 22:04:11 deuce Exp $
 
 /*
  * "Graphic" object
@@ -474,12 +474,7 @@ Graphic.prototype.clear = function()
 			if(y==0) {
 				this.data[x]=new Array(this.height);
 			}
-			this.data[x][y].ch = this.ch;
-			this.data[x][y].attr.value = this.attribute.value;
-			if (this.keep_puttext) {
-				this.puttext[(y*this.width+x)*2] = ascii(this.ch);
-				this.puttext[(y*this.width+x)*2+1] = this.attribute.value;
-			}
+			this.SetCell(this.ch, this.attribute.value, x, y);
 		}
 	}
 };
