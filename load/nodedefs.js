@@ -2,7 +2,7 @@
 
 /* Synchronet node.dab file constants definitions - (mostly bit-fields) */
 
-/* $Id: nodedefs.js,v 1.11 2019/05/09 07:53:02 rswindell Exp $ */
+/* $Id: nodedefs.js,v 1.12 2019/08/23 23:46:08 deuce Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -153,16 +153,16 @@ var NODE_CONNECTION_RLOGIN  = 0xfffe;
 var NODE_CONNECTION_SSH     = 0xfffd;
 
 var NodeConnection = {
-	0:      "local",
-	0xffff: "telnet",
-	0xfffe: "rlogin",
-	0xfffd: "ssh"
+	'0':      "local",
+	'65535': "telnet",
+	'65534': "rlogin",
+	'65533': "ssh"
 };
 
 var NodeConnectionProper = {
-	0:      "Local",
-	0xffff: "Telnet",
-	0xfffe: "RLogin",
-	0xfffd: "SSH"
+	'0':      "Local",
+	'65535': "Telnet",
+	'65534': "RLogin",
+	'65533': "SSH"
 };
 
