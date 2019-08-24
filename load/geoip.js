@@ -1,4 +1,4 @@
-// $Id: geoip.js,v 1.12 2019/08/24 04:26:40 echicken Exp $
+// $Id: geoip.js,v 1.13 2019/08/24 04:28:30 echicken Exp $
 
 require('http.js', 'HTTPRequest');
 var settings = load('modopts.js', 'geoip');
@@ -6,11 +6,8 @@ var settings = load('modopts.js', 'geoip');
 if (settings && settings.api_key) {
     var geoipAPIKey = settings.api_key;
 } else {
-    var geoipAPIKey='a1ddc4963461ca20bffd54bb926ce74dc1ecbb8a421122cdc3cdfef616f5aad1';	// Enter your API info here!
-}
-if(geoipAPIKey==undefined) {
-	log("You need to get a key from http://ipinfodb.com/register.php");
-	exit;
+	var geoipAPIKey = 'a1ddc4963461ca20bffd54bb926ce74dc1ecbb8a421122cdc3cdfef616f5aad1';	// Enter your API info here!
+	log("You should get an API key from http://ipinfodb.com/register.php");
 }
 
 function get_geoip(host, countryonly)
