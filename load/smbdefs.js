@@ -1,4 +1,4 @@
-// $Id: smbdefs.js,v 1.10 2019/05/09 22:21:45 rswindell Exp $
+// $Id: smbdefs.js,v 1.11 2019/08/26 08:57:14 rswindell Exp $
 // Synchronet Message Base constant definitions (from smbdefs.h and smblib.h)								
 								
 /* Values for MsgBase.status (SMBLIB function return values) */
@@ -68,6 +68,7 @@ const MSG_KILLFILE			= (1<<3);	// Delete file(s) when sent
 const MSG_RECEIPTREQ		= (1<<4);	// Return receipt requested
 const MSG_CONFIRMREQ		= (1<<5);	// Confirmation receipt requested
 const MSG_NODISP			= (1<<6);	// Msg may not be displayed to user
+const MSG_HFIELDS_UTF8		= (1<<13);	// Message header fields are UTF-8 encoded
 const POLL_CLOSED			= (1<<24);	// Closed to voting 
 const POLL_RESULTS_MASK		= (3<<30);	// 4 possible values:
 const POLL_RESULTS_SECRET	= (3<<30);	// No one but pollster can see results
