@@ -2,11 +2,11 @@
 
 // Client for Synchronet dynamic DNS service (yourbbs.synchro.net)
 
-// $Id: dyndns.js,v 1.17 2019/02/05 03:38:53 rswindell Exp $
+// $Id: dyndns.js,v 1.18 2019/08/27 16:35:31 rswindell Exp $
 
 // usage: ?dyndns <password> [ip_address] [-mx address]
 
-const REVISION = "$Revision: 1.17 $".split(' ')[1];
+const REVISION = "$Revision: 1.18 $".split(' ')[1];
 const rx_log_level = LOG_INFO;
 const tx_log_level = LOG_DEBUG;
 
@@ -96,6 +96,12 @@ for(h in host_list) {
 			case "mx?":
 				if(mx_record)
 					writeln(mx_record);
+				else
+					writeln("");
+				break;
+			case "txt?":
+				if(options.txt)
+					writeln(options.txt);
 				else
 					writeln("");
 				break;
