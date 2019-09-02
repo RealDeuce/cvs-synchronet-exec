@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.70 2019/07/17 03:47:07 deuce Exp $
+ * $Id: imapservice.js,v 1.71 2019/09/02 19:10:17 deuce Exp $
  */
 
 load("sbbsdefs.js");
@@ -1658,7 +1658,7 @@ var authenticated_command_handlers = {
 			if(typeof(items)!="object")
 				items=[items];
 			base=new MsgBase(sub);
-			if(base == undefined || (!base.open())) {
+			if(base == undefined || sub=="NONE!!!" || (!base.open())) {
 				tagged(tag, "NO", "Can't find your mailbox");
 				return;
 			}
