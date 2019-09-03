@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.12 2019/08/24 03:59:44 deuce Exp $
+// $Id: graphic.js,v 1.13 2019/09/03 05:26:50 deuce Exp $
 
 /*
  * "Graphic" object
@@ -19,7 +19,6 @@
 /*jslint for*/
 
 require('attribute.js', 'Attribute');
-require('dorkit.js', 'dk');
 
 function Graphic(w,h,attr,ch, puttext)
 {
