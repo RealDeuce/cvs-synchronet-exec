@@ -1,4 +1,4 @@
-// $Id: logonlist.js,v 1.3 2019/08/16 04:00:17 rswindell Exp $
+// $Id: logonlist.js,v 1.4 2019/09/06 04:35:23 rswindell Exp $
 
 // Logon List module (replaces old hard-coded logon.lst)
 
@@ -75,7 +75,7 @@ function print(hdr, num, days_ago)
 		console.print(format(options.last_few_callers_fmt || 
 			"\r\n\x01n\x01h\x01m%-3s\x01n\x01m%-6s \x01w\x01h%-25.25s \x01m%-25.25s" +
 			"\x01n\x01m%02u:%02u \x01h%-8.8s \x01n\x01m%3d"
-			,record.node
+			,record.total ? record.node : ""
 			,record.total ? record.total : ""
 			,record.user.alias
 			,record.user.location
