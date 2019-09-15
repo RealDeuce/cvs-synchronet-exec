@@ -2,7 +2,7 @@
 
 // Synchronet Newsgroup Link/Gateway Module
 
-// $Id: newslink.js,v 1.110 2018/05/14 23:37:47 rswindell Exp $
+// $Id: newslink.js,v 1.111 2019/09/15 22:58:43 rswindell Exp $
 
 // Configuration file (in ctrl/newslink.cfg) format:
 
@@ -26,7 +26,7 @@
 // s		no subject filtering
 // m		Moderate imported messages
 
-const REVISION = "$Revision: 1.110 $".split(' ')[1];
+const REVISION = "$Revision: 1.111 $".split(' ')[1];
 
 printf("Synchronet NewsLink %s session started\r\n", REVISION);
 
@@ -46,6 +46,7 @@ load("newsutil.js");	// write_news_header() and parse_news_header()
 
 var debug = false;
 var slave = false;
+var reader_mode = false;
 var reset_import_ptrs = false;		// Reset import pointers, import all messages
 var update_import_ptrs = false;		// Update import pointers, don't import anything
 var reset_export_ptrs = false;		// Reset export pointers, export all messages
@@ -228,6 +229,9 @@ while(!cfg_file.eof) {
 		case "slave":
 			slave=true;
 			break;
+		case "reader_mode":
+			reader_mode = true;
+			break;
 		case "tagline":
 			str.shift();				// Remove first element (keyword)
 			tagline=str.join(' ');		// Combine remaining elements (tagline)
@@ -278,6 +282,11 @@ if(tls) {
 	socket.ssl_session=true;
 }
 readln();
+
+if(reader_mode) {
+	writeln("MODE READER");
+	readln();
+}
 
 if(username!=undefined && username.length) {
 	print("Authenticating...");
