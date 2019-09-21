@@ -1,4 +1,4 @@
-/* $Id: sbbsdefs.js,v 1.97 2019/08/15 23:25:59 deuce Exp $ */
+/* $Id: sbbsdefs.js,v 1.98 2019/09/21 23:20:38 rswindell Exp $ */
 
 /****************************************************************************
  * @format.tab-size 4		(Plain Text/Source Code File Header)			*
@@ -35,6 +35,7 @@ require('nodedefs.js', 'NODE_WFC');
 require('smbdefs.js', 'SMB_SUCCESS');
 require('userdefs.js', 'USER_DELETED');
 require('cga_defs.js', 'BLACK');
+require('key_defs.js', 'KEY_UP');
 
 /* Would rather use const than var, but end up with redeclaration errors.	*/
 
@@ -161,23 +162,6 @@ var   CON_BLINK_FONT=(1<<20);	/* Alt blink font activated					*/
 var   CON_HBLINK_FONT=(1<<21);	/* Alt high-blink font activated			*/
 var   CON_CR_CLREOL	=(1<<31);	// Sending '\r', clears to end-of-line first
 					    		/********************************************/
-
-								/********************************************/
-								/* Special inkey()/getkey() return values	*/
-								/********************************************/
-var		KEY_UP		='\x1e';	/* ctrl-^ (up arrow)						*/
-var		KEY_DOWN	='\x0a';	/* ctrl-j (dn arrow)						*/
-var		KEY_RIGHT	='\x06';	/* ctrl-f (rt arrow)						*/
-var		KEY_LEFT	='\x1d';	/* ctrl-] (lf arrow)						*/
-var		KEY_HOME	='\x02';	/* ctrl-b (home)							*/
-var		KEY_END     ='\x05';	/* ctrl-e (end)								*/
-var		KEY_INSERT	='\x16';	/* ctrl-v (insert)							*/
-var		KEY_DEL     ='\x7f';    /* ctrl-BkSpc (DEL)							*/
-var		KEY_PAGEUP	='\x10';	/* ctrl-p (Page Up)							*/
-var		KEY_PAGEDN	='\x0e';	/* ctrl-n (Page Down)						*/
-								/********************************************/
-var		KEY_ABORT	='\x03';	/* ctrl-c (cancel/abort/break)				*/
-								/********************************************/
 
 						    	/********************************************/
     							/* Bits in 'mode' for getkey and getstr     */
