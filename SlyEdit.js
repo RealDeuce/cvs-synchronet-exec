@@ -1,4 +1,4 @@
-// $Id: SlyEdit.js,v 1.68 2019/08/16 02:36:17 nightfox Exp $
+// $Id: SlyEdit.js,v 1.69 2019/09/26 00:10:23 nightfox Exp $
 
 /* This is a text editor for Synchronet designed to mimic the look & feel of
  * DCTEdit and IceEdit, since neither of those editors have been developed
@@ -137,7 +137,7 @@ if (requireFnExists)
 {
 	require("sbbsdefs.js", "K_NOCRLF");
 	require("dd_lightbar_menu.js", "DDLightbarMenu");
-	require(gStartupPath + "SlyEdit_Misc.js", "CTRL_A");
+	require(gStartupPath + "SlyEdit_Misc.js", "gUserSettingsFilename");
 }
 else
 {
