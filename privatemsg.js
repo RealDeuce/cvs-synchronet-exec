@@ -1,4 +1,4 @@
-// $Id: privatemsg.js,v 1.6 2019/04/28 09:51:11 rswindell Exp $
+// $Id: privatemsg.js,v 1.7 2019/09/26 02:47:24 rswindell Exp $
 
 // Private Message (Ctrl-P) Hot Key Handler
 
@@ -91,7 +91,7 @@ while(bbs.online && !(console.aborted)) {
 					write(bbs.text(NodeLstHdr));
 				}
 				writeln(format(nodelist_options.format, n + 1
-					,presence.node_status(node, user.is_sysop, nodelist_options)));
+					,presence.node_status(node, user.is_sysop, nodelist_options, n)));
 				users[n] = node.useron;
 				shown++;
 			}
