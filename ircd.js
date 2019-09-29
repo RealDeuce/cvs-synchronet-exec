@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.182 2019/08/19 08:37:53 deuce Exp $
+// $Id: ircd.js,v 1.183 2019/09/29 06:30:06 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.182 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.183 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -205,9 +205,9 @@ while (!js.terminated) {
 	// Setup a new socket if a connection is accepted.
 	for (pl in open_plines) {
 		if (open_plines[pl].poll()) {
-			log(LOG_DEBUG,"Accepting new connection on port "
-				+ open_plines[pl].local_port);
 			var client_sock=open_plines[pl].accept();
+			log(LOG_DEBUG,"Accepting new connection on port "
+				+ client_sock.local_port);
 			if(client_sock) {
 				client_sock.nonblocking = true;
 				switch(client_sock.local_port) {
