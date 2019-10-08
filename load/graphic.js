@@ -1,4 +1,4 @@
-// $Id: graphic.js,v 1.81 2018/02/07 06:13:54 rswindell Exp $
+// $Id: graphic.js,v 1.82 2019/10/08 07:59:51 rswindell Exp $
 
 /*
  * "Graphic" object
@@ -48,6 +48,7 @@ function Graphic(w,h,attr,ch, dw)
 	this.ansi_crlf=true;
 	this.illegal_characters = [0, 7, 8, 9, 10, 12, 13, 27];
 	this.autowrap=true;
+	this.revision="$Revision: 1.82 $".split(' ')[1];
 
 	this.data=new Array(this.width);
 	for(var y=0; y<this.height; y++) {
@@ -552,11 +553,11 @@ Graphic.prototype.draw = function(xpos,ypos,width,height,xoff,yoff,delay)
 	if(yoff==undefined)
 		yoff=0;
 	if(xpos == 'center')	// center
-		xpos = Math.floor((console.screen_columns - width) / 2);
+		xpos = Math.floor((console.screen_columns - width) / 2) + 1;
 	if(xpos==undefined || xpos < 1)
 		xpos=1;
 	if(ypos == 'center')	// center
-		ypos = Math.floor((console.screen_rows - height) / 2);
+		ypos = Math.floor((console.screen_rows - height) / 2) + 1;
 	if(ypos==undefined || ypos < 1)
 		ypos=1;
 	if(delay==undefined)
@@ -615,6 +616,10 @@ Graphic.prototype.drawfx = function(xpos,ypos,width,height,xoff,yoff)
 		xoff=0;
 	if(yoff==undefined)
 		yoff=0;
+	if(xpos == 'center')	// center
+		xpos = Math.floor((console.screen_columns - width) / 2) + 1;
+	if(ypos == 'center')	// center
+		ypos = Math.floor((console.screen_rows - height) / 2) + 1;
 	if(xoff+width > this.width || yoff+height > this.height) {
 		alert("Attempt to draw from outside of graphic: "+xoff+":"+yoff+" "+width+"x"+height+" "+this.width+"x"+this.height);
 		return(false);
