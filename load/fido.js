@@ -1,4 +1,4 @@
-// $Id: fido.js,v 1.34 2018/08/09 20:20:25 deuce Exp $
+// $Id: fido.js,v 1.35 2019/11/18 21:19:52 rswindell Exp $
 require('fido_syscfg.js', 'FTNDomains');
 
 /*
@@ -520,7 +520,7 @@ Object.defineProperties(FIDO.Addr.prototype, {
 			}
 
 			if (this.point !== undefined)
-				ret += format("p%d", this.point);
+				ret += format("p%d.", this.point);
 			ret += format("f%d.n%d.z%d.%s", this.node, this.net, this.zone, FIDO.FTNDomains.domainDNSMap[this.domain] === undefined ? '.example.com' : FIDO.FTNDomains.domainDNSMap[this.domain]);
 			return ret;
 		}
