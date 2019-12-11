@@ -1,4 +1,4 @@
-// $Id: binkp.js,v 1.121 2019/08/06 13:32:21 deuce Exp $
+// $Id: binkp.js,v 1.122 2019/12/11 20:14:14 rswindell Exp $
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('fido.js', 'FIDO');
@@ -56,7 +56,7 @@ function BinkP(name_ver, inbound, rx_callback, tx_callback)
 	if (name_ver === undefined)
 		name_ver = 'UnknownScript/0.0';
 	this.name_ver = name_ver;
-	this.revision = "JSBinkP/" + "$Revision: 1.121 $".split(' ')[1];
+	this.revision = "JSBinkP/" + "$Revision: 1.122 $".split(' ')[1];
 	this.full_ver = name_ver + "," + this.revision + ',sbbs' + system.version + system.revision + '/' + system.platform;
 
 	if (inbound === undefined)
@@ -402,7 +402,7 @@ BinkP.prototype.parseArgs = function(data)
  * parameter string send with the M_OK message... hopefully either "secure"
  * or "non-secure"
  */
-BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
+BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host, tls)
 {
 	var pkt;
 	var i;
@@ -454,6 +454,11 @@ BinkP.prototype.connect = function(addr, password, auth_cb, port, inet_host)
 	}
 
 	log(LOG_DEBUG, "Connection to "+inet_host+":"+port+" successful");
+
+	if(tls === true) {
+		log(LOG_INFO, "Negotiating TLS");
+		this.sock.ssl_session = true;
+	}
 
 	this.authenticated = undefined;
 	if (this.crypt_support && !this.plain_auth_only && password !== '-')
