@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.59 2019/12/08 07:05:04 nightfox Exp $
+// $Id: sbbslist.js,v 1.60 2019/12/19 20:04:45 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.59 $".split(' ')[1];
+var REVISION = "$Revision: 1.60 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -2552,7 +2552,7 @@ function main()
 						}
 					}
 					//list_bbs_entry(list[i], false);
-					list_bbs_entry(list[i], false, null, (i==top));
+					list_bbs_entry(list[i], false, null);
 					writeln();
 					count++;
 					if(optval["list"] && count >= optval["list"])
