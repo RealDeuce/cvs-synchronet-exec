@@ -1,4 +1,4 @@
-// $Id: chat_sec.js,v 1.14 2019/06/15 03:18:49 rswindell Exp $
+// $Id: chat_sec.js,v 1.15 2020/01/05 23:50:35 rswindell Exp $
 
 // Chat Section for any/all Synchronet command shells
 
@@ -50,7 +50,7 @@ while(1) {
 	// Update node status
 	bbs.node_action = NODE_CHAT;
 	bbs.nodesync();
-	write("\r\n\x01_\x01y\x01hChat: \x01n");
+	write(bbs.text(ChatPrompt));
 
 	var keys = "ACDJPQST?\r";
 	if(options.imsg)
