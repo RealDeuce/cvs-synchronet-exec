@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.61 2020/01/12 21:54:51 nightfox Exp $
+// $Id: sbbslist.js,v 1.62 2020/01/12 23:06:34 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.61 $".split(' ')[1];
+var REVISION = "$Revision: 1.62 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -829,8 +829,7 @@ function list_bbs_entry(bbs, selected, sort, is_first_on_page)
 	if(sort=="name")
 		color |= color_cfg.sorted;
 	console_color(color, selected);
-	var txt = format("%-*s%c", lib.max_len.name, bbs.name, selected ? '<' : ' ');
-	printf(txt);
+	printf("%-*s%c", lib.max_len.name, bbs.name, selected ? '<' : ' ');
 
 	color = LIGHTMAGENTA;
 	if(!js.global.console || console.screen_columns >= 80) {
@@ -852,8 +851,7 @@ function list_bbs_entry(bbs, selected, sort, is_first_on_page)
 				fmt = "%*.*s";
 			if (selected && console.term_supports(USER_PETSCII) && !is_first_on_page)
 				--len;
-			txt = format(fmt, len, len, lib.property_value(bbs, list_formats[list_format][i]));
-			printf(txt);
+			printf(fmt, len, len, lib.property_value(bbs, list_formats[list_format][i]));
 		}
 	}
 	/* Ensure the rest of the line has the correct color */
