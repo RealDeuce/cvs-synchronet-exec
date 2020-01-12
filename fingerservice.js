@@ -1,4 +1,4 @@
-// $Id: fingerservice.js,v 1.47 2019/01/19 07:49:18 rswindell Exp $
+// $Id: fingerservice.js,v 1.48 2020/01/12 00:46:45 rswindell Exp $
 // vi: tabstop=4
 
 // Synchronet Service for the Finger protocol (RFC 1288)
@@ -44,7 +44,7 @@
 // disable those elements.
 
 "use strict";
-const REVISION = "$Revision: 1.47 $".split(' ')[1];
+const REVISION = "$Revision: 1.48 $".split(' ')[1];
 
 var active_users = false;	// Active-Users/SYSTAT protocol mode (Finger when false)
 var options = load({}, 'modopts.js', 'fingerservice');
@@ -387,7 +387,7 @@ if(request.charAt(0)=='?' || request.charAt(0)=='.') {	// Handle "special" reque
 				var list = sbbslist.read_list();
 				var index = sbbslist.system_index(list, request.slice(4));
 				if(index < 0) {
-					writeln("!BBS NOT FOUND");
+					writeln("!BBS NOT FOUND: " + request.slice(4));
 					break;
 				}
 				writeln(JSON.stringify(list[index]));
