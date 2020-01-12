@@ -1,4 +1,4 @@
-// $Id: chksetup.js,v 1.9 2020/01/06 00:14:17 rswindell Exp $
+// $Id: chksetup.js,v 1.10 2020/01/12 00:45:41 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
@@ -190,6 +190,8 @@ var tests = {
 		var finger_host = "vert.synchro.net";
 		var finger_query = "?bbs:" + system.name;
 		var finger_result = load({}, "finger_lib.js").request(finger_host, finger_query);
+		if(typeof finger_result == 'string')
+			return finger_result;
 		var finger_obj;
 		try {
 			finger_obj = JSON.parse(finger_result.join(''));
