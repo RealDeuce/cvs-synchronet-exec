@@ -1,4 +1,4 @@
-// $Id: postmsg.js,v 1.4 2019/09/26 03:40:13 rswindell Exp $
+// $Id: postmsg.js,v 1.5 2020/01/21 07:27:35 rswindell Exp $
 
 // Post a message to a local sub-board, a preferred alternative to using "smbutil i"
 
@@ -124,10 +124,11 @@ if(!hdrs.from)
 	hdrs.from = prompt("From User name");
 if(!hdrs.subject)
 	hdrs.subject = prompt("Subject");
-if(!hdrs.to_ext && sub_code == 'mail')
-	hdrs.to_ext = system.matchuser(hdrs.to);
-if(!hdrs.from_ext)
-	hdrs.from_ext = system.matchuser(hdrs.from);
+var num;
+if(!hdrs.to_ext && sub_code == 'mail' && (num = system.matchuser(hdrs.to)) != 0)
+	hdrs.to_ext = num;
+if(!hdrs.from_ext && (num = system.matchuser(hdrs.from)) != 0)
+	hdrs.from_ext = num;
 if(!msgbase.save_msg(hdrs, body)) {
 	alert("Error saving message: " + msgbase.last_error);
 	exit();
