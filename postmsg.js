@@ -1,4 +1,4 @@
-// $Id: postmsg.js,v 1.5 2020/01/21 07:27:35 rswindell Exp $
+// $Id: postmsg.js,v 1.6 2020/01/21 18:11:27 rswindell Exp $
 
 // Post a message to a local sub-board, a preferred alternative to using "smbutil i"
 
@@ -125,7 +125,7 @@ if(!hdrs.from)
 if(!hdrs.subject)
 	hdrs.subject = prompt("Subject");
 var num;
-if(!hdrs.to_ext && sub_code == 'mail' && (num = system.matchuser(hdrs.to)) != 0)
+if(!hdrs.to_ext && sub_code == 'mail' && !hdrs.to_net_addr && (num = system.matchuser(hdrs.to)) != 0)
 	hdrs.to_ext = num;
 if(!hdrs.from_ext && (num = system.matchuser(hdrs.from)) != 0)
 	hdrs.from_ext = num;
