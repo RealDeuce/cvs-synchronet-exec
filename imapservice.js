@@ -5,7 +5,7 @@
  * Copyright 2009, Stephen Hurd.
  * Don't steal my code bitches.
  *
- * $Id: imapservice.js,v 1.71 2019/09/02 19:10:17 deuce Exp $
+ * $Id: imapservice.js,v 1.72 2020/02/04 05:17:26 rswindell Exp $
  */
 
 load("sbbsdefs.js");
@@ -280,7 +280,7 @@ function send_fetch_response(msgnum, fmat, uid)
 				hdr.attr |= MSG_READ;
 				base.put_msg_header(msgnum);
 				index=read_index(base);
-				hdr=base.get_msg_header(msgnum);
+				hdr=base.get_msg_header(msgnum, /* expand_fields: */false);
 				if(hdr.attr & MSG_READ)
 					seen_changed=true;
 			}
@@ -1733,7 +1733,7 @@ function do_store(seq, uid, item, data)
 
 	for(i in seq) {
 		idx=index.idx[seq[i]];
-		hdr=base.get_msg_header(seq[i]);
+		hdr=base.get_msg_header(seq[i], /* expand_fields: */false);
 		flags=parse_flags(data);
 		switch(item.toUpperCase()) {
 			case 'FLAGS.SILENT':
@@ -2034,7 +2034,7 @@ function do_search(args, uid)
 				continue;
 		}
 		if(search_set.hdr.length > 0 || search_set.all.length > 0) {
-			hdr=base.get_msg_header(idx.number);
+			hdr=base.get_msg_header(idx.number, /* expand_fields: */false);
 			if(hdr==null) {
 				log("Unable to get header for idx.number");
 				continue;
