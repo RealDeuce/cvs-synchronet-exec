@@ -1,9 +1,9 @@
-// $Id: chksetup.js,v 1.11 2020/01/12 05:49:38 rswindell Exp $
+// $Id: chksetup.js,v 1.12 2020/03/01 06:21:45 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
 "use strict";
-const REVISION = "$Revision: 1.11 $".split(' ')[1];
+const REVISION = "$Revision: 1.12 $".split(' ')[1];
 require("sbbsdefs.js", 'USER_DELETED');
 
 function check_codes(desc, grp_list, sub_list)
@@ -238,6 +238,30 @@ var tests = {
 				output.push(format("DOVE-Net: %-16s is NOT configured to allow voting", sub.code));
 			if(!(sub.settings & SUB_QNET))
 				output.push(format("DOVE-Net: %-16s is NOT configured for QWK Networking", sub.code));
+		}
+		return output;
+	},
+	
+	check_sub_cfgs: function(options)
+	{
+		var output = [];
+		for(var sub in msg_area.sub) {
+			var msgbase = new MsgBase(sub);
+			if(!msgbase.open()) {
+				if(options.verbose)
+					alert(format("Error (%s) opening sub: %s", msgbase.error, sub));
+				continue;
+			}
+			if(msgbase.max_crcs != msgbase.cfg.max_crcs)
+				output.push(format("MsgBase: %-16s max_crcs status (%d) does not match sub-board configuration: %d",
+					sub, msgbase.max_crcs, msgbase.cfg.max_crcs));
+			if(msgbase.max_msgs != msgbase.cfg.max_msgs)
+				output.push(format("MsgBase: %-16s max_msgs status (%d) does not match sub-board configuration: %d",
+					sub, msgbase.max_msgs, msgbase.cfg.max_msgs));
+			if(msgbase.max_age != msgbase.cfg.max_age)
+				output.push(format("MsgBase: %-16s max_age status (%d) does not match sub-board configuration: %d",
+					sub, msgbase.max_age, msgbase.cfg.max_age));
+			msgbase.close();
 		}
 		return output;
 	},
