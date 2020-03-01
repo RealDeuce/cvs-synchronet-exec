@@ -1,5 +1,5 @@
 /* 	CNF file reader/writer - mcmlxxix - 2013
-	$Id: cnfdefs.js,v 1.9 2019/08/16 02:33:35 rswindell Exp $
+	$Id: cnfdefs.js,v 1.10 2020/03/01 19:12:28 rswindell Exp $
 */
 
 /* miscellaneous constants required for cnf parsing
@@ -285,7 +285,8 @@ struct.main={
 	readmail_mod:		{bytes:LEN_CMD+1,			type:"str"},
 	scanposts_mod:		{bytes:LEN_CMD+1,			type:"str"},
 	scansubs_mod:		{bytes:LEN_CMD+1,			type:"str"},
-	__PADDING2__:633,
+	listmsgs_mod:		{bytes:LEN_CMD+1,			type:"str"},
+	__PADDING2__:569,
 	user_backup_level:	{bytes:UINT16_T,			type:"int"},
 	mail_backup_level:	{bytes:UINT16_T,			type:"int"},
 	validation_set:		{bytes:struct.validation_set_t, type:"lst", length: 10},
