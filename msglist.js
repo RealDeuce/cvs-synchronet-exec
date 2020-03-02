@@ -1,4 +1,4 @@
-// $Id: msglist.js,v 1.1 2020/03/02 03:04:43 rswindell Exp $
+// $Id: msglist.js,v 1.2 2020/03/02 08:11:30 rswindell Exp $
 // vi: tabstop=4
 
 // Message Listing Module
@@ -607,7 +607,7 @@ function mail_reply(msg)
 			addr = msg.from + '@' + msg.from_net_addr;
 		else
 			addr = msg.from_net_addr;
-		write(bbs.text(EnterNetMailAddress));
+		console.putmsg(bbs.text(EnterNetMailAddress));
 		addr = console.getstr(addr, 128, K_EDIT|K_AUTODEL|K_LINE);
 		if(!addr || console.aborted)
 			return;
