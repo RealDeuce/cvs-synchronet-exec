@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.183 2019/09/29 06:30:06 deuce Exp $
+// $Id: ircd.js,v 1.184 2020/03/04 19:09:02 rswindell Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.183 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.184 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -201,6 +201,9 @@ js.auto_terminate=false; // we handle our own termination requests
 
 ///// Main Loop /////
 while (!js.terminated) {
+
+	if(file_date(system.ctrl_dir + "ircd.rehash") > time_config_read)
+		read_config_file();
 
 	// Setup a new socket if a connection is accepted.
 	for (pl in open_plines) {
@@ -698,6 +701,8 @@ function search_nickbuf(bufnick) {
 	return 0;
 }
 
+var time_config_read;
+
 function read_config_file() {
 	/* All of these variables are global. */
 	Admin1 = "";
@@ -735,6 +740,8 @@ function read_config_file() {
 		read_ini_config(fname);
 	else
 		read_conf_config(fname);
+
+	time_config_read = time();
 }
 
 function read_ini_config(fname) {
