@@ -1,4 +1,4 @@
-// $Id: privatemsg.js,v 1.7 2019/09/26 02:47:24 rswindell Exp $
+// $Id: privatemsg.js,v 1.8 2020/03/14 18:28:00 rswindell Exp $
 
 // Private Message (Ctrl-P) Hot Key Handler
 
@@ -144,7 +144,7 @@ while(bbs.online && !(console.aborted)) {
 			var msg = [];
 			while(msg.length < 5) {
 				write("\1n: \1h");
-				var line = console.getstr(70, msg.length < 4 ? (K_WRAP|K_MSG) : KMSG);
+				var line = console.getstr(70, msg.length < 4 ? (K_WRAP|K_MSG) : K_MSG);
 				if(!line)
 					break;
 				msg.push(line);
