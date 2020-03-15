@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.31 2020/03/15 00:27:36 rswindell Exp $
+// $Id: binkit.js,v 2.32 2020/03/15 00:43:15 rswindell Exp $
 // vi: tabstop=4
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.31 $".split(' ')[1];
+var REVISION = "$Revision: 2.32 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -1228,7 +1228,7 @@ function install()
 	for(var code in {"fidoin":0, "fidoout":0, "binkout":0, "binkpoll":0}) {
 		if (xtrn_area.event[code]
 			&& (xtrn_area.event[code].settings & EVENT_DISABLED)) {
-			print("Enabling timed event: " + xtrn_area.event[code].code);
+			print("Enabling timed event: " + code.toUpperCase());
 			xtrn_area.event[code].settings &= ~EVENT_DISABLED;
 			changed = true;
 		}
