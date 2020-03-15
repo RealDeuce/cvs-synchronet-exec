@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.5 2020/03/15 08:50:44 rswindell Exp $
+// $Id: init-fidonet.js,v 1.6 2020/03/15 08:59:39 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec
 
@@ -20,7 +20,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.5 $".split(' ')[1];
+const REVISION = "$Revision: 1.6 $".split(' ')[1];
 var netname = "FidoNet";
 var fidoaddr = load({}, 'fidoaddr.js');
 print(js.exec_file + " v" + REVISION + " Initializing " + netname + " support in Synchronet");
@@ -86,7 +86,7 @@ if(!confirm("Your origin line (" +	msgs_cnf.fido_default_origin + ")")) {
 	msgs_cnf.fido_default_origin = prompt("Your origin line");
 }
 var sysop = system.operator;
-if(system.total_users) {
+if(system.stats.total_users) {
 	var u = new User(1);
 	if(u && u.name)
 		sysop = u.name;
@@ -213,7 +213,7 @@ if(confirm("Create an AreaFix request to link ALL EchoMail areas with "
 	if(!msgbase.save_msg({
 			to: "areafix",
 			to_net_addr: fidoaddr.to_str(hub),
-			from: system.operator,
+			from: sysop,
 			from_ext: 1,
 			subject: areafixpwd
 		}, /* body text: */ "%+ALL")) {
