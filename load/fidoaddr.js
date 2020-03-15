@@ -1,4 +1,4 @@
-// $Id: fidoaddr.js,v 1.2 2018/11/24 06:38:26 echicken Exp $
+// $Id: fidoaddr.js,v 1.3 2020/03/15 02:13:18 rswindell Exp $
 
 // Validate a numeric component of an FTN address
 // FSP-1028: Zone/Net/Node/Point must be int 0 - 32767
@@ -54,6 +54,16 @@ function to_filename(addr)
 	if(!addr)
 		return false;
 	return format("%04x%04x", addr.net, addr.node);
+}
+
+function to_str(addr)
+{
+	if(typeof addr == "string")
+		return addr;
+
+	if(addr.point)
+		return format("%u:%u/%u.%u", addr.zone, addr.net, addr.node, addr.point);
+	return format("%u:%u/%u", addr.zone, addr.net, addr.node);
 }
 
 this;
