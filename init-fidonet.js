@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.3 2020/03/15 07:57:23 rswindell Exp $
+// $Id: init-fidonet.js,v 1.4 2020/03/15 08:10:21 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec
 
@@ -20,9 +20,10 @@
 
 "use strict";
 
+const REVISION = "$Revision: 1.4 $".split(' ')[1];
 var netname = "FidoNet";
 var fidoaddr = load({}, 'fidoaddr.js');
-print("Initializing " + netname + " support in Synchronet");
+print(js.exec_file + " v" + REVISION + " Initializing " + netname + " support in Synchronet");
 print("Use Ctrl-C to abort the process, if desired");
 
 print("Reading Message Area configuration file: msgs.cnf");
