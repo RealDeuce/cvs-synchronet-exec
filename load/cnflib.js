@@ -1,5 +1,5 @@
 /* CNF data structure definitions (see scfglib2.c, scfgdefs.h) 
-	$Id: cnflib.js,v 1.14 2019/08/16 02:33:36 rswindell Exp $
+	$Id: cnflib.js,v 1.15 2020/03/15 08:47:52 rswindell Exp $
 */
 
 js.global.load(js.global,"cnfdefs.js");
@@ -231,6 +231,8 @@ var CNF = new (function() {
 					return false;
 			}
 		}
+		if(js.terminated)
+			return false;
 		var f = new File(fullpath(fileName));
 		if(!f.open('wb'))
 			return false;
