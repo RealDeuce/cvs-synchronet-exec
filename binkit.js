@@ -1,5 +1,5 @@
-// $Id: binkit.js,v 2.33 2020/03/15 07:49:10 rswindell Exp $
-// vi: tabstop=4
+// $Id: binkit.js,v 2.34 2020/03/15 22:07:15 deuce Exp $
+// vi: tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
  * mailer.
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.33 $".split(' ')[1];
+var REVISION = "$Revision: 2.34 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -863,23 +863,24 @@ function run_outbound(ran)
 
 		function addDir(dir) {
 			var bdir = backslash(dir);
+			bdir = fullpath(bdir);
 			if (outbound_dirs.indexOf(bdir) == -1) outbound_dirs.push(bdir);
 		}
 
-        function addPoints(dir) {
-            var pnts = directory(backslash(dir) + '*.pnt', false);
-            pnts.forEach(function (pdir) {
-                if (pdir.search(/[\\\/][0-9a-z]{8}.pnt$/) >= 0 && file_isdir(pdir)) {
-                    addDir(pdir);
-                } else {
-                    log(LOG_WARNING, "Unhandled/Unexpected point path '"+pdir+"'.");
-                }
-            });
-        }
+		function addPoints(dir) {
+			var pnts = directory(backslash(dir) + '*.pnt', false);
+			pnts.forEach(function (pdir) {
+				if (pdir.search(/[\\\/][0-9a-z]{8}.pnt$/) >= 0 && file_isdir(pdir)) {
+					addDir(pdir);
+				} else {
+					log(LOG_WARNING, "Unhandled/Unexpected point path '"+pdir+"'.");
+				}
+			});
+		}
 
 		if (file_isdir(oroot)) {
 			addDir(oroot);
-            addPoints(oroot);
+			addPoints(oroot);
 		} else {
 			log(LOG_NOTICE, "Skipping non-existent outbound directory: " + oroot);
 			return;
@@ -892,13 +893,13 @@ function run_outbound(ran)
 			if (ext.search(/^\.[0-9a-f]+$/) == 0) {
 				if (file_isdir(dir)) {
 					addDir(dir);
-                    addPoints(dir);
+					addPoints(dir);
 				} else {
 					log(LOG_WARNING, "Unexpected file in outbound '"+dir+"'.");
-                }
+				}
 			} else {
 				log(LOG_WARNING, "Unhandled outbound '"+dir+"'.");
-            }
+			}
 		});
 	});
 	log(LOG_DEBUG, "Outbound dirs: " + JSON.stringify(outbound_dirs, null, 0));
