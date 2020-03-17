@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.7 2020/03/15 19:42:42 rswindell Exp $
+// $Id: init-fidonet.js,v 1.8 2020/03/17 05:08:43 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec
 
@@ -20,11 +20,14 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.7 $".split(' ')[1];
+const REVISION = "$Revision: 1.8 $".split(' ')[1];
 var netname = "FidoNet";
 var fidoaddr = load({}, 'fidoaddr.js');
-print(js.exec_file + " v" + REVISION + " Initializing " + netname + " support in Synchronet");
-print("Use Ctrl-C to abort the process, if desired");
+print("******************************************************************************");
+print("*                            " + js.exec_file + " v" + format("%-30s", REVISION) + " *");
+print("*                 Initializing " + netname + " support in Synchronet                 *");
+print("*                 Use Ctrl-C to abort the process if desired                 *");
+print("******************************************************************************");
 
 print("Reading Message Area configuration file: msgs.cnf");
 var cnflib = load({}, "cnflib.js");
@@ -206,6 +209,10 @@ if(confirm("Install BinkIT")) {
 	system.exec(system.exec_dir + "jsexec binkit install");
 }
 
+print("Requesting Synchronet recycle (configuration-reload)");
+if(!file_touch(system.ctrl_dir + "recycle"))
+	alert("Recycle semaphore file update failure");
+
 /************************/
 /* SEND AREAFIX NETMAIL */
 /************************/
@@ -227,7 +234,6 @@ if(confirm("Create an AreaFix request to link ALL EchoMail areas with "
 		exit(1);
 	}
 	msgbase.close();
-	file_touch(system.data_dir + "fidoout.now");
 	print("AreaFix NetMail message created successfully.");
 }
 
@@ -237,7 +243,8 @@ if(confirm("Create an AreaFix request to link ALL EchoMail areas with "
 print(netname + " initial setup completely successfully.");
 print();
 if(your.node == 9999) {
-	print("You used a temporary (e.g. /9999) node address. You will need to update your");
+	print("You used a temporary node address (" + fidoaddr.to_str(your) + 
+		").  You will need to update your");
 	print("SCFG->Networks->FidoNet->Address once your permanent node address has been");
 	print("assigned to you.");
 	print();
