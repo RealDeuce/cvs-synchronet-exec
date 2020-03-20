@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.34 2020/03/15 22:07:15 deuce Exp $
+// $Id: binkit.js,v 2.35 2020/03/20 08:08:09 rswindell Exp $
 // vi: tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.34 $".split(' ')[1];
+var REVISION = "$Revision: 2.35 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -170,8 +170,8 @@ function unlock_flow(locks)
 function outbound_root(addr, scfg)
 {
 	if (FIDO.FTNDomains.outboundMap[addr.domain] === undefined)
-		return scfg.outbound.replace(/[\\\/]$/, '');
-	return FIDO.FTNDomains.outboundMap[addr.domain];
+		return fullpath(scfg.outbound.replace(/[\\\/]$/, ''));
+	return fullpath(FIDO.FTNDomains.outboundMap[addr.domain]);
 }
 
 /*
