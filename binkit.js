@@ -1,4 +1,4 @@
-// $Id: binkit.js,v 2.35 2020/03/20 08:08:09 rswindell Exp $
+// $Id: binkit.js,v 2.36 2020/03/23 18:18:54 rswindell Exp $
 // vi: tabstop=8 softtabstop=8 shiftwidth=8 noexpandtab
 /*
  * Intentionally simple "Advanced BinkleyTerm Style Outbound"
@@ -22,7 +22,7 @@ load('fidocfg.js');
 load('binkp.js');
 load('freqit_common.js');
 
-var REVISION = "$Revision: 2.35 $".split(' ')[1];
+var REVISION = "$Revision: 2.36 $".split(' ')[1];
 var version_notice = "BinkIT/" + REVISION;
 var semaphores = [];
 // data/binkstats.ini
@@ -1350,6 +1350,11 @@ if(stats_file.open("r")) {
 }
 
 log(LOG_INFO, version_notice + " invoked with options: " + argv.join(' '));
+
+if (system.fido_addr_list.length < 1) {
+	alert("No system FidoNet address configured");
+	exit(1);
+}
 
 // If we're running as a service, call run_inbound().
 if (sock !== undefined && sock.descriptor !== -1)
