@@ -1,4 +1,6 @@
-// $Id: userprops.js,v 1.5 2018/10/04 06:39:18 rswindell Exp $
+// $Id: userprops.js,v 1.6 2020/03/24 19:45:35 rswindell Exp $
+
+require("userdefs.js", 'UFLAG_G');
 
 function filename(usernum)
 {
@@ -7,8 +9,11 @@ function filename(usernum)
 
 function get(section, key, deflt, usernum)
 {
-	if(!usernum)
+	if(!usernum) {
 		usernum = user.number;
+		if(user.security.restrictions & UFLAG_G)
+			return deflt;
+	}
 	var file = new File(filename(usernum));
 	if(!file.open('r'))
 		return deflt;
@@ -25,8 +30,11 @@ function get(section, key, deflt, usernum)
 
 function set(section, key, value, usernum)
 {
-	if(!usernum)
+	if(!usernum) {
 		usernum = user.number;
+		if(user.security.restrictions & UFLAG_G)
+			return true;
+	}
 	var file = new File(filename(usernum));
 	if(!file.open(file.exists ? 'r+':'w+'))
 		return false;
