@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.10 2020/03/24 04:48:26 rswindell Exp $
+// $Id: init-fidonet.js,v 1.11 2020/03/25 01:27:35 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec
 
@@ -20,7 +20,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.10 $".split(' ')[1];
+const REVISION = "$Revision: 1.11 $".split(' ')[1];
 var netname = "FidoNet";
 var fidoaddr = load({}, 'fidoaddr.js');
 print("******************************************************************************");
@@ -256,7 +256,11 @@ if(confirm("Update FidoNet configuration file: sbbsecho.ini")) {
 /* INSTALL BINKIT */
 /******************/
 if(confirm("Install BinkIT")) {
-	system.exec(system.exec_dir + "jsexec binkit install");
+	var result = load({}, "install-binkit.js");
+	if (result != true) {
+		alert(result);
+		exit(1);
+	}
 }
 
 print("Requesting Synchronet recycle (configuration-reload)");
