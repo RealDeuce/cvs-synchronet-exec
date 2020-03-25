@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.62 2020/01/12 23:06:34 rswindell Exp $
+// $Id: sbbslist.js,v 1.63 2020/03/25 05:49:08 nightfox Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.62 $".split(' ')[1];
+var REVISION = "$Revision: 1.63 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -1128,14 +1128,6 @@ function browse(list)
 			{
 				if (previous != current)
 				{
-					/*
-					// Temporary
-					console.gotoxy(1, 1);
-					console.print("\1ntop: " + top + ", previous: " + previous + " (is top: " +
-					              (previous==top) + "), current: " + current + " (is top: " +
-								 (current==top) + ")     ");
-					// End Temporary
-					*/
 					console.gotoxy(1, previous_row);
 					list_bbs_entry(list[previous], false, sort, (previous==top));
 					console.gotoxy(1, current_row);
@@ -1199,7 +1191,9 @@ function browse(list)
 				continue;
 			case KEY_END:
 				current=list.length-1;
-				redraw_whole_list = (current >= top+pagesize);
+				top = current - pagesize + 1;
+				new_page = true;
+				redraw_whole_list = true;
 				continue;
 			case KEY_UP:
 				current--;
