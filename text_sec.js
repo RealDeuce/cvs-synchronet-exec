@@ -1,4 +1,4 @@
-// $Id: text_sec.js,v 1.3 2019/08/14 06:31:54 rswindell Exp $
+// $Id: text_sec.js,v 1.4 2020/03/25 03:55:46 rswindell Exp $
 
 // [General] Text File Section ("G-Files")
 // Replacement for Baja TEXT_FILE_SECTION and JS bbs.text_sec() functions
@@ -30,10 +30,12 @@ function read_list(sec)
 	f.close();
 	var list = [];
 	for(var i = 0; i < lines.length; i += 2) {
-		var path = txtsec_data(sec) + "/" + lines[i]; 
+		var fname = lines[i];
+		var path = file_getcase(txtsec_data(sec) + "/" + fname);
 		if(!path)
-			path = file_getcase(lines[i]);
-		list.push({ path: path, orig_path: lines[i], desc: lines[i + 1]});
+			path = file_getcase(bbs.cmdstr(fname));
+		if(path)
+			list.push({ path: path, orig_path: lines[i], desc: lines[i + 1]});
 	}
 	return list;
 }
