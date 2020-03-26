@@ -1,4 +1,4 @@
-// $Id: sauce_lib.js,v 1.9 2018/02/02 12:29:59 rswindell Exp $
+// $Id: sauce_lib.js,v 1.10 2020/03/26 07:40:03 rswindell Exp $
 // vi: tabstop=4
 
 const defs = {
@@ -104,7 +104,7 @@ function read(fname)
 			obj.ice_color = true;
 		if(obj.datatype == defs.datatype.bin) {
 			obj.cols = obj.filetype * 2;
-			obj.rows = obj.filesize / (obj.cols * 2);
+			obj.rows = Math.floor(obj.filesize / (obj.cols * 2));
 		} else {
 			obj.cols = obj.tinfo1;
 			obj.rows = obj.tinfo2;
