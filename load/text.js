@@ -1,4 +1,4 @@
-/* $Id: text.js,v 1.30 2019/07/24 22:08:17 rswindell Exp $ */
+/* $Id: text.js,v 1.31 2020/03/26 07:42:02 rswindell Exp $ */
 
 /* Synchronet static text string constants */
 
@@ -835,7 +835,10 @@ var IceColorTerminalQ=823;
 var Utf8TerminalQ=824;
 var MsgCarbonCopyList=825;
 var LoggingOn=826;
+var QWKSettingsUtf8=827;
+var MsgPostedToYouVia=828;
+var Unlimited=829;
 
-var TOTAL_TEXT=827;
+var TOTAL_TEXT=830;
 
 this;
