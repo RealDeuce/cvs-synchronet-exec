@@ -1,4 +1,4 @@
-// $Id: install-binkit.js,v 1.1 2020/03/25 01:20:19 rswindell Exp $	
+// $Id: install-binkit.js,v 1.2 2020/03/26 06:18:33 rswindell Exp $	
 
 // Installs BinkIT (BinkP FidoNet Mailer) timed events and service
 // Enables SBBSecho timed events (FIDOIN and FIDOOUT)
@@ -75,8 +75,10 @@ function install_binkit()
 		if (links[i].addr.toUpperCase().indexOf('ALL') >= 0)	// Don't include wildcard links
 			continue;
 		print("Updating " + ini.name + " [node:" + links[i].addr + "]");
-		var password = links[i].PacketPwd ? links[i].PacketPwd : links[i].AreaFixPwd;
-		ini.iniSetValue("node:"+links[i].addr, "SessionPwd", password === undefined ? '' : password);
+		if(links[i].SessionPwd === undefined) {
+			var password = links[i].PacketPwd ? links[i].PacketPwd : links[i].AreaFixPwd;
+			ini.iniSetValue("node:"+links[i].addr, "SessionPwd", password === undefined ? '' : password);
+		}
 		ini.iniSetValue("node:"+links[i].addr, "BinkpPoll", links[i].GroupHub ? true : false);
 	}
 	ini.close();
