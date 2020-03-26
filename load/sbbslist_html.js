@@ -1,7 +1,7 @@
-/* $Id: sbbslist_html.js,v 1.10 2019/01/29 09:19:15 rswindell Exp $ */
+/* $Id: sbbslist_html.js,v 1.11 2020/03/26 07:35:30 rswindell Exp $ */
 // vi: tabstop=4
 
-var REVISION = "$Revision: 1.10 $".split(' ')[1];
+var REVISION = "$Revision: 1.11 $".split(' ')[1];
 
 var start=time();
 
@@ -312,7 +312,12 @@ function bbs_table_entry(num, bbs)
 writeln('<table>');
 writeln('<caption>');
 writeln(format("List of Synchronet BBSes (%u systems) exported from ", list.length) + system.name.link("http://" + system.inet_addr) + " on " + Date());
-writeln('<p></caption>');
+writeln('<p>');
+writeln(format("Download a %s compatible list file %s"
+	,"SyncTERM".link("http://syncterm.net")
+	,"here".link("ftp://ftp.synchro.net/syncterm.lst")));
+writeln('<p>');
+writeln('</caption>');
 writeln('<thead>');
 writeln('<tr>');
 writeln('<th style="width:25%;">BBS Name and Description</th>');
