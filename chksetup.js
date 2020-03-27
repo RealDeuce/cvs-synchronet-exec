@@ -1,9 +1,9 @@
-// $Id: chksetup.js,v 1.12 2020/03/01 06:21:45 rswindell Exp $
+// $Id: chksetup.js,v 1.13 2020/03/27 17:37:19 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
 "use strict";
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 require("sbbsdefs.js", 'USER_DELETED');
 
 function check_codes(desc, grp_list, sub_list)
@@ -202,8 +202,15 @@ var tests = {
 		var bbs = list[lib.system_index(list, system.name)];
 		bbs.entry = undefined;
 		finger_obj.entry = undefined;
-		if(JSON.stringify(finger_obj) != JSON.stringify(bbs))
+		if(JSON.stringify(finger_obj) != JSON.stringify(bbs)) {
+			if(options.verbose) {
+				print(finger_host + ":");
+				print(JSON.stringify(finger_obj, null, 4));
+				print("local:");
+				print(JSON.stringify(bbs, null, 4));
+			}
 			return format("'%s' BBS entry on %s is different than local", system.name, finger_host);
+		}
 	},
 	
 	check_syncdata: function(options)
