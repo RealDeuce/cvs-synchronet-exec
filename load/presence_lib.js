@@ -1,4 +1,4 @@
-// $Id: presence_lib.js,v 1.12 2019/09/26 02:47:09 rswindell Exp $
+// $Id: presence_lib.js,v 1.13 2020/03/29 08:04:10 rswindell Exp $
 
 // Library for reporting user presence (e.g. BBS node listings, who's online)
 // Much of the code was derived from src/sbbs3/getnode.cpp: nodelist(), whos_online(), printnodedat()
@@ -317,7 +317,7 @@ function nodelist(print, active, listself, is_sysop, options)
 
 	var n;
 	for(n = 0; n < system.node_list.length; n++) {
-		var node = system.node_list[n];
+		var node = system.get_node(n + 1);
 		if(active && node.status != NODE_INUSE)
 			continue;
 		if(js.global.bbs && n == (bbs.node_num - 1)) {
