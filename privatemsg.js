@@ -1,4 +1,4 @@
-// $Id: privatemsg.js,v 1.8 2020/03/14 18:28:00 rswindell Exp $
+// $Id: privatemsg.js,v 1.9 2020/03/29 08:09:27 rswindell Exp $
 
 // Private Message (Ctrl-P) Hot Key Handler
 
@@ -79,7 +79,7 @@ while(bbs.online && !(console.aborted)) {
 			for(var n = 0; n < system.node_list.length; n++) {
 				if(n == bbs.node_num - 1)
 					continue;
-				var node = system.node_list[n];
+				var node = system.get_node(n + 1);
 				if(node.status != NODE_INUSE)
 					continue;
 				if(node.misc & NODE_POFF)
@@ -112,7 +112,7 @@ while(bbs.online && !(console.aborted)) {
 				users[n + w] = web_user.usernum;
 			}
 			console.mnemonics(bbs.text(NodeToPrivateChat));
-			var str = console.getstr(to_list[0], LEN_ALIAS, K_LINE|K_EDIT, to_list.slice(1));
+			var str = console.getstr(to_list[0], LEN_ALIAS, K_LINE|K_EDIT|K_AUTODEL, to_list.slice(1));
 			if(!str || console.aborted) {
 				console.aborted = false;
 				break;
