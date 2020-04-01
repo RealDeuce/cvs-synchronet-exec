@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.18 2020/04/01 09:09:55 rswindell Exp $
+// $Id: init-fidonet.js,v 1.19 2020/04/01 09:27:10 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec or ;exec
 
@@ -22,7 +22,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.18 $".split(' ')[1];
+const REVISION = "$Revision: 1.19 $".split(' ')[1];
 var netname;
 var netdns;
 var netzone = parseInt(argv[0], 10);
@@ -458,8 +458,8 @@ if(!msg_area.grp[netname]
 			"name": netname,
 			"description": netname,
 			"ars": "",
-			"code_prefix": network.code_prefix === undefined 
-				? (netname.toUpperCase() + "_") : network.code_prefix
+			"code_prefix": network.areatag_prefix === undefined 
+				? (netname.toUpperCase() + "_") : network.areatag_prefix
 			});
 }
 if(confirm("Save Changes to Message Area configuration file: msgs.cnf")) {
