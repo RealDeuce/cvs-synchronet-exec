@@ -1,9 +1,9 @@
-// $Id: chksetup.js,v 1.16 2020/04/01 22:35:27 rswindell Exp $
+// $Id: chksetup.js,v 1.17 2020/04/02 17:46:23 rswindell Exp $
 
 // Sanity-check a Synchronet BBS installation
 
 "use strict";
-const REVISION = "$Revision: 1.16 $".split(' ')[1];
+const REVISION = "$Revision: 1.17 $".split(' ')[1];
 require("sbbsdefs.js", 'USER_DELETED');
 
 function check_codes(desc, grp_list, sub_list)
@@ -98,19 +98,25 @@ var tests = {
 				continue;
 			if(usr.settings & (USER_DELETED|USER_INACTIVE))
 				continue;
-			if(!(usr.security.restrictions & UFLAG_G) && usr.security.password == '') {
-				output.push(format("User #%-4u has no password", usr.number));
+			if(usr.security.password == '') {
+				if(!(usr.security.restrictions & UFLAG_G))
+					output.push(format("User #%-4u has no password", usr.number));
 				continue;
 			}
 			if(!password_list[usr.security.password])
 				password_list[usr.security.password] = [];
 			password_list[usr.security.password].push(u);
-			if(system.min_password_length 
-				&& usr.security.password.length < system.min_password_length)
-				output.push(format("User #-4u has a password length (%u) < the minimum: %u"
+			if(usr.security.password.length < system.min_password_length)
+				output.push(format("User #%-4u has a password length (%u) < the minimum: %u"
 					, usr.number
 					, usr.security.password.length
 					, system.min_password_length));
+			else if(system.max_password_length 
+				&& usr.security.password.length > system.max_password_length)
+				output.push(format("User #%-4u has a password length (%u) > the maximum: %u"
+					, usr.number
+					, usr.security.password.length
+					, system.max_password_length));
 			if(!system.trashcan("password", usr.security.password))
 				continue;
 			output.push(format("User #%-4u has a disallowed password%s"
