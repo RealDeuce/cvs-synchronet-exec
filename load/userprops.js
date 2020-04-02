@@ -1,4 +1,4 @@
-// $Id: userprops.js,v 1.6 2020/03/24 19:45:35 rswindell Exp $
+// $Id: userprops.js,v 1.7 2020/04/02 07:30:26 rswindell Exp $
 
 require("userdefs.js", 'UFLAG_G');
 
@@ -44,6 +44,8 @@ function set(section, key, value, usernum)
 	var result;
 	if(!section)
 		result = file.iniSetAllObjects(value);
+	else if(value === undefined)
+		result = file.iniSetObject(section, key);
 	else if(!key)
 		result = file.iniSetObject(section, value);
 	else
