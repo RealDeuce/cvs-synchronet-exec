@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.55 2020/04/03 21:13:59 deuce Exp $
+// $Id: ircd_server.js,v 1.56 2020/04/03 21:32:24 deuce Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.55 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.56 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -1212,18 +1212,17 @@ function Server_Quit(str,suppress_bcast,is_netsplit,origin) {
 		gnotice("Closing Link: " + this.nick + " (" + str + ")");
 		this.rawout("ERROR :Closing Link: [" + this.uprefix + "@" + this.hostname + "] (" + str + ")");
 
-		if (this.socket!=undefined) {
+		if (this.socket!=undefined)
 			this.socket.close();
-			if (this.outgoing) {
-				if (YLines[this.ircclass].active > 0) {
-					YLines[this.ircclass].active--;
-					log(LOG_DEBUG, "Class "+this_cline.ircclass+" down to "+YLines[this_cline.ircclass].active+" active out of "+YLines[this_cline.ircclass].maxlinks);
-				}
-				else
-					log(LOG_ERROR, format("Class %d YLine going negative", this.ircclass));
-			}
-		}
 		delete Local_Sockets[this.id];
+	}
+	if (this.outgoing) {
+		if (YLines[this.ircclass].active > 0) {
+			YLines[this.ircclass].active--;
+			log(LOG_DEBUG, "Class "+this_cline.ircclass+" down to "+YLines[this_cline.ircclass].active+" active out of "+YLines[this_cline.ircclass].maxlinks);
+		}
+		else
+			log(LOG_ERROR, format("Class %d YLine going negative", this.ircclass));
 	}
 	delete Local_Sockets[this.id];
 	delete Local_Sockets_Map[this.id];
