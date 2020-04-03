@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.58 2020/04/03 21:58:16 deuce Exp $
+// $Id: ircd_server.js,v 1.59 2020/04/03 22:19:16 deuce Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.58 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.59 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -621,7 +621,7 @@ function Server_Work(cmdline) {
 				if (!my_server)
 					break;
 				if (cmd[1] != "OK") {
-					my_server.quit("Server not configured.");
+					my_server.quit("S: Server not configured.");
 					break;
 				}
 				Servers[my_server.nick.toLowerCase()] = new IRC_Server();
