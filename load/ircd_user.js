@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.49 2020/04/03 21:32:24 deuce Exp $
+// $Id: ircd_user.js,v 1.50 2020/04/03 21:48:43 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.49 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.50 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -148,6 +148,7 @@ function IRC_User(id) {
 	this.uprefix = "";
 	this.id = id;
 	this.throttle_count = 0;	/* Number of commands executed within 2 secs */
+	this.outgoing = false;
 	// Variables (consts, really) that point to various state information
 	this.socket = "";
 	////////// FUNCTIONS

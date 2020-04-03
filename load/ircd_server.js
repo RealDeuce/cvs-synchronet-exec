@@ -1,4 +1,4 @@
-// $Id: ircd_server.js,v 1.56 2020/04/03 21:32:24 deuce Exp $
+// $Id: ircd_server.js,v 1.57 2020/04/03 21:48:43 deuce Exp $
 //
 // ircd_channel.js                
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const SERVER_REVISION = "$Revision: 1.56 $".split(' ')[1];
+const SERVER_REVISION = "$Revision: 1.57 $".split(' ')[1];
 
 // Various N:Line permission bits
 const NLINE_CHECK_QWKPASSWD		=(1<<0);	// q
@@ -50,6 +50,7 @@ function IRC_Server() {
 	this.parent = 0;
 	this.info = "";
 	this.idletime = time();
+	this.outgoing = false;
 	// Variables (consts, really) that point to various state information
 	this.socket = "";
 	this.type = BAHAMUT; /* Assume bahamut by default */

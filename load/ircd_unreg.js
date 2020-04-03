@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.43 2020/04/03 21:14:00 deuce Exp $
+// $Id: ircd_unreg.js,v 1.44 2020/04/03 21:48:43 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.43 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.44 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -225,6 +225,8 @@ function IRC_Unregistered_Commands(cmdline) {
 			new_server.hostname = this.hostname;
 			new_server.recvq = this.recvq;
 			new_server.sendq = this.sendq;
+			new_server.ircclass = this.ircclass;
+			new_server.outgoing = this.outgoing;
 			if (!qwk_slave) { // qwk slaves should never be hubs.
 				for (hl in HLines) {
 					if (HLines[hl].servername.toLowerCase()
@@ -393,6 +395,8 @@ function Unregistered_Welcome() {
 	new_user.ircclass = my_iline.ircclass;
 	new_user.sendq = this.sendq;
 	new_user.recvq = this.recvq;
+	// Shouldn't be a thing...
+	new_user.outgoing = this.outgoing;
 	hcc_counter++;
 	this.numeric("001", ":Welcome to the Synchronet IRC Service, " + new_user.nuh);
 	this.numeric("002", ":Your host is " + servername + ", running version " + VERSION);
