@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.186 2020/04/03 20:02:56 deuce Exp $
+// $Id: ircd.js,v 1.187 2020/04/03 20:19:18 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.186 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.187 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -673,8 +673,12 @@ function connect_to_server(this_cline,the_port) {
 		Unregistered[new_id].ircclass = this_cline.ircclass;
 		YLines[this_cline.ircclass].active++;
 	}
-	else
+	else {
+		umode_notice(USERMODE_ROUTING,"Routing",
+			"Failed to connect to " +
+			this_cline.servername + " ("+this_cline.host+")");
 		connect_sock.close();
+	}
 	this_cline.lastconnect = time();
 }
 
