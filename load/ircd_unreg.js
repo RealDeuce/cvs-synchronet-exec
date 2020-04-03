@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.44 2020/04/03 21:48:43 deuce Exp $
+// $Id: ircd_unreg.js,v 1.45 2020/04/03 21:58:16 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.44 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.45 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -314,7 +314,7 @@ function Unregistered_Quit(msg) {
 	if (this.outgoing) {
 		if (YLines[this.ircclass].active > 0) {
 			YLines[this.ircclass].active--;
-			log(LOG_DEBUG, "Class "+this_cline.ircclass+" down to "+YLines[this_cline.ircclass].active+" active out of "+YLines[this_cline.ircclass].maxlinks);
+			log(LOG_DEBUG, "Class "+this.ircclass+" down to "+YLines[this.ircclass].active+" active out of "+YLines[this.ircclass].maxlinks);
 		}
 		else
 			log(LOG_ERROR, format("Class %d YLine going negative", this.ircclass));

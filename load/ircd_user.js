@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.50 2020/04/03 21:48:43 deuce Exp $
+// $Id: ircd_user.js,v 1.51 2020/04/03 21:58:16 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.50 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.51 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -1556,7 +1556,7 @@ function User_Quit(str,suppress_bcast,is_netsplit,origin) {
 		log(LOG_ERROR, "Outgoing USER connection detected!");
 		if (YLines[this.ircclass].active > 0) {
 			YLines[this.ircclass].active--;
-			log(LOG_DEBUG, "Class "+this_cline.ircclass+" down to "+YLines[this_cline.ircclass].active+" active out of "+YLines[this_cline.ircclass].maxlinks);
+			log(LOG_DEBUG, "Class "+this.ircclass+" down to "+YLines[this.ircclass].active+" active out of "+YLines[this.ircclass].maxlinks);
 		}
 		else
 			log(LOG_ERROR, format("Class %d YLine going negative", this.ircclass));
