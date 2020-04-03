@@ -1,8 +1,8 @@
-/* $Id: update.js,v 1.7 2020/04/03 06:28:52 rswindell Exp $ */
+/* $Id: update.js,v 1.8 2020/04/03 07:08:52 rswindell Exp $ */
 
 /* Synchronet v3.15 update script (to be executed with jsexec) */
 
-const REVISION = "$Revision: 1.7 $".split(' ')[1];
+const REVISION = "$Revision: 1.8 $".split(' ')[1];
 
 var test = argv.indexOf("-test") >= 0;
 
@@ -56,6 +56,51 @@ function move_laston_address()
 	return updated;
 }
 
+function base_filename(fullname)
+{
+	var ext = file_getext(fullname);
+
+	if(!ext)
+		return fullname;
+
+	return fullname.slice(0, -ext.length);
+}
+
+function update_gfile_indexes()
+{
+	var count = 0;
+	var ixt_files = directory(system.data_dir + "text/*.ixt");
+	for(var i in ixt_files) {
+		var file = new File(ixt_files[i]);
+		var ini_file = base_filename(file.name) + ".ini";
+		if(file_exists(ini_file))
+			continue;
+		print("Upgrading " + file.name);
+		if(!file.open("r")) {
+			alert("Error " + file.error + " opening " + file.name);
+			continue;
+		}
+		var list = [];
+		while(!file.eof) {
+			var path = file.readln();
+			if(!path)
+				break;
+			list.push({ name: path, desc: file.readln() });
+		}
+		file.close();
+		file = new File(ini_file);
+		printf("       to %-30s ", file.name);
+		if(!file.open("wt")) {
+			alert("Error " + file.error + " creating " + file.name);
+			continue;
+		}
+		file.iniSetAllObjects(list);
+		file.close();
+		print("Success");
+		count++;
+	}
+	return count;
+}
 
 printf("Synchronet update.js revision %u\n", REVISION);
 printf("Updating exec directory: ");
@@ -89,6 +134,9 @@ if(!xtrn_area.prog["avatchoo"] && !xtrn_area.event["avat-out"]) {
 	if(!test)
 		js.exec("avatars.js", {}, "install");
 }
+
+print("Updating [General] Text File Section indexes");
+print(update_gfile_indexes() + " indexes updated.");
 
 print("Updating (compiling) Baja modules");
 var src_files = directory(system.exec_dir + "*.src");
