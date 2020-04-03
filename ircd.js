@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.184 2020/03/04 19:09:02 rswindell Exp $
+// $Id: ircd.js,v 1.185 2020/04/03 19:27:15 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.184 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.185 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -297,6 +297,7 @@ while (!js.terminated) {
 	for(thisCL in CLines) {
 		my_cline = CLines[thisCL];
 		if (my_cline.port && YLines[my_cline.ircclass].connfreq &&
+		    (YLines[my_cline.ircclass].maxlinks > YLines[my_cline.ircclass].active) &&
 		    (search_server_only(my_cline.servername) < 1) &&
 		     ((time() - my_cline.lastconnect) >
 		     YLines[my_cline.ircclass].connfreq)
@@ -669,6 +670,8 @@ function connect_to_server(this_cline,the_port) {
 		Unregistered[new_id]=new Unregistered_Client(new_id,connect_sock);
 		Unregistered[new_id].sendps = false; // Don't do P/S pair again
 		Unregistered[new_id].outgoing = true; /* Outgoing Connection */
+		Unregistered[new_id].ircclass = this_cline.ircclass;
+		YLines[this_cline.ircclass].active++;
 	}
 	else
 		connect_sock.close();
@@ -3087,6 +3090,7 @@ function YLine(pingfreq,connfreq,maxlinks,sendq) {
 	this.connfreq = connfreq;
 	this.maxlinks = maxlinks;
 	this.sendq = sendq;
+	this.active = 0;
 }
 
 function ZLine(ipmask,reason) {
