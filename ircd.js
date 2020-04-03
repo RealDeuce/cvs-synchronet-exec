@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.185 2020/04/03 19:27:15 deuce Exp $
+// $Id: ircd.js,v 1.186 2020/04/03 20:02:56 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.185 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.186 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -304,7 +304,7 @@ while (!js.terminated) {
 		   ) {
 			umode_notice(USERMODE_ROUTING,"Routing",
 				"Auto-connecting to " +
-				CLines[thisCL].servername);
+				CLines[thisCL].servername + " ("+CLines[thisCL].host+")");
 			connect_to_server(CLines[thisCL]);
 		}
 	}
