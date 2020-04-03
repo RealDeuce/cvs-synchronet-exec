@@ -1,4 +1,4 @@
-// $Id: ircd_unreg.js,v 1.49 2020/04/03 22:45:13 deuce Exp $
+// $Id: ircd_unreg.js,v 1.50 2020/04/03 23:27:54 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -20,7 +20,7 @@
 // ** Handle unregistered clients.
 //
 
-const UNREG_REVISION = "$Revision: 1.49 $".split(' ')[1];
+const UNREG_REVISION = "$Revision: 1.50 $".split(' ')[1];
 
 ////////// Objects //////////
 function Unregistered_Client(id,socket) {
@@ -200,12 +200,14 @@ function IRC_Unregistered_Commands(cmdline) {
 						break;
 				}
 			}
-			if ( (!this_nline ||
-			      ( (this_nline.password == "*") && !this.outgoing
-				&& !(this_nline.flags&NLINE_CHECK_QWKPASSWD) )
-			     ) && !qwk_slave) {
-				this.quit("UR Server not configured.");
-				return 0;
+			if (parseInt(cmd[2]) < 2) {
+				if ( (!this_nline ||
+				      ( (this_nline.password == "*") && !this.outgoing
+					&& !(this_nline.flags&NLINE_CHECK_QWKPASSWD) )
+				     ) && !qwk_slave) {
+					this.quit("UR Server not configured.");
+					return 0;
+				}
 			}
 			// Take care of registration right now.
 			Servers[cmd[1].toLowerCase()] = new IRC_Server();

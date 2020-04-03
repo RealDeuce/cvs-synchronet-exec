@@ -1,4 +1,4 @@
-// $Id: ircd.js,v 1.191 2020/04/03 23:08:50 deuce Exp $
+// $Id: ircd.js,v 1.192 2020/04/03 23:27:47 deuce Exp $
 //
 // ircd.js
 //
@@ -32,7 +32,7 @@ load("ircd_channel.js");
 load("ircd_server.js");
 
 // CVS revision
-const MAIN_REVISION = "$Revision: 1.191 $".split(' ')[1];
+const MAIN_REVISION = "$Revision: 1.192 $".split(' ')[1];
 
 // Please don't play with this, unless you're making custom hacks.
 // IF you're making a custom version, it'd be appreciated if you left the
@@ -1074,7 +1074,6 @@ function Queue_Recv(sock) {
 			this._recv_bytes = this._recv_bytes.substr(pos+1);
 			if (cmd[cmd.length-1] == '\r')
 				cmd = cmd.substr(0, cmd.length - 1);
-log(LOG_DEBUG, "Adding "+cmd);
 			this.add(cmd);
 		}
 	}

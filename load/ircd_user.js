@@ -1,4 +1,4 @@
-// $Id: ircd_user.js,v 1.52 2020/04/03 23:05:23 deuce Exp $
+// $Id: ircd_user.js,v 1.53 2020/04/03 23:27:54 deuce Exp $
 //
 // ircd_unreg.js
 //
@@ -21,7 +21,7 @@
 //
 
 ////////// Constants / Defines //////////
-const USER_REVISION = "$Revision: 1.52 $".split(' ')[1];
+const USER_REVISION = "$Revision: 1.53 $".split(' ')[1];
 
 const USERMODE_NONE			=(1<<0); // NONE
 const USERMODE_OPER			=(1<<1); // o
@@ -263,7 +263,6 @@ function User_Work(cmdline) {
 	   2 seconds from now. */
 	if ( (time() - this.idletime) <= 2) {
 		if (this.throttle_count >= 4) {
-log(LOG_DEBUG, "Prepending "+cmdline);
 			this.recvq.prepend(cmdline);
 			return 0;
 		}
