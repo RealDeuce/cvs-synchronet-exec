@@ -2,7 +2,7 @@
 
 // Synchronet v3.1 Default Logon Module
 
-// $Id: logon.js,v 1.53 2019/10/30 18:00:37 rswindell Exp $
+// $Id: logon.js,v 1.54 2020/04/03 15:27:54 rswindell Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -24,6 +24,9 @@ if(options.draw_avatar_right === undefined)
 	options.draw_avatar_right = true;
 if(options.show_logon_list === undefined)
 	options.show_logon_list = true;
+
+if(options.eval_first)
+	eval(options.eval_first);
 
 if(user.settings & USER_ICE_COLOR) {
 	var cterm = load({}, "cterm_lib.js");
@@ -197,3 +200,6 @@ if(options.rlogin_xtrn_menu
 			load("avatar_chooser.js");
 	}
 }
+
+if(options.eval_last)
+	eval(options.eval_last);
