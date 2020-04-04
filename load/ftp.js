@@ -1,4 +1,4 @@
-/* $Id: ftp.js,v 1.2 2020/04/04 07:43:30 deuce Exp $ */
+/* $Id: ftp.js,v 1.3 2020/04/04 07:53:52 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 
@@ -201,7 +201,7 @@ FTP.prototype.data_socket = function()
 			throw("EPSV Failed");
 		m = rstr.match(/\(\|\|\|([0-9]+)\|\)/);
 		if (m === null)
-			throw("Unable to parse PASV reply");
+			throw("Unable to parse EPSV reply");
 		return new ConnectedSocket(this.host, parseInt(m[1], 10), {protocol:'FTP-Data', timeout:this.timeout, binadaddrs:this.bindhost});
 	}
 
