@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.21 2020/04/03 08:54:14 rswindell Exp $
+// $Id: init-fidonet.js,v 1.22 2020/04/04 23:11:51 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec or ;exec
 
@@ -22,7 +22,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.21 $".split(' ')[1];
+const REVISION = "$Revision: 1.22 $".split(' ')[1];
 var netname;
 var netdns;
 var netzone = parseInt(argv[0], 10);
@@ -40,7 +40,8 @@ print("*                 Use Ctrl-C to abort the process if desired             
 print("******************************************************************************");
 
 var network_list = {};
-var file = new File("init-fidonet.ini");
+var file = new File(js.exec_dir + "init-fidonet.ini");
+alert(file.name);
 if (file.open("r")) {
 	var list = file.iniGetSections("zone:", "zone");
 	for(var i in list)
@@ -286,8 +287,12 @@ if(!netzone) {
 		}
 	}
 	var which;
-	while((!which || which < 1) && !aborted())
-		which = parseInt(prompt("Which"), 10);
+	while((!which || which < 1) && !aborted()) {
+		var str = prompt("Which or [Q]uit");
+		if(str.toUpperCase() == 'Q')
+			exit(0);
+		which = parseInt(str, 10);
+	}
 	netzone = which;
 	network = network_list[which];
 }
