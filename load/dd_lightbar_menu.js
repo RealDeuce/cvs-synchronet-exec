@@ -1,4 +1,4 @@
-// $Id: dd_lightbar_menu.js,v 1.13 2020/04/05 04:22:38 nightfox Exp $
+// $Id: dd_lightbar_menu.js,v 1.14 2020/04/05 21:02:28 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -386,7 +386,7 @@ function DDLightbarMenu(pX, pY, pWidth, pHeight)
 	this.SetBorderChars = DDLightbarMenu_SetBorderChars;
 	this.SetColors = DDLightbarMenu_SetColors;
 	this.GetNumItemsPerPage = DDLightbarMenu_GetNumItemsPerPage;
-	this.GetTopItemIdxToTopOfLastPage = DDLightbarMenu_GetTopItemIdxToTopOfLastPage;
+	this.GetTopItemIdxOfLastPage = DDLightbarMenu_GetTopItemIdxOfLastPage;
 	this.SetTopItemIdxToTopOfLastPage = DDLightbarMenu_SetTopItemIdxToTopOfLastPage;
 	this.AddAdditionalQuitKeys = DDLightbarMenu_AddAdditionalQuitKeys;
 	this.QuitKeysIncludes = DDLightbarMenu_QuitKeysIncludes;
@@ -1455,7 +1455,7 @@ function DDLightbarMenu_GetNumItemsPerPage()
 }
 
 // Gets the top item index of the last page of items
-function DDLightbarMenu_GetTopItemIdxToTopOfLastPage()
+function DDLightbarMenu_GetTopItemIdxOfLastPage()
 {
 	var numItemsPerPage = this.size.height;
 	if (this.borderEnabled)
