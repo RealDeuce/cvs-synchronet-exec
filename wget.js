@@ -1,4 +1,4 @@
-/* $Id: wget.js,v 1.4 2020/04/05 22:40:21 deuce Exp $ */
+/* $Id: wget.js,v 1.5 2020/04/05 23:38:55 rswindell Exp $ */
 
 require("http.js", 'HTTPRequest');
 require("ftp.js", 'FTP');
@@ -17,6 +17,9 @@ if (argv[1]) {
 
 var purl = new URL(url);
 
+if(!file_getname(filename))
+	filename += "wget-output";
+
 print("Writing to file: " + filename);
 
 var file = new File(filename);
@@ -33,14 +36,27 @@ switch(purl.scheme) {
 		break;
 	case 'http':
 	case 'https':
-		if(!file.open("w"))
-			print("error " + file.error + " opening " + file.name);
+	{
+		var http_request = new HTTPRequest();
+		var contents = "";
+		try {
+			contents = http_request.Get(url);
+		} catch(e) {
+			alert(e);
+			break;
+		}
+		if(http_request.response_code != http_request.status.ok)
+			alert("HTTP-GET ERROR " + http_request.response_code);
 		else {
-			var contents = new HTTPRequest().Get(url);
-			file.write(contents);
-			file.close();
+			if(!file.open("w"))
+				print("error " + file.error + " opening " + file.name);
+			else {
+				file.write(contents);
+				file.close();
+			}
 		}
 		break;
+	}
 	default:
-		print("Unhandled URL scheme '"+purl.scheme+"'");
+		print("Unsupported URL scheme '"+purl.scheme+"'");
 }
