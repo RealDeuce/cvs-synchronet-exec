@@ -1,4 +1,4 @@
-// $Id: SlyEdit.js,v 1.73 2020/04/01 04:46:35 nightfox Exp $
+// $Id: SlyEdit.js,v 1.74 2020/04/05 21:03:43 nightfox Exp $
 
 /* This is a text editor for Synchronet designed to mimic the look & feel of
  * DCTEdit and IceEdit, since neither of those editors have been developed
@@ -6658,7 +6658,7 @@ function doTaglineSelection()
 		// Last page
 		else if (lastUserInputUpper == "L")
 		{
-			var lastPageTopItemIdx = taglineMenu.GetTopItemIdxToTopOfLastPage();
+			var lastPageTopItemIdx = taglineMenu.GetTopItemIdxOfLastPage();
 			taglineMenu.selectedItemIdx = lastPageTopItemIdx;
 			taglineMenu.topItemIdx = lastPageTopItemIdx;
 		}
