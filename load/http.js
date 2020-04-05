@@ -1,4 +1,4 @@
-/* $Id: http.js,v 1.44 2019/08/06 04:13:22 deuce Exp $ */
+/* $Id: http.js,v 1.45 2020/04/05 23:35:01 rswindell Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 require('url.js', 'URL');
@@ -24,6 +24,8 @@ function HTTPRequest(username,password,extra_headers)
 	this.username=username;
 	this.password=password;
 	this.user_agent='SYNXv0.1';
+	
+	this.status = { ok: 200, created: 201, accepted: 202, no_content: 204 };
 }
 
 HTTPRequest.prototype.AddDefaultHeaders=function(){
