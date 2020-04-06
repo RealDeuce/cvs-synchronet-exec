@@ -2,7 +2,7 @@
 
 # Sep 28 1995 - Digital Man
 
-# $Id: noyesbar.src,v 1.10 2019/07/26 01:13:08 rswindell Exp $
+# $Id: noyesbar.src,v 1.11 2020/04/06 02:57:19 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -36,6 +36,7 @@ and aborted SS_ABORT
 compare aborted SS_ABORT
 if_not_equal
     getkey
+    print "\b\b\b\b\b\b\b\b\b\1n\1h\1>"
     int aborted
     copy aborted _sys_status
     and aborted SS_ABORT
@@ -44,7 +45,6 @@ if_not_equal
         return
         end_if
     end_if
-print "\b\b\b\b\b\b\b\b\b\1n\1h\1>"
 if_equal
     return
     end_if
