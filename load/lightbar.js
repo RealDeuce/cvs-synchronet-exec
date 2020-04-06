@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.39 2020/04/06 19:13:20 deuce Exp $
+ * $Id: lightbar.js,v 1.40 2020/04/06 19:31:12 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -165,8 +165,8 @@ Lightbar.prototype.getval = function(current,key)
 		if(key==undefined || key=='' || key==null || ansi.length > 0) {
 			if(this.callback != undefined)
 				this.callback();
+			console.write("\x1b[?1006h");
 			console.write("\x1b[?1000h");
-			console.write("\x1b[?1003h");
 			if(this.timeout>1)
 				key=console.inkey(0,this.timeout);
 			else
