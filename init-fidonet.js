@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.23 2020/04/05 22:19:12 rswindell Exp $
+// $Id: init-fidonet.js,v 1.24 2020/04/06 01:01:11 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec or ;exec
 
@@ -22,7 +22,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.23 $".split(' ')[1];
+const REVISION = "$Revision: 1.24 $".split(' ')[1];
 var netname;
 var netdns;
 var netzone = parseInt(argv[0], 10);
@@ -362,6 +362,8 @@ if(netname) {
 	print("Network coordinator: " + network.coord 
 		+ (network.email ? (" <" + network.email + ">") : "")
 		+ (network.fido ? (" " + network.fido) : ""));
+	if(network.also)
+		print("        also: " + network.also);
 	print("EchoList: " + file_getname(network.echolist));
 } else
 	alert("Unrecognized network zone: " + netzone);
