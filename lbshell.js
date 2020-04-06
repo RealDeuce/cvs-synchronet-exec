@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.122 2020/04/06 07:47:37 deuce Exp $
+// $Id: lbshell.js,v 1.123 2020/04/06 18:01:15 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -59,7 +59,8 @@ var hangup_now=false;
  */
 function mangle_mouse_seq(seq)
 {
-	return seq[0]+seq[5]+seq.substr(1,4);
+	var len = seq.length;
+	return seq[0]+seq[len - 1]+seq.substr(1,len - 2);
 }
 
 function handle_a_ctrlkey(key)
