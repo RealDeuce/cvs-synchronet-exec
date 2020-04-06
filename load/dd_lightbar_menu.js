@@ -1,4 +1,4 @@
-// $Id: dd_lightbar_menu.js,v 1.15 2020/04/06 01:07:34 nightfox Exp $
+// $Id: dd_lightbar_menu.js,v 1.16 2020/04/06 01:41:44 nightfox Exp $
 
 /* Digital Distortion Lightbar Menu library
  * Author: Eric Oulashin (AKA Nightfox)
@@ -1220,6 +1220,15 @@ function DDLightbarMenu_GetVal(pDraw, pSelectedItemIndexes)
 				retVal = this.GetItem(this.selectedItemIdx).retval;
 			continueOn = false;
 		}
+		else if ((this.lastUserInput == KEY_ESC) || (this.QuitKeysIncludes(this.lastUserInput)))
+		{
+			continueOn = false;
+			// Ensure any returned choice objects are null/empty to signal
+			// that the user aborted
+			userChoices = null; // For multi-select mode
+			selectedItemIndexes = { }; // For multi-select mode
+			retVal = null; // For single-choice mode
+		}
 		else if (this.lastUserInput == " ")
 		{
 			// Select the current item
@@ -1269,15 +1278,6 @@ function DDLightbarMenu_GetVal(pDraw, pSelectedItemIndexes)
 					console.print(this.colors.selectedItemColor + textToPrint + "\1n");
 				}
 			}
-		}
-		else if ((this.lastUserInput == KEY_ESC) || (this.QuitKeysIncludes(this.lastUserInput)))
-		{
-			continueOn = false;
-			// Ensure any returned choice objects are null/empty to signal
-			// that the user aborted
-			userChoices = null; // For multi-select mode
-			selectedItemIndexes = { }; // For multi-select mode
-			retVal = null; // For single-choice mode
 		}
 		// For numbered mode, if the user enters a number, allow the user to
 		// choose an item by typing its number.
