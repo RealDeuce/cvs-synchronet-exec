@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.40 2020/04/06 19:31:12 deuce Exp $
+ * $Id: lightbar.js,v 1.41 2020/04/06 19:51:03 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -284,7 +284,6 @@ Lightbar.prototype.getval = function(current,key)
 			
 			switch(key) {
 				case 'Mouse':
-					ansi = '';
 					if (button === 0) {
 						var hit = this.mouse_hit(x, y);
 						if (hit === -1) {
