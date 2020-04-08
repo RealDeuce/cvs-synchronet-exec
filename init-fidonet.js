@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.25 2020/04/07 06:02:48 rswindell Exp $
+// $Id: init-fidonet.js,v 1.26 2020/04/08 23:51:04 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec or ;exec
 
@@ -22,7 +22,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.25 $".split(' ')[1];
+const REVISION = "$Revision: 1.26 $".split(' ')[1];
 var netname;
 var netdns;
 var netzone = parseInt(argv[0], 10);
@@ -154,6 +154,9 @@ function send_app_netmail(destaddr)
 	body_text += "\r\n";
 	body_text += "My requested AreaFix password is: '" + link.AreaFixPwd + "'\r\n";
 	body_text += "My requested BinkP Session password is: '" + link.SessionPwd + "'\r\n";
+	body_text += "\r\n";
+	body_text += "I will be using 'Type-2+' (FSC-39) packets with no password.\r\n";
+	body_text += "Uncompressed or PKZIP-archived EchoMail bundles will work fine.\r\n";
 	print(body_text);
 	while(confirm("Add more text") && !aborted()) {
 		body_text += "\r\n";
@@ -451,7 +454,7 @@ while(!network.dns && (!link.BinkpHost
 if(!link.BinkpPort)
 	link.BinkpPort = network.port || 24554;
 while(!link.BinkpPort || !confirm("Your hub's BinkP/TCP port number is " + link.BinkpPort) && !aborted()) {
-	link.BinkpPort = paseInt(prompt("Your hub's BinkP/TCP port number"));
+	link.BinkpPort = parseInt(prompt("Your hub's BinkP/TCP port number"));
 }
 
 if(!link.Comment)
