@@ -1,4 +1,4 @@
-// $Id: qnet-ftp.js,v 1.1 2020/04/08 01:14:49 rswindell Exp $
+// $Id: qnet-ftp.js,v 1.2 2020/04/08 04:45:33 rswindell Exp $
 //****************************************************************************
 //	  JavaScript module for performing FTP-based QWKnet call-outs
 //    Inspired by exec/qnet-ftp.src
@@ -12,7 +12,7 @@ require('ftp.js', 'FTP');
 
 var hubid = argv[0];
 var addr = argv[1];
-var username = "testman"; // system.qwk_id
+var username = system.qwk_id
 var password = argv[2];
 var port = argv[3] || 21;
 
