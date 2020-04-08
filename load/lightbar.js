@@ -1,6 +1,6 @@
 /*
  * Generic lightbar interface.
- * $Id: lightbar.js,v 1.43 2020/04/08 03:00:08 deuce Exp $
+ * $Id: lightbar.js,v 1.44 2020/04/08 03:03:09 deuce Exp $
  */
 
 /* ToDo: Support multiple columns */
@@ -152,7 +152,7 @@ Lightbar.prototype.getval = function(current,key)
 		last_cur=this.current;
 		/* Get input */
 		if(key==undefined || key=='' || key==null) {
-			mk = mouse_getkey(K_NOSPIN, this.timeout, this.mouse_enabled);
+			mk = mouse_getkey(K_NOSPIN, this.timeout > 1 ? this.timeout : undefined, this.mouse_enabled);
 			if (mk.mouse !== null) {
 				// Mouse
 				if (mk.mouse.mods === 0 && mk.mouse.button == 0 && mk.mouse.motion == 0) {
