@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.127 2020/04/07 21:48:02 deuce Exp $
+// $Id: lbshell.js,v 1.128 2020/04/09 04:32:27 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -859,8 +859,7 @@ function todo_getfiles(lib, dir)
 
 function start_mouse()
 {
-	console.write("\x1b[?1006h");
-	console.write("\x1b[?1000h");
+	console.write("\x1b[?1006;1000h");
 }
 
 function stop_mouse()
