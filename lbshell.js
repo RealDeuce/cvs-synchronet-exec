@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.128 2020/04/09 04:32:27 deuce Exp $
+// $Id: lbshell.js,v 1.129 2020/04/09 04:35:03 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -865,8 +865,6 @@ function start_mouse()
 function stop_mouse()
 {
 	console.write("\x1b[?1000l");
-	if (console.inkey(100) != '')
-		while(console.inkey() !== '');
 }
 
 function clear_screen()
