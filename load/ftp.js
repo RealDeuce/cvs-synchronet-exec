@@ -1,4 +1,4 @@
-/* $Id: ftp.js,v 1.16 2020/04/10 06:47:03 deuce Exp $ */
+/* $Id: ftp.js,v 1.17 2020/04/10 06:56:46 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 
@@ -32,6 +32,10 @@ function FTP(host, user, pass, port, dport, bindhost, account)
 	this.account = account;
 	this.socket = new ConnectedSocket(host, port, {protocol:'FTP', timeout:this.timeout, binadaddrs:this.bindhost});
 	var response = this.cmd(undefined, true);
+	if (parseInt(response, 10) !== 120) {
+		log(LOG_NOTICE, "Connection delay: "+response);
+		response = this.cmd(undefined, true);
+	}
 	if (parseInt(response, 10) !== 220) {
 		this.socket.close();
 		throw("Invalid response from server: " + response);
