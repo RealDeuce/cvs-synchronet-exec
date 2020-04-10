@@ -1,4 +1,4 @@
-/* $Id: ftp.js,v 1.14 2020/04/08 09:08:56 deuce Exp $ */
+/* $Id: ftp.js,v 1.15 2020/04/10 04:33:09 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 
@@ -417,9 +417,16 @@ FTP.prototype.data_socket = function(cmd)
 	}
 
 	rstr = this.cmd(cmd, true);
-	if (parseInt(rstr, 10) !== 150) {
-		ds.close();
-		throw(cmd+" failed: " + rstr);
+	switch (parseInt(rstr, 10)) {
+		case 150:
+			break;
+		case 125:
+			if (ds.is_connected)
+				break;
+			// Fall-through
+		default:
+			ds.close();
+			throw(cmd+" failed: " + rstr);
 	}
 
 	if (!this.passive) {
