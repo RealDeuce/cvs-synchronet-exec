@@ -1,4 +1,4 @@
-/* $Id: ftp.js,v 1.19 2020/04/11 03:20:53 rswindell Exp $ */
+/* $Id: ftp.js,v 1.20 2020/04/12 15:37:18 deuce Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 
@@ -368,6 +368,9 @@ FTP.prototype.cmd = function(cmd, needresp)
 				ret += rd + "\r\n";
 				if (rd.length === 0)
 					continue;
+			}
+			else {
+				throw("recvline() returned null");
 			}
 		} while(this.socket.is_connected && !done);
 		return ret;
