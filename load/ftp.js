@@ -1,4 +1,4 @@
-/* $Id: ftp.js,v 1.20 2020/04/12 15:37:18 deuce Exp $ */
+/* $Id: ftp.js,v 1.21 2020/04/13 03:49:27 rswindell Exp $ */
 
 require('sockdefs.js', 'SOCK_STREAM');
 
@@ -8,6 +8,8 @@ function FTP(host, user, pass, port, dport, bindhost, account)
 
 	if (host === undefined)
 		throw("No hostname specified");
+	
+	this.revision = "JSFTP v" + "$Revision: 1.21 $".split(' ')[1];
 
 	if (port === undefined)
 		port = 21;
@@ -370,7 +372,7 @@ FTP.prototype.cmd = function(cmd, needresp)
 					continue;
 			}
 			else {
-				throw("recvline() returned null");
+				throw("recvline timeout");
 			}
 		} while(this.socket.is_connected && !done);
 		return ret;
