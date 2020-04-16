@@ -2,7 +2,7 @@
 
 // Synchronet Service for the Network News Transfer Protocol (RFC 977)
 
-// $Id: nntpservice.js,v 1.130 2019/01/19 09:28:33 rswindell Exp $
+// $Id: nntpservice.js,v 1.131 2020/04/16 20:47:25 rswindell Exp $
 
 // Example configuration (in ctrl/services.ini):
 
@@ -29,7 +29,7 @@
 //					Xnews 5.04.25
 //					Mozilla 1.1 (Requires -auto, and a prior login via other method)
 
-const REVISION = "$Revision: 1.130 $".split(' ')[1];
+const REVISION = "$Revision: 1.131 $".split(' ')[1];
 
 var tearline = format("--- Synchronet %s%s-%s NNTP Service %s\r\n"
 					  ,system.version,system.revision,system.platform,REVISION);
@@ -143,6 +143,12 @@ function count_msgs(msgbase)
 	return { total: count, first: first, last: last };
 }
 
+function bogus_cmd(cmdline)
+{
+	log(LOG_DEBUG, "Received bogus command: '" + cmdline + "'");
+	bogus_cmd_counter++;
+}
+
 var username='';
 var msgbase=null;
 var selected=null;
@@ -159,7 +165,7 @@ if(!no_anonymous)
 while(client.socket.is_connected && !quit) {
 
 	if(bogus_cmd_counter) {
-		log(LOG_DEBUG, "Throttling bogus command sending clinet for " + bogus_cmd_counter + " seconds");
+		log(LOG_DEBUG, "Throttling bogus command sending client for " + bogus_cmd_counter + " seconds");
 		sleep(bogus_cmd_counter * 1000);	// Throttle
 	}
 
@@ -188,7 +194,7 @@ while(client.socket.is_connected && !quit) {
 	}
 
 	if(cmdline=="") {	/* ignore blank commands */
-		bogus_cmd_counter++;
+		bogus_cmd(cmdline);
 		continue;
 	}
 
@@ -480,7 +486,7 @@ while(client.socket.is_connected && !quit) {
 			if(!found) {
 				writeln("411 no such newsgroup");
 				log(LOG_NOTICE,"!no such group");
-				bogus_cmd_counter++;
+				bogus_cmd(cmdline);
 				break;
 			}
 
@@ -638,7 +644,7 @@ while(client.socket.is_connected && !quit) {
 		case "STAT":
 			if(!selected) {
 				writeln("412 no newsgroup selected");
-				bogus_cmd_counter++;
+				bogus_cmd(cmdline);
 				break;
 			}
 			if(!selected.can_read) {
@@ -647,7 +653,7 @@ while(client.socket.is_connected && !quit) {
 			}
 			if(cmd[1]==undefined || cmd[1].length==0) {
 				writeln("420 no current article has been selected");
-				bogus_cmd_counter++;
+				bogus_cmd(cmdline);
 				break;
 			}
 			if(cmd[1]!='') {
