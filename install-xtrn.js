@@ -1,4 +1,4 @@
-// $Id: install-xtrn.js,v 1.6 2020/04/16 22:17:41 rswindell Exp $
+// $Id: install-xtrn.js,v 1.7 2020/04/17 05:10:24 rswindell Exp $
 
 // Installer for Synchronet External Programs
 
@@ -82,7 +82,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.6 $".split(' ')[1];
+const REVISION = "$Revision: 1.7 $".split(' ')[1];
 const ini_fname = "install-xtrn.ini";
 
 load("sbbsdefs.js");
@@ -327,7 +327,7 @@ function install(ini_fname)
 		if (item.startup_dir === undefined)
 			item.startup_dir = startup_dir;
 		if (!item.args)
-			items.args = "";
+			item.args = "";
 		var result = js.exec.apply(null
 			,[js_file, item.startup_dir, {}].concat(js_args));
 		if (result !== 0 && item.required)
