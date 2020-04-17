@@ -1,4 +1,4 @@
-// $Id: install-xtrn.js,v 1.9 2020/04/17 07:11:51 rswindell Exp $
+// $Id: install-xtrn.js,v 1.10 2020/04/17 21:41:35 rswindell Exp $
 
 // Installer for Synchronet External Programs
 
@@ -87,7 +87,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.9 $".split(' ')[1];
+const REVISION = "$Revision: 1.10 $".split(' ')[1];
 const ini_fname = "install-xtrn.ini";
 
 load("sbbsdefs.js");
@@ -217,7 +217,7 @@ function install(ini_fname)
 	if(desc)
 		print(desc);
 	var by = ini_file.iniGetValue(null, "by", []);
-	if(by)
+	if(by.length)
 		print("By: " + by.join(", "));
 	var cats = ini_file.iniGetValue(null, "cats", []);
 	if(cats.length)
@@ -437,3 +437,8 @@ for(var i in ini_list) {
 		alert(result);
 }
 print("Installed " + installed + " external programs.");
+if(installed > 0) {
+	print("Requesting Synchronet recycle (configuration-reload)");
+	if(!file_touch(system.ctrl_dir + "recycle"))
+		alert("Recycle semaphore file update failure");
+}
