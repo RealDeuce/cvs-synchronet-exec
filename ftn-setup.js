@@ -1,4 +1,4 @@
-// $Id: ftn-setup.js,v 1.5 2020/04/18 04:27:03 echicken Exp $
+// $Id: ftn-setup.js,v 1.6 2020/04/18 04:36:17 echicken Exp $
 
 load('sbbsdefs.js');
 load('frame.js');
@@ -63,7 +63,7 @@ var zone;
 console.ungetstr(KEY_UP);
 while (!js.terminated) {
     key = console.getkey();
-    if (key == 'q') break;
+    if (key.toLowerCase() == 'q') break;
     tree.getcmd(key);
     if (key == KEY_UP || key == KEY_DOWN || key == KEY_HOME || key == KEY_END) {
         zone = tree.currentItem.__ftn_setup;
