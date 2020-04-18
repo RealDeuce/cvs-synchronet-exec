@@ -1,12 +1,13 @@
-// $Id: ftn-setup.js,v 1.6 2020/04/18 04:36:17 echicken Exp $
+// $Id: ftn-setup.js,v 1.7 2020/04/18 04:37:44 echicken Exp $
 
 load('sbbsdefs.js');
 load('frame.js');
 load('tree.js');
 const fidoaddr = load({}, 'fidoaddr.js');
 
-const con_attr = console.attributes;
-const sys_status = bbs.sys_status;
+js.on_exit('console.attributes = ' + console.attributes);
+js.on_exit('bbs.sys_status = ' + bbs.sys_status);
+
 bbs.sys_status|=SS_MOFF;
 
 const addrs = {};
@@ -81,6 +82,3 @@ while (!js.terminated) {
 }
 
 frame.close();
-
-console.attributes = con_attr;
-bbs.sys_status = sys_status;
