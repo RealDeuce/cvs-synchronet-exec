@@ -1,3 +1,5 @@
+// $Id: ftn-setup.js,v 1.3 2020/04/18 03:58:16 echicken Exp $
+
 load('sbbsdefs.js');
 load('frame.js');
 load('tree.js');
