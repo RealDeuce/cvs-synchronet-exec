@@ -1,4 +1,4 @@
-// $Id: sbbslist.js,v 1.65 2020/03/29 04:42:18 nightfox Exp $
+// $Id: sbbslist.js,v 1.66 2020/04/19 19:57:15 rswindell Exp $
 
 // Synchronet BBS List
 
@@ -10,7 +10,7 @@
 
 // TODO: Daily maintenance, warning local creators and purging old unverified entries
 
-var REVISION = "$Revision: 1.65 $".split(' ')[1];
+var REVISION = "$Revision: 1.66 $".split(' ')[1];
 var version_notice = "Synchronet BBS List v4(" + REVISION + ")";
 
 load("sbbsdefs.js");
@@ -896,7 +896,7 @@ function this_bbs()
 		bbs.network.push({ name: "DOVE-Net", address: system.qwk_id});
 	if(msg_area.grp["FidoNet"] || msg_area.grp["Fidonet"])
 		bbs.network.push({ name: "FidoNet", address: system.fido_addr_list[0] });
-	print("Testing common BBS service ports");
+	print("Testing common BBS service ports (this may take a minute)");
     var ports = [];
     for(var i in lib.common_bbs_services) {
 		var prot = lib.common_bbs_services[i];
@@ -904,7 +904,7 @@ function this_bbs()
 			continue;
         if(ports.indexOf(standard_service_port[prot]) >= 0) // Already tested this port
             continue;
-		printf("%s ", prot);
+		printf("\b\b\b%s ...", prot);
         ports.push(standard_service_port[prot]);
 		if(test_port(standard_service_port[prot]))
 			bbs.service.push({ protocol: prot, address: system.inet_addr, port: standard_service_port[prot] });
