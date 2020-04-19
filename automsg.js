@@ -1,4 +1,4 @@
-// $Id: automsg.js,v 1.2 2019/07/24 22:09:59 rswindell Exp $
+// $Id: automsg.js,v 1.3 2020/04/19 03:15:35 rswindell Exp $
 // vi: tabstop=4
 
 "use strict";
@@ -20,7 +20,7 @@ function automsg()
 				break;
 			case 'W':
 				if(user.security.restrictions&UFLAG_W) {
-					console.print(text[R_AutoMsg]);
+					console.print(bbs.text[R_AutoMsg]);
 					break;
 				}
 				bbs.action=NODE_AMSG;
