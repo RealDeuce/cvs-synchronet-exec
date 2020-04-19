@@ -2,7 +2,7 @@
 
 /* JSexec script for nightly Synchronet test builds */
 
-/* $Id: testbuild.js,v 1.32 2019/05/09 22:23:24 rswindell Exp $ */
+/* $Id: testbuild.js,v 1.33 2020/04/19 19:50:43 rswindell Exp $ */
 
 require("smbdefs.js", 'SMB_PRIORITY_HIGHEST');
 
@@ -55,7 +55,7 @@ var builds
 
 /* Platform-specific (or non-ported) projects */
 if(platform=="win32") {
-	/* Requires Visual C++ 2013 */
+	/* Requires Visual C++ 2019 */
 	builds.push(["src/sbbs3"			,'build.bat /v:m "/p:Configuration=Release"'
 																,"> " + build_output]);
 	/* Requires C++Builder */
@@ -85,7 +85,8 @@ var win32_dist
 		"src/sbbs3/useredit/useredit.exe",
 		"3rdp/win32.release/mozjs/bin/*.dll",
 		"3rdp/win32.release/nspr/bin/*.dll",
-		"3rdp/win32.release/cryptlib/bin/*.dll"
+		"3rdp/win32.release/cryptlib/bin/*.dll",
+		"s:/sbbs/exec/dosxtrn.exe"
 	];
 
 var nix_dist
@@ -134,7 +135,7 @@ if(file.open("wt")) {
 
 var start = time();
 if(1) {
-for(i in builds) {
+for(i = 0; i < builds.length; i++) {
 	var sub_dir = builds[i][0];
 	var build_dir = temp_dir + "/" + sub_dir;
 	var subject = system.platform + " build failure in " + sub_dir;
