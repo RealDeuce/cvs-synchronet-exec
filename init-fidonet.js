@@ -1,4 +1,4 @@
-// $Id: init-fidonet.js,v 1.27 2020/04/18 05:55:49 rswindell Exp $
+// $Id: init-fidonet.js,v 1.28 2020/04/19 19:43:48 rswindell Exp $
 
 // Initial FidoNet setup script - interactive, run via JSexec or ;exec
 
@@ -22,7 +22,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.27 $".split(' ')[1];
+const REVISION = "$Revision: 1.28 $".split(' ')[1];
 var netname;
 var netdns;
 var netzone = parseInt(argv[0], 10);
@@ -763,4 +763,9 @@ if(your.node == 9999) {
 print("See your 'Events' log output for outbound BinkP connections.");
 print("See your 'Services' log output for inbound BinkP connections.");
 print("Use exec/echocfg for follow-up FidoNet-related configuration.");
+if(!this.jsexec_revision) {
+	print();
+	print("It appears you have run this script from the BBS. You must log-off now for the");
+	print("server to recycle and configuration changes to take effect.");
+}
 exit(0);

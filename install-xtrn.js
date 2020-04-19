@@ -1,4 +1,4 @@
-// $Id: install-xtrn.js,v 1.11 2020/04/19 02:09:02 rswindell Exp $
+// $Id: install-xtrn.js,v 1.12 2020/04/19 19:43:48 rswindell Exp $
 
 // Installer for Synchronet External Programs
 
@@ -87,7 +87,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.11 $".split(' ')[1];
+const REVISION = "$Revision: 1.12 $".split(' ')[1];
 const ini_fname = "install-xtrn.ini";
 
 load("sbbsdefs.js");
@@ -441,4 +441,9 @@ if(installed > 0) {
 	print("Requesting Synchronet recycle (configuration-reload)");
 	if(!file_touch(system.ctrl_dir + "recycle"))
 		alert("Recycle semaphore file update failure");
+	if(!this.jsexec_revision) {
+		print();
+		print("It appears you have run this script from the BBS. You must log-off now for the");
+		print("server to recycle and configuration changes to take effect.");
+	}
 }
