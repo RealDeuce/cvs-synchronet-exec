@@ -1,4 +1,4 @@
-// $Id: install-xtrn.js,v 1.10 2020/04/17 21:41:35 rswindell Exp $
+// $Id: install-xtrn.js,v 1.11 2020/04/19 02:09:02 rswindell Exp $
 
 // Installer for Synchronet External Programs
 
@@ -87,7 +87,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.10 $".split(' ')[1];
+const REVISION = "$Revision: 1.11 $".split(' ')[1];
 const ini_fname = "install-xtrn.ini";
 
 load("sbbsdefs.js");
@@ -227,9 +227,9 @@ function install(ini_fname)
 		print("Sub-categories: " + subs.join(", "));
 
 	var cnflib = load({}, "cnflib.js");
-	var xtrn_cnf = cnflib.read("xtrn.cnf");
+	var xtrn_cnf = cnflib.read(system.ctrl_dir + "xtrn.cnf");
 	if (!xtrn_cnf)
-		return "Failed to read xtrn.cnf";
+		return "Failed to read " + system.ctrl_dir + "xtrn.cnf";
 	
 	var startup_dir = ini_fname.substr(0, Math.max(ini_fname.lastIndexOf("/"), ini_fname.lastIndexOf("\\"), 0));
 
@@ -374,8 +374,8 @@ function install(ini_fname)
 	}
 
 	if (installed) {
-		if (!options.debug && !cnflib.write("xtrn.cnf", undefined, xtrn_cnf))
-			return "Failed to write xtrn.cnf";
+		if (!options.debug && !cnflib.write(system.ctrl_dir + "xtrn.cnf", undefined, xtrn_cnf))
+			return "Failed to write " + system.ctrl_dir + "xtrn.cnf";
 		print("Installed " + installed + " items from " + ini_fname + " successfully");
 	}
 
