@@ -3,7 +3,7 @@
 // This script generates HTML documentation of the Synchronet JavaScript object model
 // Requires a Debug build of the Synchronet executable(s)
 
-// $Id: jsdocs.js,v 1.39 2019/08/08 20:21:10 deuce Exp $
+// $Id: jsdocs.js,v 1.40 2020/04/20 06:31:15 rswindell Exp $
 
 const table_tag = "<table border=1 width=100%>";
 
@@ -286,11 +286,12 @@ object_header("global"		,js.global);
 f.writeln("<ul>");
 document_methods("global"	,js.global);
 properties_header("global"	,js.global);
-docwriteln("<tr><td>" + "argc".bold() + "<td>number<td>N/A<td>number of arguments passed to the script</td>");
+docwriteln("<tr><td>" + "argc".bold() + "<td>number<td>N/A<td>count of arguments passed to the script</td>");
 docwriteln("<tr><td>" + "argv".bold() + "<td>array<td>N/A<td>array of argument strings (argv.length == argc)</td>");
-docwriteln("<tr><td>" + "errno".bold() + "<td>number<td>N/A<td>last system error number</td>");
-docwriteln("<tr><td>" + "errno_str".bold() + "<td>string<td>N/A<td>description of last system error</td>");
-docwriteln("<tr><td>" + "socket_errno".bold() + "<td>number<td>N/A<td>last socket-related error number (same as <i>errno</i> on Unix platforms)</td>");
+docwriteln("<tr><td>" + "errno".bold() + "<td>number<td>3.10h<td>last system error number</td>");
+docwriteln("<tr><td>" + "errno_str".bold() + "<td>string<td>3.10h<td>description of last system error</td>");
+docwriteln("<tr><td>" + "socket_errno".bold() + "<td>number<td>3.13a<td>last socket-related error number (same as <i>errno</i> on Unix platforms)</td>");
+docwriteln("<tr><td>" + "socket_errno_str".bold() + "<td>string<td>3.18a<td>description of last socket-related error (same as <i>errno_str</i> on Unix platforms)</td>");
 f.writeln("</ul>");
 
 document_object("js"		,js);
