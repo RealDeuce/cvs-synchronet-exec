@@ -1,4 +1,4 @@
-// $Id: xtrn-setup.js,v 1.5 2020/04/21 03:15:08 rswindell Exp $
+// $Id: xtrn-setup.js,v 1.6 2020/04/21 06:27:00 rswindell Exp $
 
 load('sbbsdefs.js');
 load('frame.js');
@@ -31,10 +31,16 @@ directory(system.exec_dir + '../xtrn/*', GLOB_ONLYDIR).forEach(function (e) {
     const ini = e + '/install-xtrn.ini';
     if (!file_exists(ini)) return;
     const f = new File(ini);
-    if (!f.open('r')) return;
+    if (!f.open('r')) {
+		alert("Error " + f.error + " opening " + f.name);
+		return;
+	}
     const xtrn = f.iniGetObject();
     f.close();
-	if(!xtrn.Name) return;
+	if(!xtrn.Name) {
+		alert("Skipping file with no 'Name' value: " + f.name);
+		return;
+	}
     const item = tree.addItem(xtrn.Name, function () {
 		console.clear(LIGHTGRAY);
         js.exec('install-xtrn.js', {}, e);
