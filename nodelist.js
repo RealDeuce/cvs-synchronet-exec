@@ -1,8 +1,8 @@
-// $Id: nodelist.js,v 1.11 2019/05/09 08:04:18 rswindell Exp $
+// $Id: nodelist.js,v 1.12 2020/04/21 20:30:19 rswindell Exp $
 
-// Node Listing / Who's Online display script, replaces the bbs.whos_online() function
-// Installable as a Ctrl-U key handler ('jsexec nodelist install') or as an
-// 'exec/node list' replacement ('jexec nodelist').
+// Node Listing / Who's Online Module
+// Installed in SCFG->System->Loadable Modules->List Nodes / Who's Online
+// or as an 'exec/node list' replacement ('jexec nodelist').
 //
 // Command-line / load() arguments supported:
 // -active      Include active users/nodes only
@@ -20,18 +20,7 @@
 require("sbbsdefs.js", 'K_NONE');
 
 if(argv.indexOf("install") >= 0) {
-	var cnflib = load({}, "cnflib.js");
-	var xtrn_cnf = cnflib.read("xtrn.cnf");
-	if(!xtrn_cnf) {
-		alert("Failed to read xtrn.cnf");
-		exit(-1);
-	}
-	xtrn_cnf.hotkey.push({ key: ascii(ctrl('U')), cmd: '?nodelist.js -active' });
-	
-	if(!cnflib.write("xtrn.cnf", undefined, xtrn_cnf)) {
-		alert("Failed to write xtrn.cnf");
-		exit(-1);
-	}
+	// nothing to do here
 	exit(0);
 }
 
@@ -55,7 +44,7 @@ if(js.global.bbs) {
 		options = load({}, "nodelist_options.js");
 	js.on_exit("console.status = " + console.status);
 } else{ // e.g. invoked via JSexec
-	var REVISION = "$Revision: 1.11 $".split(' ')[1];
+	var REVISION = "$Revision: 1.12 $".split(' ')[1];
 	options = { 
 		format: "Node %2d: %s", 
 		include_age: true, 
