@@ -1,4 +1,4 @@
-// $Id: xtrn-setup.js,v 1.1 2020/04/21 02:30:20 echicken Exp $
+// $Id: xtrn-setup.js,v 1.2 2020/04/21 02:36:51 echicken Exp $
 
 load('sbbsdefs.js');
 load('frame.js');
@@ -26,7 +26,7 @@ tree.colors.lbg = BG_CYAN;
 tree.colors.kfg = LIGHTCYAN;
 
 var longest = 0;
-directory(system.exec_dir + '../xtrn/*', GLOB_ONLYDIR).filter(function (e) {
+directory(system.exec_dir + '../xtrn/*', GLOB_ONLYDIR).forEach(function (e) {
     const ini = e + '/install-xtrn.ini';
     if (!file_exists(ini)) return;
     const f = new File(ini);
