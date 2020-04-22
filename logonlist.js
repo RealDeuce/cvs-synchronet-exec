@@ -1,4 +1,4 @@
-// $Id: logonlist.js,v 1.6 2020/04/03 15:47:15 rswindell Exp $
+// $Id: logonlist.js,v 1.7 2020/04/22 19:56:38 rswindell Exp $
 
 // Logon List module (replaces old hard-coded logon.lst)
 
@@ -11,6 +11,8 @@
 // ... and then run 'jsexec update'
 
 "use strict";
+
+require("sbbsdefs.js", 'SYS_LISTLOC');
 
 function install()
 {
@@ -78,7 +80,7 @@ function print(hdr, num, days_ago)
 			,record.total ? record.node : ""
 			,record.total ? record.total : ""
 			,record.user.alias
-			,record.user.location
+			,(system.settings & SYS_LISTLOC) ? record.user.location : record.user.note
 			,date.getHours()
 			,date.getMinutes()
 			,record.user.connection
