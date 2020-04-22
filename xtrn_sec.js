@@ -5,7 +5,7 @@
 
 // To jump straight to a specific xtrn section, pass the section code as an argument
 
-// $Id: xtrn_sec.js,v 1.23 2020/03/22 09:45:25 rswindell Exp $
+// $Id: xtrn_sec.js,v 1.24 2020/04/22 23:01:18 rswindell Exp $
 
 load("sbbsdefs.js");
 
@@ -97,8 +97,12 @@ function external_program_menu(xsec)
 			break;
 		}
 
-		if(bbs.menu_exists("xtrn" + (xtrn_area.sec_list[xsec].number+1))) {
-			bbs.menu("xtrn" + (xtrn_area.sec_list[xsec].number+1));
+		var secnum = xtrn_area.sec_list[xsec].number+1
+		if(bbs.menu_exists("xtrn" + secnum + "_head")) {
+			bbs.menu("xtrn" + secnum + "_head");
+		}
+		if(bbs.menu_exists("xtrn" + secnum)) {
+			bbs.menu("xtrn" + secnum);
 		}
 		else {
 			var multicolumn = options.multicolumn && prog_list.length > options.singlecolumn_height;
