@@ -1,6 +1,6 @@
 # renegade.src
 
-# $Id: renegade.src,v 1.15 2020/04/23 02:24:28 rswindell Exp $
+# $Id: renegade.src,v 1.16 2020/04/23 02:46:09 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -150,7 +150,7 @@ cmdkey N
 	end_cmd
 
 cmdkey O
-        exec_bin xtrn_sec
+        xtrn_section
         end_cmd
 
 cmdkey P

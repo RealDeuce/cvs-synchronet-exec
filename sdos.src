@@ -2,7 +2,7 @@
 
 # DOS shell for Synchronet version 2 systems
 
-# $Id: sdos.src,v 1.14 2020/04/23 02:23:28 rswindell Exp $
+# $Id: sdos.src,v 1.15 2020/04/23 02:46:09 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -130,7 +130,7 @@ if_true
 
 compare_str "doors"
 if_true
-	exec_bin xtrn_sec
+	xtrn_section
 	return
 	end_if
 

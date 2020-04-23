@@ -1,6 +1,6 @@
 # wildcat.src
 
-# $Id: wildcat.src,v 1.16 2020/04/23 02:25:32 rswindell Exp $
+# $Id: wildcat.src,v 1.17 2020/04/23 02:46:09 rswindell Exp $
 
 # @format.tab-size 8, @format.use-tabs true
 
@@ -114,7 +114,7 @@ cmdkey B
 	end_cmd
 
 cmdkey D
-	exec_bin xtrn_sec
+	xtrn_section
 	end_cmd
 
 cmdkey E
