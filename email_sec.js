@@ -1,6 +1,6 @@
 // E-mail Section
 
-// $Id: email_sec.js,v 1.9 2020/04/01 09:48:05 rswindell Exp $
+// $Id: email_sec.js,v 1.10 2020/04/24 08:05:39 rswindell Exp $
 
 // Note: this module replaces the old ### E-mail section ### Baja code in exec/*.src
 // replace "call E-mail" with "exec_bin email_sec"
@@ -67,10 +67,10 @@ while(bbs.online) {
 				break;
 			console.putmsg(bbs.text(text.EnterNetMailAddress));
 			var addr_list = userprops.get(ini_section, "address", []) || [];
-			var addr = console.getstr(60, K_LINE, addr_list);
+			var addr = console.getstr(256, K_LINE, addr_list);
 			if(!addr || console.aborted)
 				break;
-			if(bbs.netmail(addr, wm_mode)) {
+			if(bbs.netmail(addr.split(','), wm_mode)) {
 				var addr_idx = addr_list.indexOf(addr);
 				if(addr_idx >= 0)
 					addr_list.splice(addr_idx, 1);
