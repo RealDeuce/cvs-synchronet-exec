@@ -1,4 +1,4 @@
-// $Id: install-xtrn.js,v 1.12 2020/04/19 19:43:48 rswindell Exp $
+// $Id: install-xtrn.js,v 1.13 2020/04/25 03:17:04 rswindell Exp $
 
 // Installer for Synchronet External Programs
 
@@ -87,7 +87,7 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.12 $".split(' ')[1];
+const REVISION = "$Revision: 1.13 $".split(' ')[1];
 const ini_fname = "install-xtrn.ini";
 
 load("sbbsdefs.js");
@@ -232,6 +232,7 @@ function install(ini_fname)
 		return "Failed to read " + system.ctrl_dir + "xtrn.cnf";
 	
 	var startup_dir = ini_fname.substr(0, Math.max(ini_fname.lastIndexOf("/"), ini_fname.lastIndexOf("\\"), 0));
+	startup_dir = backslash(startup_dir);
 
 	const types = {
 		prog:	{ desc: "External Program", 	struct: "xtrn" },
@@ -312,7 +313,8 @@ function install(ini_fname)
 		if(!file.open(file.exists ? 'r+':'w+'))
 			return "Error " + file.error + " opening " + file.name;
 		var result = true;
-		print(JSON.stringify(item));
+		if (options.debug)
+			print(JSON.stringify(item));
 		for(var k in item.keys) {
 			print("Setting " + item.keys[k] + " = " + eval(item.values[k]));
 			result = file.iniSetValue(item.section, item.keys[k], eval(item.values[k]));
