@@ -1,4 +1,4 @@
-// $Id: install-xtrn.js,v 1.13 2020/04/25 03:17:04 rswindell Exp $
+// $Id: install-xtrn.js,v 1.14 2020/04/26 06:58:46 rswindell Exp $
 
 // Installer for Synchronet External Programs
 
@@ -87,10 +87,11 @@
 
 "use strict";
 
-const REVISION = "$Revision: 1.13 $".split(' ')[1];
+const REVISION = "$Revision: 1.14 $".split(' ')[1];
 const ini_fname = "install-xtrn.ini";
 
 load("sbbsdefs.js");
+var relpath = load({}, "relpath.js");
 
 var options = {
 	debug: false,
@@ -160,7 +161,7 @@ function install_xtrn_item(cnf, type, name, desc, item)
 
 		var which;
 		while ((!which || which > xtrn_area.sec_list.length) && !aborted())
-			which = js.global.prompt("Install " + item.name  + " into which External Program Section");
+			which = js.global.prompt("Install " + item.name  + " into which section");
 		if(aborted())
 			return false;
 		which = parseInt(which, 10);
@@ -232,7 +233,7 @@ function install(ini_fname)
 		return "Failed to read " + system.ctrl_dir + "xtrn.cnf";
 	
 	var startup_dir = ini_fname.substr(0, Math.max(ini_fname.lastIndexOf("/"), ini_fname.lastIndexOf("\\"), 0));
-	startup_dir = backslash(startup_dir);
+	startup_dir = relpath.get(system.ctrl_dir, startup_dir);
 
 	const types = {
 		prog:	{ desc: "External Program", 	struct: "xtrn" },
