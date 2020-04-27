@@ -1,4 +1,4 @@
-// $Id: msglist.js,v 1.9 2020/04/24 08:08:23 rswindell Exp $
+// $Id: msglist.js,v 1.10 2020/04/27 08:11:33 rswindell Exp $
 // vi: tabstop=4
 
 // Message Listing Module
@@ -399,12 +399,12 @@ function view_msg(msgbase, msg, lines, total_msgs, grp_name, sub_name)
 	while(!js.terminated) {
 		if(show_hdr) {
 			console.home();
-//			console.status |= CON_CR_CLREOL;
+			console.status |= CON_CR_CLREOL;
 			bbs.show_msg_header(msg
 				, property_value(msg, 'subject')
 				, property_value(msg, 'from')
 				, msg.forward_path || msg.to_list || msg.to);
-//			console.status &= ~CON_CR_CLREOL;
+			console.status &= ~CON_CR_CLREOL;
 			hdr_len = console.line_counter;
 			if(console.term_supports(USER_ANSI))
 				show_hdr = false;
@@ -1154,7 +1154,7 @@ function list_msgs(msgbase, list, current, preview, grp_name, sub_name)
 			{
 				console.clearline();
 				console.print("\x01n\x01y\x01hFind: ");
-				var search = console.getstr(60,K_LINE|K_UPPER|K_NOCRLF);
+				var search = console.getstr(60,K_LINE|K_UPPER|K_NOCRLF|K_TRIM);
 				console.clearline(LIGHTGRAY);
 				if(search && search.length) {
 					console.print("Searching \x01i...\x01n");
