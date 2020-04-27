@@ -1,10 +1,10 @@
-// $Id: tickfix.js,v 1.2 2020/04/27 19:53:10 rswindell Exp $
+// $Id: tickfix.js,v 1.3 2020/04/27 21:28:43 rswindell Exp $
 
 // TickFix: A remote Area Manager (ala FileFix) for TickIT
 // Requires SBBSecho v3.11 or later
 // Install using "jsexec tickfix -install"
 
-const REVISION = "$Revision: 1.2 $".split(' ')[1];
+const REVISION = "$Revision: 1.3 $".split(' ')[1];
 require('smbdefs.js', 'NET_FIDO');
 var fidoaddr = load({}, 'fidoaddr.js');
 
@@ -22,10 +22,10 @@ const help_text =
 	"\r\n" +
 	"In the body of the message, one or more:\r\n" +
 	"\r\n" +
-	"+<tag>     Connect an area\n"
-	"+ALL       Connect all areas\n"
-	"-<tag>     Disconnect an area\n"
-	"-ALL       Disconnect all areas\n"
+	"+<tag>     Connect an area\n" +
+	"+ALL       Connect all areas\n" +
+	"-<tag>     Disconnect an area\n" +
+	"-ALL       Disconnect all areas\n" +
 	"%HELP      This message\r\n" +
 	"%LIST      List of all available areas (tags)\r\n" +
 	"%QUERY     List of linked / connected areas\r\n" +
