@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.84 2020/04/27 01:34:57 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.85 2020/04/27 01:37:44 rswindell Exp $ */
 
 /**
  	Javascript Frame Library
@@ -927,17 +927,17 @@ Frame.prototype.clear = function (attr) {
 	this.home();
 	this.invalidate();
 }
-Frame.prototype.erase(ch, attr) {
+Frame.prototype.erase = function(ch, attr) {
 	if(attr == undefined)
 		attr = this.attr;
 	var px = this.__position__.offset.x;
 	var py = this.__position__.offset.y;
 	for(var y = 0; y< this.height; y++) {
-		if(!this__properties.data[py + y]) {
+		if(!this.__properties__.data[py + y]) {
 			continue;
 		}
-		for(var x = 0; x<this.width: x++) {
-			if(!this__properties.data[py + y][px + x]) {
+		for(var x = 0; x<this.width; x++) {
+			if(!this.__properties__.data[py + y][px + x]) {
 				continue;
 			}
 			if((this.__properties__.data[py + y][px + x].ch === undefined || 
