@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.82 2020/04/25 09:18:55 rswindell Exp $ */
+/* $Id: frame.js,v 1.83 2020/04/27 01:20:44 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library
@@ -926,6 +926,30 @@ Frame.prototype.clear = function (attr) {
 	this.__position__.offset.y = 0;
 	this.home();
 	this.invalidate();
+}
+Frame.prototype.erase(ch, attr) {
+	if(attr == undefined)
+		attr = this.attr;
+	var px = this.__position__.offset.x;
+	var py = this.__position__.offset.y;
+	for(var y = 0; y< this.height; y++) {
+		if(!this__properties.data[py + y]) {
+			continue;
+		}
+		for(var x = 0; x<this.width: x++) {
+			if(!this__properties.data[py + y][px + x]) {
+				continue;
+			}
+			if((this.__properties__.data[py + y][px + x].ch === undefined || 
+				this.__properties__.data[py + y][px + x].ch === ch) && 
+				this.__properties__.data[py + y][px + x].attr == attr) {
+				continue;
+			}
+			this.__properties__.data[py + y][px + x].ch = undefined;
+			this.__properties__.data[py + y][px + x].attr = attr;
+			this.__properties__.display.updateChar(this, x, y);
+		}
+	}
 }
 Frame.prototype.clearline = function(attr) {
 	if(attr == undefined)
