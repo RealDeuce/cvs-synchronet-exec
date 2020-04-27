@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.83 2020/04/27 01:20:44 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.84 2020/04/27 01:34:57 mcmlxxix Exp $ */
 
 /**
  	Javascript Frame Library
@@ -950,6 +950,7 @@ Frame.prototype.erase(ch, attr) {
 			this.__properties__.display.updateChar(this, x, y);
 		}
 	}
+	this.home();
 }
 Frame.prototype.clearline = function(attr) {
 	if(attr == undefined)
