@@ -1,14 +1,8 @@
-// $Id: logonlist.js,v 1.7 2020/04/22 19:56:38 rswindell Exp $
+// $Id: logonlist.js,v 1.8 2020/04/27 08:16:46 rswindell Exp $
 
 // Logon List module (replaces old hard-coded logon.lst)
 
 // Install with 'jsexec logonlist install'
-// ... also, for all command shells (exec/*.src files), replace:
-//     userlist_logons
-// with:
-//     exec_bin logonlist
-//
-// ... and then run 'jsexec update'
 
 "use strict";
 
