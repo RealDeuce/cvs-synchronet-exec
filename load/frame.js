@@ -1,4 +1,4 @@
-/* $Id: frame.js,v 1.86 2020/04/27 01:56:11 mcmlxxix Exp $ */
+/* $Id: frame.js,v 1.87 2020/04/27 02:04:54 rswindell Exp $ */
 
 /**
  	Javascript Frame Library
@@ -1016,7 +1016,9 @@ Frame.prototype.putmsg = function(str,attr) {
 		var remainingWidth = this.width - this.__position__.cursor.x;
 		if(str.length > remainingWidth) {
 			str = word_wrap(str,remainingWidth,str.length,false).split('\n');
-			str = str.shift() + '\r\n' + word_wrap(str.join('\r\n'),this.width,remainingWidth,false).trimRight();
+			var trailing_newline = str[str.length - 1].length == 0;
+			str = str.shift() + '\r\n' + word_wrap(str.join('\r\n'),this.width,remainingWidth,false);
+			if(!trailing_newline) str = str.trimRight();
 		}
 	}
 	str = str.toString().split('');
