@@ -1,10 +1,10 @@
-// $Id: tickfix.js,v 1.3 2020/04/27 21:28:43 rswindell Exp $
+// $Id: tickfix.js,v 1.4 2020/04/27 21:48:03 rswindell Exp $
 
 // TickFix: A remote Area Manager (ala FileFix) for TickIT
 // Requires SBBSecho v3.11 or later
 // Install using "jsexec tickfix -install"
 
-const REVISION = "$Revision: 1.3 $".split(' ')[1];
+const REVISION = "$Revision: 1.4 $".split(' ')[1];
 require('smbdefs.js', 'NET_FIDO');
 var fidoaddr = load({}, 'fidoaddr.js');
 
@@ -199,7 +199,9 @@ for(var i = 0; i < idx_list.length; i++) {
 	var hdr = msgbase.get_msg_header(true, i, /* expand_fields: */false);
 	if(AreaMgr.indexOf[hdr.to.toLowerCase()] < 0)
 		continue;
-	if(hdr.from_net_type != NET_FIDO)
+	if(hdr.from_net_type != NET_FIDO || hdr.to_net_type != NET_FIDO)
+		continue;
+	if(system.fido_addr_list.indexOf(hdr.to_net_addr) < 0)
 		continue;
 	if(!node_map[hdr.from_net_addr]) {
 		reply_to_msg(hdr, "Unknown node address: " + hdr.from_net_addr);
