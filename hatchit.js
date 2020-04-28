@@ -254,7 +254,7 @@ function hatch_file(file, area, origin)
 				tf.write('Ldesc '+line+'\r\n');
 			});
 		}
-		tf.write('Created by TickIT '+"$Revision: 1.4 $".split(' ')[1]+'\r\n');
+		tf.write('Created by TickIT '+"$Revision: 1.5 $".split(' ')[1]+'\r\n');
 		tf.printf('Crc %08lX\r\n', file_crc(file.path));
 		for (i=0; i<tic.path.length; i++)
 			tf.write('Path '+tic.path[i]+'\r\n');
@@ -296,6 +296,7 @@ function main() {
 	var origin;
 
 	uifc.init('HatchIT');
+	js.on_exit('uifc.bail()');
 	file = pick_file();
 	if (file === undefined || file.path === undefined)
 		return;
@@ -315,7 +316,6 @@ function main() {
 	if (uifc.list(WIN_MID, "Proceed?", ["No", "Yes"]) == 1) {
 		hatch_file(file, area, origin);
 	}
-	uifc.bail();
 }
 
 main();
