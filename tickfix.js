@@ -1,10 +1,10 @@
-// $Id: tickfix.js,v 1.4 2020/04/27 21:48:03 rswindell Exp $
+// $Id: tickfix.js,v 1.5 2020/04/28 00:50:18 rswindell Exp $
 
 // TickFix: A remote Area Manager (ala FileFix) for TickIT
 // Requires SBBSecho v3.11 or later
 // Install using "jsexec tickfix -install"
 
-const REVISION = "$Revision: 1.4 $".split(' ')[1];
+const REVISION = "$Revision: 1.5 $".split(' ')[1];
 require('smbdefs.js', 'NET_FIDO');
 var fidoaddr = load({}, 'fidoaddr.js');
 
@@ -207,11 +207,15 @@ for(var i = 0; i < idx_list.length; i++) {
 		reply_to_msg(hdr, "Unknown node address: " + hdr.from_net_addr);
 		continue;
 	}
+	if(!node_map[hdr.from_net_addr].areafix) {
+		reply_to_msg(hdr, "AreaFix not enabled for node: " + hdr.from_net_addr);
+		continue;
+	}
 	if(!node_map[hdr.from_net_addr].areafixpwd) {
 		reply_to_msg(hdr, "No AreaFix password for node: " + hdr.from_net_addr);
 		continue;
 	}
-	if(hdr.subject.toLowerCase() != node_map[hdr.from_net_addr].areafixpwd.toLowerCase()) {
+	if(hdr.subject.toLowerCase() != String(node_map[hdr.from_net_addr].areafixpwd).toLowerCase()) {
 		reply_to_msg(hdr, "Wrong AreaFix password for node: " + hdr.from_net_addr);
 		continue;
 	}
