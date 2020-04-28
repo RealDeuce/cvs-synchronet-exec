@@ -1,6 +1,6 @@
 /*
  * An intentionally simple TIC handler for Synchronet.
- * $Id: tickit.js,v 1.54 2019/01/17 17:57:07 rswindell Exp $
+ * $Id: tickit.js,v 1.55 2020/04/28 01:16:59 rswindell Exp $
  *
  * How to set up... add a timed event:
  * Internal Code                   TICKIT
@@ -32,7 +32,7 @@ var tickit = new TickITCfg();
 var files_bbs={};
 var force_replace = false;
 
-const REVISION = "$Revision: 1.54 $".split(' ')[1];
+const REVISION = "$Revision: 1.55 $".split(' ')[1];
 
 var tickitVersion = "TickIT "+REVISION;
 // emit tickitVersion to the log for general purposes - wk42
@@ -175,10 +175,16 @@ function process_tic(tic)
 	}
 
 	function do_move(path, tic) {
-		if (rename_or_move(tic.full_path, path+tic.file))
-			tic.full_path = path+tic.file;
+		var dst = path+tic.file;
+		var actual = file_getcase(dst);
+		if (actual) {
+			file_remove(actual);
+			dst = actual;
+		}
+		if (rename_or_move(tic.full_path, dst))
+			tic.full_path = dst;
 		else {
-			log(LOG_ERROR, "Cannot move '"+tic.full_path+"' to '"+path+tic.file+"'!");
+			log(LOG_ERROR, "Cannot move '"+tic.full_path+"' to '"+dst+"'!");
 			return false;
 		}
 		return true;
