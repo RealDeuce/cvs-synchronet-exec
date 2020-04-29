@@ -2,7 +2,7 @@
 
 // Lightbar Command Shell for Synchronet Version 4.00a+
 
-// $Id: lbshell.js,v 1.130 2020/04/09 04:44:10 deuce Exp $
+// $Id: lbshell.js,v 1.131 2020/04/29 05:40:38 deuce Exp $
 
 // @format.tab-size 4, @format.use-tabs true
 
@@ -27,6 +27,7 @@ load("nodedefs.js");
 load("lightbar.js");
 load("graphic.js");
 bbs.command_str='';	// Clear STR (Contains the EXEC for default.js)
+load("text.js");
 load("str_cmds.js");
 var str;
 var size=file_size(system.text_dir+"lbshell_bg.bin");
